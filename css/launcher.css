@@ -1,0 +1,2846 @@
+/* ============================================
+   Launcher / Start Screen Styles
+   ============================================ */
+
+/* --- Overlay Container --- */
+.launcher-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background-color: var(--launcher-bg-base, var(--launcher-surface));
+  overflow: hidden;
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  perspective: 1200px;
+  overscroll-behavior: none;
+  --launcher-desktop-scale: 1;
+  --launcher-nav-max-width: 960px;
+  --launcher-content-max-width: 2200px;
+  --launcher-bg-base: var(--launcher-surface);
+  --launcher-bg-image-blur: 0px;
+  --launcher-bg-image-opacity: 1;
+  --launcher-bg-image-scale: 1;
+  --launcher-bg-effects-blur: 0px;
+  --launcher-bg-gradient-opacity: 0;
+  --launcher-bg-vignette-opacity: 0;
+  --launcher-bg-scanlines-opacity: 0;
+  --launcher-bg-scanlines-blur: 0px;
+  transition: background-color 0.42s ease;
+}
+
+/* Turnstile exit: overlay becomes transparent so game UI shows through */
+.launcher-overlay.launcher--turnstile-exit {
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.launcher-overlay.launcher--hidden {
+  display: none;
+}
+
+@media (min-width: 1920px) {
+  .launcher-overlay {
+    --launcher-desktop-scale: 1.12;
+  }
+}
+
+@media (min-width: 2560px) {
+  .launcher-overlay {
+    --launcher-desktop-scale: 1.24;
+  }
+}
+
+@media (min-width: 3840px) {
+  .launcher-overlay {
+    --launcher-desktop-scale: 1.36;
+  }
+}
+
+/* --- Background Image Layer --- */
+.launcher-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.launcher-bg picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.launcher-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: var(--launcher-bg-image-opacity, 1);
+  filter: blur(var(--launcher-bg-image-blur, 0px));
+  transform: scale(var(--launcher-bg-image-scale, 1));
+  transition:
+    filter 0.42s ease,
+    opacity 0.42s ease,
+    transform 0.42s ease;
+}
+
+.launcher-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle,
+      transparent 50%,
+      rgba(0, 0, 0, var(--launcher-bg-vignette-opacity, 0)) 100% /* ui-lint-allow */
+    ),
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, var(--launcher-bg-gradient-opacity, 0)) 0%, /* ui-lint-allow */
+      rgba(0, 0, 0, calc(var(--launcher-bg-gradient-opacity, 0) * 0.55)) 45%, /* ui-lint-allow */
+      transparent 100%
+    );
+  filter: blur(var(--launcher-bg-effects-blur, 0px));
+  transition:
+    filter 0.42s ease,
+    background 0.42s ease;
+}
+
+.launcher-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    transparent 50%,
+    rgba(0, 0, 0, var(--launcher-bg-scanlines-opacity, 0)) 50%, /* ui-lint-allow */
+    rgba(0, 0, 0, var(--launcher-bg-scanlines-opacity, 0)) /* ui-lint-allow */
+  );
+  background-size: 100% 4px;
+  filter: blur(var(--launcher-bg-scanlines-blur, 0px));
+  transition:
+    filter 0.42s ease,
+    background 0.42s ease;
+}
+
+.launcher-overlay.launcher--transition-to-intro,
+.launcher-overlay.launcher--intro-enter,
+.launcher-overlay.launcher--intro-active {
+  --launcher-bg-base: var(--surface-canvas);
+  --launcher-bg-image-scale: 1.06;
+  --launcher-bg-effects-blur: 10px;
+  --launcher-bg-scanlines-blur: 6px;
+}
+
+.launcher-overlay.launcher--transition-to-intro[data-intro-step='1'],
+.launcher-overlay.launcher--intro-enter[data-intro-step='1'],
+.launcher-overlay.launcher--intro-active[data-intro-step='1'] {
+  --launcher-bg-image-blur: 14px;
+  --launcher-bg-image-opacity: 0.88;
+  --launcher-bg-gradient-opacity: 0.68;
+  --launcher-bg-vignette-opacity: 0.52;
+  --launcher-bg-scanlines-opacity: 0.03;
+}
+
+.launcher-overlay.launcher--transition-to-intro[data-intro-step='2'],
+.launcher-overlay.launcher--intro-enter[data-intro-step='2'],
+.launcher-overlay.launcher--intro-active[data-intro-step='2'] {
+  --launcher-bg-image-blur: 17px;
+  --launcher-bg-image-opacity: 0.72;
+  --launcher-bg-gradient-opacity: 0.34;
+  --launcher-bg-vignette-opacity: 0.22;
+  --launcher-bg-scanlines-opacity: 0.01;
+}
+
+.launcher-overlay.launcher--transition-to-intro[data-intro-step='3'],
+.launcher-overlay.launcher--intro-enter[data-intro-step='3'],
+.launcher-overlay.launcher--intro-active[data-intro-step='3'] {
+  --launcher-bg-image-blur: 20px;
+  --launcher-bg-image-opacity: 0.55;
+  --launcher-bg-gradient-opacity: 0.1;
+  --launcher-bg-vignette-opacity: 0.06;
+  --launcher-bg-scanlines-opacity: 0;
+}
+
+/* --- Content Layout --- */
+.launcher-content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(48px + var(--safe-top, 0px)) calc(64px + var(--safe-right, 0px))
+    calc(48px + var(--safe-bottom, 0px)) calc(64px + var(--safe-left, 0px));
+  max-width: 1400px;
+}
+
+.launcher-title-area,
+.launcher-nav,
+.launcher-version,
+.launcher-profile,
+.launcher-news,
+.launcher-intro {
+  transition:
+    opacity 0.22s ease,
+    visibility 0.22s ease;
+}
+
+.launcher-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: calc(48px + var(--safe-top, 0px)) calc(64px + var(--safe-right, 0px))
+    calc(48px + var(--safe-bottom, 0px)) calc(64px + var(--safe-left, 0px));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.launcher-intro-panel {
+  width: min(880px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.launcher-intro-stage {
+  width: min(880px, 100%);
+  position: relative;
+  padding-top: 84px;
+}
+
+.launcher-ui-preview {
+  display: none;
+  pointer-events: none;
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-intro-stage {
+  --launcher-preview-sidebar-width: clamp(300px, 26vw, 380px);
+  width: min(1480px, 100%);
+  min-height: clamp(680px, 76vh, 820px);
+  padding-top: 0;
+  padding-right: calc(var(--launcher-preview-sidebar-width) + 28px);
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-intro-panel {
+  position: relative;
+  z-index: 1;
+  width: min(820px, 100%);
+  margin-top: 84px;
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-intro-copy {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-page) 62%, transparent) 0%,
+    color-mix(in srgb, var(--surface-page) 48%, transparent) 48%,
+    color-mix(in srgb, var(--surface-page) 28%, transparent) 76%,
+    color-mix(in srgb, var(--surface-page) 12%, transparent) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--text-invert) 12%, transparent),
+    var(--shadow-lg);
+  backdrop-filter: blur(20px) saturate(118%);
+  -webkit-backdrop-filter: blur(20px) saturate(118%);
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-ui-preview {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.launcher-ui-preview-header {
+  display: none;
+}
+
+.launcher-ui-preview-title-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-width: 0;
+  flex: 1;
+}
+
+.launcher-ui-preview-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.launcher-ui-preview-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 24px -18px var(--overlay-60);
+  flex-shrink: 0;
+}
+
+.launcher-ui-preview-title-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.launcher-ui-preview-title {
+  color: var(--launcher-text);
+  font-size: 1.2rem;
+  font-weight: var(--weight-extrabold);
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-shadow: 0 4px 18px var(--overlay-30);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-action~="launcher-ui-preview-mode-toggle"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 2px;
+  background: var(--sheen-12);
+  border: 1px solid var(--launcher-border-strong);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.launcher-ui-preview-mode-label {
+  position: relative;
+  z-index: 1;
+  min-width: 86px;
+  padding: 0 14px;
+  color: var(--launcher-text-muted);
+  font-size: 0.78rem;
+  font-weight: var(--weight-bold);
+  line-height: 30px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.launcher-ui-preview-mode-label--active {
+  color: var(--launcher-text);
+}
+
+[data-action~="launcher-ui-preview-mode-slider"] {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(50% - 2px);
+  height: calc(100% - 4px);
+  border-radius: var(--radius-xs);
+  background: var(--primary-gradient);
+  box-shadow: 0 10px 24px -16px color-mix(in srgb, var(--brand-primary) 72%, transparent);
+}
+
+.launcher-ui-preview-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.launcher-ui-preview-tile.header-tile {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--sheen-12);
+  background: var(--sheen-8);
+  color: var(--launcher-text);
+  box-shadow:
+    inset 0 1px 0 var(--sheen-15),
+    0 18px 28px -24px var(--overlay-55);
+}
+
+.launcher-ui-preview-tile.header-tile .material-symbols-outlined {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.launcher-ui-preview-icon--npc {
+  color: var(--brand-secondary);
+}
+
+.launcher-ui-preview-icon--summary {
+  color: var(--icon-muted);
+}
+
+.launcher-ui-preview-icon--map {
+  color: var(--brand-primary);
+}
+
+.launcher-ui-preview-icon--save {
+  color: var(--brand-accent);
+}
+
+.launcher-ui-preview-icon--settings {
+  color: var(--icon-subtle);
+}
+
+.launcher-ui-preview-tile.header-tile > span:not(.material-symbols-outlined):not(.header-badge) {
+  font-size: 0.68rem;
+  font-weight: var(--weight-bold);
+  line-height: 1.05;
+}
+
+.launcher-ui-preview-tile--npc,
+.launcher-ui-preview-tile--summary {
+  border-color: var(--launcher-border-strong);
+  background: var(--sheen-12);
+}
+
+.launcher-ui-preview-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--launcher-preview-sidebar-width, 340px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.launcher-ui-preview-summary,
+.launcher-ui-preview-npc {
+  overflow: hidden;
+  background: var(--sheen-50);
+  box-shadow:
+    inset 0 1px 0 var(--sheen-25),
+    0 26px 40px -32px var(--overlay-55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  transform: translateX(28px);
+  filter: blur(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+
+.launcher-ui-preview-summary {
+  flex: 0 0 38%;
+  min-height: 248px;
+}
+
+.launcher-ui-preview-npc {
+  flex: 1;
+  min-height: 320px;
+}
+
+.launcher-ui-preview-summary .summary-list,
+.launcher-ui-preview-npc .npc-card-list {
+  background: transparent;
+}
+
+.launcher-ui-preview-summary .summary-empty {
+  padding-top: 52px;
+  padding-bottom: 42px;
+}
+
+.launcher-ui-preview-npc .npc-empty {
+  padding-top: 54px;
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-ui-preview-header {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-ui-preview-summary {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+  transition-delay: 0.12s;
+}
+
+.launcher-intro.launcher-intro--api-preview .launcher-ui-preview-npc {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+  transition-delay: 0.22s;
+}
+
+.launcher-intro-copy {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 36px 30px 30px;
+  border-radius: 30px;
+  background: linear-gradient(
+    180deg,
+    var(--overlay-55) 0%,
+    var(--overlay-50) 44%,
+    var(--overlay-35) 68%,
+    var(--overlay-20) 84%,
+    var(--overlay-5) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 var(--sheen-12),
+    0 28px 52px -30px var(--overlay-60);
+  backdrop-filter: blur(20px) saturate(118%);
+  -webkit-backdrop-filter: blur(20px) saturate(118%);
+}
+
+.launcher-intro-copy--api-setup {
+  padding-bottom: 34px;
+}
+
+.launcher-intro-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-weight: var(--weight-extrabold);
+  line-height: 1.12;
+  letter-spacing: 0.05em;
+}
+
+.launcher-intro-text {
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.05rem, 1.7vw, 1.34rem);
+  font-weight: var(--weight-medium);
+  line-height: 1.95;
+  white-space: pre-line;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+  max-width: 100%;
+  font-size: clamp(2.1rem, 3.8vw, 3.2rem);
+  line-height: 1.18;
+}
+
+.launcher-intro-panel[data-intro-step='2'] {
+  gap: 18px;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-copy {
+  gap: 20px;
+  padding: 30px 28px 24px;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+  font-size: clamp(2.08rem, 4vw, 3.68rem);
+  line-height: 1.13;
+  letter-spacing: 0.034em;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-text {
+  font-size: clamp(0.96rem, 1.42vw, 1.14rem);
+  line-height: 1.78;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions {
+  gap: 12px;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions--multi .launcher-intro-continue {
+  flex: 1 1 180px;
+}
+
+.launcher-intro-panel[data-intro-step='2'] .launcher-intro-continue {
+  min-width: 0;
+  padding: 14px 26px;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+}
+
+.launcher-intro-extra {
+  position: relative;
+  z-index: 1;
+}
+
+.launcher-intro-extra[hidden] {
+  display: none !important;
+}
+
+.launcher-intro-api {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.launcher-intro-api-choice {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  border: 1px solid var(--sheen-15);
+  color: var(--launcher-text);
+  font-size: 0.84rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+}
+
+.launcher-intro-api-label {
+  color: var(--launcher-text);
+  font-size: 0.82rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.launcher-intro-api-input {
+  width: 100%;
+  border: 1px solid var(--sheen-25);
+  border-radius: var(--radius-sm);
+  padding: 15px 16px;
+  background: var(--overlay-30);
+  color: var(--launcher-text);
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: 1rem;
+  line-height: 1.4;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.launcher-intro-api-input::placeholder {
+  color: var(--launcher-text-faint);
+}
+
+.launcher-intro-api-input:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--brand-primary) 88%, transparent);
+  background: var(--overlay-40);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+}
+
+.launcher-intro-api-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.launcher-intro-api-input-wrapper .launcher-intro-api-input {
+  padding-right: 44px;
+}
+
+[data-action~="launcher-intro-api-paste-btn"] {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--launcher-text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+[data-action~="launcher-intro-api-paste-btn"] .material-symbols-outlined {
+  font-size: 20px;
+  line-height: 1;
+}
+
+[data-action~="launcher-intro-api-paste-btn"]:hover {
+  opacity: 1;
+  color: var(--launcher-text);
+  background: var(--sheen-15);
+}
+
+[data-action~="launcher-intro-api-paste-btn"]:active {
+  opacity: 1;
+  transform: translateY(-50%) scale(0.88);
+}
+
+.launcher-intro-api-paste-btn--success {
+  opacity: 1;
+  color: var(--status-success, #4caf50);
+}
+
+.launcher-intro-api-paste-btn--success:hover {
+  color: var(--status-success, #4caf50);
+  background: color-mix(in srgb, var(--status-success, #4caf50) 15%, transparent);
+}
+
+.launcher-intro-api-hint {
+  color: var(--launcher-text);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.launcher-intro-api-status {
+  border-radius: var(--radius-sm);
+  padding: 13px 15px;
+  background: var(--overlay-30);
+  border: 1px solid var(--sheen-15);
+  color: var(--launcher-text);
+  font-size: 0.94rem;
+  font-weight: var(--weight-semibold);
+  line-height: 1.6;
+}
+
+.launcher-intro-api-status--pending {
+  border-color: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  color: color-mix(in srgb, var(--brand-primary) 15%, var(--text-invert));
+}
+
+.launcher-intro-api-status--success {
+  border-color: color-mix(in srgb, var(--status-success) 35%, transparent);
+  color: color-mix(in srgb, var(--status-success) 12%, var(--text-invert));
+}
+
+.launcher-intro-api-status--error {
+  border-color: color-mix(in srgb, var(--status-danger) 35%, transparent);
+  color: color-mix(in srgb, var(--status-danger) 15%, var(--text-invert));
+}
+
+.launcher-intro-back {
+  position: fixed;
+  top: calc(32px + var(--safe-top, 0px));
+  left: calc(40px + var(--safe-left, 0px));
+  z-index: 24;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--sheen-20);
+  border-radius: var(--radius-pill);
+  padding: 10px 16px 10px 12px;
+  background: var(--overlay-35);
+  color: var(--launcher-text);
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: 0.96rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  backdrop-filter: blur(14px) saturate(118%);
+  -webkit-backdrop-filter: blur(14px) saturate(118%);
+  box-shadow:
+    0 18px 32px -22px var(--overlay-70),
+    0 1px 0 var(--sheen-12) inset;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    opacity 0.22s ease;
+}
+
+.launcher-intro-back .material-symbols-outlined {
+  font-size: var(--text-display);
+}
+
+.launcher-intro-back:hover {
+  transform: translateX(-4px);
+  border-color: var(--launcher-text-faint);
+  background: var(--overlay-50);
+  box-shadow:
+    0 20px 34px -22px var(--overlay-80),
+    0 1px 0 var(--launcher-border-strong) inset;
+}
+
+.launcher-intro-back:focus-visible {
+  outline: 2px solid var(--launcher-text);
+  outline-offset: 3px;
+}
+
+.launcher-intro-back:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
+.launcher-intro-back--pressed {
+  animation: tilePress 0.15s ease-out forwards !important;
+  transform-origin: left center;
+}
+
+.launcher-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.launcher-intro-actions--multi {
+  width: 100%;
+}
+
+.launcher-intro-continue {
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-xl);
+  padding: 16px 34px;
+  min-width: 180px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 65%, var(--text-invert)) 0%, var(--brand-primary) 100%);
+  color: var(--launcher-text);
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: 1.1rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  box-shadow:
+    inset 2px 2px 5px var(--sheen-35),
+    inset -2px -2px 5px var(--overlay-15),
+    0 10px 20px -6px color-mix(in srgb, var(--brand-primary) 40%, transparent);
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+[data-theme='dark'] .launcher-intro-continue {
+  box-shadow:
+    inset 2px 2px 5px var(--sheen-15),
+    inset -2px -2px 5px var(--overlay-35),
+    0 10px 20px -6px var(--overlay-60);
+}
+
+.launcher-intro-actions--multi .launcher-intro-continue {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.launcher-intro-continue--secondary {
+  background: color-mix(in srgb, var(--surface-page) 90%, transparent);
+  color: var(--text-primary);
+  box-shadow:
+    inset 2px 2px 4px var(--sheen-80),
+    inset -2px -2px 4px var(--overlay-5),
+    0 8px 16px -6px var(--overlay-8);
+}
+
+[data-theme='dark'] .launcher-intro-continue--secondary {
+  background: color-mix(in srgb, var(--surface-code-alt) 90%, transparent);
+  color: var(--text-primary);
+  box-shadow:
+    inset 2px 2px 4px var(--sheen-6),
+    inset -2px -2px 4px var(--overlay-20),
+    0 8px 16px -6px var(--overlay-25);
+}
+
+.launcher-intro-continue--success {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-success) 70%, var(--text-invert)) 0%, var(--status-success) 100%);
+  box-shadow:
+    inset 2px 2px 4px var(--sheen-40),
+    inset -2px -2px 4px var(--overlay-15),
+    0 10px 20px -6px color-mix(in srgb, var(--status-success) 40%, transparent);
+}
+
+/* Custom Thematic Clay Buttons */
+.launcher-intro-continue[data-action='intro-next'] {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-success) 55%, var(--text-invert)) 0%, color-mix(in srgb, var(--status-success) 80%, var(--text-invert)) 100%);
+  box-shadow: inset 2px 2px 5px var(--sheen-40), inset -2px -2px 5px var(--overlay-10), 0 10px 20px -6px color-mix(in srgb, var(--status-success) 40%, transparent);
+}
+.launcher-intro-continue[data-action='intro-next']:hover {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-success) 48%, var(--text-invert)) 0%, color-mix(in srgb, var(--status-success) 72%, var(--text-invert)) 100%);
+  box-shadow: inset 2px 2px 5px var(--sheen-50), inset -2px -2px 5px var(--overlay-8), 0 6px 14px -4px color-mix(in srgb, var(--status-success) 50%, transparent);
+}
+[data-theme='dark'] .launcher-intro-continue[data-action='intro-next'] {
+  box-shadow: inset 2px 2px 5px var(--sheen-20), inset -2px -2px 5px var(--overlay-25), 0 10px 20px -6px color-mix(in srgb, var(--status-success) 25%, transparent);
+}
+[data-theme='dark'] .launcher-intro-continue[data-action='intro-next']:hover {
+  box-shadow: inset 2px 2px 5px var(--sheen-25), inset -2px -2px 5px var(--overlay-20), 0 6px 14px -4px color-mix(in srgb, var(--status-success) 30%, transparent);
+}
+
+/* Choice 1: 赛博朋克 — 霓虹主题 primary btn (magenta/blue 渐变 + 外发光) */
+.launcher-intro-continue[data-intro-choice='1'] {
+  background: linear-gradient(135deg, var(--brand-magenta) 0%, var(--brand-primary-strong) 100%);
+  color: var(--text-invert);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--brand-magenta) 65%, #fff),
+    inset 0 1px 0 color-mix(in srgb, #fff 35%, transparent),
+    0 0 18px color-mix(in srgb, var(--brand-magenta) 55%, transparent),
+    0 0 32px color-mix(in srgb, var(--brand-primary-strong) 45%, transparent);
+}
+.launcher-intro-continue[data-intro-choice='1']:hover {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-magenta) 88%, #fff) 0%, color-mix(in srgb, var(--brand-primary-strong) 88%, #fff) 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--brand-magenta) 80%, #fff),
+    inset 0 1px 0 color-mix(in srgb, #fff 45%, transparent),
+    0 0 24px color-mix(in srgb, var(--brand-magenta) 70%, transparent),
+    0 0 44px color-mix(in srgb, var(--brand-primary-strong) 60%, transparent);
+}
+[data-theme='dark'] .launcher-intro-continue[data-intro-choice='1'] {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--brand-magenta) 75%, #fff),
+    inset 0 1px 0 color-mix(in srgb, #fff 25%, transparent),
+    0 0 22px color-mix(in srgb, var(--brand-magenta) 70%, transparent),
+    0 0 40px color-mix(in srgb, var(--brand-primary-strong) 55%, transparent);
+}
+[data-theme='dark'] .launcher-intro-continue[data-intro-choice='1']:hover {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--brand-magenta) 90%, #fff),
+    inset 0 1px 0 color-mix(in srgb, #fff 35%, transparent),
+    0 0 30px color-mix(in srgb, var(--brand-magenta) 85%, transparent),
+    0 0 52px color-mix(in srgb, var(--brand-primary-strong) 65%, transparent);
+}
+
+/* Choice 2: 修仙 — 水墨风格 (宣纸底 + 墨色楷书 + 双线墨框 + 墨晕径向叠加) */
+.launcher-intro-continue[data-intro-choice='2'] {
+  position: relative;
+  font-family: 'Kaiti SC', 'STKaiti', 'LXGW WenKai', 'Songti SC', 'Noto Serif SC', 'Songti TC', 'Hiragino Sans GB', serif;
+  font-weight: var(--weight-semibold);
+  background:
+    radial-gradient(ellipse at 18% 28%, color-mix(in srgb, var(--brand-brown) 22%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse at 82% 78%, color-mix(in srgb, var(--brand-brown) 14%, transparent) 0%, transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--brand-yellow) 6%, #fff) 0%, color-mix(in srgb, var(--brand-brown) 12%, #fff) 100%);
+  color: color-mix(in srgb, var(--brand-brown) 35%, #000);
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--brand-brown) 78%, #000),
+    inset 0 0 14px color-mix(in srgb, var(--brand-brown) 12%, transparent),
+    0 8px 18px -8px color-mix(in srgb, var(--brand-brown) 55%, transparent);
+}
+.launcher-intro-continue[data-intro-choice='2']::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 1px solid color-mix(in srgb, var(--brand-brown) 55%, #000);
+  border-radius: calc(var(--radius-xl) + 3px);
+  pointer-events: none;
+  transition: border-color 0.22s ease;
+}
+.launcher-intro-continue[data-intro-choice='2']:hover {
+  background:
+    radial-gradient(ellipse at 18% 28%, color-mix(in srgb, var(--brand-brown) 32%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse at 82% 78%, color-mix(in srgb, var(--brand-brown) 22%, transparent) 0%, transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--brand-yellow) 9%, #fff) 0%, color-mix(in srgb, var(--brand-brown) 18%, #fff) 100%);
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--brand-brown) 90%, #000),
+    inset 0 0 18px color-mix(in srgb, var(--brand-brown) 18%, transparent),
+    0 6px 14px -6px color-mix(in srgb, var(--brand-brown) 65%, transparent);
+}
+.launcher-intro-continue[data-intro-choice='2']:hover::before {
+  border-color: color-mix(in srgb, var(--brand-brown) 75%, #000);
+}
+[data-theme='dark'] .launcher-intro-continue[data-intro-choice='2'] {
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--brand-brown) 78%, #000),
+    inset 0 0 14px color-mix(in srgb, var(--brand-brown) 14%, transparent),
+    0 8px 18px -8px var(--overlay-60);
+}
+[data-theme='dark'] .launcher-intro-continue[data-intro-choice='2']:hover {
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--brand-brown) 90%, #000),
+    inset 0 0 18px color-mix(in srgb, var(--brand-brown) 22%, transparent),
+    0 6px 14px -6px var(--overlay-70);
+}
+
+/* Choice 3: 轻奇幻 — 浅翠绿到白渐变 (微光 + 翠绿字色) */
+.launcher-intro-continue[data-intro-choice='3'] {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-success) 32%, #fff) 0%, #fff 100%);
+  color: color-mix(in srgb, var(--status-success) 70%, #000);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--status-success) 35%, transparent),
+    inset 2px 2px 5px color-mix(in srgb, var(--status-success) 14%, #fff),
+    inset -2px -2px 5px var(--sheen-25),
+    0 10px 20px -6px color-mix(in srgb, var(--status-success) 35%, transparent);
+}
+.launcher-intro-continue[data-intro-choice='3']:hover {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-success) 45%, #fff) 0%, color-mix(in srgb, var(--status-success) 8%, #fff) 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--status-success) 50%, transparent),
+    inset 2px 2px 5px color-mix(in srgb, var(--status-success) 22%, #fff),
+    inset -2px -2px 5px var(--sheen-30),
+    0 6px 14px -4px color-mix(in srgb, var(--status-success) 50%, transparent);
+}
+[data-theme='dark'] .launcher-intro-continue[data-intro-choice='3'] {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--status-success) 45%, transparent),
+    inset 2px 2px 5px color-mix(in srgb, var(--status-success) 18%, #fff),
+    inset -2px -2px 5px var(--overlay-12),
+    0 10px 20px -6px color-mix(in srgb, var(--status-success) 35%, transparent);
+}
+[data-theme='dark'] .launcher-intro-continue[data-intro-choice='3']:hover {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--status-success) 60%, transparent),
+    inset 2px 2px 5px color-mix(in srgb, var(--status-success) 24%, #fff),
+    inset -2px -2px 5px var(--overlay-15),
+    0 6px 14px -4px color-mix(in srgb, var(--status-success) 50%, transparent);
+}
+
+.launcher-intro-continue:hover {
+  transform: translateY(2px);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 58%, var(--text-invert)) 0%, color-mix(in srgb, var(--brand-primary) 85%, var(--text-invert)) 100%);
+  box-shadow:
+    inset 2px 2px 5px var(--sheen-45),
+    inset -2px -2px 5px var(--overlay-12),
+    0 6px 14px -4px color-mix(in srgb, var(--brand-primary) 50%, transparent);
+}
+
+[data-theme='dark'] .launcher-intro-continue:hover {
+  box-shadow:
+    inset 2px 2px 5px var(--sheen-20),
+    inset -2px -2px 5px var(--overlay-30),
+    0 6px 14px -4px var(--overlay-70);
+}
+
+.launcher-intro-continue--secondary:hover {
+  background: var(--launcher-text);
+  box-shadow:
+    inset 2px 2px 4px var(--launcher-text),
+    inset -2px -2px 4px var(--overlay-2),
+    0 6px 12px -4px var(--overlay-10);
+}
+
+[data-theme='dark'] .launcher-intro-continue--secondary:hover {
+  background: color-mix(in srgb, var(--surface-code-alt) 95%, transparent);
+  box-shadow:
+    inset 2px 2px 4px var(--sheen-8),
+    inset -2px -2px 4px var(--overlay-15),
+    0 6px 12px -4px var(--overlay-30);
+}
+
+.launcher-intro-continue:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 4px;
+}
+
+.launcher-intro-continue:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.launcher-intro-continue--pressed {
+  animation: tilePress 0.15s ease-out forwards !important;
+  transform-origin: left center;
+}
+
+.launcher-overlay.launcher--intro-active .launcher-title-area,
+.launcher-overlay.launcher--intro-active .launcher-nav,
+.launcher-overlay.launcher--intro-active .launcher-version,
+.launcher-overlay.launcher--intro-active .launcher-profile,
+.launcher-overlay.launcher--intro-active .launcher-news {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.launcher-overlay.launcher--intro-active .launcher-content {
+  pointer-events: none;
+}
+
+.launcher-overlay.launcher--intro-active .launcher-intro {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.launcher-overlay.launcher--transition-lock .launcher-content,
+.launcher-overlay.launcher--transition-lock .launcher-profile,
+.launcher-overlay.launcher--transition-lock .launcher-news,
+.launcher-overlay.launcher--transition-lock .launcher-intro,
+.launcher-overlay.launcher--transition-lock .launcher-intro-actions {
+  pointer-events: none !important;
+}
+
+/* --- Title Area --- */
+.launcher-title-area {
+  margin-top: 16px;
+}
+
+.launcher-title-cn {
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: var(--weight-extrabold);
+  color: var(--launcher-text);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 2px 14px var(--overlay-55),
+    0 0 16px var(--sheen-25);
+  line-height: 1.2;
+}
+
+.launcher-title-en {
+  font-size: clamp(0.75rem, 1.5vw, 1.25rem);
+  font-weight: var(--weight-medium);
+  color: var(--launcher-text);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  margin-left: 2px;
+  text-shadow: 0 1px 8px var(--overlay-35);
+}
+
+.launcher-title-accent {
+  width: 96px;
+  height: 4px;
+  background: var(--brand-primary);
+  margin-top: 24px;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--brand-primary) 80%, transparent);
+  border-radius: 2px;
+}
+
+/* --- Navigation Menu --- */
+.launcher-nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  max-width: 480px;
+}
+
+.launcher-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 8px;
+  color: var(--launcher-text);
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  text-align: left;
+  position: relative;
+  transition: all var(--transition-slow);
+  white-space: normal;
+  min-width: 0;
+}
+
+/* Left-edge highlight bar (hidden by default) */
+.launcher-nav-item::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--launcher-border) 0%, transparent 100%);
+  border-left: 2px solid var(--text-invert);
+  transition:
+    width 0.3s ease,
+    opacity var(--transition-slow);
+  opacity: 0;
+  z-index: -1;
+}
+
+.launcher-nav-item:hover::before {
+  width: 250px;
+  opacity: 1;
+}
+
+.launcher-nav-item:hover {
+  color: var(--text-invert);
+  transform: translateX(10px);
+  text-shadow: 0 0 8px var(--sheen-60);
+}
+
+.launcher-nav-item .material-symbols-outlined {
+  font-size: 28px;
+  width: 36px;
+  text-align: center;
+  color: var(--launcher-text);
+  transition: color var(--transition-slow);
+}
+
+.launcher-nav-item:hover .material-symbols-outlined {
+  color: var(--text-invert);
+}
+
+/* Hide icon ligature text until font loads (scoped to launcher only) */
+html:not(.fonts-ready) .launcher-nav-item .material-symbols-outlined {
+  visibility: hidden;
+}
+
+/* Primary nav item (first one - larger) */
+.launcher-nav-item.launcher-nav--primary .launcher-nav-label-cn {
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: 0.05em;
+}
+
+.launcher-nav-item.launcher-nav--primary .material-symbols-outlined {
+  font-size: 32px;
+}
+
+/* Secondary nav items */
+.launcher-nav-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.launcher-nav-label-cn {
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.03em;
+  color: var(--launcher-text);
+  text-shadow: 0 1px 8px var(--overlay-35);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.launcher-nav-label-en {
+  font-size: 0.65rem;
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--launcher-text);
+  margin-top: 2px;
+  transition: color var(--transition-slow);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.launcher-nav-item:hover .launcher-nav-label-en {
+  color: var(--launcher-text);
+}
+
+/* Disabled state (no save) */
+.launcher-nav-item.launcher-nav--disabled {
+  color: var(--sheen-20);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.launcher-nav-item.launcher-nav--disabled .material-symbols-outlined {
+  opacity: 0.25;
+}
+
+.launcher-nav-item.launcher-nav--disabled .launcher-nav-label-en {
+  color: var(--sheen-12);
+}
+
+html[data-ui-language='en'] .launcher-title-cn,
+html[data-ui-language='en'] .launcher-nav-label-cn {
+  display: none;
+}
+
+html[data-ui-language='en'] .launcher-title-en {
+  margin-top: 0;
+  margin-left: 0;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  letter-spacing: 0.14em;
+}
+
+html[data-ui-language='en'] .launcher-nav-label-en {
+  margin-top: 0;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  letter-spacing: 0.08em;
+  color: var(--launcher-text);
+}
+
+html[data-ui-language='en'] .launcher-nav-item.launcher-nav--primary .launcher-nav-label-en {
+  font-size: clamp(1.35rem, 2.3vw, 1.8rem);
+  font-weight: var(--weight-bold);
+}
+
+/* --- Player Profile (top right) --- */
+.launcher-profile {
+  position: absolute;
+  top: calc(32px + var(--safe-top, 0px));
+  right: calc(40px + var(--safe-right, 0px));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.85;
+  transition: opacity var(--transition-slow);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.launcher-profile-bubble {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(360px, 78vw);
+  padding: 10px 12px;
+  border-radius: var(--radius-xs);
+  background: var(--launcher-glass);
+  border: 1px solid var(--sheen-20);
+  box-shadow: 0 10px 28px var(--overlay-45);
+  color: var(--launcher-text);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: left;
+  letter-spacing: 0.01em;
+  white-space: pre-wrap;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.launcher-profile-bubble::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 16px;
+  width: 10px;
+  height: 10px;
+  background: var(--launcher-glass);
+  border-top: 1px solid var(--sheen-20);
+  border-left: 1px solid var(--sheen-20);
+  transform: rotate(45deg);
+}
+
+.launcher-profile-bubble.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.launcher-profile:hover {
+  opacity: 1;
+}
+
+.launcher-profile-info {
+  text-align: right;
+}
+
+.launcher-profile-name {
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  color: var(--text-invert);
+  font-size: 0.95rem;
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
+}
+
+.launcher-profile-status {
+  color: var(--status-success);
+  font-size: 0.65rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.launcher-profile-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-circle);
+  background: var(--status-success);
+  animation: launcher-pulse 2s ease-in-out infinite;
+}
+
+.launcher-profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-circle);
+  background: linear-gradient(135deg, var(--text-muted), var(--text-primary));
+  overflow: hidden;
+  border: 2px solid var(--sheen-30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition-slow);
+}
+
+.launcher-profile:hover .launcher-profile-avatar {
+  border-color: var(--text-invert);
+}
+
+.launcher-profile-avatar .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--sheen-70);
+}
+
+/* --- News Cards (bottom right) --- */
+.launcher-news {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 340px;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.launcher-news-card {
+  background: var(--overlay-40);
+  backdrop-filter: blur(12px);
+  border-left: 2px solid var(--brand-primary);
+  padding: 16px;
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  transform: translateX(16px);
+}
+
+.launcher-news-card:nth-child(2) {
+  border-left-color: var(--status-success);
+  transform: translateX(32px);
+}
+
+.launcher-news-card h4 {
+  font-family: var(
+    --font-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Segoe UI',
+    sans-serif
+  );
+  color: var(--launcher-text);
+  font-size: 0.8rem;
+  font-weight: var(--weight-bold);
+  margin-bottom: 6px;
+  text-shadow: 0 0 8px var(--overlay-50);
+}
+
+.launcher-news-card p {
+  color: var(--launcher-text);
+  font-size: 0.72rem;
+  font-weight: var(--weight-medium);
+  line-height: 1.6;
+  text-shadow: 0 1px 8px var(--overlay-25);
+}
+
+/* --- Version Bar --- */
+.launcher-version {
+  color: var(--sheen-50);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  font-weight: var(--weight-medium);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.launcher-version-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--radius-circle);
+  background: var(--sheen-45);
+}
+
+.launcher-version-link {
+  cursor: pointer;
+  transition: color var(--transition-slow);
+}
+
+.launcher-version-link:hover {
+  color: var(--launcher-text);
+}
+
+/* --- Credits Modal --- */
+.launcher-credits-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 301;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+}
+
+.launcher-credits-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.launcher-credits-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.launcher-credits-panel {
+  position: relative;
+  width: min(480px, 88vw);
+  max-height: 70vh;
+  background: var(--launcher-glass);
+  border: 1px solid var(--sheen-15);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 64px var(--overlay-60);
+  padding: 40px 36px 28px;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(16px) scale(0.97);
+  transition: transform var(--transition-slow);
+}
+
+.launcher-credits-modal.is-open .launcher-credits-panel {
+  transform: translateY(0) scale(1);
+}
+
+.launcher-credits-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
+.launcher-credits-close:hover {
+  color: var(--text-invert);
+}
+
+[data-action~="launcher-credits-link-btn"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-edge);
+  background: color-mix(in srgb, var(--surface-glass-strong) 92%, transparent);
+  color: var(--text-invert);
+  text-decoration: none;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3px;
+  transition:
+    transform var(--transition-base),
+    background var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+  box-shadow: var(--shadow-sm), var(--shadow-inset);
+}
+
+[data-action~="launcher-credits-link-btn"]:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--surface-glass-strong) 98%, transparent);
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-md), var(--shadow-inset);
+}
+
+.launcher-credits-link-icon {
+  font-size: var(--text-display);
+}
+
+.launcher-credits-title {
+  font-size: 0.85rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.35em;
+  color: var(--launcher-text);
+  margin: 0;
+}
+
+.launcher-credits-divider {
+  width: 48px;
+  height: 3px;
+  background: var(--brand-primary);
+  border-radius: 2px;
+  margin: 12px 0 20px;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-primary) 60%, transparent);
+}
+
+.launcher-changelog-divider {
+  background: var(--status-success);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--status-success) 60%, transparent);
+}
+
+.launcher-credits-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.launcher-credits-section {
+  margin-bottom: 20px;
+}
+
+.launcher-credits-section h3 {
+  font-size: 0.7rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sheen-45);
+  margin: 0 0 6px;
+}
+
+.launcher-credits-section p {
+  font-size: 0.85rem;
+  color: var(--launcher-text);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.launcher-credits-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.launcher-credits-section li {
+  font-size: 0.82rem;
+  color: var(--launcher-text);
+  line-height: 1.8;
+}
+
+.launcher-credits-section li strong {
+  color: var(--launcher-text);
+  font-weight: var(--weight-semibold);
+}
+
+/* v3.7 changelog 彩蛋：把「Him 回到沙盒」渲染成逐字波浪跳动的伪代码 */
+.cl-codeline {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--surface-code);
+  color: var(--code-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.cl-codeline b {
+  display: inline-block;
+  font-weight: inherit;
+  animation: cl-bounce 1.2s ease-in-out infinite;
+}
+
+@keyframes cl-bounce {
+  0%, 65%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-codeline b { animation: none; }
+}
+
+.launcher-credits-footer {
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--sheen-30);
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sheen-8);
+}
+
+@media (max-width: 480px) {
+  .launcher-credits-panel {
+    padding: 32px 24px 20px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* --- Animations --- */
+@keyframes launcher-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes launcherFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.launcher-overlay {
+  animation: launcherFadeIn 0.8s ease forwards;
+}
+
+/* Nav items stagger in */
+@keyframes launcherSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.launcher-nav-item {
+  opacity: 0;
+  animation: launcherSlideIn 0.4s ease forwards;
+}
+
+.launcher-nav-item:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.launcher-nav-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.launcher-nav-item:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.launcher-nav-item:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.launcher-nav-item:nth-child(5) {
+  animation-delay: 0.7s;
+}
+
+/* ============================================
+   Windows Phone Turnstile Exit Animation
+   ============================================ */
+
+/* Phase 1: Clicked tile press feedback */
+@keyframes tilePress {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.93) rotateY(-8deg);
+  }
+
+  100% {
+    transform: scale(0.93) rotateY(-8deg);
+  }
+}
+
+.launcher-nav-item.is-active {
+  animation: tilePress 0.15s ease-out forwards !important;
+  transform-origin: left center;
+}
+
+/* Phase 2: Turnstile rotation out for individual elements */
+@keyframes turnstileOut {
+  0% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotateY(-90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes turnstileIn {
+  0% {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Phase 3: Background and overlay fade out */
+@keyframes turnstileBgOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Turnstile rotation for launcher content transitions */
+.launcher--transition-to-intro .launcher-title-area,
+.launcher--transition-to-intro .launcher-nav-item,
+.launcher--transition-to-intro .launcher-profile,
+.launcher--transition-to-intro .launcher-news,
+.launcher--transition-to-intro .launcher-version,
+.launcher--turnstile-exit .launcher-title-area,
+.launcher--turnstile-exit .launcher-nav-item,
+.launcher--turnstile-exit .launcher-profile,
+.launcher--turnstile-exit .launcher-news,
+.launcher--turnstile-exit .launcher-version,
+.launcher--turnstile-exit .launcher-intro-panel {
+  animation: turnstileOut 0.35s cubic-bezier(0.4, 0, 0.8, 0.3) forwards !important;
+  transform-origin: left center;
+}
+
+.launcher--transition-from-intro .launcher-title-area,
+.launcher--transition-from-intro .launcher-nav-item,
+.launcher--transition-from-intro .launcher-profile,
+.launcher--transition-from-intro .launcher-news,
+.launcher--transition-from-intro .launcher-version {
+  animation: turnstileIn 0.35s cubic-bezier(0.4, 0, 0.8, 0.3) forwards !important;
+  transform-origin: left center;
+}
+
+/* Stagger: title first, then nav items top-to-bottom, then peripherals */
+.launcher--transition-to-intro .launcher-title-area,
+.launcher--transition-from-intro .launcher-title-area,
+.launcher--turnstile-exit .launcher-title-area {
+  animation-delay: 0ms !important;
+}
+
+.launcher--transition-to-intro .launcher-nav-item:nth-child(1),
+.launcher--transition-from-intro .launcher-nav-item:nth-child(1),
+.launcher--turnstile-exit .launcher-nav-item:nth-child(1) {
+  animation-delay: 30ms !important;
+}
+
+.launcher--transition-to-intro .launcher-nav-item:nth-child(2),
+.launcher--transition-from-intro .launcher-nav-item:nth-child(2),
+.launcher--turnstile-exit .launcher-nav-item:nth-child(2) {
+  animation-delay: 60ms !important;
+}
+
+.launcher--transition-to-intro .launcher-nav-item:nth-child(3),
+.launcher--transition-from-intro .launcher-nav-item:nth-child(3),
+.launcher--turnstile-exit .launcher-nav-item:nth-child(3) {
+  animation-delay: 90ms !important;
+}
+
+.launcher--transition-to-intro .launcher-nav-item:nth-child(4),
+.launcher--transition-from-intro .launcher-nav-item:nth-child(4),
+.launcher--turnstile-exit .launcher-nav-item:nth-child(4) {
+  animation-delay: 120ms !important;
+}
+
+.launcher--transition-to-intro .launcher-nav-item:nth-child(5),
+.launcher--transition-from-intro .launcher-nav-item:nth-child(5),
+.launcher--turnstile-exit .launcher-nav-item:nth-child(5) {
+  animation-delay: 150ms !important;
+}
+
+.launcher--transition-to-intro .launcher-version,
+.launcher--transition-from-intro .launcher-version,
+.launcher--turnstile-exit .launcher-version {
+  animation-delay: 180ms !important;
+}
+
+.launcher--transition-to-intro .launcher-profile,
+.launcher--transition-from-intro .launcher-profile,
+.launcher--turnstile-exit .launcher-profile {
+  animation-delay: 40ms !important;
+}
+
+.launcher--transition-to-intro .launcher-news,
+.launcher--transition-from-intro .launcher-news,
+.launcher--turnstile-exit .launcher-news {
+  animation-delay: 80ms !important;
+}
+
+.launcher--intro-step-exit .launcher-intro-panel {
+  animation: turnstileOut 0.35s cubic-bezier(0.4, 0, 0.8, 0.3) forwards !important;
+  transform-origin: left center;
+}
+
+.launcher--intro-enter .launcher-intro-panel {
+  animation: turnstileIn 0.35s cubic-bezier(0.4, 0, 0.8, 0.3) forwards !important;
+  transform-origin: left center;
+}
+
+/* Background layers fade out after the content has rotated */
+.launcher--turnstile-exit .launcher-bg,
+.launcher--turnstile-exit::after {
+  animation: turnstileBgOut 0.3s ease 0.35s forwards;
+}
+
+/* --- Desktop Scaling (keep mobile styles unchanged) --- */
+@media (min-width: 769px) {
+  .launcher-content {
+    padding: calc((48px * var(--launcher-desktop-scale, 1)) + var(--safe-top, 0px))
+      calc((64px * var(--launcher-desktop-scale, 1)) + var(--safe-right, 0px))
+      calc((48px * var(--launcher-desktop-scale, 1)) + var(--safe-bottom, 0px))
+      calc((64px * var(--launcher-desktop-scale, 1)) + var(--safe-left, 0px));
+    max-width: min(var(--launcher-content-max-width, 2200px), 96vw);
+  }
+
+  .launcher-intro {
+    padding: calc((48px * var(--launcher-desktop-scale, 1)) + var(--safe-top, 0px))
+      calc((64px * var(--launcher-desktop-scale, 1)) + var(--safe-right, 0px))
+      calc((48px * var(--launcher-desktop-scale, 1)) + var(--safe-bottom, 0px))
+      calc((64px * var(--launcher-desktop-scale, 1)) + var(--safe-left, 0px));
+  }
+
+  .launcher-intro-stage {
+    padding-top: calc(84px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-panel {
+    width: min(calc(880px * var(--launcher-desktop-scale, 1)), 100%);
+    gap: calc(24px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-back {
+    top: calc((32px * var(--launcher-desktop-scale, 1)) + var(--safe-top, 0px));
+    left: calc((40px * var(--launcher-desktop-scale, 1)) + var(--safe-left, 0px));
+    gap: calc(10px * var(--launcher-desktop-scale, 1));
+    padding: calc(10px * var(--launcher-desktop-scale, 1))
+      calc(16px * var(--launcher-desktop-scale, 1)) calc(10px * var(--launcher-desktop-scale, 1))
+      calc(12px * var(--launcher-desktop-scale, 1));
+    font-size: calc(0.96rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-back .material-symbols-outlined {
+    font-size: calc(20px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-copy {
+    gap: calc(24px * var(--launcher-desktop-scale, 1));
+    padding: calc(36px * var(--launcher-desktop-scale, 1))
+      calc(30px * var(--launcher-desktop-scale, 1)) calc(30px * var(--launcher-desktop-scale, 1));
+    border-radius: calc(30px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-title {
+    max-width: 100%;
+    font-size: calc(clamp(2.6rem, 5vw, 4.6rem) * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+    max-width: min(calc(960px * var(--launcher-desktop-scale, 1)), 100%);
+    font-size: calc(clamp(2.1rem, 3.8vw, 3.2rem) * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] {
+    gap: 18px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-copy {
+    gap: 20px;
+    padding: 30px 28px 24px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+    max-width: 100%;
+    font-size: calc(clamp(2.08rem, 4vw, 3.68rem) * var(--launcher-desktop-scale, 1));
+    line-height: 1.11;
+    letter-spacing: 0.032em;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-text {
+    font-size: clamp(0.98rem, 1.12vw, 1.15rem);
+    line-height: 1.76;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions {
+    gap: 12px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-continue {
+    min-width: 0;
+    padding: 14px 24px;
+    font-size: clamp(0.96rem, 0.92vw, 1.04rem);
+    letter-spacing: 0.14em;
+  }
+
+  .launcher-intro-panel[data-intro-step='2']
+    .launcher-intro-actions--multi
+    .launcher-intro-continue {
+    flex: 1 1 176px;
+  }
+
+  .launcher-intro-text {
+    font-size: calc(clamp(1.05rem, 1.7vw, 1.34rem) * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-continue {
+    min-width: calc(180px * var(--launcher-desktop-scale, 1));
+    padding: calc(16px * var(--launcher-desktop-scale, 1))
+      calc(34px * var(--launcher-desktop-scale, 1));
+    border-radius: calc(14px * var(--launcher-desktop-scale, 1));
+    font-size: calc(1.1rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-api-choice {
+    font-size: calc(0.84rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-api-label {
+    font-size: calc(0.82rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-intro-api-input,
+  .launcher-intro-api-hint,
+  .launcher-intro-api-status {
+    font-size: calc(1rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-title-area {
+    margin-top: calc(16px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-title-cn {
+    font-size: calc(clamp(2.5rem, 5vw, 4.5rem) * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-title-en {
+    font-size: calc(clamp(0.75rem, 1.5vw, 1.25rem) * var(--launcher-desktop-scale, 1));
+    letter-spacing: calc(0.3em * var(--launcher-desktop-scale, 1));
+    margin-top: calc(4px * var(--launcher-desktop-scale, 1));
+    margin-left: calc(2px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-title-accent {
+    width: calc(96px * var(--launcher-desktop-scale, 1));
+    height: calc(4px * var(--launcher-desktop-scale, 1));
+    margin-top: calc(24px * var(--launcher-desktop-scale, 1));
+    border-radius: calc(2px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav {
+    gap: calc(4px * var(--launcher-desktop-scale, 1));
+    max-width: min(var(--launcher-nav-max-width, 960px), 100%);
+    max-height: min(calc(560px * var(--launcher-desktop-scale, 1)), 78vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .launcher-nav-item {
+    gap: calc(24px * var(--launcher-desktop-scale, 1));
+    padding: calc(16px * var(--launcher-desktop-scale, 1))
+      calc(8px * var(--launcher-desktop-scale, 1));
+    min-height: calc(80px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-item::before {
+    left: calc(-20px * var(--launcher-desktop-scale, 1));
+    border-left-width: calc(2px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-item:hover::before {
+    width: calc(250px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-item:hover {
+    transform: translateX(calc(10px * var(--launcher-desktop-scale, 1)));
+  }
+
+  .launcher-nav-item .material-symbols-outlined {
+    font-size: calc(28px * var(--launcher-desktop-scale, 1));
+    width: calc(36px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-item.launcher-nav--primary .launcher-nav-label-cn {
+    font-size: calc(clamp(1.5rem, 2.5vw, 2rem) * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-item.launcher-nav--primary .material-symbols-outlined {
+    font-size: calc(32px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-label-cn {
+    font-size: calc(clamp(1.2rem, 2vw, 1.6rem) * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-nav-label-en {
+    font-size: calc(0.65rem * var(--launcher-desktop-scale, 1));
+    letter-spacing: calc(0.2em * var(--launcher-desktop-scale, 1));
+    margin-top: calc(2px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile {
+    top: calc((32px * var(--launcher-desktop-scale, 1)) + var(--safe-top, 0px));
+    right: calc((40px * var(--launcher-desktop-scale, 1)) + var(--safe-right, 0px));
+    gap: calc(12px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-bubble {
+    top: calc(100% + (10px * var(--launcher-desktop-scale, 1)));
+    width: min(calc(360px * var(--launcher-desktop-scale, 1)), 78vw);
+    padding: calc(10px * var(--launcher-desktop-scale, 1))
+      calc(12px * var(--launcher-desktop-scale, 1));
+    border-radius: calc(10px * var(--launcher-desktop-scale, 1));
+    font-size: calc(0.78rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-bubble::before {
+    top: calc(-6px * var(--launcher-desktop-scale, 1));
+    right: calc(16px * var(--launcher-desktop-scale, 1));
+    width: calc(10px * var(--launcher-desktop-scale, 1));
+    height: calc(10px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-name {
+    font-size: calc(0.95rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-status {
+    font-size: calc(0.65rem * var(--launcher-desktop-scale, 1));
+    gap: calc(4px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-status-dot {
+    width: calc(6px * var(--launcher-desktop-scale, 1));
+    height: calc(6px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-avatar {
+    width: calc(48px * var(--launcher-desktop-scale, 1));
+    height: calc(48px * var(--launcher-desktop-scale, 1));
+    border-width: calc(2px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-profile-avatar .material-symbols-outlined {
+    font-size: calc(24px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-news {
+    bottom: calc((40px * var(--launcher-desktop-scale, 1)) + var(--safe-bottom, 0px));
+    right: calc((40px * var(--launcher-desktop-scale, 1)) + var(--safe-right, 0px));
+    gap: calc(16px * var(--launcher-desktop-scale, 1));
+    max-width: calc(340px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-news-card {
+    border-left-width: calc(2px * var(--launcher-desktop-scale, 1));
+    padding: calc(16px * var(--launcher-desktop-scale, 1));
+    border-radius: 0 calc(8px * var(--launcher-desktop-scale, 1))
+      calc(8px * var(--launcher-desktop-scale, 1)) 0;
+    transform: translateX(calc(16px * var(--launcher-desktop-scale, 1)));
+  }
+
+  .launcher-news-card:nth-child(2) {
+    transform: translateX(calc(32px * var(--launcher-desktop-scale, 1)));
+  }
+
+  .launcher-news-card h4 {
+    font-size: calc(0.8rem * var(--launcher-desktop-scale, 1));
+    margin-bottom: calc(6px * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-news-card p {
+    font-size: calc(0.72rem * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-version {
+    font-size: calc(0.65rem * var(--launcher-desktop-scale, 1));
+    gap: calc(16px * var(--launcher-desktop-scale, 1));
+    letter-spacing: calc(0.15em * var(--launcher-desktop-scale, 1));
+  }
+
+  .launcher-version-dot {
+    width: calc(3px * var(--launcher-desktop-scale, 1));
+    height: calc(3px * var(--launcher-desktop-scale, 1));
+  }
+}
+
+/* --- Mobile / Responsive --- */
+
+@media (max-width: 1150px) {
+  .launcher-intro.launcher-intro--api-preview .launcher-intro-stage {
+    width: min(760px, 100%);
+    min-height: auto;
+    padding-top: 0;
+    padding-right: 0;
+  }
+
+  .launcher-intro.launcher-intro--api-preview .launcher-intro-panel {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .launcher-ui-preview-header {
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .launcher-ui-preview-title-group {
+    gap: 10px;
+  }
+
+  .launcher-ui-preview-title-wrap {
+    gap: 10px;
+  }
+
+  .launcher-ui-preview-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-xs);
+  }
+
+  .launcher-ui-preview-title {
+    font-size: 1.02rem;
+  }
+
+  [data-action~="launcher-ui-preview-mode-toggle"] {
+    height: 28px;
+    border-radius: var(--radius-xs);
+  }
+
+  .launcher-ui-preview-mode-label {
+    min-width: 74px;
+    padding: 0 10px;
+    font-size: 0.72rem;
+    line-height: 24px;
+  }
+
+  [data-action~="launcher-ui-preview-mode-slider"] {
+    border-radius: var(--radius-2xs);
+  }
+
+  .launcher-ui-preview-toolbar {
+    width: 100%;
+    justify-content: space-around;
+    gap: 0;
+  }
+
+  .launcher-ui-preview-tile.header-tile {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-sm);
+  }
+
+  .launcher-ui-preview-tile.header-tile .material-symbols-outlined {
+    font-size: 28px;
+    margin-bottom: 2px;
+  }
+
+  .launcher-ui-preview-tile.header-tile > span:not(.material-symbols-outlined):not(.header-badge) {
+    font-size: var(--text-xs);
+  }
+
+  .launcher-ui-preview-sidebar {
+    display: none;
+  }
+}
+
+/* Tablet & small laptops */
+@media (max-width: 768px) {
+  .launcher-content {
+    padding: calc(24px + var(--safe-top, 0px)) calc(20px + var(--safe-right, 0px))
+      calc(16px + var(--safe-bottom, 0px)) calc(20px + var(--safe-left, 0px));
+  }
+
+  .launcher-intro {
+    justify-content: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(24px + var(--safe-top, 0px)) calc(20px + var(--safe-right, 0px))
+      calc(16px + var(--safe-bottom, 0px)) calc(20px + var(--safe-left, 0px));
+  }
+
+  .launcher-intro[data-intro-step='1'] {
+    align-items: center;
+  }
+
+  .launcher-intro[data-intro-step='2'],
+  .launcher-intro[data-intro-step='3'] {
+    align-items: flex-start;
+  }
+
+  .launcher-intro-stage {
+    width: 100%;
+    min-height: max-content;
+    padding-top: 72px;
+  }
+
+  .launcher-intro-panel {
+    width: min(620px, 100%);
+    gap: 22px;
+    padding-bottom: 12px;
+  }
+
+  .launcher-intro.launcher-intro--api-preview .launcher-intro-stage {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .launcher-intro-back {
+    top: calc(24px + var(--safe-top, 0px));
+    left: calc(20px + var(--safe-left, 0px));
+    padding: 10px 15px 10px 11px;
+    font-size: 0.9rem;
+  }
+
+  .launcher-intro-back .material-symbols-outlined {
+    font-size: var(--text-heading);
+  }
+
+  .launcher-intro-copy {
+    gap: 22px;
+    padding: 30px 24px 26px;
+    border-radius: 26px;
+    backdrop-filter: blur(18px) saturate(114%);
+    -webkit-backdrop-filter: blur(18px) saturate(114%);
+  }
+
+  .launcher-intro-title {
+    font-size: clamp(2.3rem, 7.6vw, 3.3rem);
+    max-width: 10ch;
+    line-height: 1.18;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+    max-width: none;
+    font-size: clamp(1.95rem, 5.4vw, 2.55rem);
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] {
+    gap: 18px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-copy {
+    gap: 18px;
+    padding: 26px 22px 22px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+    font-size: clamp(1.84rem, 6.08vw, 2.64rem);
+    line-height: 1.15;
+    letter-spacing: 0.032em;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-text {
+    font-size: 1.02rem;
+    line-height: 1.82;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions--multi {
+    gap: 10px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-continue {
+    padding: 14px 24px;
+    font-size: 0.96rem;
+    letter-spacing: 0.14em;
+  }
+
+  .launcher-intro-text {
+    font-size: 1.08rem;
+    line-height: 1.92;
+  }
+
+  .launcher-intro-actions--multi {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .launcher-intro-actions--multi .launcher-intro-continue {
+    flex: none;
+  }
+
+  .launcher-intro-continue {
+    width: 100%;
+    min-width: 0;
+    padding: 15px 28px;
+    font-size: 1rem;
+    letter-spacing: 0.16em;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions {
+    gap: 10px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2']
+    .launcher-intro-actions--multi
+    .launcher-intro-continue {
+    flex: none;
+    min-height: 60px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-continue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    padding: 14px 20px;
+    font-size: 0.94rem;
+    line-height: 1.24;
+    letter-spacing: 0.1em;
+  }
+
+  .launcher-profile {
+    top: calc(20px + var(--safe-top, 0px));
+    right: calc(20px + var(--safe-right, 0px));
+  }
+
+  .launcher-profile-name {
+    font-size: 0.8rem;
+  }
+
+  .launcher-profile-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .launcher-news {
+    display: none;
+  }
+
+  .launcher-nav-item {
+    padding: 16px 6px;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+    border: 1px solid var(--sheen-30);
+    border-radius: var(--radius-sm);
+    background: var(--overlay-25);
+    box-shadow:
+      0 8px 18px -10px var(--overlay-55),
+      0 1px 0 var(--sheen-15) inset;
+  }
+
+  .launcher-nav-item::before {
+    display: none;
+  }
+
+  .launcher-nav-item.launcher-nav--primary {
+    border-color: color-mix(in srgb, var(--brand-primary) 60%, transparent);
+    box-shadow:
+      0 10px 20px -10px var(--overlay-60),
+      0 0 0 1px color-mix(in srgb, var(--brand-primary) 22%, transparent) inset;
+  }
+
+  .launcher-nav-item .material-symbols-outlined {
+    font-size: 26px;
+    width: 36px;
+  }
+
+  .launcher-nav-item.launcher-nav--primary .launcher-nav-label-cn {
+    font-size: 1.7rem;
+  }
+
+  .launcher-nav-label-cn {
+    font-size: 1.45rem;
+    line-height: 1.15;
+  }
+
+  .launcher-nav-label-en {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+  }
+
+  /* Stronger gradient for text readability on narrower screens */
+  .launcher-bg-gradient {
+    background: linear-gradient(
+      to right,
+      var(--overlay-90) 0%,
+      var(--overlay-55) 60%,
+      var(--overlay-30) 100%
+    );
+  }
+}
+
+/* Small phones (iPhone 15, Pixel, etc.) */
+@media (max-width: 480px) {
+  .launcher-content {
+    padding: calc(20px + var(--safe-top, 0px)) calc(16px + var(--safe-right, 0px))
+      calc(12px + var(--safe-bottom, 0px)) calc(16px + var(--safe-left, 0px));
+  }
+
+  .launcher-intro {
+    justify-content: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(20px + var(--safe-top, 0px)) calc(16px + var(--safe-right, 0px))
+      calc(12px + var(--safe-bottom, 0px)) calc(16px + var(--safe-left, 0px));
+  }
+
+  .launcher-intro[data-intro-step='1'] {
+    align-items: center;
+  }
+
+  .launcher-intro[data-intro-step='2'],
+  .launcher-intro[data-intro-step='3'] {
+    align-items: flex-start;
+  }
+
+  .launcher-intro-stage {
+    width: 100%;
+    min-height: max-content;
+    padding-top: 64px;
+  }
+
+  .launcher-intro-panel {
+    width: 100%;
+    gap: 20px;
+    padding-bottom: 14px;
+  }
+
+  .launcher-intro.launcher-intro--api-preview .launcher-intro-stage {
+    padding-top: 0;
+  }
+
+  .launcher-intro-back {
+    top: calc(20px + var(--safe-top, 0px));
+    left: calc(16px + var(--safe-left, 0px));
+    gap: 8px;
+    padding: 9px 13px 9px 10px;
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+  }
+
+  .launcher-intro-back .material-symbols-outlined {
+    font-size: 17px;
+  }
+
+  .launcher-ui-preview-header {
+    padding: 10px 10px 9px;
+    border-radius: var(--radius-md);
+  }
+
+  .launcher-ui-preview-title {
+    font-size: 0.95rem;
+  }
+
+  .launcher-ui-preview-mode-label {
+    min-width: 68px;
+    font-size: 0.68rem;
+  }
+
+  .launcher-ui-preview-tile.header-tile {
+    width: 56px;
+    height: 56px;
+  }
+
+  .launcher-intro-copy {
+    gap: 20px;
+    padding: 26px 20px 22px;
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(16px) saturate(112%);
+    -webkit-backdrop-filter: blur(16px) saturate(112%);
+  }
+
+  .launcher-intro-title {
+    max-width: none;
+    font-size: 2.18rem;
+    letter-spacing: 0.04em;
+    line-height: 1.22;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+    font-size: 1.72rem;
+    letter-spacing: 0.03em;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-copy {
+    gap: 18px;
+    padding: 24px 18px 20px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-title {
+    font-size: 1.74rem;
+    line-height: 1.15;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-text {
+    font-size: 0.98rem;
+    line-height: 1.78;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions--multi {
+    gap: 10px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-continue {
+    padding: 13px 18px;
+    font-size: 0.94rem;
+    letter-spacing: 0.12em;
+  }
+
+  .launcher-intro-text {
+    font-size: 1.06rem;
+    line-height: 1.9;
+  }
+
+  .launcher-intro-actions {
+    width: 100%;
+  }
+
+  .launcher-intro-actions--multi {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .launcher-intro-actions--multi .launcher-intro-continue {
+    flex: none;
+  }
+
+  .launcher-intro-continue {
+    width: 100%;
+    min-width: 0;
+    padding: 14px 20px;
+    letter-spacing: 0.14em;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-actions {
+    gap: 10px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2']
+    .launcher-intro-actions--multi
+    .launcher-intro-continue {
+    flex: none;
+    min-height: 58px;
+  }
+
+  .launcher-intro-panel[data-intro-step='2'] .launcher-intro-continue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+    padding: 13px 16px;
+    font-size: 0.92rem;
+    line-height: 1.22;
+    letter-spacing: 0.09em;
+  }
+
+  .launcher-title-cn {
+    font-size: 2rem;
+  }
+
+  .launcher-title-en {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
+  .launcher-title-accent {
+    width: 60px;
+    height: 3px;
+    margin-top: 16px;
+  }
+
+  .launcher-nav-item {
+    padding: 14px 2px;
+    gap: 16px;
+    align-items: flex-start;
+    border-radius: var(--radius-sm);
+    border-color: var(--sheen-35);
+    background: var(--overlay-30);
+    box-shadow:
+      0 9px 18px -10px var(--overlay-60),
+      0 1px 0 var(--launcher-border-strong) inset;
+  }
+
+  .launcher-nav-item.launcher-nav--primary {
+    border-color: color-mix(in srgb, var(--brand-primary) 65%, transparent);
+    box-shadow:
+      0 10px 20px -10px var(--overlay-60),
+      0 0 0 1px color-mix(in srgb, var(--brand-primary) 24%, transparent) inset;
+  }
+
+  .launcher-nav-item .material-symbols-outlined {
+    font-size: 24px;
+    width: 32px;
+  }
+
+  .launcher-nav-item.launcher-nav--primary .launcher-nav-label-cn {
+    font-size: 1.8rem;
+  }
+
+  .launcher-nav-item.launcher-nav--primary .material-symbols-outlined {
+    font-size: 28px;
+  }
+
+  .launcher-nav-label-cn {
+    font-size: 1.5rem;
+    line-height: 1.15;
+  }
+
+  .launcher-nav-label-en {
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+  }
+
+  /* Profile: hide name, show only avatar */
+  .launcher-profile {
+    top: calc(16px + var(--safe-top, 0px));
+    right: calc(16px + var(--safe-right, 0px));
+  }
+
+  .launcher-profile-info {
+    display: none;
+  }
+
+  .launcher-profile-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .launcher-profile-avatar .material-symbols-outlined {
+    font-size: var(--text-heading);
+  }
+
+  /* Version bar */
+  .launcher-version {
+    font-size: 0.5rem;
+    gap: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Even stronger gradient on small screens */
+  .launcher-bg-gradient {
+    background: linear-gradient(
+      to right,
+      var(--overlay-90) 0%,
+      var(--overlay-60) 55%,
+      var(--overlay-35) 100%
+    );
+  }
+
+  /* Nav hover bar: reduce overshoot */
+  .launcher-nav-item::before {
+    left: -12px;
+  }
+
+  .launcher-nav-item:hover::before {
+    width: 150px;
+  }
+
+  .launcher-nav-item:hover {
+    transform: translateX(6px);
+  }
+
+  /* 触控设备最小点击区域 */
+  .launcher-nav-item {
+    min-height: 62px;
+  }
+}
+
+/* 触控设备禁用 hover 移动动画 */
+@media (hover: none) {
+  .launcher-nav-item:hover {
+    transform: none;
+  }
+
+  .launcher-intro-continue:hover {
+    transform: none;
+  }
+
+  .launcher-nav-item:hover::before {
+    width: 0;
+    opacity: 0;
+  }
+
+  .launcher-nav-item:active {
+    opacity: 1;
+    transform: translateY(1px);
+    box-shadow:
+      0 4px 10px -8px var(--overlay-60),
+      0 1px 0 var(--launcher-border) inset;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launcher-ui-preview-header,
+  .launcher-ui-preview-summary,
+  .launcher-ui-preview-npc {
+    transform: none !important;
+    filter: none !important;
+    transition: opacity var(--transition-base) !important;
+  }
+}

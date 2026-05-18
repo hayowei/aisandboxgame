@@ -1,0 +1,5844 @@
+/* ═══════════════════════════════════════════════════════
+   Auto-generated from design-tokens/themes/*.json
+   运行 `node tools/ui/build-tokens.mjs` 重新生成
+   请勿手动编辑此文件
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --available-skins: "metro,cartoon,cultivation,cyberpunk,literary";
+  --skin-labels: "metro:Metro,cartoon:Cartoon,cultivation:Ink Wash Xianxia,cyberpunk:Cyberpunk,literary:Literary";
+}
+
+/* ═══ Metro ═══ */
+
+:root,
+:root[data-skin='metro'][data-theme='light'] {
+  color-scheme: light;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Segoe UI',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* === 圆角 === */
+  --radius-2xs: 4px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 10px;
+  --blur-md: 18px;
+  --blur-lg: 28px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.16s ease;
+  --transition-base: 0.22s ease;
+  --transition-slow: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* === 动效 === */
+  --motion-fast: 160ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-press-duration: 120ms;
+  --easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* === 品牌色 === */
+  --brand-primary: #2d89ef;
+  --brand-primary-strong: #0050ef;
+  --brand-secondary: #00aba9;
+  --brand-accent: #da532c;
+  --brand-accent-strong: #f0b03e;
+  --brand-purple: #603cba;
+  --brand-magenta: #ff4d94;
+  --brand-yellow: #e3a21a;
+  --brand-lime: #99b433;
+  --brand-brown: #9f6b4e;
+
+  /* === 状态色 === */
+  --status-success: #00a300;
+  --status-warning: #e3a21a;
+  --status-danger: #e51400;
+  --status-info: #2d89ef;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 40px;
+  --account-avatar-lg: 64px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.08;
+  --opacity-soft: 0.16;
+  --opacity-medium: 0.32;
+  --opacity-strong: 0.64;
+  --opacity-full: 0.88;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(14px * var(--ui-scale, 1));
+  --icon-size-sm: calc(16px * var(--ui-scale, 1));
+  --icon-size-md: calc(20px * var(--ui-scale, 1));
+  --icon-size-lg: calc(24px * var(--ui-scale, 1));
+  --icon-size-xl: calc(32px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: none;
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: inherit;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* ─── Light 主题令牌 ─── */
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(100, 116, 139, 0.14);
+  --account-badge-guest-text: #475569;
+  --account-badge-pro-bg: rgba(240, 176, 62, 0.14);
+  --account-badge-pro-text: #9d5a00;
+  --account-badge-pro-border: rgba(218, 83, 44, 0.22);
+  --account-sync-local-bg: rgba(100, 116, 139, 0.08);
+  --account-sync-local-text: #64748b;
+  --account-sync-ready-bg: rgba(45, 137, 239, 0.08);
+  --account-sync-ready-text: #0050ef;
+  --account-sync-done-bg: rgba(0, 163, 0, 0.1);
+  --account-sync-done-text: #0b7c38;
+  --account-sync-conflict-bg: rgba(218, 83, 44, 0.1);
+  --account-sync-conflict-text: #b45309;
+  --account-locked-bg: rgba(100, 116, 139, 0.05);
+  --account-locked-border: rgba(116, 137, 165, 0.18);
+  --account-locked-text: #64748b;
+  --account-card-bg: rgba(255, 255, 255, 0.7);
+  --account-card-border: rgba(71, 93, 121, 0.12);
+
+  /* === 图标色 === */
+  --icon-muted: #607287;
+  --icon-subtle: #76879b;
+
+  /* === 表面色 === */
+  --surface-page: #eef3f7;
+  --surface-main: #eef3f7;
+  --surface-canvas: rgba(255, 255, 255, 0.68);
+  --surface-elevated: rgba(255, 255, 255, 0.84);
+  --surface-soft: rgba(255, 255, 255, 0.62);
+  --surface-glass: rgba(255, 255, 255, 0.58);
+  --surface-glass-strong: rgba(255, 255, 255, 0.82);
+  --surface-panel: rgba(250, 252, 255, 0.72);
+  --surface-panel-strong: rgba(255, 255, 255, 0.9);
+  --surface-card: rgba(255, 255, 255, 0.56);
+  --surface-overlay: rgba(250, 252, 255, 0.96);
+  --surface-code: #102030;
+  --surface-code-alt: #16283d;
+  --surface-input: rgba(255, 255, 255, 0.82);
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(116, 137, 165, 0.16);
+  --border-soft: rgba(71, 93, 121, 0.2);
+  --border-strong: rgba(58, 79, 108, 0.32);
+  --border-accent: rgba(45, 137, 239, 0.3);
+  --border-accent-strong: rgba(0, 80, 239, 0.42);
+  --border-light: #d6dee8;
+  --border-medium: #b7c5d8;
+  --border-dark: #8da0b9;
+  --border-color: #c8d4e2;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #112033;
+  --text-primary: #112033;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --text-soft: #64748b;
+  --text-tertiary: #94a3b8;
+  --text-invert: #ffffff;
+  --code-text: #dce6f5;
+  --text-color: #112033;
+  --text-on-accent: #ffffff;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 10px 24px -18px rgba(17, 32, 51, 0.18);
+  --shadow-md: 0 18px 44px -28px rgba(17, 32, 51, 0.22);
+  --shadow-lg: 0 28px 72px -36px rgba(17, 32, 51, 0.28);
+  --shadow-glow: 0 0 0 1px rgba(45, 137, 239, 0.14), 0 18px 48px -32px rgba(45, 137, 239, 0.24);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  --shadow-focus-ring: 0 0 0 3px rgba(45, 137, 239, 0.2);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(255, 152, 0, 0.08);
+  --accent-warm-bg-strong: rgba(255, 152, 0, 0.15);
+  --accent-warm-border: rgba(255, 152, 0, 0.25);
+  --accent-warm-border-strong: rgba(255, 152, 0, 0.4);
+  --accent-warm-text: #ff9800;
+
+  /* === 面板 === */
+  --panel-tint: rgba(45, 137, 239, 0.09);
+
+  /* === 背景 === */
+  --bg-secondary: #f7fafd;
+  --bg-tertiary: #eef3f8;
+  --bg-hover: #e3ebf4;
+  --bg-color: #eef3f7;
+
+  /* === 输入框 === */
+  --input-bg: rgba(255, 255, 255, 0.88);
+  --input-border: #c8d4e2;
+
+  /* === HUD === */
+  --hud-bg: rgba(255, 255, 255, 0.72);
+  --hud-border: rgba(218, 83, 44, 0.28);
+  --hud-text: #5d6e84;
+  --hud-value: #112033;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(255, 255, 255, 0.42);
+  --choice-panel-border: rgba(45, 137, 239, 0.2);
+  --choice-item-bg: rgba(255, 255, 255, 0.7);
+  --choice-item-border: rgba(200, 212, 226, 0.82);
+  --choice-item-hover-bg: rgba(242, 247, 255, 0.98);
+  --choice-item-active-bg: rgba(227, 238, 255, 0.98);
+  --choice-title: #0050ef;
+  --choice-text-primary: #112033;
+  --choice-text-secondary: #435368;
+  --choice-default-chip-bg: rgba(45, 137, 239, 0.1);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(255, 255, 255, 0.76);
+  --sticky-text: #5d6e84;
+  --sticky-value: #112033;
+
+  /* === 位置 === */
+  --location-separator: rgba(17, 32, 51, 0.22);
+
+  /* === 思考 === */
+  --thinking-text: #61748a;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #f1f6fb;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: rgba(255, 255, 255, 0.68);
+  --chat-bubble-user-bg: rgba(232, 243, 255, 0.82);
+  --chat-bubble-hover-bg: rgba(255, 255, 255, 0.92);
+  --chat-bubble-text: #112033;
+  --chat-bubble-label: #435368;
+  --chat-bubble-border-ai: rgba(45, 137, 239, 0.26);
+  --chat-bubble-border-user: rgba(0, 163, 0, 0.24);
+  --chat-bg: #132438;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #f1f6fb;
+  --dcv-toolbar-bg: rgba(255, 255, 255, 0.78);
+  --dcv-toolbar-border: rgba(116, 137, 165, 0.16);
+  --dcv-section-bg: rgba(255, 255, 255, 0.78);
+  --dcv-section-border: rgba(116, 137, 165, 0.16);
+  --dcv-section-hover: rgba(248, 251, 255, 0.98);
+  --dcv-text-primary: #112033;
+  --dcv-text-secondary: #314156;
+  --dcv-text-muted: #5d6e84;
+  --dcv-text-faint: #7d8ea5;
+  --dcv-subitem-bg: rgba(242, 247, 255, 0.84);
+  --dcv-subitem-border: rgba(160, 177, 198, 0.24);
+  --dcv-expanded-bg: rgba(232, 243, 255, 0.96);
+  --dcv-field-bg: rgba(255, 255, 255, 0.9);
+  --dcv-field-border: rgba(200, 212, 226, 0.82);
+  --dcv-btn-hover-bg: rgba(45, 137, 239, 0.08);
+  --dcv-btn-hover-border: rgba(45, 137, 239, 0.2);
+  --dcv-btn-hover-color: #0050ef;
+  --dcv-icon-muted: rgba(17, 32, 51, 0.46);
+  --dcv-icon-hover: rgba(17, 32, 51, 0.78);
+  --dcv-scrollbar: rgba(71, 93, 121, 0.2);
+  --dcv-input-bg: rgba(255, 255, 255, 0.92);
+  --dcv-input-border: rgba(200, 212, 226, 0.82);
+  --dcv-input-text: #112033;
+  --dcv-modal-bg: rgba(250, 252, 255, 0.98);
+  --dcv-modal-border: rgba(160, 177, 198, 0.28);
+  --dcv-modal-text: #112033;
+  --dcv-modal-btn-bg: rgba(255, 255, 255, 0.84);
+  --dcv-modal-btn-border: rgba(116, 137, 165, 0.18);
+  --dcv-modal-btn-text: #314156;
+  --dcv-cognitive-warning-bg: rgba(240, 176, 62, 0.14);
+  --dcv-cognitive-warning-border: rgba(218, 83, 44, 0.32);
+  --dcv-cognitive-warning-title: #9d5a00;
+  --dcv-cognitive-warning-text: #6c4100;
+  --dcv-cognitive-warning-item-bg: rgba(255, 255, 255, 0.72);
+  --dcv-cognitive-warning-item-border: rgba(157, 90, 0, 0.12);
+  --dcv-cognitive-warning-path-bg: rgba(240, 176, 62, 0.2);
+  --dcv-cognitive-warning-path-text: #6c4100;
+
+  /* === 语法高亮 === */
+  --syntax-key: #9cdcfe;
+  --syntax-string: #ce9178;
+  --syntax-number: #b5cea8;
+  --syntax-boolean: #569cd6;
+  --syntax-null: #569cd6;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #d4d4d4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #1565c0;
+  --narrative-thought: #7b1fa2;
+  --narrative-speaker: #d84315;
+  --narrative-action: #2e7d32;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #4f46e5;
+  --launcher-btn-primary-hover: #4338ca;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.5);
+  --launcher-overlay: rgba(0, 0, 0, 0.4);
+
+  /* === 加载 === */
+  --loading-bg: rgba(252, 250, 246, 0.98);
+  --loading-bg-strong: rgba(238, 233, 226, 0.95);
+  --loading-card-bg: rgba(255, 255, 255, 0.82);
+  --loading-gradient-start: #B5EAD7;
+  --loading-gradient-end: #E2F0CB;
+  --loading-progress-start: #FFD3B6;
+  --loading-progress-mid: #FF9AA2;
+  --loading-progress-end: #C7CEEA;
+
+  /* === 调试分段 === */
+  --segment-summary: #4caf50;
+  --segment-npc-archive: #2196f3;
+  --segment-mainline: #ff9800;
+  --segment-conversation: #9c27b0;
+  --segment-narrative: #3f51b5;
+  --segment-reference: #00bcd4;
+  --segment-sms: #8bc34a;
+  --segment-game-state: #ffc107;
+  --segment-gm: #607d8b;
+  --segment-react: #673ab7;
+  --segment-step-3: #009688;
+  --segment-core: #42a5f5;
+  --segment-custom: #ef5350;
+  --segment-module: #26a69a;
+  --segment-country: #5c6bc0;
+  --segment-timeline: #66bb6a;
+
+  /* === phone === */
+  --phone-surface: #fdf9f3;
+  --phone-surface-low: #f7f3ed;
+  --phone-surface-container: #f1ede7;
+  --phone-surface-high: #ebe8e2;
+  --phone-surface-highest: #e6e2dc;
+  --phone-surface-dim: #dddad4;
+  --phone-primary: #2c6956;
+  --phone-primary-container: #b1efd8;
+  --phone-on-primary: #ffffff;
+  --phone-on-primary-container: #0d503f;
+  --phone-secondary: #874f4c;
+  --phone-secondary-container: #ffdad7;
+  --phone-secondary-dim: #fcb4b0;
+  --phone-on-secondary-container: #6b3836;
+  --phone-tertiary: #625981;
+  --phone-tertiary-container: #e7deff;
+  --phone-on-tertiary-container: #4a4168;
+  --phone-outline: #647c72;
+  --phone-outline-variant: #b2ccc1;
+  --phone-on-surface: #1c1c18;
+  --phone-on-surface-variant: #344c43;
+  --phone-error: #ba1a1a;
+  --phone-error-container: #ffdad6;
+  --phone-nav-inactive: #874f4c;
+  --phone-nav-active-bg: #b1efd8;
+  --phone-nav-active-text: #2c6956;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+:root[data-skin='metro'][data-theme='dark'] {
+  color-scheme: dark;
+
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(116, 145, 174, 0.18);
+  --account-badge-guest-text: #9cb0c6;
+  --account-badge-pro-bg: rgba(240, 176, 62, 0.16);
+  --account-badge-pro-text: #f6c56a;
+  --account-badge-pro-border: rgba(218, 83, 44, 0.34);
+  --account-sync-local-bg: rgba(116, 145, 174, 0.1);
+  --account-sync-local-text: #8fa4bc;
+  --account-sync-ready-bg: rgba(45, 137, 239, 0.14);
+  --account-sync-ready-text: #8cc0ff;
+  --account-sync-done-bg: rgba(0, 163, 0, 0.14);
+  --account-sync-done-text: #6dd58f;
+  --account-sync-conflict-bg: rgba(218, 83, 44, 0.16);
+  --account-sync-conflict-text: #f0b03e;
+  --account-locked-bg: rgba(116, 145, 174, 0.06);
+  --account-locked-border: rgba(116, 145, 174, 0.16);
+  --account-locked-text: #7f95ad;
+  --account-card-bg: rgba(12, 22, 36, 0.82);
+  --account-card-border: rgba(116, 145, 174, 0.14);
+
+  /* === 图标色 === */
+  --icon-muted: #9db0c5;
+  --icon-subtle: #7e94ad;
+
+  /* === 表面色 === */
+  --surface-page: #09131f;
+  --surface-main: #09131f;
+  --surface-canvas: rgba(8, 19, 31, 0.82);
+  --surface-elevated: rgba(12, 22, 34, 0.88);
+  --surface-soft: rgba(16, 29, 45, 0.76);
+  --surface-glass: rgba(15, 28, 44, 0.72);
+  --surface-glass-strong: rgba(17, 32, 50, 0.9);
+  --surface-panel: rgba(12, 22, 36, 0.86);
+  --surface-panel-strong: rgba(14, 26, 42, 0.94);
+  --surface-card: rgba(17, 29, 44, 0.82);
+  --surface-overlay: rgba(8, 18, 32, 0.94);
+  --surface-code: #08111b;
+  --surface-code-alt: #0d1a28;
+  --surface-input: rgba(11, 22, 36, 0.92);
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(140, 168, 197, 0.12);
+  --border-soft: rgba(116, 145, 174, 0.22);
+  --border-strong: rgba(138, 168, 201, 0.36);
+  --border-accent: rgba(45, 137, 239, 0.38);
+  --border-accent-strong: rgba(0, 80, 239, 0.55);
+  --border-light: #29405a;
+  --border-medium: #38516d;
+  --border-dark: #4e6887;
+  --border-color: #31465e;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #e1e8f0;
+  --text-primary: #e1e8f0;
+  --text-secondary: #b6c4d6;
+  --text-muted: #9caec2;
+  --text-soft: #7f95ad;
+  --text-tertiary: #6c809a;
+  --text-invert: #08111b;
+  --code-text: #d6e1ef;
+  --text-color: #e1e8f0;
+  --text-on-accent: #ffffff;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 14px 30px -20px rgba(0, 0, 0, 0.54);
+  --shadow-md: 0 22px 52px -28px rgba(0, 0, 0, 0.62);
+  --shadow-lg: 0 32px 80px -36px rgba(0, 0, 0, 0.72);
+  --shadow-glow: 0 0 0 1px rgba(45, 137, 239, 0.18), 0 24px 56px -36px rgba(45, 137, 239, 0.36);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-focus-ring: 0 0 0 3px rgba(45, 137, 239, 0.35);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(240, 176, 62, 0.12);
+  --accent-warm-bg-strong: rgba(240, 176, 62, 0.22);
+  --accent-warm-border: rgba(240, 176, 62, 0.3);
+  --accent-warm-border-strong: rgba(240, 176, 62, 0.48);
+  --accent-warm-text: #f0b03e;
+
+  /* === 面板 === */
+  --panel-tint: rgba(45, 137, 239, 0.16);
+
+  /* === 背景 === */
+  --bg-secondary: #101d2b;
+  --bg-tertiary: #142132;
+  --bg-hover: #193149;
+  --bg-color: #09131f;
+
+  /* === 输入框 === */
+  --input-bg: rgba(11, 22, 36, 0.94);
+  --input-border: #31465e;
+
+  /* === HUD === */
+  --hud-bg: rgba(16, 29, 45, 0.76);
+  --hud-border: rgba(240, 176, 62, 0.32);
+  --hud-text: #b5c4d6;
+  --hud-value: #f3f7fb;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(12, 24, 38, 0.9);
+  --choice-panel-border: rgba(45, 137, 239, 0.3);
+  --choice-item-bg: rgba(18, 32, 49, 0.92);
+  --choice-item-border: rgba(116, 145, 174, 0.24);
+  --choice-item-hover-bg: rgba(24, 42, 63, 0.96);
+  --choice-item-active-bg: rgba(31, 54, 78, 0.98);
+  --choice-title: #7fb5ff;
+  --choice-text-primary: #e1e8f0;
+  --choice-text-secondary: #b6c4d6;
+  --choice-default-chip-bg: rgba(45, 137, 239, 0.14);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(12, 24, 38, 0.92);
+  --sticky-text: #b6c4d6;
+  --sticky-value: #f3f7fb;
+
+  /* === 位置 === */
+  --location-separator: rgba(182, 196, 214, 0.28);
+
+  /* === 思考 === */
+  --thinking-text: #9cb0c6;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #1c2a3c;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: rgba(13, 26, 40, 0.92);
+  --chat-bubble-user-bg: rgba(14, 31, 48, 0.92);
+  --chat-bubble-hover-bg: rgba(19, 37, 55, 0.96);
+  --chat-bubble-text: #e1e8f0;
+  --chat-bubble-label: #b6c4d6;
+  --chat-bubble-border-ai: rgba(45, 137, 239, 0.44);
+  --chat-bubble-border-user: rgba(0, 163, 0, 0.32);
+  --chat-bg: #091522;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #09131f;
+  --dcv-toolbar-bg: rgba(8, 18, 32, 0.9);
+  --dcv-toolbar-border: rgba(116, 145, 174, 0.12);
+  --dcv-section-bg: rgba(12, 22, 36, 0.84);
+  --dcv-section-border: rgba(116, 145, 174, 0.12);
+  --dcv-section-hover: rgba(18, 32, 49, 0.9);
+  --dcv-text-primary: #e1e8f0;
+  --dcv-text-secondary: #b6c4d6;
+  --dcv-text-muted: #9caec2;
+  --dcv-text-faint: #7f95ad;
+  --dcv-subitem-bg: rgba(15, 28, 44, 0.78);
+  --dcv-subitem-border: rgba(116, 145, 174, 0.12);
+  --dcv-expanded-bg: rgba(17, 32, 50, 0.9);
+  --dcv-field-bg: rgba(11, 22, 36, 0.92);
+  --dcv-field-border: rgba(116, 145, 174, 0.16);
+  --dcv-btn-hover-bg: rgba(45, 137, 239, 0.14);
+  --dcv-btn-hover-border: rgba(45, 137, 239, 0.28);
+  --dcv-btn-hover-color: #8cc0ff;
+  --dcv-icon-muted: rgba(182, 196, 214, 0.42);
+  --dcv-icon-hover: rgba(225, 232, 240, 0.84);
+  --dcv-scrollbar: rgba(116, 145, 174, 0.24);
+  --dcv-input-bg: rgba(11, 22, 36, 0.96);
+  --dcv-input-border: rgba(116, 145, 174, 0.16);
+  --dcv-input-text: #e1e8f0;
+  --dcv-modal-bg: rgba(8, 18, 32, 0.96);
+  --dcv-modal-border: rgba(116, 145, 174, 0.16);
+  --dcv-modal-text: #e1e8f0;
+  --dcv-modal-btn-bg: rgba(15, 28, 44, 0.84);
+  --dcv-modal-btn-border: rgba(116, 145, 174, 0.18);
+  --dcv-modal-btn-text: #b6c4d6;
+  --dcv-cognitive-warning-bg: rgba(240, 176, 62, 0.14);
+  --dcv-cognitive-warning-border: rgba(218, 83, 44, 0.32);
+  --dcv-cognitive-warning-title: #f0b03e;
+  --dcv-cognitive-warning-text: #ffe1b4;
+  --dcv-cognitive-warning-item-bg: rgba(240, 176, 62, 0.08);
+  --dcv-cognitive-warning-item-border: rgba(240, 176, 62, 0.18);
+  --dcv-cognitive-warning-path-bg: rgba(240, 176, 62, 0.14);
+  --dcv-cognitive-warning-path-text: #ffd89a;
+
+  /* === 语法高亮 === */
+  --syntax-key: #89b4fa;
+  --syntax-string: #f0a878;
+  --syntax-number: #a6d189;
+  --syntax-boolean: #7cb8f0;
+  --syntax-null: #7cb8f0;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #cdd6f4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #90caf9;
+  --narrative-thought: #ce93d8;
+  --narrative-speaker: #ffcc80;
+  --narrative-action: #a5d6a7;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #6366f1;
+  --launcher-btn-primary-hover: #4f46e5;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.6);
+  --launcher-overlay: rgba(0, 0, 0, 0.5);
+
+  /* === 加载 === */
+  --loading-bg: rgba(32, 36, 42, 0.98);
+  --loading-bg-strong: rgba(18, 20, 24, 0.95);
+  --loading-card-bg: rgba(42, 48, 58, 0.82);
+  --loading-gradient-start: #4A7A64;
+  --loading-gradient-end: #687E54;
+  --loading-progress-start: #C28E6A;
+  --loading-progress-mid: #B86B72;
+  --loading-progress-end: #858BBA;
+
+  /* === 调试分段 === */
+  --segment-summary: #66bb6a;
+  --segment-npc-archive: #42a5f5;
+  --segment-mainline: #ffa726;
+  --segment-conversation: #ab47bc;
+  --segment-narrative: #5c6bc0;
+  --segment-reference: #26c6da;
+  --segment-sms: #9ccc65;
+  --segment-game-state: #ffca28;
+  --segment-gm: #78909c;
+  --segment-react: #7e57c2;
+  --segment-step-3: #26a69a;
+  --segment-core: #64b5f6;
+  --segment-custom: #ef5350;
+  --segment-module: #4db6ac;
+  --segment-country: #7986cb;
+  --segment-timeline: #81c784;
+
+  /* === phone === */
+  --phone-surface: #1a1e1c;
+  --phone-surface-low: #222826;
+  --phone-surface-container: #2a302e;
+  --phone-surface-high: #333a37;
+  --phone-surface-highest: #3d4442;
+  --phone-surface-dim: #4a524f;
+  --phone-primary: #7ccfb3;
+  --phone-primary-container: #1a4d3e;
+  --phone-on-primary: #0d503f;
+  --phone-on-primary-container: #b1efd8;
+  --phone-secondary: #e8a8a4;
+  --phone-secondary-container: #5c2d2b;
+  --phone-secondary-dim: #8c5552;
+  --phone-on-secondary-container: #ffdad7;
+  --phone-tertiary: #c4b4e8;
+  --phone-tertiary-container: #3d3560;
+  --phone-on-tertiary-container: #e7deff;
+  --phone-outline: #8fa59b;
+  --phone-outline-variant: #4a6058;
+  --phone-on-surface: #e4e3de;
+  --phone-on-surface-variant: #b2ccc1;
+  --phone-error: #ffb4ab;
+  --phone-error-container: #93000a;
+  --phone-nav-inactive: #e8a8a4;
+  --phone-nav-active-bg: #1a4d3e;
+  --phone-nav-active-text: #b1efd8;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+/* ═══ Cartoon ═══ */
+
+:root[data-skin='cartoon'][data-theme='light'] {
+  color-scheme: light;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    'Nunito',
+    'ZCOOL KuaiLe',
+    'Quicksand',
+    'Comic Sans MS',
+    'Microsoft YaHei',
+    sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 6px;
+  --space-xs: 10px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --space-2xl: 60px;
+
+  /* === 圆角 === */
+  --radius-2xs: 8px;
+  --radius-xs: 12px;
+  --radius-sm: 16px;
+  --radius-md: 24px;
+  --radius-lg: 32px;
+  --radius-xl: 40px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 0px;
+  --blur-md: 0px;
+  --blur-lg: 0px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.15s ease-out;
+  --transition-base: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-slow: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* === 动效 === */
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-slow: 400ms;
+  --easing-standard: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-press-duration: 120ms;
+
+  /* === 品牌色 === */
+  --brand-primary: #FF8FAB;
+  --brand-primary-strong: #F06292;
+  --brand-secondary: #FFC857;
+  --brand-accent: #FF6B6B;
+  --brand-accent-strong: #FF4D4D;
+  --brand-purple: #B084FF;
+  --brand-magenta: #FF6FA3;
+  --brand-yellow: #FFD95C;
+  --brand-lime: #C5E99B;
+  --brand-brown: #C08862;
+
+  /* === 状态色 === */
+  --status-success: #5DD39E;
+  --status-warning: #FFB347;
+  --status-danger: #FF6B6B;
+  --status-info: #5BC4D9;
+
+  /* === 账户 === */
+  --account-avatar-sm: 36px;
+  --account-avatar-md: 48px;
+  --account-avatar-lg: 72px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 500;
+  --weight-normal: 600;
+  --weight-medium: 700;
+  --weight-semibold: 800;
+  --weight-bold: 900;
+  --weight-extrabold: 900;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 1;
+  --opacity-soft: 1;
+  --opacity-medium: 1;
+  --opacity-strong: 1;
+  --opacity-full: 1;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(16px * var(--ui-scale, 1));
+  --icon-size-sm: calc(20px * var(--ui-scale, 1));
+  --icon-size-md: calc(24px * var(--ui-scale, 1));
+  --icon-size-lg: calc(32px * var(--ui-scale, 1));
+  --icon-size-xl: calc(40px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: none;
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: 'ZCOOL KuaiLe', 'ZCOOL Kuaile', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --shape-cartoon-ink: currentColor;
+  --shape-cartoon-shadow-offset: 4px;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* ─── Light 主题令牌 ─── */
+  /* === 账户 === */
+  --account-badge-guest-bg: #E0E0E0;
+  --account-badge-guest-text: #1A1A1A;
+  --account-badge-pro-bg: #FFC857;
+  --account-badge-pro-text: #1A1A1A;
+  --account-badge-pro-border: #2A1A3A;
+  --account-sync-local-bg: #EEEEEE;
+  --account-sync-local-text: #1A1A1A;
+  --account-sync-ready-bg: #FF8FAB;
+  --account-sync-ready-text: #1A1A1A;
+  --account-sync-done-bg: #5DD39E;
+  --account-sync-done-text: #1A1A1A;
+  --account-sync-conflict-bg: #FF6B6B;
+  --account-sync-conflict-text: #FFFFFF;
+  --account-locked-bg: #BDBDBD;
+  --account-locked-border: #2A1A3A;
+  --account-locked-text: #1A1A1A;
+  --account-card-bg: #FFFFFF;
+  --account-card-border: #2A1A3A;
+
+  /* === 图标色 === */
+  --icon-muted: #2A1A3A;
+  --icon-subtle: #4D3550;
+
+  /* === 表面色 === */
+  --surface-page: #E6F4EA;
+  --surface-main: #FFFFFF;
+  --surface-canvas: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --surface-soft: #F0FAF3;
+  --surface-glass: #FFFFFF;
+  --surface-glass-strong: #FFFFFF;
+  --surface-panel: #E6F4EA;
+  --surface-panel-strong: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --surface-overlay: #FFFFFF;
+  --surface-code: #2C3E50;
+  --surface-code-alt: #34495E;
+  --surface-input: #FFFFFF;
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: #2A1A3A;
+  --border-soft: #2A1A3A;
+  --border-strong: #2A1A3A;
+  --border-accent: #2A1A3A;
+  --border-accent-strong: #2A1A3A;
+  --border-light: #2A1A3A;
+  --border-medium: #2A1A3A;
+  --border-dark: #2A1A3A;
+  --border-color: #2A1A3A;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #1A1A1A;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --text-soft: #808080;
+  --text-tertiary: #999999;
+  --text-invert: #FFFFFF;
+  --code-text: #ECF0F1;
+  --text-color: #1A1A1A;
+  --text-on-accent: #FFFFFF;
+
+  /* === 阴影 === */
+  --shadow-sm: 1px 1px 0px #2A1A3A;
+  --shadow-md: 2px 2px 0px #2A1A3A;
+  --shadow-lg: 4px 4px 0px #2A1A3A;
+  --shadow-glow: 0 0 0 2px #2A1A3A, 2px 2px 0px #FF8FAB;
+  --shadow-inset: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  --shadow-focus-ring: 0 0 0 3px #2A1A3A;
+
+  /* === 温色强调 === */
+  --accent-warm-bg: #FFC857;
+  --accent-warm-bg-strong: #FF9E2C;
+  --accent-warm-border: #2A1A3A;
+  --accent-warm-border-strong: #2A1A3A;
+  --accent-warm-text: #2A1A3A;
+
+  /* === 面板 === */
+  --panel-tint: #FF8FAB;
+
+  /* === 背景 === */
+  --bg-secondary: #F0FAF3;
+  --bg-tertiary: #D8ECDF;
+  --bg-hover: #CDE4D4;
+  --bg-color: #E6F4EA;
+
+  /* === 输入框 === */
+  --input-bg: #FFFFFF;
+  --input-border: #2A1A3A;
+
+  /* === HUD === */
+  --hud-bg: #FFFFFF;
+  --hud-border: #2A1A3A;
+  --hud-text: #2A1A3A;
+  --hud-value: #FF6B6B;
+
+  /* === 选项 === */
+  --choice-panel-bg: #FFFFFF;
+  --choice-panel-border: #2A1A3A;
+  --choice-item-bg: #FFFFFF;
+  --choice-item-border: #2A1A3A;
+  --choice-item-hover-bg: #CDE4D4;
+  --choice-item-active-bg: #FFE7B8;
+  --choice-title: #F06292;
+  --choice-text-primary: #2A1A3A;
+  --choice-text-secondary: #4D3550;
+  --choice-default-chip-bg: #FFD95C;
+
+  /* === 固定栏 === */
+  --sticky-bg: #FFD95C;
+  --sticky-text: #2A1A3A;
+  --sticky-value: #FF6B6B;
+
+  /* === 位置 === */
+  --location-separator: #2A1A3A;
+
+  /* === 思考 === */
+  --thinking-text: #95A5A6;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #FFFFFF;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: #FFFFFF;
+  --chat-bubble-user-bg: #FFE7B8;
+  --chat-bubble-hover-bg: #F0FAF3;
+  --chat-bubble-text: #2A1A3A;
+  --chat-bubble-label: #3D2A4A;
+  --chat-bubble-border-ai: #2A1A3A;
+  --chat-bubble-border-user: #2A1A3A;
+  --chat-bg: #E6F4EA;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #E6F4EA;
+  --dcv-toolbar-bg: #FFFFFF;
+  --dcv-toolbar-border: #2A1A3A;
+  --dcv-section-bg: #FFFFFF;
+  --dcv-section-border: #2A1A3A;
+  --dcv-section-hover: #CDE4D4;
+  --dcv-text-primary: #1A1A1A;
+  --dcv-text-secondary: #333333;
+  --dcv-text-muted: #666666;
+  --dcv-text-faint: #999999;
+  --dcv-subitem-bg: #F0FAF3;
+  --dcv-subitem-border: #2A1A3A;
+  --dcv-expanded-bg: #CDE4D4;
+  --dcv-field-bg: #FFFFFF;
+  --dcv-field-border: #2A1A3A;
+  --dcv-btn-hover-bg: #FFC857;
+  --dcv-btn-hover-border: #2A1A3A;
+  --dcv-btn-hover-color: #1A1A1A;
+  --dcv-icon-muted: #2A1A3A;
+  --dcv-icon-hover: #FF6B6B;
+  --dcv-scrollbar: #2A1A3A;
+  --dcv-input-bg: #FFFFFF;
+  --dcv-input-border: #2A1A3A;
+  --dcv-input-text: #1A1A1A;
+  --dcv-modal-bg: #FFFFFF;
+  --dcv-modal-border: #2A1A3A;
+  --dcv-modal-text: #1A1A1A;
+  --dcv-modal-btn-bg: #FFC857;
+  --dcv-modal-btn-border: #2A1A3A;
+  --dcv-modal-btn-text: #1A1A1A;
+  --dcv-cognitive-warning-bg: #FFB347;
+  --dcv-cognitive-warning-border: #2A1A3A;
+  --dcv-cognitive-warning-title: #1A1A1A;
+  --dcv-cognitive-warning-text: #1A1A1A;
+  --dcv-cognitive-warning-item-bg: #FFFFFF;
+  --dcv-cognitive-warning-item-border: #2A1A3A;
+  --dcv-cognitive-warning-path-bg: #FFC857;
+  --dcv-cognitive-warning-path-text: #1A1A1A;
+
+  /* === 语法高亮 === */
+  --syntax-key: #9cdcfe;
+  --syntax-string: #ce9178;
+  --syntax-number: #b5cea8;
+  --syntax-boolean: #569cd6;
+  --syntax-null: #569cd6;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #d4d4d4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #1565c0;
+  --narrative-thought: #7b1fa2;
+  --narrative-speaker: #d84315;
+  --narrative-action: #2e7d32;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #4f46e5;
+  --launcher-btn-primary-hover: #4338ca;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.5);
+  --launcher-overlay: rgba(0, 0, 0, 0.4);
+
+  /* === 加载 === */
+  --loading-bg: rgba(252, 250, 246, 0.98);
+  --loading-bg-strong: rgba(238, 233, 226, 0.95);
+  --loading-card-bg: rgba(255, 255, 255, 0.82);
+  --loading-gradient-start: #B5EAD7;
+  --loading-gradient-end: #E2F0CB;
+  --loading-progress-start: #FFD3B6;
+  --loading-progress-mid: #FF9AA2;
+  --loading-progress-end: #C7CEEA;
+
+  /* === 调试分段 === */
+  --segment-summary: #4caf50;
+  --segment-npc-archive: #2196f3;
+  --segment-mainline: #ff9800;
+  --segment-conversation: #9c27b0;
+  --segment-narrative: #3f51b5;
+  --segment-reference: #00bcd4;
+  --segment-sms: #8bc34a;
+  --segment-game-state: #ffc107;
+  --segment-gm: #607d8b;
+  --segment-react: #673ab7;
+  --segment-step-3: #009688;
+  --segment-core: #42a5f5;
+  --segment-custom: #ef5350;
+  --segment-module: #26a69a;
+  --segment-country: #5c6bc0;
+  --segment-timeline: #66bb6a;
+
+  /* === phone === */
+  --phone-surface: #fdf9f3;
+  --phone-surface-low: #f7f3ed;
+  --phone-surface-container: #f1ede7;
+  --phone-surface-high: #ebe8e2;
+  --phone-surface-highest: #e6e2dc;
+  --phone-surface-dim: #dddad4;
+  --phone-primary: #2c6956;
+  --phone-primary-container: #b1efd8;
+  --phone-on-primary: #ffffff;
+  --phone-on-primary-container: #0d503f;
+  --phone-secondary: #874f4c;
+  --phone-secondary-container: #ffdad7;
+  --phone-secondary-dim: #fcb4b0;
+  --phone-on-secondary-container: #6b3836;
+  --phone-tertiary: #625981;
+  --phone-tertiary-container: #e7deff;
+  --phone-on-tertiary-container: #4a4168;
+  --phone-outline: #647c72;
+  --phone-outline-variant: #b2ccc1;
+  --phone-on-surface: #1c1c18;
+  --phone-on-surface-variant: #344c43;
+  --phone-error: #ba1a1a;
+  --phone-error-container: #ffdad6;
+  --phone-nav-inactive: #874f4c;
+  --phone-nav-active-bg: #b1efd8;
+  --phone-nav-active-text: #2c6956;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+:root[data-skin='cartoon'][data-theme='dark'] {
+  color-scheme: dark;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    'Nunito',
+    'ZCOOL KuaiLe',
+    'Quicksand',
+    'Comic Sans MS',
+    'Microsoft YaHei',
+    sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 6px;
+  --space-xs: 10px;
+  --space-sm: 14px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --space-2xl: 60px;
+
+  /* === 圆角 === */
+  --radius-2xs: 8px;
+  --radius-xs: 12px;
+  --radius-sm: 16px;
+  --radius-md: 24px;
+  --radius-lg: 32px;
+  --radius-xl: 40px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 0px;
+  --blur-md: 0px;
+  --blur-lg: 0px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.15s ease-out;
+  --transition-base: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-slow: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* === 动效 === */
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-slow: 400ms;
+  --easing-standard: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-press-duration: 120ms;
+
+  /* === 品牌色 === */
+  --brand-primary: #FF8FAB;
+  --brand-primary-strong: #F06292;
+  --brand-secondary: #FFC857;
+  --brand-accent: #FF6B6B;
+  --brand-accent-strong: #FF4D4D;
+  --brand-purple: #B084FF;
+  --brand-magenta: #FF6FA3;
+  --brand-yellow: #FFD95C;
+  --brand-lime: #C5E99B;
+  --brand-brown: #C08862;
+
+  /* === 状态色 === */
+  --status-success: #5DD39E;
+  --status-warning: #FFB347;
+  --status-danger: #FF6B6B;
+  --status-info: #5BC4D9;
+
+  /* === 账户 === */
+  --account-avatar-sm: 36px;
+  --account-avatar-md: 48px;
+  --account-avatar-lg: 72px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 500;
+  --weight-normal: 600;
+  --weight-medium: 700;
+  --weight-semibold: 800;
+  --weight-bold: 900;
+  --weight-extrabold: 900;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 1;
+  --opacity-soft: 1;
+  --opacity-medium: 1;
+  --opacity-strong: 1;
+  --opacity-full: 1;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(16px * var(--ui-scale, 1));
+  --icon-size-sm: calc(20px * var(--ui-scale, 1));
+  --icon-size-md: calc(24px * var(--ui-scale, 1));
+  --icon-size-lg: calc(32px * var(--ui-scale, 1));
+  --icon-size-xl: calc(40px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: none;
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: 'ZCOOL KuaiLe', 'ZCOOL Kuaile', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --shape-cartoon-ink: currentColor;
+  --shape-cartoon-shadow-offset: 4px;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* === 账户 === */
+  --account-badge-guest-bg: #3C544C;
+  --account-badge-guest-text: #FFFFFF;
+  --account-badge-pro-bg: #FFC857;
+  --account-badge-pro-text: #1A1A1A;
+  --account-badge-pro-border: #FFF8E7;
+  --account-sync-local-bg: #324640;
+  --account-sync-local-text: #FFFFFF;
+  --account-sync-ready-bg: #FF8FAB;
+  --account-sync-ready-text: #1A1A1A;
+  --account-sync-done-bg: #5DD39E;
+  --account-sync-done-text: #1A1A1A;
+  --account-sync-conflict-bg: #FF6B6B;
+  --account-sync-conflict-text: #FFFFFF;
+  --account-locked-bg: #283832;
+  --account-locked-border: #FFF8E7;
+  --account-locked-text: #FFFFFF;
+  --account-card-bg: #324640;
+  --account-card-border: #FFF8E7;
+
+  /* === 图标色 === */
+  --icon-muted: #FFFFFF;
+  --icon-subtle: #CCCCCC;
+
+  /* === 表面色 === */
+  --surface-page: #1F2A24;
+  --surface-main: #1F2A24;
+  --surface-canvas: #1F2A24;
+  --surface-elevated: #324640;
+  --surface-soft: #283832;
+  --surface-glass: #324640;
+  --surface-glass-strong: #3C544C;
+  --surface-panel: #1F2A24;
+  --surface-panel-strong: #324640;
+  --surface-card: #324640;
+  --surface-overlay: #1F2A24;
+  --surface-code: #0F0F15;
+  --surface-code-alt: #1A1A24;
+  --surface-input: #324640;
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: #FFF8E7;
+  --border-soft: #FFF8E7;
+  --border-strong: #FFF8E7;
+  --border-accent: #FFF8E7;
+  --border-accent-strong: #FFF8E7;
+  --border-light: #FFF8E7;
+  --border-medium: #FFF8E7;
+  --border-dark: #FFF8E7;
+  --border-color: #FFF8E7;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #FFFFFF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E0E0E0;
+  --text-muted: #B3B3B3;
+  --text-soft: #999999;
+  --text-tertiary: #808080;
+  --text-invert: #1A1A1A;
+  --code-text: #FF8FAB;
+  --text-color: #FFFFFF;
+  --text-on-accent: #FFFFFF;
+
+  /* === 阴影 === */
+  --shadow-sm: 1px 1px 0px #000000;
+  --shadow-md: 2px 2px 0px #000000;
+  --shadow-lg: 4px 4px 0px #000000;
+  --shadow-glow: 0 0 0 2px #FFF8E7, 2px 2px 0px #FFC857;
+  --shadow-inset: inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-focus-ring: 0 0 0 3px #FFF8E7;
+
+  /* === 温色强调 === */
+  --accent-warm-bg: #FFC857;
+  --accent-warm-bg-strong: #FF9E2C;
+  --accent-warm-border: #FFF8E7;
+  --accent-warm-border-strong: #FFF8E7;
+  --accent-warm-text: #1A1A1A;
+
+  /* === 面板 === */
+  --panel-tint: #FF6FA3;
+
+  /* === 背景 === */
+  --bg-secondary: #283832;
+  --bg-tertiary: #283832;
+  --bg-hover: #3C544C;
+  --bg-color: #1F2A24;
+
+  /* === 输入框 === */
+  --input-bg: #283832;
+  --input-border: #FFF8E7;
+
+  /* === HUD === */
+  --hud-bg: #324640;
+  --hud-border: #FFF8E7;
+  --hud-text: #FFFFFF;
+  --hud-value: #FFD95C;
+
+  /* === 选项 === */
+  --choice-panel-bg: #1F2A24;
+  --choice-panel-border: #FFF8E7;
+  --choice-item-bg: #324640;
+  --choice-item-border: #FFF8E7;
+  --choice-item-hover-bg: #3C544C;
+  --choice-item-active-bg: #FFC857;
+  --choice-title: #FF8FAB;
+  --choice-text-primary: #FFFFFF;
+  --choice-text-secondary: #CCCCCC;
+  --choice-default-chip-bg: #FF6FA3;
+
+  /* === 固定栏 === */
+  --sticky-bg: #FFC857;
+  --sticky-text: #1A1A1A;
+  --sticky-value: #1A1A1A;
+
+  /* === 位置 === */
+  --location-separator: #FFF8E7;
+
+  /* === 思考 === */
+  --thinking-text: #B084FF;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #1F2A24;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: #324640;
+  --chat-bubble-user-bg: #FFC857;
+  --chat-bubble-hover-bg: #3C544C;
+  --chat-bubble-text: #FFFFFF;
+  --chat-bubble-label: #CCCCCC;
+  --chat-bubble-border-ai: #FFF8E7;
+  --chat-bubble-border-user: #FFF8E7;
+  --chat-bg: #1F2A24;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #1F2A24;
+  --dcv-toolbar-bg: #1F2A24;
+  --dcv-toolbar-border: #FFF8E7;
+  --dcv-section-bg: #324640;
+  --dcv-section-border: #FFF8E7;
+  --dcv-section-hover: #3C544C;
+  --dcv-text-primary: #FFFFFF;
+  --dcv-text-secondary: #CCCCCC;
+  --dcv-text-muted: #B3B3B3;
+  --dcv-text-faint: #999999;
+  --dcv-subitem-bg: #1F2A24;
+  --dcv-subitem-border: #FFF8E7;
+  --dcv-expanded-bg: #3C544C;
+  --dcv-field-bg: #283832;
+  --dcv-field-border: #FFF8E7;
+  --dcv-btn-hover-bg: #FF8FAB;
+  --dcv-btn-hover-border: #FFF8E7;
+  --dcv-btn-hover-color: #1A1A1A;
+  --dcv-icon-muted: #FFFFFF;
+  --dcv-icon-hover: #FFC857;
+  --dcv-scrollbar: #FFF8E7;
+  --dcv-input-bg: #283832;
+  --dcv-input-border: #FFF8E7;
+  --dcv-input-text: #FFFFFF;
+  --dcv-modal-bg: #1F2A24;
+  --dcv-modal-border: #FFF8E7;
+  --dcv-modal-text: #FFFFFF;
+  --dcv-modal-btn-bg: #FF8FAB;
+  --dcv-modal-btn-border: #FFF8E7;
+  --dcv-modal-btn-text: #1A1A1A;
+  --dcv-cognitive-warning-bg: #FFB347;
+  --dcv-cognitive-warning-border: #FFF8E7;
+  --dcv-cognitive-warning-title: #1A1A1A;
+  --dcv-cognitive-warning-text: #1A1A1A;
+  --dcv-cognitive-warning-item-bg: #FFFFFF;
+  --dcv-cognitive-warning-item-border: #FFF8E7;
+  --dcv-cognitive-warning-path-bg: #FFC857;
+  --dcv-cognitive-warning-path-text: #1A1A1A;
+
+  /* === 语法高亮 === */
+  --syntax-key: #89b4fa;
+  --syntax-string: #f0a878;
+  --syntax-number: #a6d189;
+  --syntax-boolean: #7cb8f0;
+  --syntax-null: #7cb8f0;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #cdd6f4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #90caf9;
+  --narrative-thought: #ce93d8;
+  --narrative-speaker: #ffcc80;
+  --narrative-action: #a5d6a7;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #6366f1;
+  --launcher-btn-primary-hover: #4f46e5;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.6);
+  --launcher-overlay: rgba(0, 0, 0, 0.5);
+
+  /* === 加载 === */
+  --loading-bg: rgba(32, 36, 42, 0.98);
+  --loading-bg-strong: rgba(18, 20, 24, 0.95);
+  --loading-card-bg: rgba(42, 48, 58, 0.82);
+  --loading-gradient-start: #4A7A64;
+  --loading-gradient-end: #687E54;
+  --loading-progress-start: #C28E6A;
+  --loading-progress-mid: #B86B72;
+  --loading-progress-end: #858BBA;
+
+  /* === 调试分段 === */
+  --segment-summary: #66bb6a;
+  --segment-npc-archive: #42a5f5;
+  --segment-mainline: #ffa726;
+  --segment-conversation: #ab47bc;
+  --segment-narrative: #5c6bc0;
+  --segment-reference: #26c6da;
+  --segment-sms: #9ccc65;
+  --segment-game-state: #ffca28;
+  --segment-gm: #78909c;
+  --segment-react: #7e57c2;
+  --segment-step-3: #26a69a;
+  --segment-core: #64b5f6;
+  --segment-custom: #ef5350;
+  --segment-module: #4db6ac;
+  --segment-country: #7986cb;
+  --segment-timeline: #81c784;
+
+  /* === phone === */
+  --phone-surface: #1a1e1c;
+  --phone-surface-low: #222826;
+  --phone-surface-container: #2a302e;
+  --phone-surface-high: #333a37;
+  --phone-surface-highest: #3d4442;
+  --phone-surface-dim: #4a524f;
+  --phone-primary: #7ccfb3;
+  --phone-primary-container: #1a4d3e;
+  --phone-on-primary: #0d503f;
+  --phone-on-primary-container: #b1efd8;
+  --phone-secondary: #e8a8a4;
+  --phone-secondary-container: #5c2d2b;
+  --phone-secondary-dim: #8c5552;
+  --phone-on-secondary-container: #ffdad7;
+  --phone-tertiary: #c4b4e8;
+  --phone-tertiary-container: #3d3560;
+  --phone-on-tertiary-container: #e7deff;
+  --phone-outline: #8fa59b;
+  --phone-outline-variant: #4a6058;
+  --phone-on-surface: #e4e3de;
+  --phone-on-surface-variant: #b2ccc1;
+  --phone-error: #ffb4ab;
+  --phone-error-container: #93000a;
+  --phone-nav-inactive: #e8a8a4;
+  --phone-nav-active-bg: #1a4d3e;
+  --phone-nav-active-text: #b1efd8;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+/* ═══ Ink Wash Xianxia ═══ */
+
+:root[data-skin='cultivation'][data-theme='light'] {
+  color-scheme: light;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui: 'Kaiti SC', 'STKaiti', 'LXGW WenKai', 'Songti SC', 'Noto Serif SC', serif;
+  --font-mono: 'Courier New', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 36px;
+  --space-xl: 48px;
+  --space-2xl: 72px;
+
+  /* === 圆角 === */
+  --radius-2xs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 32px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.3s ease-in-out;
+  --transition-base: 0.5s ease-in-out;
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === 动效 === */
+  --motion-fast: 300ms;
+  --motion-base: 500ms;
+  --motion-slow: 800ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-press-duration: 120ms;
+
+  /* === 品牌色 === */
+  --brand-primary: #2b4255;
+  --brand-primary-strong: #1a2833;
+  --brand-secondary: #1a6840;
+  --brand-accent: #c83c23;
+  --brand-accent-strong: #8a1a0f;
+  --brand-purple: #5c3d64;
+  --brand-magenta: #9c3b5a;
+  --brand-yellow: #d4a35b;
+  --brand-lime: #7b8b40;
+  --brand-brown: #6b4f3b;
+
+  /* === 状态色 === */
+  --status-success: #1a6840;
+  --status-warning: #d4a35b;
+  --status-danger: #c83c23;
+  --status-info: #2b4255;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 44px;
+  --account-avatar-lg: 68px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 700;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.15;
+  --opacity-soft: 0.3;
+  --opacity-medium: 0.5;
+  --opacity-strong: 0.75;
+  --opacity-full: 0.9;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(16px * var(--ui-scale, 1));
+  --icon-size-sm: calc(18px * var(--ui-scale, 1));
+  --icon-size-md: calc(24px * var(--ui-scale, 1));
+  --icon-size-lg: calc(32px * var(--ui-scale, 1));
+  --icon-size-xl: calc(40px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: url(#shape-scroll-input);
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: 'LXGW WenKai', 'LXGW Wenkai', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --shape-cultivation-gold: #b08d3e;
+  --shape-cultivation-gold-soft: #d4b878;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* ─── Light 主题令牌 ─── */
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(118, 114, 109, 0.1);
+  --account-badge-guest-text: #76726d;
+  --account-badge-pro-bg: rgba(212, 163, 91, 0.15);
+  --account-badge-pro-text: #b8863f;
+  --account-badge-pro-border: rgba(212, 163, 91, 0.4);
+  --account-sync-local-bg: rgba(118, 114, 109, 0.08);
+  --account-sync-local-text: #9a958f;
+  --account-sync-ready-bg: rgba(43, 66, 85, 0.08);
+  --account-sync-ready-text: #2b4255;
+  --account-sync-done-bg: rgba(26, 104, 64, 0.1);
+  --account-sync-done-text: #1a6840;
+  --account-sync-conflict-bg: rgba(200, 60, 35, 0.1);
+  --account-sync-conflict-text: #c83c23;
+  --account-locked-bg: rgba(118, 114, 109, 0.05);
+  --account-locked-border: rgba(118, 114, 109, 0.2);
+  --account-locked-text: #9a958f;
+  --account-card-bg: #fcfaf2;
+  --account-card-border: rgba(42, 40, 38, 0.1);
+
+  /* === 图标色 === */
+  --icon-muted: #5a5652;
+  --icon-subtle: #8a847c;
+
+  /* === 表面色 === */
+  --surface-page: #f6f4e8;
+  --surface-main: #fcfaf2;
+  --surface-canvas: rgba(246, 244, 232, 0.8);
+  --surface-elevated: #ffffff;
+  --surface-soft: #efebe0;
+  --surface-glass: rgba(252, 250, 242, 0.6);
+  --surface-glass-strong: rgba(246, 244, 232, 0.9);
+  --surface-panel: #fcfaf2;
+  --surface-panel-strong: #f6f4e8;
+  --surface-card: #ffffff;
+  --surface-overlay: rgba(246, 244, 232, 0.95);
+  --surface-code: #262422;
+  --surface-code-alt: #383531;
+  --surface-input: #ffffff;
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(42, 40, 38, 0.08);
+  --border-soft: rgba(42, 40, 38, 0.15);
+  --border-strong: rgba(42, 40, 38, 0.3);
+  --border-accent: rgba(200, 60, 35, 0.4);
+  --border-accent-strong: rgba(200, 60, 35, 0.8);
+  --border-light: #e8e4d8;
+  --border-medium: #d8d0c0;
+  --border-dark: #b0a898;
+  --border-color: #d8d0c0;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #1a1a1a;
+  --text-primary: #2a2826;
+  --text-secondary: #4a4642;
+  --text-muted: #76726d;
+  --text-soft: #9a958f;
+  --text-tertiary: #b0a898;
+  --text-invert: #fcfaf2;
+  --code-text: #d8d0c0;
+  --text-color: #2a2826;
+  --text-on-accent: #fcfaf2;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 4px 16px -8px rgba(42, 40, 38, 0.1);
+  --shadow-md: 0 8px 32px -12px rgba(42, 40, 38, 0.15);
+  --shadow-lg: 0 16px 48px -16px rgba(42, 40, 38, 0.2);
+  --shadow-glow: 0 0 16px rgba(212, 163, 91, 0.3);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-focus-ring: 0 0 0 2px rgba(200, 60, 35, 0.2);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(212, 163, 91, 0.1);
+  --accent-warm-bg-strong: rgba(212, 163, 91, 0.2);
+  --accent-warm-border: rgba(212, 163, 91, 0.4);
+  --accent-warm-border-strong: rgba(212, 163, 91, 0.6);
+  --accent-warm-text: #b8863f;
+
+  /* === 面板 === */
+  --panel-tint: rgba(43, 66, 85, 0.05);
+
+  /* === 背景 === */
+  --bg-secondary: #f0ede1;
+  --bg-tertiary: #e8e4d8;
+  --bg-hover: #fcfaf2;
+  --bg-color: #f6f4e8;
+
+  /* === 输入框 === */
+  --input-bg: #ffffff;
+  --input-border: #d8d0c0;
+
+  /* === HUD === */
+  --hud-bg: rgba(246, 244, 232, 0.8);
+  --hud-border: rgba(43, 66, 85, 0.3);
+  --hud-text: #4a4642;
+  --hud-value: #1a1a1a;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(252, 250, 242, 0.9);
+  --choice-panel-border: rgba(216, 208, 192, 0.8);
+  --choice-item-bg: #fcfaf2;
+  --choice-item-border: #d8d0c0;
+  --choice-item-hover-bg: #f6f4e8;
+  --choice-item-active-bg: rgba(212, 163, 91, 0.15);
+  --choice-title: #c83c23;
+  --choice-text-primary: #2a2826;
+  --choice-text-secondary: #76726d;
+  --choice-default-chip-bg: rgba(42, 40, 38, 0.05);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(252, 250, 242, 0.95);
+  --sticky-text: #76726d;
+  --sticky-value: #2a2826;
+
+  /* === 位置 === */
+  --location-separator: rgba(42, 40, 38, 0.2);
+
+  /* === 思考 === */
+  --thinking-text: #8a847c;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #f6f4e8;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: #ffffff;
+  --chat-bubble-user-bg: #f0ede1;
+  --chat-bubble-hover-bg: #fcfaf2;
+  --chat-bubble-text: #2a2826;
+  --chat-bubble-label: #76726d;
+  --chat-bubble-border-ai: rgba(43, 66, 85, 0.2);
+  --chat-bubble-border-user: rgba(26, 104, 64, 0.2);
+  --chat-bg: #e8e4d8;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #f6f4e8;
+  --dcv-toolbar-bg: #fcfaf2;
+  --dcv-toolbar-border: #d8d0c0;
+  --dcv-section-bg: #ffffff;
+  --dcv-section-border: #d8d0c0;
+  --dcv-section-hover: #fcfaf2;
+  --dcv-text-primary: #2a2826;
+  --dcv-text-secondary: #4a4642;
+  --dcv-text-muted: #76726d;
+  --dcv-text-faint: #9a958f;
+  --dcv-subitem-bg: #fcfaf2;
+  --dcv-subitem-border: rgba(216, 208, 192, 0.5);
+  --dcv-expanded-bg: #f0ede1;
+  --dcv-field-bg: #ffffff;
+  --dcv-field-border: #d8d0c0;
+  --dcv-btn-hover-bg: rgba(200, 60, 35, 0.08);
+  --dcv-btn-hover-border: rgba(200, 60, 35, 0.3);
+  --dcv-btn-hover-color: #c83c23;
+  --dcv-icon-muted: rgba(42, 40, 38, 0.5);
+  --dcv-icon-hover: #2a2826;
+  --dcv-scrollbar: rgba(42, 40, 38, 0.15);
+  --dcv-input-bg: #ffffff;
+  --dcv-input-border: #d8d0c0;
+  --dcv-input-text: #2a2826;
+  --dcv-modal-bg: #fcfaf2;
+  --dcv-modal-border: #d8d0c0;
+  --dcv-modal-text: #2a2826;
+  --dcv-modal-btn-bg: #ffffff;
+  --dcv-modal-btn-border: #d8d0c0;
+  --dcv-modal-btn-text: #4a4642;
+  --dcv-cognitive-warning-bg: rgba(212, 163, 91, 0.15);
+  --dcv-cognitive-warning-border: rgba(200, 60, 35, 0.4);
+  --dcv-cognitive-warning-title: #b8863f;
+  --dcv-cognitive-warning-text: #704d22;
+  --dcv-cognitive-warning-item-bg: #fcfaf2;
+  --dcv-cognitive-warning-item-border: rgba(212, 163, 91, 0.3);
+  --dcv-cognitive-warning-path-bg: rgba(212, 163, 91, 0.2);
+  --dcv-cognitive-warning-path-text: #704d22;
+
+  /* === 语法高亮 === */
+  --syntax-key: #9cdcfe;
+  --syntax-string: #ce9178;
+  --syntax-number: #b5cea8;
+  --syntax-boolean: #569cd6;
+  --syntax-null: #569cd6;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #d4d4d4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #1565c0;
+  --narrative-thought: #7b1fa2;
+  --narrative-speaker: #d84315;
+  --narrative-action: #2e7d32;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #4f46e5;
+  --launcher-btn-primary-hover: #4338ca;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.5);
+  --launcher-overlay: rgba(0, 0, 0, 0.4);
+
+  /* === 加载 === */
+  --loading-bg: rgba(252, 250, 246, 0.98);
+  --loading-bg-strong: rgba(238, 233, 226, 0.95);
+  --loading-card-bg: rgba(255, 255, 255, 0.82);
+  --loading-gradient-start: #B5EAD7;
+  --loading-gradient-end: #E2F0CB;
+  --loading-progress-start: #FFD3B6;
+  --loading-progress-mid: #FF9AA2;
+  --loading-progress-end: #C7CEEA;
+
+  /* === 调试分段 === */
+  --segment-summary: #4caf50;
+  --segment-npc-archive: #2196f3;
+  --segment-mainline: #ff9800;
+  --segment-conversation: #9c27b0;
+  --segment-narrative: #3f51b5;
+  --segment-reference: #00bcd4;
+  --segment-sms: #8bc34a;
+  --segment-game-state: #ffc107;
+  --segment-gm: #607d8b;
+  --segment-react: #673ab7;
+  --segment-step-3: #009688;
+  --segment-core: #42a5f5;
+  --segment-custom: #ef5350;
+  --segment-module: #26a69a;
+  --segment-country: #5c6bc0;
+  --segment-timeline: #66bb6a;
+
+  /* === phone === */
+  --phone-surface: #fdf9f3;
+  --phone-surface-low: #f7f3ed;
+  --phone-surface-container: #f1ede7;
+  --phone-surface-high: #ebe8e2;
+  --phone-surface-highest: #e6e2dc;
+  --phone-surface-dim: #dddad4;
+  --phone-primary: #2c6956;
+  --phone-primary-container: #b1efd8;
+  --phone-on-primary: #ffffff;
+  --phone-on-primary-container: #0d503f;
+  --phone-secondary: #874f4c;
+  --phone-secondary-container: #ffdad7;
+  --phone-secondary-dim: #fcb4b0;
+  --phone-on-secondary-container: #6b3836;
+  --phone-tertiary: #625981;
+  --phone-tertiary-container: #e7deff;
+  --phone-on-tertiary-container: #4a4168;
+  --phone-outline: #647c72;
+  --phone-outline-variant: #b2ccc1;
+  --phone-on-surface: #1c1c18;
+  --phone-on-surface-variant: #344c43;
+  --phone-error: #ba1a1a;
+  --phone-error-container: #ffdad6;
+  --phone-nav-inactive: #874f4c;
+  --phone-nav-active-bg: #b1efd8;
+  --phone-nav-active-text: #2c6956;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+:root[data-skin='cultivation'][data-theme='dark'] {
+  color-scheme: dark;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui: 'Kaiti SC', 'STKaiti', 'LXGW WenKai', 'Songti SC', 'Noto Serif SC', serif;
+  --font-mono: 'Courier New', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 36px;
+  --space-xl: 48px;
+  --space-2xl: 72px;
+
+  /* === 圆角 === */
+  --radius-2xs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 32px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.3s ease-in-out;
+  --transition-base: 0.5s ease-in-out;
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === 动效 === */
+  --motion-fast: 300ms;
+  --motion-base: 500ms;
+  --motion-slow: 800ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-press-duration: 120ms;
+
+  /* === 品牌色 === */
+  --brand-primary: #2b4255;
+  --brand-primary-strong: #1a2833;
+  --brand-secondary: #1a6840;
+  --brand-accent: #c83c23;
+  --brand-accent-strong: #8a1a0f;
+  --brand-purple: #5c3d64;
+  --brand-magenta: #9c3b5a;
+  --brand-yellow: #d4a35b;
+  --brand-lime: #7b8b40;
+  --brand-brown: #6b4f3b;
+
+  /* === 状态色 === */
+  --status-success: #1a6840;
+  --status-warning: #d4a35b;
+  --status-danger: #c83c23;
+  --status-info: #2b4255;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 44px;
+  --account-avatar-lg: 68px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 700;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.15;
+  --opacity-soft: 0.3;
+  --opacity-medium: 0.5;
+  --opacity-strong: 0.75;
+  --opacity-full: 0.9;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(16px * var(--ui-scale, 1));
+  --icon-size-sm: calc(18px * var(--ui-scale, 1));
+  --icon-size-md: calc(24px * var(--ui-scale, 1));
+  --icon-size-lg: calc(32px * var(--ui-scale, 1));
+  --icon-size-xl: calc(40px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: url(#shape-scroll-input);
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: 'LXGW WenKai', 'LXGW Wenkai', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --shape-cultivation-gold: #b08d3e;
+  --shape-cultivation-gold-soft: #d4b878;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(139, 140, 141, 0.15);
+  --account-badge-guest-text: #a0a2a6;
+  --account-badge-pro-bg: rgba(212, 163, 91, 0.15);
+  --account-badge-pro-text: #d4a35b;
+  --account-badge-pro-border: rgba(212, 163, 91, 0.4);
+  --account-sync-local-bg: rgba(139, 140, 141, 0.1);
+  --account-sync-local-text: #8b8c8d;
+  --account-sync-ready-bg: rgba(43, 66, 85, 0.2);
+  --account-sync-ready-text: #6e94b5;
+  --account-sync-done-bg: rgba(26, 104, 64, 0.2);
+  --account-sync-done-text: #4ca173;
+  --account-sync-conflict-bg: rgba(200, 60, 35, 0.2);
+  --account-sync-conflict-text: #e5725f;
+  --account-locked-bg: rgba(139, 140, 141, 0.08);
+  --account-locked-border: rgba(139, 140, 141, 0.2);
+  --account-locked-text: #6a6b6d;
+  --account-card-bg: #1d1e20;
+  --account-card-border: rgba(232, 232, 232, 0.1);
+
+  /* === 图标色 === */
+  --icon-muted: #8b8c8d;
+  --icon-subtle: #6a6b6d;
+
+  /* === 表面色 === */
+  --surface-page: #141516;
+  --surface-main: #1d1e20;
+  --surface-canvas: rgba(20, 21, 22, 0.8);
+  --surface-elevated: #26272a;
+  --surface-soft: #2a2c2f;
+  --surface-glass: rgba(29, 30, 32, 0.6);
+  --surface-glass-strong: rgba(20, 21, 22, 0.9);
+  --surface-panel: #1d1e20;
+  --surface-panel-strong: #141516;
+  --surface-card: #26272a;
+  --surface-overlay: rgba(20, 21, 22, 0.95);
+  --surface-code: #0f1011;
+  --surface-code-alt: #18191a;
+  --surface-input: #26272a;
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(232, 232, 232, 0.08);
+  --border-soft: rgba(232, 232, 232, 0.12);
+  --border-strong: rgba(232, 232, 232, 0.2);
+  --border-accent: rgba(200, 60, 35, 0.4);
+  --border-accent-strong: rgba(200, 60, 35, 0.7);
+  --border-light: #3a3c40;
+  --border-medium: #4a4d52;
+  --border-dark: #5c5f66;
+  --border-color: #3a3c40;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #e8e8e8;
+  --text-primary: #dcdcdc;
+  --text-secondary: #a0a2a6;
+  --text-muted: #8b8c8d;
+  --text-soft: #6a6b6d;
+  --text-tertiary: #5c5f66;
+  --text-invert: #141516;
+  --code-text: #b0b2b5;
+  --text-color: #dcdcdc;
+  --text-on-accent: #ffffff;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 4px 16px -8px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 8px 32px -12px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 16px 48px -16px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 16px rgba(212, 163, 91, 0.2);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-focus-ring: 0 0 0 2px rgba(200, 60, 35, 0.3);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(212, 163, 91, 0.15);
+  --accent-warm-bg-strong: rgba(212, 163, 91, 0.25);
+  --accent-warm-border: rgba(212, 163, 91, 0.4);
+  --accent-warm-border-strong: rgba(212, 163, 91, 0.6);
+  --accent-warm-text: #d4a35b;
+
+  /* === 面板 === */
+  --panel-tint: rgba(43, 66, 85, 0.15);
+
+  /* === 背景 === */
+  --bg-secondary: #1a1b1d;
+  --bg-tertiary: #222426;
+  --bg-hover: #2a2c2f;
+  --bg-color: #141516;
+
+  /* === 输入框 === */
+  --input-bg: #141516;
+  --input-border: #3a3c40;
+
+  /* === HUD === */
+  --hud-bg: rgba(29, 30, 32, 0.8);
+  --hud-border: rgba(138, 26, 15, 0.4);
+  --hud-text: #a0a2a6;
+  --hud-value: #e8e8e8;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(29, 30, 32, 0.9);
+  --choice-panel-border: rgba(74, 77, 82, 0.8);
+  --choice-item-bg: #26272a;
+  --choice-item-border: #3a3c40;
+  --choice-item-hover-bg: #2a2c2f;
+  --choice-item-active-bg: rgba(212, 163, 91, 0.15);
+  --choice-title: #c83c23;
+  --choice-text-primary: #dcdcdc;
+  --choice-text-secondary: #8b8c8d;
+  --choice-default-chip-bg: rgba(232, 232, 232, 0.08);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(38, 39, 42, 0.95);
+  --sticky-text: #8b8c8d;
+  --sticky-value: #dcdcdc;
+
+  /* === 位置 === */
+  --location-separator: rgba(232, 232, 232, 0.15);
+
+  /* === 思考 === */
+  --thinking-text: #6a6b6d;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #1d1e20;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: #26272a;
+  --chat-bubble-user-bg: #1a2833;
+  --chat-bubble-hover-bg: #2a2c2f;
+  --chat-bubble-text: #dcdcdc;
+  --chat-bubble-label: #8b8c8d;
+  --chat-bubble-border-ai: rgba(74, 77, 82, 0.5);
+  --chat-bubble-border-user: rgba(26, 104, 64, 0.4);
+  --chat-bg: #141516;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #141516;
+  --dcv-toolbar-bg: #1d1e20;
+  --dcv-toolbar-border: #3a3c40;
+  --dcv-section-bg: #26272a;
+  --dcv-section-border: #3a3c40;
+  --dcv-section-hover: #2a2c2f;
+  --dcv-text-primary: #dcdcdc;
+  --dcv-text-secondary: #a0a2a6;
+  --dcv-text-muted: #8b8c8d;
+  --dcv-text-faint: #6a6b6d;
+  --dcv-subitem-bg: #1d1e20;
+  --dcv-subitem-border: rgba(74, 77, 82, 0.5);
+  --dcv-expanded-bg: #2a2c2f;
+  --dcv-field-bg: #141516;
+  --dcv-field-border: #3a3c40;
+  --dcv-btn-hover-bg: rgba(200, 60, 35, 0.15);
+  --dcv-btn-hover-border: rgba(200, 60, 35, 0.4);
+  --dcv-btn-hover-color: #e5725f;
+  --dcv-icon-muted: rgba(232, 232, 232, 0.4);
+  --dcv-icon-hover: #dcdcdc;
+  --dcv-scrollbar: rgba(232, 232, 232, 0.15);
+  --dcv-input-bg: #141516;
+  --dcv-input-border: #3a3c40;
+  --dcv-input-text: #dcdcdc;
+  --dcv-modal-bg: #1d1e20;
+  --dcv-modal-border: #4a4d52;
+  --dcv-modal-text: #dcdcdc;
+  --dcv-modal-btn-bg: #26272a;
+  --dcv-modal-btn-border: #3a3c40;
+  --dcv-modal-btn-text: #a0a2a6;
+  --dcv-cognitive-warning-bg: rgba(212, 163, 91, 0.15);
+  --dcv-cognitive-warning-border: rgba(200, 60, 35, 0.4);
+  --dcv-cognitive-warning-title: #d4a35b;
+  --dcv-cognitive-warning-text: #f0d5a8;
+  --dcv-cognitive-warning-item-bg: #1d1e20;
+  --dcv-cognitive-warning-item-border: rgba(212, 163, 91, 0.3);
+  --dcv-cognitive-warning-path-bg: rgba(212, 163, 91, 0.2);
+  --dcv-cognitive-warning-path-text: #f0d5a8;
+
+  /* === 语法高亮 === */
+  --syntax-key: #89b4fa;
+  --syntax-string: #f0a878;
+  --syntax-number: #a6d189;
+  --syntax-boolean: #7cb8f0;
+  --syntax-null: #7cb8f0;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #cdd6f4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #90caf9;
+  --narrative-thought: #ce93d8;
+  --narrative-speaker: #ffcc80;
+  --narrative-action: #a5d6a7;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #6366f1;
+  --launcher-btn-primary-hover: #4f46e5;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.6);
+  --launcher-overlay: rgba(0, 0, 0, 0.5);
+
+  /* === 加载 === */
+  --loading-bg: rgba(32, 36, 42, 0.98);
+  --loading-bg-strong: rgba(18, 20, 24, 0.95);
+  --loading-card-bg: rgba(42, 48, 58, 0.82);
+  --loading-gradient-start: #4A7A64;
+  --loading-gradient-end: #687E54;
+  --loading-progress-start: #C28E6A;
+  --loading-progress-mid: #B86B72;
+  --loading-progress-end: #858BBA;
+
+  /* === 调试分段 === */
+  --segment-summary: #66bb6a;
+  --segment-npc-archive: #42a5f5;
+  --segment-mainline: #ffa726;
+  --segment-conversation: #ab47bc;
+  --segment-narrative: #5c6bc0;
+  --segment-reference: #26c6da;
+  --segment-sms: #9ccc65;
+  --segment-game-state: #ffca28;
+  --segment-gm: #78909c;
+  --segment-react: #7e57c2;
+  --segment-step-3: #26a69a;
+  --segment-core: #64b5f6;
+  --segment-custom: #ef5350;
+  --segment-module: #4db6ac;
+  --segment-country: #7986cb;
+  --segment-timeline: #81c784;
+
+  /* === phone === */
+  --phone-surface: #1a1e1c;
+  --phone-surface-low: #222826;
+  --phone-surface-container: #2a302e;
+  --phone-surface-high: #333a37;
+  --phone-surface-highest: #3d4442;
+  --phone-surface-dim: #4a524f;
+  --phone-primary: #7ccfb3;
+  --phone-primary-container: #1a4d3e;
+  --phone-on-primary: #0d503f;
+  --phone-on-primary-container: #b1efd8;
+  --phone-secondary: #e8a8a4;
+  --phone-secondary-container: #5c2d2b;
+  --phone-secondary-dim: #8c5552;
+  --phone-on-secondary-container: #ffdad7;
+  --phone-tertiary: #c4b4e8;
+  --phone-tertiary-container: #3d3560;
+  --phone-on-tertiary-container: #e7deff;
+  --phone-outline: #8fa59b;
+  --phone-outline-variant: #4a6058;
+  --phone-on-surface: #e4e3de;
+  --phone-on-surface-variant: #b2ccc1;
+  --phone-error: #ffb4ab;
+  --phone-error-container: #93000a;
+  --phone-nav-inactive: #e8a8a4;
+  --phone-nav-active-bg: #1a4d3e;
+  --phone-nav-active-text: #b1efd8;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+/* ═══ Cyberpunk ═══ */
+
+:root[data-skin='cyberpunk'][data-theme='light'] {
+  color-scheme: light;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Segoe UI',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* === 圆角 === */
+  --radius-2xs: 0px;
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-pill: 0px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 10px;
+  --blur-md: 18px;
+  --blur-lg: 28px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.16s ease;
+  --transition-base: 0.22s ease;
+  --transition-slow: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* === 动效 === */
+  --motion-fast: 160ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-press-duration: 120ms;
+  --easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* === 品牌色 === */
+  --brand-primary: #00f0ff;
+  --brand-primary-strong: #9d4dff;
+  --brand-secondary: #9d4dff;
+  --brand-accent: #fff200;
+  --brand-accent-strong: #ffcc00;
+  --brand-purple: #9d4dff;
+  --brand-magenta: #ff003c;
+  --brand-yellow: #fff200;
+  --brand-lime: #a3ff00;
+  --brand-brown: #8a5a2b;
+
+  /* === 状态色 === */
+  --status-success: #a3ff00;
+  --status-warning: #ffcc00;
+  --status-danger: #ff003c;
+  --status-info: #00f0ff;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 40px;
+  --account-avatar-lg: 64px;
+  --account-avatar-radius: 0%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.08;
+  --opacity-soft: 0.16;
+  --opacity-medium: 0.32;
+  --opacity-strong: 0.64;
+  --opacity-full: 0.88;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(14px * var(--ui-scale, 1));
+  --icon-size-sm: calc(16px * var(--ui-scale, 1));
+  --icon-size-md: calc(20px * var(--ui-scale, 1));
+  --icon-size-lg: calc(24px * var(--ui-scale, 1));
+  --icon-size-xl: calc(32px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip:
+    polygon(8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%,
+    0 8px);
+  --shape-button-filter: drop-shadow(0 0 6px color-mix(in srgb, var(--brand-primary) 32%, transparent));
+  --shape-button-shadow:
+    0 0 0 1px color-mix(in srgb,
+    var(--brand-primary) 70%,
+    transparent),
+    0 0 18px color-mix(in srgb,
+    var(--brand-primary) 38%,
+    transparent),
+    0 0 36px color-mix(in srgb,
+    var(--brand-purple) 22%,
+    transparent);
+  --shape-button-transform: none;
+  --shape-button-press: translate(1px, 1px);
+  --shape-card-clip:
+    polygon(0 24px,
+    24px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 24px),
+    calc(100% - 24px) 100%,
+    8px 100%,
+    0 calc(100% - 8px));
+  --shape-card-border-image:
+    linear-gradient(135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 24%,
+    transparent 24%,
+    transparent 76%,
+    var(--brand-secondary) 76%,
+    var(--brand-secondary) 100%) 1;
+  --shape-card-decorator-before:
+    linear-gradient(90deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 32px,
+    transparent 32px,
+    transparent calc(100% - 32px),
+    var(--brand-secondary) calc(100% - 32px),
+    var(--brand-secondary) 100%);
+  --shape-card-decorator-after:
+    linear-gradient(90deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 32px,
+    transparent 32px,
+    transparent calc(100% - 32px),
+    var(--brand-secondary) calc(100% - 32px),
+    var(--brand-secondary) 100%);
+  --shape-input-clip:
+    polygon(0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% 100%,
+    12px 100%,
+    0 calc(100% - 12px));
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip:
+    polygon(8px 0,
+    calc(100% - 8px) 0,
+    100% 50%,
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 50%);
+  --shape-bubble-clip-user: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  --shape-bubble-clip-ai: polygon(0 0, 100% 0, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand-secondary) 24%, transparent));
+  --shape-choice-clip:
+    polygon(0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%);
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: translate(3px, 0);
+  --shape-panel-decorator-before:
+    linear-gradient(90deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 28px,
+    transparent 28px,
+    transparent calc(50% - 24px),
+    var(--brand-secondary) calc(50% - 24px),
+    var(--brand-secondary) calc(50% + 24px),
+    transparent calc(50% + 24px),
+    transparent calc(100% - 28px),
+    var(--brand-primary) calc(100% - 28px),
+    var(--brand-primary) 100%);
+  --shape-panel-decorator-after:
+    linear-gradient(90deg,
+    var(--brand-secondary) 0%,
+    var(--brand-secondary) 28px,
+    transparent 28px,
+    transparent calc(100% - 28px),
+    var(--brand-secondary) calc(100% - 28px),
+    var(--brand-secondary) 100%);
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: var(--font-mono);
+
+  /* === 按钮组件 === */
+  --btn-radius: 0;
+  --btn-icon-radius: 0;
+  --btn-pill-radius: 0;
+  --btn-wide-radius: 0;
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translate(-1px, -1px);
+  --btn-hover-filter: brightness(118%) saturate(125%) contrast(105%);
+  --btn-primary-bg:
+    linear-gradient(135deg,
+    var(--brand-primary) 0%,
+    var(--brand-purple) 100%) padding-box,
+    var(--brand-primary) border-box;
+  --btn-primary-border-color: transparent;
+  --btn-primary-color: #ffffff;
+  --btn-primary-shadow:
+    0 0 0 1px var(--brand-primary),
+    0 0 14px color-mix(in srgb,
+    var(--brand-primary) 60%,
+    transparent),
+    0 0 38px color-mix(in srgb,
+    var(--brand-purple) 38%,
+    transparent),
+    inset 0 0 12px color-mix(in srgb,
+    #ffffff 18%,
+    transparent);
+  --btn-primary-hover-bg:
+    linear-gradient(135deg,
+    var(--brand-primary) 0%,
+    var(--brand-magenta) 60%,
+    var(--brand-purple) 100%);
+  --btn-secondary-bg: transparent padding-box, var(--brand-secondary) border-box;
+  --btn-secondary-border-color: transparent;
+  --btn-secondary-color: var(--brand-secondary);
+  --btn-secondary-shadow:
+    0 0 0 1px var(--brand-secondary),
+    0 0 12px color-mix(in srgb,
+    var(--brand-secondary) 50%,
+    transparent),
+    inset 0 0 14px color-mix(in srgb,
+    var(--brand-secondary) 14%,
+    transparent);
+  --btn-secondary-hover-bg:
+    color-mix(in srgb,
+    var(--brand-secondary) 14%,
+    transparent) padding-box,
+    var(--brand-secondary) border-box;
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-secondary) 10%, transparent);
+  --btn-ghost-hover-color: var(--brand-secondary);
+  --btn-danger-bg:
+    linear-gradient(135deg,
+    var(--status-danger) 0%,
+    #b30029 100%) padding-box,
+    var(--status-danger) border-box;
+  --btn-danger-border-color: transparent;
+  --btn-danger-color: #ffffff;
+  --btn-danger-shadow:
+    0 0 0 1px var(--status-danger),
+    0 0 16px color-mix(in srgb,
+    var(--status-danger) 65%,
+    transparent),
+    0 0 36px color-mix(in srgb,
+    var(--status-danger) 30%,
+    transparent);
+  --btn-danger-hover-bg:
+    linear-gradient(135deg,
+    #ff3060 0%,
+    var(--status-danger) 100%) padding-box,
+    var(--status-danger) border-box;
+  --btn-wide-accent-strip-width: 3px;
+  --btn-wide-active-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-primary) 26%,
+    transparent) 0%,
+    transparent 80%);
+  --btn-wide-active-border-color: var(--brand-primary);
+  --btn-wide-active-color: var(--brand-primary);
+  --btn-wide-draft-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-accent) 22%,
+    transparent) 0%,
+    transparent 80%);
+  --btn-wide-draft-border-color: var(--brand-accent);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--brand-accent);
+  --btn-wide-preview-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-accent) 22%,
+    transparent) 0%,
+    transparent 80%);
+  --btn-wide-preview-border-color: var(--brand-accent);
+  --btn-wide-preview-color: var(--brand-accent);
+  --btn-secondary-success-bg: color-mix(in srgb, var(--status-success) 14%, transparent);
+  --btn-secondary-success-border-color: var(--status-success);
+  --btn-secondary-success-color: var(--status-success);
+  --btn-secondary-danger-bg: color-mix(in srgb, var(--status-danger) 16%, transparent);
+  --btn-secondary-danger-border-color: var(--status-danger);
+  --btn-secondary-danger-color: var(--status-danger);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: transparent;
+  --tab-strip-border-color: transparent;
+  --tab-strip-border-bottom-style: dashed;
+  --tab-strip-radius: 0;
+  --tab-strip-padding: 0 0 1px;
+  --tab-strip-gap: 6px;
+  --tab-strip-shadow: inset 0 -1px 0 0 color-mix(in srgb, var(--brand-secondary) 30%, transparent);
+  --tab-radius: 0;
+  --tab-bg: transparent;
+  --tab-color: var(--text-tertiary);
+  --tab-height: 30px;
+  --tab-padding: 0 14px;
+  --tab-font-family: var(--font-mono);
+  --tab-font-size: 11.5px;
+  --tab-font-weight: 600;
+  --tab-letter-spacing: 0.06em;
+  --tab-text-transform: uppercase;
+  --tab-prefix: '[ ] ';
+  --tab-prefix-color: var(--text-tertiary);
+  --tab-prefix-font-weight: 400;
+  --tab-prefix-margin-right: 8px;
+  --tab-active-bg: transparent;
+  --tab-active-color: var(--brand-accent);
+  --tab-active-shadow:
+    inset 0 -1px 0 0 var(--brand-accent),
+    0 1px 8px color-mix(in srgb,
+    var(--brand-accent) 60%,
+    transparent);
+  --tab-active-prefix: '[â¸] ';
+  --tab-active-prefix-color: var(--brand-accent);
+  --tab-active-prefix-text-shadow: 0 0 8px color-mix(in srgb, var(--brand-accent) 60%, transparent);
+  --tab-hover-bg: transparent;
+  --tab-hover-color: var(--brand-primary);
+  --tab-hover-prefix: '[Â·] ';
+  --tab-hover-prefix-color: var(--brand-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: 0;
+  --toast-padding: 12px 18px;
+  --toast-shadow:
+    0 0 0 1px color-mix(in srgb,
+    var(--brand-secondary) 38%,
+    transparent),
+    0 0 22px color-mix(in srgb,
+    var(--brand-secondary) 18%,
+    transparent),
+    0 12px 32px rgba(0,
+    0,
+    0,
+    0.55);
+  --toast-backdrop: blur(var(--blur-md)) saturate(160%);
+  --toast-strip-width: 4px;
+  --toast-info-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-secondary) 22%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-info-strip-color: var(--brand-secondary);
+  --toast-success-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--status-success) 22%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--status-warning) 24%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--status-danger) 24%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: var(--input-bg) padding-box, var(--input-border) border-box;
+  --field-border-color: transparent;
+  --field-color: var(--text-primary);
+  --field-radius: 0;
+  --field-height: 36px;
+  --field-focus-border-color: var(--brand-secondary);
+  --field-focus-shadow:
+    0 0 0 1px var(--brand-secondary),
+    0 0 14px color-mix(in srgb,
+    var(--brand-secondary) 38%,
+    transparent),
+    inset 0 0 10px color-mix(in srgb,
+    var(--brand-secondary) 12%,
+    transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--brand-primary);
+  --modal-content-radius: 0;
+  --modal-content-shadow:
+    0 0 0 1px var(--brand-primary),
+    0 0 28px color-mix(in srgb,
+    var(--brand-primary) 42%,
+    transparent),
+    0 0 64px color-mix(in srgb,
+    var(--brand-purple) 28%,
+    transparent),
+    0 32px 80px rgba(0,
+    0,
+    0,
+    0.7);
+  --modal-overlay-bg: rgba(2, 3, 10, 0.78);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* ─── Light 主题令牌 ─── */
+  /* === 品牌色 === */
+  --brand-accent: #b58900;
+  --brand-accent-strong: #8a6700;
+  --brand-yellow: #b58900;
+
+  /* === 账户 === */
+  --account-badge-guest-bg: #e6eef3;
+  --account-badge-guest-text: #3a4a5e;
+  --account-badge-pro-bg: #fff200;
+  --account-badge-pro-text: #0a1420;
+  --account-badge-pro-border: #0a1420;
+  --account-sync-local-bg: #e6eef3;
+  --account-sync-local-text: #5a6a7e;
+  --account-sync-ready-bg: #00f0ff;
+  --account-sync-ready-text: #003a40;
+  --account-sync-done-bg: #a3ff00;
+  --account-sync-done-text: #1f3300;
+  --account-sync-conflict-bg: #ff003c;
+  --account-sync-conflict-text: #ffffff;
+  --account-locked-bg: #e6eef3;
+  --account-locked-border: #7a8a9e;
+  --account-locked-text: #5a6a7e;
+  --account-card-bg: #f4f8fb;
+  --account-card-border: #0a1420;
+
+  /* === 图标色 === */
+  --icon-muted: #5a6b7a;
+  --icon-subtle: #7a8a99;
+
+  /* === 表面色 === */
+  --surface-page: #dde8ee;
+  --surface-main: #dde8ee;
+  --surface-canvas: #e6eef3;
+  --surface-elevated: #f4f8fb;
+  --surface-soft: #d3e0e8;
+  --surface-glass: rgba(230, 238, 243, 0.78);
+  --surface-glass-strong: rgba(244, 248, 251, 0.94);
+  --surface-panel: #f4f8fb;
+  --surface-panel-strong: #ffffff;
+  --surface-card: #f4f8fb;
+  --surface-overlay: rgba(230, 238, 243, 0.96);
+  --surface-code: #0a0612;
+  --surface-code-alt: #120a22;
+  --surface-input: #ffffff;
+  --surface-chip: color-mix(in srgb, var(--text-primary) 20%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(10, 20, 32, 0.12);
+  --border-soft: rgba(10, 20, 32, 0.22);
+  --border-strong: #0a1420;
+  --border-accent: #9d4dff;
+  --border-accent-strong: #9d4dff;
+  --border-light: #c5d3dc;
+  --border-medium: #7a8a9e;
+  --border-dark: #3a4a5e;
+  --border-color: #0a1420;
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 15%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #0a1420;
+  --text-primary: #0a1420;
+  --text-secondary: #1a2a3e;
+  --text-muted: #3a4a5e;
+  --text-soft: #5a6a7e;
+  --text-tertiary: #7a8a9e;
+  --text-invert: #ffffff;
+  --code-text: #e8d6ff;
+  --text-color: #0a1420;
+  --text-on-accent: #ffffff;
+
+  /* === 阴影 === */
+  --shadow-sm: 2px 2px 0 rgba(10, 20, 32, 0.18);
+  --shadow-md: 3px 3px 0 rgba(10, 20, 32, 0.22), 0 0 16px rgba(0, 240, 255, 0.18);
+  --shadow-lg: 5px 5px 0 rgba(10, 20, 32, 0.28), 0 0 28px rgba(157, 77, 255, 0.2);
+  --shadow-glow: 0 0 0 1px #9d4dff, 3px 3px 0 #0a1420, 0 0 22px rgba(157, 77, 255, 0.42);
+  --shadow-inset: inset 0 0 0 1px rgba(10, 20, 32, 0.12);
+  --shadow-focus-ring: 0 0 0 2px #00f0ff, 3px 3px 0 #0a1420;
+
+  /* === 温色强调 === */
+  --accent-warm-bg: #fff200;
+  --accent-warm-bg-strong: #ffcc00;
+  --accent-warm-border: #0a1420;
+  --accent-warm-border-strong: #ff8800;
+  --accent-warm-text: #0a1420;
+
+  /* === 面板 === */
+  --panel-tint: rgba(157, 77, 255, 0.06);
+
+  /* === 背景 === */
+  --bg-secondary: #e6eef3;
+  --bg-tertiary: #d3e0e8;
+  --bg-hover: #c5d3dc;
+  --bg-color: #dde8ee;
+
+  /* === 输入框 === */
+  --input-bg: #ffffff;
+  --input-border: #1a2a3e;
+
+  /* === HUD === */
+  --hud-bg: #f4f8fb padding-box, #0a1420 border-box;
+  --hud-border: transparent;
+  --hud-text: #3a4a5e;
+  --hud-value: #9d4dff;
+
+  /* === 选项 === */
+  --choice-panel-bg: #f4f8fb padding-box, #0a1420 border-box;
+  --choice-panel-border: transparent;
+  --choice-item-bg: #ffffff padding-box, #0a1420 border-box;
+  --choice-item-border: transparent;
+  --choice-item-hover-bg: #fff200;
+  --choice-item-active-bg: #9d4dff;
+  --choice-title: #9d4dff;
+  --choice-text-primary: #0a1420;
+  --choice-text-secondary: #3a4a5e;
+  --choice-default-chip-bg: #00f0ff;
+
+  /* === 固定栏 === */
+  --sticky-bg: #f4f8fb;
+  --sticky-text: #3a4a5e;
+  --sticky-value: #0a1420;
+
+  /* === 位置 === */
+  --location-separator: #0a1420;
+
+  /* === 思考 === */
+  --thinking-text: #3a4a5e;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #fff200;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: #ffffff;
+  --chat-bubble-user-bg: #fff200;
+  --chat-bubble-hover-bg: #f4f8fb;
+  --chat-bubble-text: #0a1420;
+  --chat-bubble-label: #3a4a5e;
+  --chat-bubble-border-ai: #00f0ff;
+  --chat-bubble-border-user: #9d4dff;
+  --chat-bg: #0a0612;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #e6eef3;
+  --dcv-toolbar-bg: #f4f8fb;
+  --dcv-toolbar-border: #0a1420;
+  --dcv-section-bg: #f4f8fb;
+  --dcv-section-border: #0a1420;
+  --dcv-section-hover: #fff200;
+  --dcv-text-primary: #0a1420;
+  --dcv-text-secondary: #0a1420;
+  --dcv-text-muted: #3a4a5e;
+  --dcv-text-faint: #5a6a7e;
+  --dcv-subitem-bg: #f5ecd9;
+  --dcv-subitem-border: rgba(10, 20, 32, 0.22);
+  --dcv-expanded-bg: #ffffff;
+  --dcv-field-bg: #ffffff;
+  --dcv-field-border: #0a1420;
+  --dcv-btn-hover-bg: #9d4dff;
+  --dcv-btn-hover-border: #0a1420;
+  --dcv-btn-hover-color: #ffffff;
+  --dcv-icon-muted: #5a6b7a;
+  --dcv-icon-hover: #9d4dff;
+  --dcv-scrollbar: #0a1420;
+  --dcv-input-bg: #ffffff;
+  --dcv-input-border: #0a1420;
+  --dcv-input-text: #0a1420;
+  --dcv-modal-bg: #f4f8fb;
+  --dcv-modal-border: #9d4dff;
+  --dcv-modal-text: #0a1420;
+  --dcv-modal-btn-bg: #ffffff;
+  --dcv-modal-btn-border: #0a1420;
+  --dcv-modal-btn-text: #0a1420;
+  --dcv-cognitive-warning-bg: #fff200;
+  --dcv-cognitive-warning-border: #ff003c;
+  --dcv-cognitive-warning-title: #ff003c;
+  --dcv-cognitive-warning-text: #0a1420;
+  --dcv-cognitive-warning-item-bg: #ffffff;
+  --dcv-cognitive-warning-item-border: #0a1420;
+  --dcv-cognitive-warning-path-bg: #ff003c;
+  --dcv-cognitive-warning-path-text: #ffffff;
+
+  /* === 语法高亮 === */
+  --syntax-key: #00bfd0;
+  --syntax-string: #fff200;
+  --syntax-number: #a3ff00;
+  --syntax-boolean: #00f0ff;
+  --syntax-null: #9d4dff;
+  --syntax-comment: #7a8a99;
+  --syntax-bracket: #e8d6ff;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #0070a0;
+  --narrative-thought: #9d4dff;
+  --narrative-speaker: #c8005b;
+  --narrative-action: #3d8a00;
+
+  /* === 启动器 === */
+  --launcher-surface: #02030a;
+  --launcher-surface-alt: #080a18;
+  --launcher-glass: rgba(8, 10, 24, 0.95);
+  --launcher-glass-light: rgba(14, 18, 36, 0.74);
+  --launcher-border: rgba(0, 240, 255, 0.28);
+  --launcher-border-strong: rgba(0, 240, 255, 0.42);
+  --launcher-btn-primary: #00f0ff;
+  --launcher-btn-primary-hover: #9d4dff;
+  --launcher-star: #fff200;
+  --launcher-text: rgba(255, 255, 255, 0.96);
+  --launcher-text-muted: rgba(220, 230, 245, 0.66);
+  --launcher-text-faint: rgba(220, 230, 245, 0.42);
+  --launcher-shadow: rgba(0, 240, 255, 0.5);
+  --launcher-overlay: rgba(2, 3, 10, 0.7);
+
+  /* === 加载 === */
+  --loading-bg: #dde8ee;
+  --loading-bg-strong: #e6eef3;
+  --loading-card-bg: #f4f8fb;
+  --loading-gradient-start: #00f0ff;
+  --loading-gradient-end: #00f0ff;
+  --loading-progress-start: #00f0ff;
+  --loading-progress-mid: #9d4dff;
+  --loading-progress-end: #00f0ff;
+
+  /* === 调试分段 === */
+  --segment-summary: #a3ff00;
+  --segment-npc-archive: #00f0ff;
+  --segment-mainline: #00f0ff;
+  --segment-conversation: #9d4dff;
+  --segment-narrative: #9d4dff;
+  --segment-reference: #00bfd0;
+  --segment-sms: #a3ff00;
+  --segment-game-state: #fff200;
+  --segment-gm: #5a6b7a;
+  --segment-react: #9d4dff;
+  --segment-step-3: #00d4a8;
+  --segment-core: #0099ff;
+  --segment-custom: #ff003c;
+  --segment-module: #00e0c4;
+  --segment-country: #7a4eff;
+  --segment-timeline: #a3ff00;
+
+  /* === phone === */
+  --phone-surface: #f4f8fb;
+  --phone-surface-low: #f5ecd9;
+  --phone-surface-container: #e6eef3;
+  --phone-surface-high: #d3e0e8;
+  --phone-surface-highest: #c5d3dc;
+  --phone-surface-dim: #c8b890;
+  --phone-primary: #9d4dff;
+  --phone-primary-container: #ffd8ee;
+  --phone-on-primary: #ffffff;
+  --phone-on-primary-container: #52002b;
+  --phone-secondary: #005a66;
+  --phone-secondary-container: #b8f1f8;
+  --phone-secondary-dim: #7ed4dd;
+  --phone-on-secondary-container: #003a40;
+  --phone-tertiary: #7a00b8;
+  --phone-tertiary-container: #f0d6ff;
+  --phone-on-tertiary-container: #3a0058;
+  --phone-outline: #0a1420;
+  --phone-outline-variant: #7a8a9e;
+  --phone-on-surface: #0a1420;
+  --phone-on-surface-variant: #3a4a5e;
+  --phone-error: #ff003c;
+  --phone-error-container: #ffd2dc;
+  --phone-nav-inactive: #5a6a7e;
+  --phone-nav-active-bg: #fff200;
+  --phone-nav-active-text: #0a1420;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+:root[data-skin='cyberpunk'][data-theme='dark'] {
+  color-scheme: dark;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Segoe UI',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* === 圆角 === */
+  --radius-2xs: 0px;
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-pill: 0px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 10px;
+  --blur-md: 18px;
+  --blur-lg: 28px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.16s ease;
+  --transition-base: 0.22s ease;
+  --transition-slow: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* === 动效 === */
+  --motion-fast: 160ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-press-duration: 120ms;
+  --easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* === 品牌色 === */
+  --brand-primary: #00f0ff;
+  --brand-primary-strong: #9d4dff;
+  --brand-secondary: #9d4dff;
+  --brand-accent: #fff200;
+  --brand-accent-strong: #ffcc00;
+  --brand-purple: #9d4dff;
+  --brand-magenta: #ff003c;
+  --brand-yellow: #fff200;
+  --brand-lime: #a3ff00;
+  --brand-brown: #8a5a2b;
+
+  /* === 状态色 === */
+  --status-success: #a3ff00;
+  --status-warning: #ffcc00;
+  --status-danger: #ff003c;
+  --status-info: #00f0ff;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 40px;
+  --account-avatar-lg: 64px;
+  --account-avatar-radius: 0%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.08;
+  --opacity-soft: 0.16;
+  --opacity-medium: 0.32;
+  --opacity-strong: 0.64;
+  --opacity-full: 0.88;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(14px * var(--ui-scale, 1));
+  --icon-size-sm: calc(16px * var(--ui-scale, 1));
+  --icon-size-md: calc(20px * var(--ui-scale, 1));
+  --icon-size-lg: calc(24px * var(--ui-scale, 1));
+  --icon-size-xl: calc(32px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip:
+    polygon(8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%,
+    0 8px);
+  --shape-button-filter: drop-shadow(0 0 6px color-mix(in srgb, var(--brand-primary) 32%, transparent));
+  --shape-button-shadow:
+    0 0 0 1px color-mix(in srgb,
+    var(--brand-primary) 70%,
+    transparent),
+    0 0 18px color-mix(in srgb,
+    var(--brand-primary) 38%,
+    transparent),
+    0 0 36px color-mix(in srgb,
+    var(--brand-purple) 22%,
+    transparent);
+  --shape-button-transform: none;
+  --shape-button-press: translate(1px, 1px);
+  --shape-card-clip:
+    polygon(0 24px,
+    24px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 24px),
+    calc(100% - 24px) 100%,
+    8px 100%,
+    0 calc(100% - 8px));
+  --shape-card-border-image:
+    linear-gradient(135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 24%,
+    transparent 24%,
+    transparent 76%,
+    var(--brand-secondary) 76%,
+    var(--brand-secondary) 100%) 1;
+  --shape-card-decorator-before:
+    linear-gradient(90deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 32px,
+    transparent 32px,
+    transparent calc(100% - 32px),
+    var(--brand-secondary) calc(100% - 32px),
+    var(--brand-secondary) 100%);
+  --shape-card-decorator-after:
+    linear-gradient(90deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 32px,
+    transparent 32px,
+    transparent calc(100% - 32px),
+    var(--brand-secondary) calc(100% - 32px),
+    var(--brand-secondary) 100%);
+  --shape-input-clip:
+    polygon(0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% 100%,
+    12px 100%,
+    0 calc(100% - 12px));
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip:
+    polygon(8px 0,
+    calc(100% - 8px) 0,
+    100% 50%,
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 50%);
+  --shape-bubble-clip-user: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  --shape-bubble-clip-ai: polygon(0 0, 100% 0, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand-secondary) 24%, transparent));
+  --shape-choice-clip:
+    polygon(0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%);
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: translate(3px, 0);
+  --shape-panel-decorator-before:
+    linear-gradient(90deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary) 28px,
+    transparent 28px,
+    transparent calc(50% - 24px),
+    var(--brand-secondary) calc(50% - 24px),
+    var(--brand-secondary) calc(50% + 24px),
+    transparent calc(50% + 24px),
+    transparent calc(100% - 28px),
+    var(--brand-primary) calc(100% - 28px),
+    var(--brand-primary) 100%);
+  --shape-panel-decorator-after:
+    linear-gradient(90deg,
+    var(--brand-secondary) 0%,
+    var(--brand-secondary) 28px,
+    transparent 28px,
+    transparent calc(100% - 28px),
+    var(--brand-secondary) calc(100% - 28px),
+    var(--brand-secondary) 100%);
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: var(--font-mono);
+
+  /* === 按钮组件 === */
+  --btn-radius: 0;
+  --btn-icon-radius: 0;
+  --btn-pill-radius: 0;
+  --btn-wide-radius: 0;
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translate(-1px, -1px);
+  --btn-hover-filter: brightness(118%) saturate(125%) contrast(105%);
+  --btn-primary-bg:
+    linear-gradient(135deg,
+    var(--brand-primary) 0%,
+    var(--brand-purple) 100%) padding-box,
+    var(--brand-primary) border-box;
+  --btn-primary-border-color: transparent;
+  --btn-primary-color: #ffffff;
+  --btn-primary-shadow:
+    0 0 0 1px var(--brand-primary),
+    0 0 14px color-mix(in srgb,
+    var(--brand-primary) 60%,
+    transparent),
+    0 0 38px color-mix(in srgb,
+    var(--brand-purple) 38%,
+    transparent),
+    inset 0 0 12px color-mix(in srgb,
+    #ffffff 18%,
+    transparent);
+  --btn-primary-hover-bg:
+    linear-gradient(135deg,
+    var(--brand-primary) 0%,
+    var(--brand-magenta) 60%,
+    var(--brand-purple) 100%);
+  --btn-secondary-bg: transparent padding-box, var(--brand-secondary) border-box;
+  --btn-secondary-border-color: transparent;
+  --btn-secondary-color: var(--brand-secondary);
+  --btn-secondary-shadow:
+    0 0 0 1px var(--brand-secondary),
+    0 0 12px color-mix(in srgb,
+    var(--brand-secondary) 50%,
+    transparent),
+    inset 0 0 14px color-mix(in srgb,
+    var(--brand-secondary) 14%,
+    transparent);
+  --btn-secondary-hover-bg:
+    color-mix(in srgb,
+    var(--brand-secondary) 14%,
+    transparent) padding-box,
+    var(--brand-secondary) border-box;
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-secondary) 10%, transparent);
+  --btn-ghost-hover-color: var(--brand-secondary);
+  --btn-danger-bg:
+    linear-gradient(135deg,
+    var(--status-danger) 0%,
+    #b30029 100%) padding-box,
+    var(--status-danger) border-box;
+  --btn-danger-border-color: transparent;
+  --btn-danger-color: #ffffff;
+  --btn-danger-shadow:
+    0 0 0 1px var(--status-danger),
+    0 0 16px color-mix(in srgb,
+    var(--status-danger) 65%,
+    transparent),
+    0 0 36px color-mix(in srgb,
+    var(--status-danger) 30%,
+    transparent);
+  --btn-danger-hover-bg:
+    linear-gradient(135deg,
+    #ff3060 0%,
+    var(--status-danger) 100%) padding-box,
+    var(--status-danger) border-box;
+  --btn-wide-accent-strip-width: 3px;
+  --btn-wide-active-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-primary) 26%,
+    transparent) 0%,
+    transparent 80%);
+  --btn-wide-active-border-color: var(--brand-primary);
+  --btn-wide-active-color: var(--brand-primary);
+  --btn-wide-draft-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-accent) 22%,
+    transparent) 0%,
+    transparent 80%);
+  --btn-wide-draft-border-color: var(--brand-accent);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--brand-accent);
+  --btn-wide-preview-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-accent) 22%,
+    transparent) 0%,
+    transparent 80%);
+  --btn-wide-preview-border-color: var(--brand-accent);
+  --btn-wide-preview-color: var(--brand-accent);
+  --btn-secondary-success-bg: color-mix(in srgb, var(--status-success) 14%, transparent);
+  --btn-secondary-success-border-color: var(--status-success);
+  --btn-secondary-success-color: var(--status-success);
+  --btn-secondary-danger-bg: color-mix(in srgb, var(--status-danger) 16%, transparent);
+  --btn-secondary-danger-border-color: var(--status-danger);
+  --btn-secondary-danger-color: var(--status-danger);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: transparent;
+  --tab-strip-border-color: transparent;
+  --tab-strip-border-bottom-style: dashed;
+  --tab-strip-radius: 0;
+  --tab-strip-padding: 0 0 1px;
+  --tab-strip-gap: 6px;
+  --tab-strip-shadow: inset 0 -1px 0 0 color-mix(in srgb, var(--brand-secondary) 30%, transparent);
+  --tab-radius: 0;
+  --tab-bg: transparent;
+  --tab-color: var(--text-tertiary);
+  --tab-height: 30px;
+  --tab-padding: 0 14px;
+  --tab-font-family: var(--font-mono);
+  --tab-font-size: 11.5px;
+  --tab-font-weight: 600;
+  --tab-letter-spacing: 0.06em;
+  --tab-text-transform: uppercase;
+  --tab-prefix: '[ ] ';
+  --tab-prefix-color: var(--text-tertiary);
+  --tab-prefix-font-weight: 400;
+  --tab-prefix-margin-right: 8px;
+  --tab-active-bg: transparent;
+  --tab-active-color: var(--brand-accent);
+  --tab-active-shadow:
+    inset 0 -1px 0 0 var(--brand-accent),
+    0 1px 8px color-mix(in srgb,
+    var(--brand-accent) 60%,
+    transparent);
+  --tab-active-prefix: '[â¸] ';
+  --tab-active-prefix-color: var(--brand-accent);
+  --tab-active-prefix-text-shadow: 0 0 8px color-mix(in srgb, var(--brand-accent) 60%, transparent);
+  --tab-hover-bg: transparent;
+  --tab-hover-color: var(--brand-primary);
+  --tab-hover-prefix: '[Â·] ';
+  --tab-hover-prefix-color: var(--brand-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: 0;
+  --toast-padding: 12px 18px;
+  --toast-shadow:
+    0 0 0 1px color-mix(in srgb,
+    var(--brand-secondary) 38%,
+    transparent),
+    0 0 22px color-mix(in srgb,
+    var(--brand-secondary) 18%,
+    transparent),
+    0 12px 32px rgba(0,
+    0,
+    0,
+    0.55);
+  --toast-backdrop: blur(var(--blur-md)) saturate(160%);
+  --toast-strip-width: 4px;
+  --toast-info-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--brand-secondary) 22%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-info-strip-color: var(--brand-secondary);
+  --toast-success-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--status-success) 22%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--status-warning) 24%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg:
+    linear-gradient(90deg,
+    color-mix(in srgb,
+    var(--status-danger) 24%,
+    var(--surface-panel-strong)) 0%,
+    var(--surface-panel-strong) 70%);
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: var(--input-bg) padding-box, var(--input-border) border-box;
+  --field-border-color: transparent;
+  --field-color: var(--text-primary);
+  --field-radius: 0;
+  --field-height: 36px;
+  --field-focus-border-color: var(--brand-secondary);
+  --field-focus-shadow:
+    0 0 0 1px var(--brand-secondary),
+    0 0 14px color-mix(in srgb,
+    var(--brand-secondary) 38%,
+    transparent),
+    inset 0 0 10px color-mix(in srgb,
+    var(--brand-secondary) 12%,
+    transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--brand-primary);
+  --modal-content-radius: 0;
+  --modal-content-shadow:
+    0 0 0 1px var(--brand-primary),
+    0 0 28px color-mix(in srgb,
+    var(--brand-primary) 42%,
+    transparent),
+    0 0 64px color-mix(in srgb,
+    var(--brand-purple) 28%,
+    transparent),
+    0 32px 80px rgba(0,
+    0,
+    0,
+    0.7);
+  --modal-overlay-bg: rgba(2, 3, 10, 0.78);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(126, 197, 214, 0.14);
+  --account-badge-guest-text: #7ec5d6;
+  --account-badge-pro-bg: rgba(255, 242, 0, 0.18);
+  --account-badge-pro-text: #fff200;
+  --account-badge-pro-border: #fff200;
+  --account-sync-local-bg: rgba(126, 197, 214, 0.1);
+  --account-sync-local-text: #5a9aac;
+  --account-sync-ready-bg: rgba(0, 240, 255, 0.16);
+  --account-sync-ready-text: #00f0ff;
+  --account-sync-done-bg: rgba(163, 255, 0, 0.18);
+  --account-sync-done-text: #a3ff00;
+  --account-sync-conflict-bg: rgba(255, 0, 60, 0.2);
+  --account-sync-conflict-text: #ff5070;
+  --account-locked-bg: rgba(126, 197, 214, 0.06);
+  --account-locked-border: rgba(126, 197, 214, 0.18);
+  --account-locked-text: #5a9aac;
+  --account-card-bg: rgba(8, 10, 24, 0.88);
+  --account-card-border: rgba(0, 240, 255, 0.26);
+
+  /* === 图标色 === */
+  --icon-muted: #7ec5d6;
+  --icon-subtle: #4a8a9c;
+
+  /* === 表面色 === */
+  --surface-page: #001218;
+  --surface-main: #001218;
+  --surface-canvas: rgba(0, 22, 32, 0.92);
+  --surface-elevated: rgba(2, 30, 44, 0.95);
+  --surface-soft: rgba(4, 36, 52, 0.84);
+  --surface-glass: rgba(2, 28, 42, 0.78);
+  --surface-glass-strong: rgba(6, 36, 52, 0.94);
+  --surface-panel: rgba(2, 30, 44, 0.92);
+  --surface-panel-strong: rgba(4, 36, 52, 0.96);
+  --surface-card: rgba(2, 30, 44, 0.88);
+  --surface-overlay: rgba(0, 22, 32, 0.96);
+  --surface-code: #01020a;
+  --surface-code-alt: #070a18;
+  --surface-input: rgba(6, 8, 20, 0.96);
+  --surface-chip: rgba(2, 30, 44, 0.72);
+
+  /* === 边框 === */
+  --border-subtle: rgba(0, 240, 255, 0.14);
+  --border-soft: rgba(0, 240, 255, 0.26);
+  --border-strong: rgba(0, 240, 255, 0.5);
+  --border-accent: rgba(0, 240, 255, 0.6);
+  --border-accent-strong: rgba(0, 240, 255, 0.9);
+  --border-light: #1a3a4a;
+  --border-medium: #2d5a72;
+  --border-dark: #4a8a9c;
+  --border-color: #1a3a4a;
+  --border-chip: rgba(0, 240, 255, 0.35);
+
+  /* === 文字色 === */
+  --text-main: #e8f6ff;
+  --text-primary: #e8f6ff;
+  --text-secondary: #7ec5d6;
+  --text-muted: #5a9aac;
+  --text-soft: #4a8090;
+  --text-tertiary: #3a6878;
+  --text-invert: #001218;
+  --code-text: #e8f6ff;
+  --text-color: #e8f6ff;
+  --text-on-accent: #ffffff;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 0 14px rgba(0, 240, 255, 0.22), 0 0 0 1px rgba(0, 240, 255, 0.14);
+  --shadow-md:
+    0 0 22px rgba(0,
+    240,
+    255,
+    0.3),
+    0 0 0 1px rgba(0,
+    240,
+    255,
+    0.22),
+    0 12px 32px rgba(0,
+    0,
+    0,
+    0.7);
+  --shadow-lg:
+    0 0 38px rgba(157,
+    77,
+    255,
+    0.4),
+    0 0 0 1px rgba(0,
+    240,
+    255,
+    0.32),
+    0 24px 60px rgba(0,
+    0,
+    0,
+    0.85);
+  --shadow-glow:
+    0 0 0 1px var(--brand-primary),
+    0 0 18px color-mix(in srgb,
+    var(--brand-primary) 60%,
+    transparent),
+    0 0 42px color-mix(in srgb,
+    var(--brand-purple) 38%,
+    transparent),
+    inset 0 0 12px color-mix(in srgb,
+    var(--brand-primary) 22%,
+    transparent);
+  --shadow-inset: inset 0 0 0 1px rgba(0, 240, 255, 0.18);
+  --shadow-focus-ring:
+    0 0 0 1px var(--brand-secondary),
+    0 0 18px rgba(0,
+    240,
+    255,
+    0.55),
+    0 0 38px rgba(0,
+    240,
+    255,
+    0.28);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(255, 242, 0, 0.16);
+  --accent-warm-bg-strong: rgba(255, 242, 0, 0.28);
+  --accent-warm-border: rgba(255, 242, 0, 0.5);
+  --accent-warm-border-strong: #fff200;
+  --accent-warm-text: #fff200;
+
+  /* === 面板 === */
+  --panel-tint: rgba(0, 240, 255, 0.14);
+
+  /* === 背景 === */
+  --bg-secondary: #06081a;
+  --bg-tertiary: #0a0e22;
+  --bg-hover: #101638;
+  --bg-color: #02030a;
+
+  /* === 输入框 === */
+  --input-bg: rgba(0, 22, 32, 0.96);
+  --input-border: #1a4a5a;
+
+  /* === HUD === */
+  --hud-bg: rgba(8, 10, 24, 0.86) padding-box, #00f0ff border-box;
+  --hud-border: transparent;
+  --hud-text: #7ec5d6;
+  --hud-value: #00f0ff;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(8, 10, 24, 0.94) padding-box, rgba(0, 240, 255, 0.5) border-box;
+  --choice-panel-border: transparent;
+  --choice-item-bg: rgba(10, 14, 28, 0.94) padding-box, rgba(0, 240, 255, 0.3) border-box;
+  --choice-item-border: transparent;
+  --choice-item-hover-bg: rgba(20, 28, 56, 0.96);
+  --choice-item-active-bg: rgba(40, 12, 64, 0.98);
+  --choice-title: #00f0ff;
+  --choice-text-primary: #e8f6ff;
+  --choice-text-secondary: #7ec5d6;
+  --choice-default-chip-bg: rgba(0, 240, 255, 0.16);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(8, 10, 24, 0.94);
+  --sticky-text: #7ec5d6;
+  --sticky-value: #00f0ff;
+
+  /* === 位置 === */
+  --location-separator: #00f0ff;
+
+  /* === 思考 === */
+  --thinking-text: #7ec5d6;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #101638;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: rgba(10, 14, 28, 0.92);
+  --chat-bubble-user-bg: rgba(40, 8, 56, 0.92);
+  --chat-bubble-hover-bg: rgba(14, 20, 40, 0.96);
+  --chat-bubble-text: #e8f6ff;
+  --chat-bubble-label: #7ec5d6;
+  --chat-bubble-border-ai: #00f0ff;
+  --chat-bubble-border-user: #00f0ff;
+  --chat-bg: #01020a;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #02030a;
+  --dcv-toolbar-bg: rgba(4, 6, 16, 0.94);
+  --dcv-toolbar-border: rgba(0, 240, 255, 0.24);
+  --dcv-section-bg: rgba(8, 10, 24, 0.88);
+  --dcv-section-border: rgba(0, 240, 255, 0.22);
+  --dcv-section-hover: rgba(14, 20, 40, 0.94);
+  --dcv-text-primary: #e8f6ff;
+  --dcv-text-secondary: #7ec5d6;
+  --dcv-text-muted: #5a9aac;
+  --dcv-text-faint: #3a6878;
+  --dcv-subitem-bg: rgba(10, 14, 28, 0.84);
+  --dcv-subitem-border: rgba(0, 240, 255, 0.18);
+  --dcv-expanded-bg: rgba(20, 28, 56, 0.94);
+  --dcv-field-bg: rgba(6, 8, 20, 0.96);
+  --dcv-field-border: rgba(0, 240, 255, 0.28);
+  --dcv-btn-hover-bg: rgba(0, 240, 255, 0.16);
+  --dcv-btn-hover-border: #00f0ff;
+  --dcv-btn-hover-color: #00f0ff;
+  --dcv-icon-muted: rgba(126, 197, 214, 0.46);
+  --dcv-icon-hover: #00f0ff;
+  --dcv-scrollbar: rgba(0, 240, 255, 0.36);
+  --dcv-input-bg: rgba(6, 8, 20, 0.96);
+  --dcv-input-border: rgba(0, 240, 255, 0.3);
+  --dcv-input-text: #e8f6ff;
+  --dcv-modal-bg: rgba(4, 6, 16, 0.96);
+  --dcv-modal-border: #00f0ff;
+  --dcv-modal-text: #e8f6ff;
+  --dcv-modal-btn-bg: rgba(10, 14, 28, 0.9);
+  --dcv-modal-btn-border: rgba(0, 240, 255, 0.3);
+  --dcv-modal-btn-text: #7ec5d6;
+  --dcv-cognitive-warning-bg: rgba(255, 242, 0, 0.14);
+  --dcv-cognitive-warning-border: #ff003c;
+  --dcv-cognitive-warning-title: #fff200;
+  --dcv-cognitive-warning-text: #ffefb8;
+  --dcv-cognitive-warning-item-bg: rgba(255, 242, 0, 0.08);
+  --dcv-cognitive-warning-item-border: rgba(255, 242, 0, 0.24);
+  --dcv-cognitive-warning-path-bg: rgba(255, 242, 0, 0.2);
+  --dcv-cognitive-warning-path-text: #fff200;
+
+  /* === 语法高亮 === */
+  --syntax-key: #00f0ff;
+  --syntax-string: #fff200;
+  --syntax-number: #a3ff00;
+  --syntax-boolean: #00f0ff;
+  --syntax-null: #9d4dff;
+  --syntax-comment: #3a6878;
+  --syntax-bracket: #e8f6ff;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #5cf3ff;
+  --narrative-thought: #d977ff;
+  --narrative-speaker: #ff5cb0;
+  --narrative-action: #a3ff00;
+
+  /* === 启动器 === */
+  --launcher-surface: #02030a;
+  --launcher-surface-alt: #080a18;
+  --launcher-glass: rgba(8, 10, 24, 0.95);
+  --launcher-glass-light: rgba(14, 18, 36, 0.74);
+  --launcher-border: rgba(0, 240, 255, 0.3);
+  --launcher-border-strong: rgba(0, 240, 255, 0.5);
+  --launcher-btn-primary: #00f0ff;
+  --launcher-btn-primary-hover: #9d4dff;
+  --launcher-star: #fff200;
+  --launcher-text: rgba(255, 255, 255, 0.98);
+  --launcher-text-muted: rgba(220, 230, 245, 0.7);
+  --launcher-text-faint: rgba(220, 230, 245, 0.46);
+  --launcher-shadow: rgba(0, 240, 255, 0.55);
+  --launcher-overlay: rgba(0, 0, 6, 0.78);
+
+  /* === 加载 === */
+  --loading-bg: rgba(4, 6, 16, 0.98);
+  --loading-bg-strong: rgba(0, 0, 6, 0.96);
+  --loading-card-bg: rgba(10, 14, 28, 0.92);
+  --loading-gradient-start: #00f0ff;
+  --loading-gradient-end: #00f0ff;
+  --loading-progress-start: #00f0ff;
+  --loading-progress-mid: #9d4dff;
+  --loading-progress-end: #00f0ff;
+
+  /* === 调试分段 === */
+  --segment-summary: #a3ff00;
+  --segment-npc-archive: #00f0ff;
+  --segment-mainline: #00f0ff;
+  --segment-conversation: #9d4dff;
+  --segment-narrative: #9d4dff;
+  --segment-reference: #5cf3ff;
+  --segment-sms: #a3ff00;
+  --segment-game-state: #fff200;
+  --segment-gm: #7ec5d6;
+  --segment-react: #d977ff;
+  --segment-step-3: #00ffc4;
+  --segment-core: #5cb5ff;
+  --segment-custom: #ff5070;
+  --segment-module: #00e0c4;
+  --segment-country: #9b7eff;
+  --segment-timeline: #a3ff00;
+
+  /* === phone === */
+  --phone-surface: #02030a;
+  --phone-surface-low: #06081a;
+  --phone-surface-container: #0a0e22;
+  --phone-surface-high: #101638;
+  --phone-surface-highest: #181f48;
+  --phone-surface-dim: #222a58;
+  --phone-primary: #00f0ff;
+  --phone-primary-container: #52002b;
+  --phone-on-primary: #ffffff;
+  --phone-on-primary-container: #ffd8ee;
+  --phone-secondary: #00f0ff;
+  --phone-secondary-container: #003a40;
+  --phone-secondary-dim: #3a8a94;
+  --phone-on-secondary-container: #b8f1f8;
+  --phone-tertiary: #9d4dff;
+  --phone-tertiary-container: #3a0058;
+  --phone-on-tertiary-container: #f0d6ff;
+  --phone-outline: #7ec5d6;
+  --phone-outline-variant: #1a3a4a;
+  --phone-on-surface: #e8f6ff;
+  --phone-on-surface-variant: #7ec5d6;
+  --phone-error: #ff5070;
+  --phone-error-container: #660014;
+  --phone-nav-inactive: #7ec5d6;
+  --phone-nav-active-bg: #52002b;
+  --phone-nav-active-text: #00f0ff;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+/* ═══ Literary ═══ */
+
+:root[data-skin='literary'][data-theme='light'] {
+  color-scheme: light;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    'Noto Sans SC',
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Helvetica Neue',
+    sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* === 圆角 === */
+  --radius-2xs: 4px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 10px;
+  --blur-md: 18px;
+  --blur-lg: 28px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.16s ease;
+  --transition-base: 0.22s ease;
+  --transition-slow: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* === 动效 === */
+  --motion-fast: 160ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-press-duration: 120ms;
+  --easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* === 品牌色 === */
+  --brand-primary: #2F4A3A;
+  --brand-primary-strong: #1f3328;
+  --brand-secondary: #B8893A;
+  --brand-accent: #A8472A;
+  --brand-accent-strong: #8a3520;
+  --brand-purple: #6A4A8C;
+  --brand-magenta: #9c4a6e;
+  --brand-yellow: #B8893A;
+  --brand-lime: #7A8B40;
+  --brand-brown: #7A6A4E;
+
+  /* === 状态色 === */
+  --status-success: #3F6F4E;
+  --status-warning: #B8893A;
+  --status-danger: #B73E2A;
+  --status-info: #3360A0;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 40px;
+  --account-avatar-lg: 64px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.08;
+  --opacity-soft: 0.16;
+  --opacity-medium: 0.32;
+  --opacity-strong: 0.64;
+  --opacity-full: 0.88;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(14px * var(--ui-scale, 1));
+  --icon-size-sm: calc(16px * var(--ui-scale, 1));
+  --icon-size-md: calc(20px * var(--ui-scale, 1));
+  --icon-size-lg: calc(24px * var(--ui-scale, 1));
+  --icon-size-xl: calc(32px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: none;
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: inherit;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* ─── Light 主题令牌 ─── */
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(100, 116, 139, 0.14);
+  --account-badge-guest-text: #475569;
+  --account-badge-pro-bg: rgba(240, 176, 62, 0.14);
+  --account-badge-pro-text: #9d5a00;
+  --account-badge-pro-border: rgba(218, 83, 44, 0.22);
+  --account-sync-local-bg: rgba(100, 116, 139, 0.08);
+  --account-sync-local-text: #64748b;
+  --account-sync-ready-bg: rgba(45, 137, 239, 0.08);
+  --account-sync-ready-text: #0050ef;
+  --account-sync-done-bg: rgba(0, 163, 0, 0.1);
+  --account-sync-done-text: #0b7c38;
+  --account-sync-conflict-bg: rgba(218, 83, 44, 0.1);
+  --account-sync-conflict-text: #b45309;
+  --account-locked-bg: rgba(100, 116, 139, 0.05);
+  --account-locked-border: rgba(116, 137, 165, 0.18);
+  --account-locked-text: #64748b;
+  --account-card-bg: rgba(255, 255, 255, 0.7);
+  --account-card-border: rgba(71, 93, 121, 0.12);
+
+  /* === 图标色 === */
+  --icon-muted: #6B5E4A;
+  --icon-subtle: #9C8E78;
+
+  /* === 表面色 === */
+  --surface-page: #EFE9DC;
+  --surface-main: #EFE9DC;
+  --surface-canvas: rgba(251, 247, 238, 0.78);
+  --surface-elevated: rgba(251, 247, 238, 0.92);
+  --surface-soft: rgba(244, 236, 220, 0.72);
+  --surface-glass: rgba(251, 247, 238, 0.72);
+  --surface-glass-strong: rgba(251, 247, 238, 0.88);
+  --surface-panel: rgba(251, 247, 238, 0.84);
+  --surface-panel-strong: rgba(251, 247, 238, 0.94);
+  --surface-card: #FBF7EE;
+  --surface-overlay: rgba(248, 243, 232, 0.96);
+  --surface-code: #1a1612;
+  --surface-code-alt: #2a241c;
+  --surface-input: rgba(251, 247, 238, 0.92);
+  --surface-chip: color-mix(in srgb, var(--text-primary) 14%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(31, 26, 20, 0.06);
+  --border-soft: rgba(31, 26, 20, 0.08);
+  --border-strong: rgba(31, 26, 20, 0.16);
+  --border-accent: rgba(47, 74, 58, 0.28);
+  --border-accent-strong: rgba(47, 74, 58, 0.44);
+  --border-light: rgba(31, 26, 20, 0.08);
+  --border-medium: rgba(31, 26, 20, 0.16);
+  --border-dark: rgba(31, 26, 20, 0.28);
+  --border-color: rgba(31, 26, 20, 0.16);
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 18%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #1E1A14;
+  --text-primary: #1E1A14;
+  --text-secondary: #4a3f30;
+  --text-muted: #6B5E4A;
+  --text-soft: #6B5E4A;
+  --text-tertiary: #9C8E78;
+  --text-invert: #FBF7EE;
+  --code-text: #e6d9be;
+  --text-color: #1E1A14;
+  --text-on-accent: #FBF7EE;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 2px 6px -2px rgba(31, 26, 20, 0.10);
+  --shadow-md: 0 8px 24px -12px rgba(31, 26, 20, 0.18);
+  --shadow-lg: 0 20px 48px -24px rgba(31, 26, 20, 0.24);
+  --shadow-glow: 0 0 0 1px rgba(168, 71, 42, 0.18), 0 12px 32px -20px rgba(168, 71, 42, 0.30);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-focus-ring: 0 0 0 3px rgba(47, 74, 58, 0.22);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(255, 152, 0, 0.08);
+  --accent-warm-bg-strong: rgba(255, 152, 0, 0.15);
+  --accent-warm-border: rgba(255, 152, 0, 0.25);
+  --accent-warm-border-strong: rgba(255, 152, 0, 0.4);
+  --accent-warm-text: #ff9800;
+
+  /* === 面板 === */
+  --panel-tint: rgba(47, 74, 58, 0.09);
+
+  /* === 背景 === */
+  --bg-secondary: #F4ECDC;
+  --bg-tertiary: #E7E0CF;
+  --bg-hover: #E4DBC4;
+  --bg-color: #EFE9DC;
+
+  /* === 输入框 === */
+  --input-bg: #FBF7EE;
+  --input-border: rgba(31, 26, 20, 0.16);
+
+  /* === HUD === */
+  --hud-bg: rgba(251, 247, 238, 0.84);
+  --hud-border: rgba(168, 71, 42, 0.28);
+  --hud-text: #6B5E4A;
+  --hud-value: #1E1A14;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(251, 247, 238, 0.72);
+  --choice-panel-border: rgba(31, 26, 20, 0.08);
+  --choice-item-bg: #FBF7EE;
+  --choice-item-border: rgba(31, 26, 20, 0.08);
+  --choice-item-hover-bg: #F4ECDC;
+  --choice-item-active-bg: #E4ECE5;
+  --choice-title: #1E1A14;
+  --choice-text-primary: #1E1A14;
+  --choice-text-secondary: #6B5E4A;
+  --choice-default-chip-bg: rgba(47, 74, 58, 0.08);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(251, 247, 238, 0.86);
+  --sticky-text: #6B5E4A;
+  --sticky-value: #1E1A14;
+
+  /* === 位置 === */
+  --location-separator: rgba(31, 26, 20, 0.22);
+
+  /* === 思考 === */
+  --thinking-text: #6B5E4A;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #F4ECDC;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: #FBF7EE;
+  --chat-bubble-user-bg: #E4ECE5;
+  --chat-bubble-hover-bg: #F4ECDC;
+  --chat-bubble-text: #1E1A14;
+  --chat-bubble-label: #6B5E4A;
+  --chat-bubble-border-ai: rgba(31, 26, 20, 0.08);
+  --chat-bubble-border-user: rgba(47, 74, 58, 0.20);
+  --chat-bg: #EFE9DC;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #f1f6fb;
+  --dcv-toolbar-bg: rgba(255, 255, 255, 0.78);
+  --dcv-toolbar-border: rgba(116, 137, 165, 0.16);
+  --dcv-section-bg: rgba(255, 255, 255, 0.78);
+  --dcv-section-border: rgba(116, 137, 165, 0.16);
+  --dcv-section-hover: rgba(248, 251, 255, 0.98);
+  --dcv-text-primary: #112033;
+  --dcv-text-secondary: #314156;
+  --dcv-text-muted: #5d6e84;
+  --dcv-text-faint: #7d8ea5;
+  --dcv-subitem-bg: rgba(242, 247, 255, 0.84);
+  --dcv-subitem-border: rgba(160, 177, 198, 0.24);
+  --dcv-expanded-bg: rgba(232, 243, 255, 0.96);
+  --dcv-field-bg: rgba(255, 255, 255, 0.9);
+  --dcv-field-border: rgba(200, 212, 226, 0.82);
+  --dcv-btn-hover-bg: rgba(45, 137, 239, 0.08);
+  --dcv-btn-hover-border: rgba(45, 137, 239, 0.2);
+  --dcv-btn-hover-color: #0050ef;
+  --dcv-icon-muted: rgba(17, 32, 51, 0.46);
+  --dcv-icon-hover: rgba(17, 32, 51, 0.78);
+  --dcv-scrollbar: rgba(71, 93, 121, 0.2);
+  --dcv-input-bg: rgba(255, 255, 255, 0.92);
+  --dcv-input-border: rgba(200, 212, 226, 0.82);
+  --dcv-input-text: #112033;
+  --dcv-modal-bg: rgba(250, 252, 255, 0.98);
+  --dcv-modal-border: rgba(160, 177, 198, 0.28);
+  --dcv-modal-text: #112033;
+  --dcv-modal-btn-bg: rgba(255, 255, 255, 0.84);
+  --dcv-modal-btn-border: rgba(116, 137, 165, 0.18);
+  --dcv-modal-btn-text: #314156;
+  --dcv-cognitive-warning-bg: rgba(240, 176, 62, 0.14);
+  --dcv-cognitive-warning-border: rgba(218, 83, 44, 0.32);
+  --dcv-cognitive-warning-title: #9d5a00;
+  --dcv-cognitive-warning-text: #6c4100;
+  --dcv-cognitive-warning-item-bg: rgba(255, 255, 255, 0.72);
+  --dcv-cognitive-warning-item-border: rgba(157, 90, 0, 0.12);
+  --dcv-cognitive-warning-path-bg: rgba(240, 176, 62, 0.2);
+  --dcv-cognitive-warning-path-text: #6c4100;
+
+  /* === 语法高亮 === */
+  --syntax-key: #9cdcfe;
+  --syntax-string: #ce9178;
+  --syntax-number: #b5cea8;
+  --syntax-boolean: #569cd6;
+  --syntax-null: #569cd6;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #d4d4d4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #3360A0;
+  --narrative-thought: #6A4A8C;
+  --narrative-speaker: #A8472A;
+  --narrative-action: #3F6F4E;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #4f46e5;
+  --launcher-btn-primary-hover: #4338ca;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.5);
+  --launcher-overlay: rgba(0, 0, 0, 0.4);
+
+  /* === 加载 === */
+  --loading-bg: rgba(252, 250, 246, 0.98);
+  --loading-bg-strong: rgba(238, 233, 226, 0.95);
+  --loading-card-bg: rgba(255, 255, 255, 0.82);
+  --loading-gradient-start: #B5EAD7;
+  --loading-gradient-end: #E2F0CB;
+  --loading-progress-start: #FFD3B6;
+  --loading-progress-mid: #FF9AA2;
+  --loading-progress-end: #C7CEEA;
+
+  /* === 调试分段 === */
+  --segment-summary: #4caf50;
+  --segment-npc-archive: #2196f3;
+  --segment-mainline: #ff9800;
+  --segment-conversation: #9c27b0;
+  --segment-narrative: #3f51b5;
+  --segment-reference: #00bcd4;
+  --segment-sms: #8bc34a;
+  --segment-game-state: #ffc107;
+  --segment-gm: #607d8b;
+  --segment-react: #673ab7;
+  --segment-step-3: #009688;
+  --segment-core: #42a5f5;
+  --segment-custom: #ef5350;
+  --segment-module: #26a69a;
+  --segment-country: #5c6bc0;
+  --segment-timeline: #66bb6a;
+
+  /* === phone === */
+  --phone-surface: #fdf9f3;
+  --phone-surface-low: #f7f3ed;
+  --phone-surface-container: #f1ede7;
+  --phone-surface-high: #ebe8e2;
+  --phone-surface-highest: #e6e2dc;
+  --phone-surface-dim: #dddad4;
+  --phone-primary: #2c6956;
+  --phone-primary-container: #b1efd8;
+  --phone-on-primary: #ffffff;
+  --phone-on-primary-container: #0d503f;
+  --phone-secondary: #874f4c;
+  --phone-secondary-container: #ffdad7;
+  --phone-secondary-dim: #fcb4b0;
+  --phone-on-secondary-container: #6b3836;
+  --phone-tertiary: #625981;
+  --phone-tertiary-container: #e7deff;
+  --phone-on-tertiary-container: #4a4168;
+  --phone-outline: #647c72;
+  --phone-outline-variant: #b2ccc1;
+  --phone-on-surface: #1c1c18;
+  --phone-on-surface-variant: #344c43;
+  --phone-error: #ba1a1a;
+  --phone-error-container: #ffdad6;
+  --phone-nav-inactive: #874f4c;
+  --phone-nav-active-bg: #b1efd8;
+  --phone-nav-active-text: #2c6956;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}
+
+:root[data-skin='literary'][data-theme='dark'] {
+  color-scheme: dark;
+
+  /* ─── 共享令牌 ─── */
+  /* === 元数据 === */
+  --ui-scale: 1;
+
+  /* === 字体 === */
+  --font-ui:
+    'Noto Sans SC',
+    -apple-system,
+    BlinkMacSystemFont,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Helvetica Neue',
+    sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
+  --font-narrative: 'Noto Serif SC', 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
+
+  /* === 文字尺寸 === */
+  --text-2xs: calc(8px * var(--ui-scale, 1));
+  --text-xs: calc(9px * var(--ui-scale, 1));
+  --text-sm: calc(10px * var(--ui-scale, 1));
+  --text-caption: calc(11px * var(--ui-scale, 1));
+  --text-body-sm: calc(12px * var(--ui-scale, 1));
+  --text-body: calc(13px * var(--ui-scale, 1));
+  --text-body-lg: calc(14px * var(--ui-scale, 1));
+  --text-subtitle: calc(15px * var(--ui-scale, 1));
+  --text-title: calc(16px * var(--ui-scale, 1));
+  --text-heading: calc(18px * var(--ui-scale, 1));
+  --text-display: calc(20px * var(--ui-scale, 1));
+
+  /* === 间距 === */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* === 圆角 === */
+  --radius-2xs: 4px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* === 模糊 === */
+  --blur-sm: 10px;
+  --blur-md: 18px;
+  --blur-lg: 28px;
+
+  /* === 过渡 === */
+  --transition-fast: 0.16s ease;
+  --transition-base: 0.22s ease;
+  --transition-slow: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* === 动效 === */
+  --motion-fast: 160ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-press-duration: 120ms;
+  --easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* === 品牌色 === */
+  --brand-primary: #2F4A3A;
+  --brand-primary-strong: #1f3328;
+  --brand-secondary: #B8893A;
+  --brand-accent: #A8472A;
+  --brand-accent-strong: #8a3520;
+  --brand-purple: #6A4A8C;
+  --brand-magenta: #9c4a6e;
+  --brand-yellow: #B8893A;
+  --brand-lime: #7A8B40;
+  --brand-brown: #7A6A4E;
+
+  /* === 状态色 === */
+  --status-success: #3F6F4E;
+  --status-warning: #B8893A;
+  --status-danger: #B73E2A;
+  --status-info: #3360A0;
+
+  /* === 账户 === */
+  --account-avatar-sm: 32px;
+  --account-avatar-md: 40px;
+  --account-avatar-lg: 64px;
+  --account-avatar-radius: 50%;
+
+  /* === 字重 === */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* === 透明度 === */
+  --opacity-subtle: 0.08;
+  --opacity-soft: 0.16;
+  --opacity-medium: 0.32;
+  --opacity-strong: 0.64;
+  --opacity-full: 0.88;
+
+  /* === 层叠 === */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* === 图标尺寸 === */
+  --icon-size-xs: calc(14px * var(--ui-scale, 1));
+  --icon-size-sm: calc(16px * var(--ui-scale, 1));
+  --icon-size-md: calc(20px * var(--ui-scale, 1));
+  --icon-size-lg: calc(24px * var(--ui-scale, 1));
+  --icon-size-xl: calc(32px * var(--ui-scale, 1));
+
+  /* === 形状 === */
+  --shape-button-clip: none;
+  --shape-button-filter: none;
+  --shape-button-shadow: none;
+  --shape-button-transform: none;
+  --shape-button-press: none;
+  --shape-card-clip: none;
+  --shape-card-border-image: none;
+  --shape-card-decorator-before: none;
+  --shape-card-decorator-after: none;
+  --shape-input-clip: none;
+  --shape-tab-clip: none;
+  --shape-tab-active-clip: none;
+  --shape-badge-clip: none;
+  --shape-bubble-clip-user: none;
+  --shape-bubble-clip-ai: none;
+  --shape-bubble-tail-user: none;
+  --shape-bubble-tail-ai: none;
+  --shape-bubble-filter: none;
+  --shape-choice-clip: none;
+  --shape-choice-transform: none;
+  --shape-choice-hover-transform: none;
+  --shape-panel-decorator-before: none;
+  --shape-panel-decorator-after: none;
+  --shape-panel-clip: none;
+  --shape-modal-clip: none;
+  --shape-modal-decorator-before: none;
+  --shape-modal-decorator-after: none;
+  --shape-sheet-clip: none;
+  --shape-sheet-decorator-before: none;
+  --shape-sheet-decorator-after: none;
+  --shape-dropdown-clip: none;
+  --shape-dropdown-decorator-before: none;
+  --shape-dropdown-decorator-after: none;
+  --shape-font-display: inherit;
+
+  /* === 按钮组件 === */
+  --btn-radius: var(--radius-sm);
+  --btn-icon-radius: var(--radius-xs);
+  --btn-pill-radius: var(--radius-pill);
+  --btn-wide-radius: var(--radius-md);
+  --btn-border-width: 1px;
+  --btn-border-style: solid;
+  --btn-height: 36px;
+  --btn-icon-size: 36px;
+  --btn-icon-sm-size: 28px;
+  --btn-pill-height: 28px;
+  --btn-sm-height: 28px;
+  --btn-hover-transform: translateY(-1px);
+  --btn-hover-filter: saturate(108%);
+  --btn-primary-bg: var(--accent-fill-strong);
+  --btn-primary-border-color: color-mix(in srgb, var(--brand-primary-strong) 72%, transparent);
+  --btn-primary-color: var(--text-on-accent);
+  --btn-primary-shadow: var(--shadow-glow);
+  --btn-primary-hover-bg: var(--accent-fill-strong);
+  --btn-secondary-bg: var(--control-fill);
+  --btn-secondary-border-color: var(--glass-edge);
+  --btn-secondary-color: var(--text-primary);
+  --btn-secondary-shadow: none;
+  --btn-secondary-hover-bg: var(--control-fill-hover);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border-color: transparent;
+  --btn-ghost-color: var(--text-secondary);
+  --btn-ghost-shadow: none;
+  --btn-ghost-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --btn-ghost-hover-color: var(--text-primary);
+  --btn-danger-bg: var(--danger-fill);
+  --btn-danger-border-color: var(--danger-border);
+  --btn-danger-color: var(--danger-text);
+  --btn-danger-shadow: none;
+  --btn-danger-hover-bg: color-mix(in srgb, var(--status-danger) 16%, var(--surface-panel) 84%);
+  --btn-wide-accent-strip-width: 4px;
+  --btn-wide-active-bg: var(--accent-fill);
+  --btn-wide-active-border-color: var(--accent-border);
+  --btn-wide-active-color: var(--accent-text);
+  --btn-wide-draft-bg: var(--warning-fill);
+  --btn-wide-draft-border-color: var(--warning-border);
+  --btn-wide-draft-border-style: dashed;
+  --btn-wide-draft-color: var(--warning-text);
+  --btn-wide-preview-bg: var(--warning-fill);
+  --btn-wide-preview-border-color: var(--warning-border);
+  --btn-wide-preview-color: var(--warning-text);
+  --btn-secondary-success-bg: var(--success-fill);
+  --btn-secondary-success-border-color: var(--success-border);
+  --btn-secondary-success-color: var(--success-text);
+  --btn-secondary-danger-bg: var(--danger-fill);
+  --btn-secondary-danger-border-color: var(--danger-border);
+  --btn-secondary-danger-color: var(--danger-text);
+
+  /* === Tab 组件 === */
+  --tab-strip-bg: var(--control-fill);
+  --tab-strip-border-color: var(--glass-edge);
+  --tab-strip-radius: var(--radius-pill);
+  --tab-strip-padding: 3px;
+  --tab-strip-gap: 2px;
+  --tab-strip-shadow: var(--shadow-inset);
+  --tab-radius: var(--radius-pill);
+  --tab-bg: transparent;
+  --tab-color: var(--text-secondary);
+  --tab-height: 28px;
+  --tab-active-bg: var(--accent-fill-strong);
+  --tab-active-color: var(--text-on-accent);
+  --tab-active-shadow: var(--shadow-glow);
+  --tab-hover-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --tab-hover-color: var(--text-primary);
+
+  /* === Toast 通知 === */
+  --toast-bg: var(--surface-panel-strong);
+  --toast-border-color: var(--glass-edge);
+  --toast-radius: var(--radius-pill);
+  --toast-padding: 10px 16px;
+  --toast-shadow: var(--shadow-md);
+  --toast-backdrop: blur(var(--blur-sm)) saturate(116%);
+  --toast-strip-width: 4px;
+  --toast-info-bg: color-mix(in srgb, var(--brand-primary) 12%, var(--surface-panel-strong));
+  --toast-info-strip-color: var(--brand-primary);
+  --toast-success-bg: color-mix(in srgb, var(--status-success) 12%, var(--surface-panel-strong));
+  --toast-success-strip-color: var(--status-success);
+  --toast-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-panel-strong));
+  --toast-warning-strip-color: var(--status-warning);
+  --toast-danger-bg: color-mix(in srgb, var(--status-danger) 12%, var(--surface-panel-strong));
+  --toast-danger-strip-color: var(--status-danger);
+
+  /* === 表单字段 === */
+  --field-bg: color-mix(in srgb, var(--input-bg) 94%, transparent);
+  --field-border-color: var(--input-border);
+  --field-color: var(--text-primary);
+  --field-radius: var(--radius-sm);
+  --field-height: 36px;
+  --field-focus-border-color: color-mix(in srgb, var(--brand-primary) 44%, var(--input-border));
+  --field-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+
+  /* === 弹窗 === */
+  --modal-content-bg: var(--surface-elevated);
+  --modal-content-border-color: var(--overlay-8);
+  --modal-content-radius: var(--radius-md);
+  --modal-content-shadow: 0 8px 32px var(--overlay-12), 0 2px 8px var(--overlay-5);
+  --modal-overlay-bg: var(--overlay-70);
+
+  /* === optionType === */
+  --option-action-fg: #B73E2A;
+  --option-action-bg: #F6DCD2;
+  --option-explore-fg: #3F6F4E;
+  --option-explore-bg: #DCE7DD;
+  --option-dialog-fg: #6A4A8C;
+  --option-dialog-bg: #E5DCED;
+  --option-custom-fg: #3360A0;
+  --option-custom-bg: #DBE6F2;
+  --option-rest-fg: #7A6A4E;
+  --option-rest-bg: #EAE2CF;
+
+  /* === 账户 === */
+  --account-badge-guest-bg: rgba(116, 145, 174, 0.18);
+  --account-badge-guest-text: #9cb0c6;
+  --account-badge-pro-bg: rgba(240, 176, 62, 0.16);
+  --account-badge-pro-text: #f6c56a;
+  --account-badge-pro-border: rgba(218, 83, 44, 0.34);
+  --account-sync-local-bg: rgba(116, 145, 174, 0.1);
+  --account-sync-local-text: #8fa4bc;
+  --account-sync-ready-bg: rgba(45, 137, 239, 0.14);
+  --account-sync-ready-text: #8cc0ff;
+  --account-sync-done-bg: rgba(0, 163, 0, 0.14);
+  --account-sync-done-text: #6dd58f;
+  --account-sync-conflict-bg: rgba(218, 83, 44, 0.16);
+  --account-sync-conflict-text: #f0b03e;
+  --account-locked-bg: rgba(116, 145, 174, 0.06);
+  --account-locked-border: rgba(116, 145, 174, 0.16);
+  --account-locked-text: #7f95ad;
+  --account-card-bg: rgba(12, 22, 36, 0.82);
+  --account-card-border: rgba(116, 145, 174, 0.14);
+
+  /* === 图标色 === */
+  --icon-muted: #a89c7c;
+  --icon-subtle: #857a5e;
+
+  /* === 表面色 === */
+  --surface-page: #1c1812;
+  --surface-main: #1c1812;
+  --surface-canvas: rgba(38, 32, 24, 0.84);
+  --surface-elevated: rgba(45, 38, 28, 0.92);
+  --surface-soft: rgba(52, 44, 32, 0.78);
+  --surface-glass: rgba(38, 32, 24, 0.78);
+  --surface-glass-strong: rgba(45, 38, 28, 0.92);
+  --surface-panel: rgba(38, 32, 24, 0.88);
+  --surface-panel-strong: rgba(45, 38, 28, 0.94);
+  --surface-card: rgba(45, 38, 28, 0.88);
+  --surface-overlay: rgba(28, 24, 18, 0.94);
+  --surface-code: #0e0b08;
+  --surface-code-alt: #1a1611;
+  --surface-input: rgba(45, 38, 28, 0.94);
+  --surface-chip: color-mix(in srgb, var(--text-primary) 18%, transparent);
+
+  /* === 边框 === */
+  --border-subtle: rgba(235, 224, 200, 0.08);
+  --border-soft: rgba(235, 224, 200, 0.14);
+  --border-strong: rgba(235, 224, 200, 0.26);
+  --border-accent: rgba(168, 71, 42, 0.42);
+  --border-accent-strong: rgba(168, 71, 42, 0.60);
+  --border-light: rgba(235, 224, 200, 0.14);
+  --border-medium: rgba(235, 224, 200, 0.22);
+  --border-dark: rgba(235, 224, 200, 0.36);
+  --border-color: rgba(235, 224, 200, 0.22);
+  --border-chip: color-mix(in srgb, var(--brand-secondary) 24%, transparent);
+
+  /* === 文字色 === */
+  --text-main: #ebe0c8;
+  --text-primary: #ebe0c8;
+  --text-secondary: #cdbf9c;
+  --text-muted: #a89c7c;
+  --text-soft: #a89c7c;
+  --text-tertiary: #857a5e;
+  --text-invert: #1E1A14;
+  --code-text: #d6c8a8;
+  --text-color: #ebe0c8;
+  --text-on-accent: #FBF7EE;
+
+  /* === 阴影 === */
+  --shadow-sm: 0 4px 12px -4px rgba(0, 0, 0, 0.48);
+  --shadow-md: 0 12px 32px -16px rgba(0, 0, 0, 0.58);
+  --shadow-lg: 0 24px 56px -28px rgba(0, 0, 0, 0.68);
+  --shadow-glow: 0 0 0 1px rgba(168, 71, 42, 0.32), 0 16px 40px -24px rgba(168, 71, 42, 0.48);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-focus-ring: 0 0 0 3px rgba(168, 71, 42, 0.34);
+
+  /* === 温色强调 === */
+  --accent-warm-bg: rgba(240, 176, 62, 0.12);
+  --accent-warm-bg-strong: rgba(240, 176, 62, 0.22);
+  --accent-warm-border: rgba(240, 176, 62, 0.3);
+  --accent-warm-border-strong: rgba(240, 176, 62, 0.48);
+  --accent-warm-text: #f0b03e;
+
+  /* === 面板 === */
+  --panel-tint: rgba(47, 74, 58, 0.18);
+
+  /* === 背景 === */
+  --bg-secondary: #231f17;
+  --bg-tertiary: #2c271d;
+  --bg-hover: #3a3326;
+  --bg-color: #1c1812;
+
+  /* === 输入框 === */
+  --input-bg: rgba(45, 38, 28, 0.94);
+  --input-border: rgba(235, 224, 200, 0.20);
+
+  /* === HUD === */
+  --hud-bg: rgba(45, 38, 28, 0.86);
+  --hud-border: rgba(168, 71, 42, 0.36);
+  --hud-text: #cdbf9c;
+  --hud-value: #ebe0c8;
+
+  /* === 选项 === */
+  --choice-panel-bg: rgba(38, 32, 24, 0.78);
+  --choice-panel-border: rgba(235, 224, 200, 0.10);
+  --choice-item-bg: rgba(45, 38, 28, 0.92);
+  --choice-item-border: rgba(235, 224, 200, 0.14);
+  --choice-item-hover-bg: rgba(58, 51, 38, 0.96);
+  --choice-item-active-bg: rgba(47, 74, 58, 0.40);
+  --choice-title: #ebe0c8;
+  --choice-text-primary: #ebe0c8;
+  --choice-text-secondary: #cdbf9c;
+  --choice-default-chip-bg: rgba(47, 74, 58, 0.20);
+
+  /* === 固定栏 === */
+  --sticky-bg: rgba(38, 32, 24, 0.90);
+  --sticky-text: #cdbf9c;
+  --sticky-value: #ebe0c8;
+
+  /* === 位置 === */
+  --location-separator: rgba(235, 224, 200, 0.28);
+
+  /* === 思考 === */
+  --thinking-text: #a89c7c;
+
+  /* === 流式 === */
+  --stream-indicator-inner: #2c271d;
+
+  /* === 聊天气泡 === */
+  --chat-bubble-bg: rgba(45, 38, 28, 0.92);
+  --chat-bubble-user-bg: rgba(47, 74, 58, 0.32);
+  --chat-bubble-hover-bg: rgba(52, 44, 32, 0.96);
+  --chat-bubble-text: #ebe0c8;
+  --chat-bubble-label: #cdbf9c;
+  --chat-bubble-border-ai: rgba(235, 224, 200, 0.12);
+  --chat-bubble-border-user: rgba(47, 74, 58, 0.48);
+  --chat-bg: #1c1812;
+
+  /* === 设计卡片 === */
+  --dcv-bg: #09131f;
+  --dcv-toolbar-bg: rgba(8, 18, 32, 0.9);
+  --dcv-toolbar-border: rgba(116, 145, 174, 0.12);
+  --dcv-section-bg: rgba(12, 22, 36, 0.84);
+  --dcv-section-border: rgba(116, 145, 174, 0.12);
+  --dcv-section-hover: rgba(18, 32, 49, 0.9);
+  --dcv-text-primary: #e1e8f0;
+  --dcv-text-secondary: #b6c4d6;
+  --dcv-text-muted: #9caec2;
+  --dcv-text-faint: #7f95ad;
+  --dcv-subitem-bg: rgba(15, 28, 44, 0.78);
+  --dcv-subitem-border: rgba(116, 145, 174, 0.12);
+  --dcv-expanded-bg: rgba(17, 32, 50, 0.9);
+  --dcv-field-bg: rgba(11, 22, 36, 0.92);
+  --dcv-field-border: rgba(116, 145, 174, 0.16);
+  --dcv-btn-hover-bg: rgba(45, 137, 239, 0.14);
+  --dcv-btn-hover-border: rgba(45, 137, 239, 0.28);
+  --dcv-btn-hover-color: #8cc0ff;
+  --dcv-icon-muted: rgba(182, 196, 214, 0.42);
+  --dcv-icon-hover: rgba(225, 232, 240, 0.84);
+  --dcv-scrollbar: rgba(116, 145, 174, 0.24);
+  --dcv-input-bg: rgba(11, 22, 36, 0.96);
+  --dcv-input-border: rgba(116, 145, 174, 0.16);
+  --dcv-input-text: #e1e8f0;
+  --dcv-modal-bg: rgba(8, 18, 32, 0.96);
+  --dcv-modal-border: rgba(116, 145, 174, 0.16);
+  --dcv-modal-text: #e1e8f0;
+  --dcv-modal-btn-bg: rgba(15, 28, 44, 0.84);
+  --dcv-modal-btn-border: rgba(116, 145, 174, 0.18);
+  --dcv-modal-btn-text: #b6c4d6;
+  --dcv-cognitive-warning-bg: rgba(240, 176, 62, 0.14);
+  --dcv-cognitive-warning-border: rgba(218, 83, 44, 0.32);
+  --dcv-cognitive-warning-title: #f0b03e;
+  --dcv-cognitive-warning-text: #ffe1b4;
+  --dcv-cognitive-warning-item-bg: rgba(240, 176, 62, 0.08);
+  --dcv-cognitive-warning-item-border: rgba(240, 176, 62, 0.18);
+  --dcv-cognitive-warning-path-bg: rgba(240, 176, 62, 0.14);
+  --dcv-cognitive-warning-path-text: #ffd89a;
+
+  /* === 语法高亮 === */
+  --syntax-key: #89b4fa;
+  --syntax-string: #f0a878;
+  --syntax-number: #a6d189;
+  --syntax-boolean: #7cb8f0;
+  --syntax-null: #7cb8f0;
+  --syntax-comment: #6a9955;
+  --syntax-bracket: #cdd6f4;
+
+  /* === 叙事色 === */
+  --narrative-dialogue: #8cb0e2;
+  --narrative-thought: #c4a8d6;
+  --narrative-speaker: #e89c7a;
+  --narrative-action: #a8d6b8;
+
+  /* === 启动器 === */
+  --launcher-surface: #0a0a12;
+  --launcher-surface-alt: #111827;
+  --launcher-glass: rgba(26, 26, 46, 0.95);
+  --launcher-glass-light: rgba(26, 26, 46, 0.72);
+  --launcher-border: rgba(255, 255, 255, 0.1);
+  --launcher-border-strong: rgba(255, 255, 255, 0.18);
+  --launcher-btn-primary: #6366f1;
+  --launcher-btn-primary-hover: #4f46e5;
+  --launcher-star: #facc15;
+  --launcher-text: rgba(255, 255, 255, 0.92);
+  --launcher-text-muted: rgba(255, 255, 255, 0.6);
+  --launcher-text-faint: rgba(255, 255, 255, 0.4);
+  --launcher-shadow: rgba(0, 0, 0, 0.6);
+  --launcher-overlay: rgba(0, 0, 0, 0.5);
+
+  /* === 加载 === */
+  --loading-bg: rgba(32, 36, 42, 0.98);
+  --loading-bg-strong: rgba(18, 20, 24, 0.95);
+  --loading-card-bg: rgba(42, 48, 58, 0.82);
+  --loading-gradient-start: #4A7A64;
+  --loading-gradient-end: #687E54;
+  --loading-progress-start: #C28E6A;
+  --loading-progress-mid: #B86B72;
+  --loading-progress-end: #858BBA;
+
+  /* === 调试分段 === */
+  --segment-summary: #66bb6a;
+  --segment-npc-archive: #42a5f5;
+  --segment-mainline: #ffa726;
+  --segment-conversation: #ab47bc;
+  --segment-narrative: #5c6bc0;
+  --segment-reference: #26c6da;
+  --segment-sms: #9ccc65;
+  --segment-game-state: #ffca28;
+  --segment-gm: #78909c;
+  --segment-react: #7e57c2;
+  --segment-step-3: #26a69a;
+  --segment-core: #64b5f6;
+  --segment-custom: #ef5350;
+  --segment-module: #4db6ac;
+  --segment-country: #7986cb;
+  --segment-timeline: #81c784;
+
+  /* === phone === */
+  --phone-surface: #1a1e1c;
+  --phone-surface-low: #222826;
+  --phone-surface-container: #2a302e;
+  --phone-surface-high: #333a37;
+  --phone-surface-highest: #3d4442;
+  --phone-surface-dim: #4a524f;
+  --phone-primary: #7ccfb3;
+  --phone-primary-container: #1a4d3e;
+  --phone-on-primary: #0d503f;
+  --phone-on-primary-container: #b1efd8;
+  --phone-secondary: #e8a8a4;
+  --phone-secondary-container: #5c2d2b;
+  --phone-secondary-dim: #8c5552;
+  --phone-on-secondary-container: #ffdad7;
+  --phone-tertiary: #c4b4e8;
+  --phone-tertiary-container: #3d3560;
+  --phone-on-tertiary-container: #e7deff;
+  --phone-outline: #8fa59b;
+  --phone-outline-variant: #4a6058;
+  --phone-on-surface: #e4e3de;
+  --phone-on-surface-variant: #b2ccc1;
+  --phone-error: #ffb4ab;
+  --phone-error-container: #93000a;
+  --phone-nav-inactive: #e8a8a4;
+  --phone-nav-active-bg: #1a4d3e;
+  --phone-nav-active-text: #b1efd8;
+
+  /* ─── 兼容别名（旧变量映射到新语义层） ─── */
+  --primary-color: var(--brand-primary);
+  --primary-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-strong) 100%);
+  --panel-bg: var(--surface-panel);
+  --panel-border: var(--border-soft);
+  --panel-shadow: var(--shadow-md);
+  --glass-bg: var(--surface-glass);
+  --glass-bg-strong: var(--surface-glass-strong);
+  --glass-border: var(--border-soft);
+  --metro-blue: var(--brand-primary);
+  --metro-cobalt: var(--brand-primary-strong);
+  --metro-teal: var(--brand-secondary);
+  --metro-orange: var(--brand-accent);
+  --metro-yellow: var(--brand-yellow);
+  --metro-purple: var(--brand-purple);
+  --metro-magenta: var(--brand-magenta);
+  --metro-green: var(--status-success);
+  --metro-red: var(--status-danger);
+  --metro-lime: var(--brand-lime);
+  --metro-brown: var(--brand-brown);
+  --metro-dark: var(--surface-code);
+
+}

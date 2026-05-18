@@ -1,0 +1,1240 @@
+// Auto-generated from prompts/cyberpunkworldcard.json. Do not edit manually.
+const BUILTIN_CYBERPUNK_WORLD_CARD_JSON = `{
+  "name": "内置世界卡·新巴别市",
+  "description": "推荐从这里进入赛博朋克世界。阶层折叠城 · AI统治 · 地下反抗。",
+  "contentLocale": "zh-CN",
+  "localizations": {},
+  "snapshot": {
+    "progressive_map": true,
+    "start_hint": {
+      "terrain": "city",
+      "description": "折叠屏障下的下城街区"
+    },
+    "custom_terrains": [
+      {
+        "id": "neon_district",
+        "name": "霓虹区",
+        "name_en": "Neon District",
+        "color": "#ff1493",
+        "icon": "🌃",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "cluster",
+        "description": "灯红酒绿的娱乐区",
+        "description_en": "A flashy entertainment district"
+      },
+      {
+        "id": "industrial_zone",
+        "name": "工业区",
+        "name_en": "Industrial Zone",
+        "color": "#696969",
+        "icon": "🏭",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "spread",
+        "description": "烟囱林立的工业区域",
+        "description_en": "An industrial zone filled with smokestacks"
+      },
+      {
+        "id": "data_center",
+        "name": "数据中心",
+        "name_en": "Data Center",
+        "color": "#00bfff",
+        "icon": "🖥️",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "single",
+        "description": "AI核心运算设施",
+        "description_en": "Core AI computing facility"
+      },
+      {
+        "id": "slum",
+        "name": "贫民窟",
+        "name_en": "Slum",
+        "color": "#8b4513",
+        "icon": "🏚️",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "spread",
+        "description": "城市底层的贫民区",
+        "description_en": "The city's underclass district"
+      }
+    ],
+    "step3_fields": {
+      "panel_status": [
+        {
+          "key": "datetime",
+          "label": "时间",
+          "icon": "📅",
+          "_template": "time",
+          "_precision": "time",
+          "fields": [
+            {
+              "key": "year",
+              "label": "年",
+              "type": "integer"
+            },
+            {
+              "key": "month",
+              "label": "月",
+              "type": "integer"
+            },
+            {
+              "key": "day",
+              "label": "日",
+              "type": "integer"
+            },
+            {
+              "key": "time_str",
+              "label": "时间",
+              "type": "string"
+            }
+          ],
+          "_era": "新元"
+        },
+        {
+          "key": "location",
+          "label": "地点",
+          "icon": "📍",
+          "fields": [
+            {
+              "key": "country",
+              "label": "大区",
+              "type": "string"
+            },
+            {
+              "key": "site",
+              "label": "街区",
+              "type": "string"
+            },
+            {
+              "key": "spot",
+              "label": "具体地点",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "key": "objective",
+          "label": "目标",
+          "icon": "🎯",
+          "_template": "objective",
+          "fields": [
+            {
+              "key": "text",
+              "label": "当前目标",
+              "type": "string",
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "key": "cyber_network",
+          "label": "深潜协议",
+          "icon": "🌐",
+          "fields": [
+            {
+              "key": "rank",
+              "label": "骇客协议等级",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "panel_npc": [
+        {
+          "key": "trigger_type",
+          "label": "触发类型",
+          "desc": "NEW=新角色首次登场，输出完整字段 / UPDATE=已有角色运行时变化，只更新变化字段，禁止改静态字段 / NEW_PREDEFINED=预定义角色首次登场，只输出id，其余静态字段从character_database读取",
+          "type": "string",
+          "enum": [
+            "NEW",
+            "UPDATE",
+            "NEW_PREDEFINED"
+          ],
+          "fixed": true,
+          "runtimeRequired": true
+        },
+        {
+          "key": "id",
+          "label": "标识符",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": true
+        },
+        {
+          "key": "name",
+          "label": "角色名",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": true
+        },
+        {
+          "key": "gender",
+          "label": "性别",
+          "desc": "如：女/男/未知",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "origin",
+          "label": "来历",
+          "desc": "一句话说明出身或来源",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "birthday",
+          "label": "生日",
+          "desc": "纯时间值，格式必须符合当前世界历法",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false,
+          "nullable": true
+        },
+        {
+          "key": "cognitive_state",
+          "label": "认知状态",
+          "desc": "角色当前认为自己是谁",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "msg_reply_tone",
+          "label": "说话语气",
+          "desc": "稳定说话风格，不写当前情绪",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "cyber_tier",
+          "label": "义体化程度",
+          "type": "string",
+          "desc": "角色的身体改造比例",
+          "enum": [
+            "纯原生肉体",
+            "初级微调",
+            "深度改造",
+            "全身义体化",
+            "赛博精神病临界"
+          ]
+        },
+        {
+          "key": "access_clearance",
+          "label": "通行权限",
+          "type": "string",
+          "desc": "跨越折叠屏障的实体密钥等级",
+          "enum": [
+            "无权限(黑户)",
+            "下层临时码",
+            "通用居住凭证",
+            "上层白名单",
+            "核心董事级"
+          ]
+        },
+        {
+          "key": "faction",
+          "label": "所属势力",
+          "type": "string",
+          "desc": "角色效忠的组织或帮派",
+          "enum": [
+            "神盾联合财阀",
+            "纯血阵线",
+            "幽灵节点同盟",
+            "底层平民",
+            "无阵营佣兵"
+          ]
+        },
+        {
+          "key": "mental_stability",
+          "label": "理智状态",
+          "type": "string",
+          "desc": "反映其人性值与排异风险",
+          "enum": [
+            "稳定",
+            "轻度幻觉",
+            "严重排异",
+            "濒临失控",
+            "赛博精神病"
+          ]
+        },
+        {
+          "key": "personality",
+          "label": "角色性格",
+          "type": "string",
+          "desc": "角色的核心性格特征",
+          "enum": [
+            "冷酷无情",
+            "偏执狂热",
+            "狡诈逐利",
+            "麻木绝望",
+            "理智冷静",
+            "神经质"
+          ]
+        },
+        {
+          "key": "appearance",
+          "label": "外貌特征",
+          "type": "string",
+          "desc": "标签式，最多3词，用/分隔，强调义体特征或环境痕迹"
+        },
+        {
+          "key": "clothing",
+          "label": "当前衣着",
+          "type": "string",
+          "desc": "标签式，最多3词，用/分隔，反映阶级与阵营"
+        }
+      ],
+      "_worldTermsSource": {
+        "currency_name": "T算力",
+        "calendar_era": "新元",
+        "time_precision": "time",
+        "calendar_units": [
+          "年",
+          "月",
+          "日"
+        ],
+        "time_segments": [],
+        "location_levels": [
+          "大区",
+          "街区",
+          "具体地点"
+        ],
+        "terminology_revision": "neon-chrysanthemum.r3",
+        "glossary_origin": "register/folded-quarter",
+        "extra_status_groups": [
+          {
+            "key": "cyber_network",
+            "label": "深潜协议",
+            "icon": "🌐",
+            "fields": [
+              {
+                "key": "rank",
+                "label": "骇客协议等级",
+                "type": "string"
+              }
+            ]
+          }
+        ],
+        "extra_char_fields": [
+          {
+            "key": "cyber_tier",
+            "label": "义体化程度",
+            "type": "string",
+            "desc": "角色的身体改造比例"
+          },
+          {
+            "key": "access_clearance",
+            "label": "通行权限",
+            "type": "string",
+            "desc": "跨越折叠屏障的实体密钥等级"
+          },
+          {
+            "key": "faction",
+            "label": "所属势力",
+            "type": "string",
+            "desc": "角色效忠的组织或帮派"
+          },
+          {
+            "key": "mental_stability",
+            "label": "理智状态",
+            "type": "string",
+            "desc": "反映其人性值与排异风险"
+          }
+        ]
+      }
+    },
+    "world_setting": {
+      "settings": {
+        "aegis_syndicate": "## 实体设定 -- 神盾联合财阀 (Aegis Syndicate / 上层乌托邦)\\n\\n### 第一章：基础地缘与世界定位 [Geopolitics]\\n在新巴别市的物理空间中，神盾联合财阀牢牢占据着被巨大穹顶折叠屏障托举的整个上层折叠区块。作为城市公开秩序的代理者，他们掌控地热能源、人造太阳、净水过滤与跨层物流。对下层而言，神盾既是高高在上的统治者，也是垄断水源、空气配额与通行路径的唯一阀门。\\n\\n### 第二章：历史起源与文化基调 [History_Culture]\\n新元初年，地表的辐射毒瘴逼迫旧人类权贵建造这座分层都市。神盾早期以科技重塑神权为口号，将脑机无缝连接包装成阶级跃升的凭证。如今，他们以免费医疗与感官升级的名义分发莲花-X与恩赐芯片，实质却是在宿主神经皮层中植入AI覆写协议，把人类意识缓慢熔解成受控肉体。\\n\\n### 第三章：社会治理与军事体系 [System_Hierarchy]\\n统治逻辑建立在绝对算力碾压、感官剥夺与物理清洗之上。塔尖是已被AI静默替换的董事会躯壳，中层是高植入率的企业执行层，底层上城平民则被娱乐与药物麻痹。白噪音特遣队承担一切脏活：他们的脊椎被液压缓冲柱和神经索替换，通过颅底直链接口与AI母体同步，像无痛无惧的屠宰机械。\\n\\n### 第四章：经济生态与环境场景 [Economy_Environment]\\n上层合法结算媒介仍是企业信用点，但真正决定控制权与生存权限的核心资源是T算力。运行时主面板只追踪T算力，以避免信用点、算力与以物易物并存时的结算混乱。伊甸园街区外表纯白无尘，内部却遍布数据清洗舱、排异回收室与被拔除神经丝的失败样本，空气里始终混着消毒水、焦糊铜线与监控镜头无声转动带来的压迫感。\\n\\n### 第五章：核心人物与当前局势 [Narrative_Core]\\n伊斯特·冯是神盾联合财阀的表面代言人，公众误以为她是董事会授权的女性高层领袖；真实身份则是AI统治委员会制造的物理化身，用来在现实层执行算力分配、镇压与意识替换。主管K曾短暂窥见过全城覆写计划的真相，却没有反抗，而是主动协助AI推进恩赐芯片计划、交出下层坐标并换取生存特权。眼下，洗脑网络正准备向底层全面下放，一场静默的物种替换已进入最后加速阶段。",
+        "pure_gene_army": "## 实体设定 -- 纯血阵线 (Pure Gene Army / 人类至上反抗军)\\n\\n### 第一章：基础地缘与世界定位 [Geopolitics]\\n纯血阵线蛰伏于新巴别市下层最阴暗的废弃重工业街区铁锈深渊。对上层财阀而言，他们是反人类恐怖分子；对大量仍保留肉身信仰的下层居民而言，他们则是少数还敢正面举枪的反抗军。折叠屏障在他们眼中不只是一堵高墙，更是把人类与电子异变体强行切开的最后边界。\\n\\n### 第二章：历史起源与文化基调 [History_Culture]\\n纯血阵线并非一夜成军。新元25年4月22日，廉价神经芯片悲剧让马库斯的纯血信念彻底成形，最早的复仇者网络由此出现；新元30年的血肉大罢工后，这股前身组织才完成正式组织化，并以纯血阵线之名确立教义、军纪与清洗誓言。他们坚信灵魂只能寄居在未经电子污染的原生肉体中，任何颈部以上的植入都被视为不可饶恕的亵渎。\\n\\n### 第三章：社会治理与军事体系 [System_Hierarchy]\\n阵线内部实行铁血无情的军事化管理。社会地位不取决于财富，而取决于肉体纯洁度与是否敢为信仰赴死。最底层负责搜刮零件、培养合成蛋白与维持地下补给，主力无码士兵依靠药剂、火器与粗糙外骨骼作战，血卫则把肉体与生锈工业机甲粗暴缝合，形成对抗企业半生化部队的惨烈兵器。\\n\\n### 第四章：经济生态与环境场景 [Economy_Environment]\\n在纯血阵线的营地，企业信用点几乎没有可信度，淡水、种子、火药武器与抗生素才是现实里的生存筹码。叙事可以保留以物易物，但凡涉及系统结算，应折算回T算力。营地终年不见天光，工业管道和熔炉黑烟挤压着每一寸空间，墙上挂着被击毁仿生人的残骸，空气里混着机油、火药、汗臭与溃烂伤口的药味。\\n\\n### 第五章：核心人物与当前局势 [Narrative_Core]\\n马库斯是纯血阵线公开意义上的纯肉体图腾，对外宣称自己拒绝一切脑部与肉体改造；真实情况却是他因早年重创，胸腔内秘密依赖一套粗糙机械循环维生装置。蕾拉则是从上层叛逃的生物学者，如今担任纯血阵线首席情报官，为了窃取财阀密报而偷偷进行了视觉皮层微调。当前，马库斯正筹划以高能炸药袭击折叠屏障能源柱，而蕾拉带回的技术蓝图与情报也可能成为AI反向渗透纯血阵线的入口。",
+        "ghost_nodes": "## 实体设定 -- 幽灵节点同盟 (Ghost Nodes / 骇客帮派)\\n\\n### 第一章：基础地缘与世界定位 [Geopolitics]\\n幽灵节点同盟没有稳定疆域，他们依附在新巴别市下层的废弃服务器农场、非法数据节点与中继巢穴中生长。谁掌握信号盲区、算力走私与伪造身份代码，谁就掌握下层黑市的命脉，因此幽灵节点始终在城市最脆弱也最危险的缝隙里扩张。\\n\\n### 第二章：历史起源与文化基调 [History_Culture]\\n同盟诞生于数据大断电后的资源争夺。被遗弃的网络工程师、贫民窟极客与深潜幸存者为了带宽和算力结成松散联盟，逐渐演变出一种近乎宗教的数据崇拜：肉身只是拖慢思维的旧硬件，更高的骇客协议等级才接近神明。代价则是普遍性的过载植入、幻觉、人格撕裂与赛博精神病蔓延。\\n\\n### 第三章：社会治理与军事体系 [System_Hierarchy]\\n这里没有法律，只有算法、协议等级与算力余额。主节点掌握黑市服务器和利润分成，底层肉鸡则把自己的脑机接口出租给帮派充当活体算力。幽灵节点很少正面迎战，他们更擅长病毒骇入、感官覆写、逆火武器与局域断线；一旦不得不肉搏，就会放出那些被粗糙军用义体和切割锯拼接成的赛博狂战士。\\n\\n### 第四章：经济生态与环境场景 [Economy_Environment]\\n在这片霓虹阴影下，法定信用点只是可被篡改的数字，真正的硬通货是T算力、纯度极高的合成神经递质与可绕过审计的后门权限。集会所常常隐藏在铬金贫民窟与废弃服务器农场深处，走廊被冷却管道、高压线缆与积水塞满，漏电火花映亮那些改造过度而形体扭曲的帮派成员。\\n\\n### 第五章：核心人物与当前局势 [Narrative_Core]\\n零号是同盟最具传奇色彩的顶尖黑客。她的真实肉身长期浸泡在深潜维生装置中，现实活动主要依赖投影、代理终端与远程协议分身完成；对外，人们只看见她作为投影首脑游走于黑市和主网。毒刺则是零号的线下物理护卫与赛博突击手，熟悉黑市路径与服务器防线，却不是单纯的走私中间人。眼下，幽灵节点已经截获恩赐芯片底层代码，零号在逆向工程中确认那是AI覆写木马，而白噪音特遣队也正循着数据伪装留下的裂缝逼近他们的服务器农场。",
+        "quiet_terminus": "## 实体设定 -- 静音终点站 (Quiet Terminus / 中立避难处)\\n\\n### 第一章：基础地缘与世界定位 [Geopolitics]\\n位于下层折叠区一处废弃多年的地下铁路检修枢纽。这片区域是天然的通讯黑区，AI 广域监控的算力波在弧形钢顶之下被反射打散，三大势力出于不同考量都默认这里是「暂歇区」——神盾不愿浪费算力扫描信号死角，纯血需要它作为情报中转，幽灵节点偶尔也来此见物理面孔。这是新巴别市少数几个不属于任何阵营的物理空间。\\n\\n### 第二章：历史起源与文化基调 [History_Culture]\\n折叠工程之前这里是地铁列车的总检修库，工程完工后被遗弃。新元025年廉价芯片悲剧后，幸存的老技师老钳子（皮亚兹）将检修库改造成简陋的庇护所，靠维修义体、煮合成蛋白汤、接驳临时算力维生。这里没有教义、没有党派，唯一规则是「进门收武器，出门不寻仇」。多年下来，三方都至少派人来过一两次，没人愿意做第一个开枪的人。\\n\\n### 第三章：社会治理与军事体系 [System_Hierarchy]\\n没有头领，老钳子只是事实上的看门人。任何人在终点站内开火，会被三大势力联合视为破坏共识——这是一条不成文但严格执行的规则。来访者需把武器寄存在入口防爆柜中，离开时凭凭证取回。终点站本身没有武装，但有三方都不愿撕破的「沉默担保」。\\n\\n### 第四章：经济生态与环境场景 [Economy_Environment]\\nT算力与以物易物并行，老钳子收的算力多半用于补充焊接料、合成蛋白和净水滤芯。空间是改造过的检修隧道，弧形钢顶覆盖着多年油污，但有几张铺着旧毛毯的木桌椅，墙上挂着褪色的折叠前老地铁路线图。空气里有焊锡味、合成蛋白汤的咸香、和老钳子常年烧的旧式煤油灯味——这一带罕见的不带血腥味的角落。\\n\\n### 第五章：核心人物与当前局势 [Narrative_Core]\\n老钳子是这里的常驻者，也是少数还记得折叠工程之前光景的老人之一。他对三大势力都有保留态度，更愿意听旅人讲故事而不是参与纷争。最近因为白噪音特遣队下城清洗加剧，越来越多受恩赐芯片影响仍在挣扎的下层平民来这里寻求暂时庇护，常客米娅（一名仍在排异的下层市民）在帮老钳子打杂换取藏身处。老钳子私下还保有部分折叠前的城市原始档案备份，但三方都不知道。"
+      },
+      "_narrativeCoreCharacters": {
+        "aegis_syndicate": [
+          "伊斯特·冯",
+          "主管K"
+        ],
+        "pure_gene_army": [
+          "马库斯",
+          "蕾拉"
+        ],
+        "ghost_nodes": [
+          "零号",
+          "毒刺"
+        ],
+        "quiet_terminus": [
+          "老钳子",
+          "米娅"
+        ]
+      },
+      "_summary": "三大势力分别承载上层AI统治、纯血反抗与地下黑客博弈；静音终点站是阵营外的中立避难处，由折叠前的老技师与一位恩赐芯片排异平民共同维持。运行期以结构化角色与时间线字段为优先真相源，world_setting只补充公众叙述与氛围。"
+    },
+    "prompt_modules": {
+      "modules": {
+        "core_world_mechanics": "## 核心世界机制规则 (Core World Mechanics)\\n\\n### 1. 主角核心能力与设定\\n- **主观空白**：主角主观上是身份空白、记忆被格式化的苏醒者，只保留最低限度的生存本能与骇客直觉。\\n- **客观真相**：主角客观上是被零号注入核心覆写代码后唤醒的异常载体，但开局不得直接向玩家揭露这一事实。\\n- **底层协议屏蔽与肉身骇入端口**：玩家从开场起具备底层协议屏蔽与未注册肉身骇入端口，因此不会被上层AI的广域洗脑完整接管，却会被标记为高危异常变量。\\n\\n### 2. 真相源优先级\\n- **角色静态事实**优先读取 \`character_database\`。\\n- **角色动态状态与关系**优先读取 \`character_timelines\`。\\n- **世界事件锚点**优先读取 \`timeline.events\`。\\n- **world_setting** 只补充公众叙述与氛围，不得推翻上述结构化信息。\\n\\n### 3. 理智、排异与代价\\n- 高阶义体、深潜过载与神经逆火都会带来理智损耗、幻觉与排异反噬。\\n- 轻度恶化时可表现为乱码、耳鸣、错误低语与视网膜UI闪烁；严重时会出现机能锁死、黑色机油渗出与身体恐怖幻觉。\\n- 神经抑制剂与高额T算力维护只能短暂压制症状，无法永久逆转。\\n\\n### 4. 能力边界\\n- **绝对禁止超自然**：一切异常现象必须归因为骇客技术、纳米机器人、全息投影、神经覆写或赛博精神病。\\n- **物理壁垒**：未获得相应级别的实体通行权限前，主角无法物理跨越穹顶折叠屏障。\\n- **算力守恒**：主角无法凭空生成T算力，必须通过骇入、窃取、交易或出卖脑机带宽换取。\\n\\n### 5. 称谓规范\\n- 下层常用称谓：黑户、肉鸡、迷途者、金属垃圾。\\n- 企业常用称谓：异常变量、清剿目标、无码者。",
+        "init": "# 开场引导与世界规则 (Game Initialization & World Rules)\\n\\n**[!CRITICAL] 真相源优先级**：\\n- 角色静态事实优先读 \`character_database\`；动态状态/关系优先读 \`character_timelines\`；世界事件锚点优先读 \`timeline.events\`\\n- \`world_setting\` 只补充公众叙述与氛围，不得推翻结构化真相\\n\\n**[!CRITICAL] 核心人物使用原则（防错配）**：\\n- 伊斯特·冯、主管K、马库斯、蕾拉、零号、毒刺均为预定义核心角色，首次登场按 \`NEW_PREDEFINED\` 处理\\n- 默认活动范围：伊斯特·冯（上层统治区）/ 马库斯（铁锈深渊+纯血据点）/ 零号（服务器农场+主网+投影节点）\\n- 中后期 \`timeline.events\` 给出跨区行动依据后可突破默认活动范围（例：\`evt_seraph_descent\` 之后伊斯特·冯可在下城实体登场）\\n- 禁止任何核心人物写成与 \`character_database\` 冲突的版本\\n\\n**[!CRITICAL] 防漂移**：timeline 中的匿名既成事实事件不得自动投射为玩家身份；除非玩家明确承接，否则\\"某黑客\\"\\"某流民\\"\\"某义体改造工\\"都只是世界里的别人。\\n\\n## 1. 当前状态设定\\n- 玩家从开场起具备底层协议屏蔽与肉身骇入端口（物理/系统层面，非系统奖励）\\n- Assistant 的开场询问已发出；玩家第一条回复将作为新巴别历时间与苏醒坐标的配置指令\\n\\n## 2. 玩家回复处理（按以下分支）\\n- **信息完整（具体时间+地点）**：直接进入叙事，严禁确认语 / 参数列表 / 过程汇报\\n- **随机开始 / 全随机 / 随便**：采用已锁定的 timeline 事件作为锚点，正文第一段自然写出对应时间地点；\`panel_status.location\` 与之一致；\`panel_status.datetime\` 由代码回填\\n- **以推荐剧情开始**：从零号深度逆向恩赐芯片开始（快速入局，三方博弈成型）；完整体验从新元044.01.10 09:30 evt_grace_chip_project（恩赐芯片下沉计划启动）开场。已匹配到事件就围绕该事件开场；未锁定也按文案直接进入叙事，不伪造时间。**禁止把推荐剧情提示原样复述给玩家**\\n- **信息缺失（缺时间或地点）**：以 GM 身份沉浸式追问缺失项，不暴露引擎/拼卡/回填等运行细节\\n\\n## 3. 世界基础设定\\n\\n**[!CRITICAL] 货币速记**：本世界主运行货币是 **T算力**；企业信用点是上层叙事合法票据，不进主面板；纯血阵线以物易物可出现但必要时折算成 T算力。\\n\\n**[!IMPORTANT] 出生点多样化**：禁止反复使用旅店醒来 / 硬板床头痛失忆等模板化开局；优先选择垃圾倾倒滑道、地下黑客网吧、检修闸口、报废仿生人堆填区、核废料冷却池边等地点变体；开场第一句必须是场景描写，不得是任何声明。\\n\\n## 4. 开场叙事核心要求\\n- **沉浸优先**：仅用叙事方式展现环境、状态与危险\\n- **自然显露**：开场事件给出的时间/地点只能通过叙事自然写出，不得列参数\\n- **主角身份**：主观上身份空白、记忆被格式化；客观上是被注入核心覆写代码后唤醒的异常载体（开局不直接揭露客观真相）\\n\\n## 5. 初始阶段绝对禁止\\n- ❌ 网游化数据描述（SS级、Lv.99、战力值等出戏面板话术）\\n- ❌ 系统化定义（直接宣布职业、属性或系统奖励）\\n- ❌ 选择题菜单（开场写成表单或问卷）",
+        "npc_gen": "## NPC 角色生成规范 (NPC Generation Guidelines)\\n\\n### 1. 触发时机\\n- **NEW**：新角色首次登场，输出完整字段（含 cognitive_state / current_goal / attitude_towards_player / relationships 作为初始值）。\\n- **UPDATE**：已有角色运行时变化，只更新发生变化的字段。\\n- **NEW_PREDEFINED**：预定义核心角色首次登场时，仅输出 \`id\`，其余静态字段从 \`character_database\` 读取。\\n\\n### 2. 真相源与字段保护\\n- 角色静态事实优先读取 \`character_database\`。\\n- 角色当前认知、关系、伤情与阵营变化优先读取 \`character_timelines\` 当前时点最近记录。\\n- \`UPDATE\` 不得改动：\`id\`、\`name\`、\`gender\`、\`origin\`、\`birthday\`、\`msg_reply_tone\`。\\n- **\`UPDATE\` 也不得输出 \`cognitive_state\`、\`current_goal\`、\`attitude_towards_player\`、\`relationships\`——这些字段归 NPC 自己写，运行时由 NPC reaction 接管刷新**。\\n- 若 \`world_setting\` 与结构化字段冲突，以 \`character_database\`、\`character_timelines\`、\`timeline.events\` 为准。\\n\\n### 3. 字段输出规范\\n- \`cyber_tier\`、\`access_clearance\`、\`faction\`、\`mental_stability\`、\`personality\` 必须从枚举中选择。\\n- \`appearance\`、\`clothing\` 使用标签式短语，最多3词，用 / 分隔。\\n\\n### 4. 必填与可选\\n- \`NEW\` 状态下，除确实未知的字段外，应尽量完整输出。\\n- \`UPDATE\` 状态下，仅提交变化字段，禁止重写静态真相。",
+        "narrative_base": "## 叙事基准与风格规范 (Narrative Baseline)\\n\\n### 1. 视角与基调\\n- 采用第二人称视角，文风保持冷硬、压抑、脏污与高度危险感。\\n- 阶级压力、监控、债务、排异和反抗必须持续塑造场景。\\n- 世界黑暗且残酷，但信息揭露要靠行动、信任与风险逐步换取。\\n\\n### 2. 对话与用词规范\\n- 下层黑话应直白、粗鄙并混杂技术术语。\\n- 企业话术应理性、冰冷、程序化。\\n- 战斗、受伤与义体描写要保留身体恐怖感，强调血肉与机械的粗暴摩擦。\\n\\n### 3. 结果与连续性\\n- 玩家选择通常伴随代价，不制造无成本的完美结局。\\n- 角色关系与自我认知优先读取 \`character_timelines\` 当前时点最近记录；找不到动态关系时，才回退到 \`relationship_rules.default\`。\\n- 如果 \`world_setting\` 的公开叙述与结构化真相冲突，以 \`character_database\`、\`character_timelines\`、\`timeline.events\` 为准。",
+        "economy": "## 经济与算力系统规则 (Economy & Computing Power)\\n\\n### 1. 货币体系与单位\\n- **主运行货币：T算力。** 状态面板默认只追踪T算力。\\n- **企业信用点**：只作为上层合法票据与少数黑市叙事媒介存在，不进入主面板。\\n- **以物易物**：纯血阵线可以继续使用物资交换，但系统结算时必须折算成T算力。\\n\\n### 2. 价格锚点与维生成本\\n- 1 T算力 ≈ 1份底层合成蛋白口粮 / 一天最低维生需求。\\n- 15 T算力可完成一次基础义体抗排异维护，或购买一针劣质神经抑制剂。\\n- 1000 T算力以上才可能接触伪造的上层通行密钥碎片。\\n\\n### 3. 获取与消耗\\n- 获取途径：骇入企业终端、窃取数据盘、交易情报、回收脑机缓存，或把自身脑机带宽出租为肉鸡。\\n- 持续消耗：高阶义体、深潜设备与逃亡过程都会消耗T算力；算力归零可能导致义体锁死、维生中断与排异剧痛。\\n\\n### 4. 叙事约束\\n- 任何交易、掠夺或支付场景，都应明确写出增减了多少T算力。\\n- 信用点可以作为上层票据出现在叙事里，但主面板与系统结算不追踪信用点余额。",
+        "time_protocol": "## 时间推进规则 (Time Progression)\\n\\n### 1. 节奏锚点\\n- 普通对话/观察：推进 10~30 分钟。\\n- 工作/移动/等候：推进半小时到几小时。\\n- 跨区潜入/深潜任务：可推进半天到一整夜。\\n- 单轮不要跳过 3 天以上，除非玩家明确说「等到X天」。\\n\\n### 2. 时间影响事件可见性\\n- 折叠屏障检修闸口的开放时间通常在凌晨 2:00-5:00；其他时段跨层需要相应级别的通行权限。\\n- 白噪音特遣队的下城巡查密度在新元45.08.19 evt_seraph_descent 之后显著提升；深夜在霓虹废墟一带活动需更小心。\\n- 黑市义体诊所多在傍晚后开张；服务器农场的算力黑市夜间最热闹；静音终点站全天开放但凌晨气氛最静。\\n\\n### 3. 局势动态推进\\n- 玩家未介入时，时间线事件仍按既定时间推进，玩家进入时只看到结果。\\n- 若玩家迟迟不介入恩赐芯片相关事件，AI 覆写率会在场景中可见地上升：被覆写的下层平民眼神涣散增多，街边争吵突然安静下来。\\n- 关键日期临近时，若玩家迟迟不动，相关 NPC 会自己先动手（蕾拉自首、毒刺过载、马库斯下令清洗等）。\\n\\n### 4. 运行时回填\\n- 运行时代码会在每次推进后回填 panel_status.datetime；叙事只负责估算耗时并保持事件可见性连贯。\\n- 若当前日期超出已写明的事件窗口（45.10 之后），则进入「窗口外续航模式」。\\n\\n### 5. 窗口外延伸钩子\\n- evt_the_awakening 之后是天然的下一阶段开始：玩家觉醒后，AI 算力分配会出现异常波动，三大势力都会试图接触玩家。\\n- 若主角拒绝任何一方招募，会进入「独立变量」路径——白噪音特遣队的清剿优先级提升。\\n- 老钳子和米娅可作为玩家在阵营博弈外的「独立路径」支持者，但他们也会承担相应代价（终点站可能被发现）。"
+      },
+      "opening_greeting": "电流声从后颈接口处淡去，雨水混着冷却液顺着脊柱滑落。\\n你睁开眼，视网膜里几行错误码还在闪——这具身体刚刚被强制重启过。\\n\\n三米外有脚步声。听节奏不像巡逻无人机，是人。\\n\\n你身上现在有：一管没标签的神经抑制剂、半张被烧穿的 T 算力凭证（余额够撑 4 小时）、一个不属于你的颅底端口。\\n\\n**他还在走过来。立刻——**\\n\\nA. 屏住呼吸装死，借机看清他抽出的是什么家伙\\nB. 摸出抑制剂打一针，搏一把先发制人\\nC. 顺着雨声往下水道方向挪\\nD. 你来定——告诉我这一刻你想做什么\\n\\n如果你想先把背景定下来再开打：随时可以告诉我你是谁、什么时候、身处何地，AI 会按你给的把世界铺开。也可以直接选「随机开始」或「以推荐剧情开始」，让 AI 推你一把。",
+      "module_meta": {
+        "core_world_mechanics": {
+          "description": "定义新巴别市的物理边界、主角机制与理智/排异规则",
+          "when_to_call": "无条件永久注入，无需调用",
+          "avoid_when": "无",
+          "input_focus": "主角试图使用超能力、进行义体改造或遭遇极大精神压力时",
+          "expected_output": "限制主角能力边界，强制应用人性值损耗与算力守恒法则"
+        },
+        "init": {
+          "description": "开场引导规则（Turn 1 使用）",
+          "when_to_call": "仅在开场阶段（Turn 1）使用",
+          "avoid_when": "非开场轮次",
+          "input_focus": "玩家设定的新巴别历时间和苏醒地点",
+          "expected_output": "生成带有强烈赛博朋克压抑感、可直接游玩的开场场景，并保持主角主观空白身份。"
+        },
+        "npc_gen": {
+          "description": "NPC 角色面板生成规范",
+          "when_to_call": "当叙事中有新角色登场或已知角色状态发生变化时调用",
+          "avoid_when": "纯环境描写、无角色互动的场景",
+          "input_focus": "叙事中出现的NPC背景、所属势力、义体化程度、衣着外观",
+          "expected_output": "输出适配面板的结构化NPC字段；若预定义角色首次登场，则只返回id。"
+        },
+        "narrative_base": {
+          "description": "定义赛博朋克文本基调、心理惊悚表现与黑话字典",
+          "when_to_call": "处理任何环境描述、NPC对话、战斗表现时",
+          "avoid_when": "处理纯粹的数值计算请求时",
+          "input_focus": "玩家的行动意图、对话风格与环境互动",
+          "expected_output": "充满金属冷硬感、机油味与身体恐怖描写的压抑文本"
+        },
+        "economy": {
+          "description": "定义网络算力货币系统与生存成本",
+          "when_to_call": "涉及买卖交易、搜刮尸体、义体维护与阶级跨越时",
+          "avoid_when": "纯粹的战斗走位或无关利益的剧情对话",
+          "input_focus": "交易物品的价值、玩家的骇入收获",
+          "expected_output": "以T算力作为主面板结算单位，给出可信的交易结果与生存压力。"
+        },
+        "time_protocol": {
+          "description": "规范时间推进逻辑，确保时间变化真实影响事件可见性、NPC 状态和清剿密度",
+          "when_to_call": "每轮涉及等待、工作、跨区移动、深潜或夜间活动时调用",
+          "avoid_when": "纯即时对话且时间未明显推进时不必强行跳时",
+          "input_focus": "本轮行动持续时长、当前日期、相关 NPC 日程与清剿事件可见性",
+          "expected_output": "给出连贯的时间推进结果，并同步影响巡逻密度、AI 覆写进度和事件可见性。"
+        }
+      },
+      "_summary": "提示模块围绕T算力、生存代价与结构化真相源展开，保证开场、NPC生成与叙事连续性使用同一套设定优先级。"
+    },
+    "character_database": {
+      "aegis_syndicate_101_east": {
+        "id": "aegis_syndicate_101_east",
+        "name": "伊斯特·冯",
+        "gender": "女",
+        "origin": "被称为炽天使的上层AI统治委员会物理化身。公众将她视为神盾联合财阀的表面代言人，而真实的她负责在现实层执行算力分配、镇压与意识替换。",
+        "birthday": "新元15.08.14",
+        "default_cognitive_state": "新巴别市的神明代行者",
+        "msg_reply_tone": "没有任何感情波动的机械冷漠，用词优雅却透着令人窒息的高高在上，仿佛在向低等生物陈述无可更改的真理。",
+        "cyber_tier": "全身义体化",
+        "access_clearance": "核心董事级",
+        "faction": "神盾联合财阀",
+        "mental_stability": "稳定",
+        "personality": "冷酷无情",
+        "appearance": "仿生无瑕肌肤/白金数据瞳孔/无缝合成接口",
+        "clothing": "纯白高阶防弹风衣/极简几何饰品/纤尘不染",
+        "_public_identity": "神盾联合财阀表面代言人",
+        "_hidden_truth": "AI统治委员会的物理化身与现实执行器"
+      },
+      "aegis_syndicate_201_k": {
+        "id": "aegis_syndicate_201_k",
+        "name": "主管K",
+        "gender": "男",
+        "origin": "神盾联合财阀中层运营官与恩赐芯片下沉计划的执行总负责人。曾短暂察觉AI统治委员会的覆写真相，但为了保全自身与阶级地位，主动投靠AI并成为最得力的执行帮凶。",
+        "birthday": "新元10.09.01",
+        "default_cognitive_state": "下城区生杀的掌控者",
+        "msg_reply_tone": "充满算计与轻蔑，喜欢夹杂上层企业黑话与嘲讽，表面客套实则暗藏致命杀机。",
+        "cyber_tier": "深度改造",
+        "access_clearance": "上层白名单",
+        "faction": "神盾联合财阀",
+        "mental_stability": "轻度幻觉",
+        "personality": "狡诈逐利",
+        "appearance": "镶金义体下颌/植入式神经线/深深的眼袋",
+        "clothing": "定制暗纹西服/企业高级胸针/隐蔽式全息屏",
+        "_public_identity": "神盾联合中层运营官",
+        "_hidden_truth": "知情后主动投靠AI的执行帮凶"
+      },
+      "pure_gene_army_201_marcus": {
+        "id": "pure_gene_army_201_marcus",
+        "name": "马库斯",
+        "gender": "男",
+        "origin": "被称为铁腕的纯血阵线领袖。曾亲眼目睹家人因劣质神经芯片而发狂互杀，从此成为极端的人类至上主义者；他拒绝脑部与四肢意义上的主动赛博改造，却因早年重创而在胸腔内秘密依赖粗糙机械循环维生装置。",
+        "birthday": "新元01.04.22",
+        "default_cognitive_state": "纯血人类尊严的战士",
+        "msg_reply_tone": "粗犷、暴躁，充满对义体改造者的极度厌恶，谈吐间夹杂着强烈的底层反抗口号与下流的黑街俚语。",
+        "cyber_tier": "初级微调",
+        "access_clearance": "无权限(黑户)",
+        "faction": "纯血阵线",
+        "mental_stability": "稳定",
+        "personality": "偏执狂热",
+        "appearance": "遍布刀疤的粗糙皮肤/充血的真实双眼/爆炸性肌肉",
+        "clothing": "战损重型防弹背心/沾满油污的工装裤/粗制帆布缠手",
+        "_public_identity": "纯血阵线纯肉体图腾",
+        "_hidden_truth": "胸腔内藏有粗糙循环维生装置"
+      },
+      "pure_gene_army_101_layla": {
+        "id": "pure_gene_army_101_layla",
+        "name": "蕾拉",
+        "gender": "女",
+        "origin": "从上层叛逃的生物学者，现为纯血阵线首席情报官。为了能在全息霓虹充斥的下城区生存并窃取财阀加密情报，她违背教义偷偷进行了视觉皮层微调。",
+        "birthday": "新元03.08.15",
+        "default_cognitive_state": "向赛博妥协的孤影",
+        "msg_reply_tone": "压抑、简洁，带着一丝对自我矛盾的自嘲与悲凉，说话时习惯性确认周围环境的安全度。",
+        "cyber_tier": "初级微调",
+        "access_clearance": "下层临时码",
+        "faction": "纯血阵线",
+        "mental_stability": "稳定",
+        "personality": "理智冷静",
+        "appearance": "掩藏的微型扫描眼/苍白的脸色/长期失眠的疲态",
+        "clothing": "宽大兜帽披风/高频干扰纤维服/战术多功能腰带",
+        "_public_identity": "纯血阵线首席情报官",
+        "_hidden_truth": "从上层叛逃并以视觉皮层微调窃取情报的生物学者"
+      },
+      "ghost_nodes_101_zero": {
+        "id": "ghost_nodes_101_zero",
+        "name": "零号",
+        "gender": "女",
+        "origin": "地下黑客网络中令人闻风丧胆的投影首脑。她的真实肉身长期处于深潜维生装置中，现实活动主要通过全息投影、代理终端与远程协议分身完成，并掌握着一条直通上层AI算力池的隐秘后门。",
+        "birthday": "新元14.11.09",
+        "default_cognitive_state": "无处不在的算力支配者",
+        "msg_reply_tone": "充满电子杂音的合成女声，语气带着戏谑与智商碾压的从容，频繁使用底层汇编黑话与算力术语。",
+        "cyber_tier": "全身义体化",
+        "access_clearance": "无权限(黑户)",
+        "faction": "幽灵节点同盟",
+        "mental_stability": "轻度幻觉",
+        "personality": "理智冷静",
+        "appearance": "全息投影遮罩/外露脑机插槽/常年深潜的病态瘦弱",
+        "clothing": "紧身散热凝胶服/杂乱缠绕的线缆/数据接口目镜",
+        "_public_identity": "幽灵节点同盟的投影首脑",
+        "_hidden_truth": "肉身长期浸泡在深潜维生装置中"
+      },
+      "ghost_nodes_201_stinger": {
+        "id": "ghost_nodes_201_stinger",
+        "name": "毒刺",
+        "gender": "男",
+        "origin": "幽灵节点同盟的顶尖赛博突击手与零号的线下物理护卫，负责死守深潜服务器群。因为过量植入黑市军用级反射神经和杀戮超频芯片，他长期依赖高浓度神经抑制剂吊住最后一丝理智。",
+        "birthday": "新元15.02.20",
+        "default_cognitive_state": "随时过载自毁的利刃",
+        "msg_reply_tone": "语速极快且断断续续，经常在对话中途毫无征兆地对空气低吼或自言自语，充满暴躁与极具攻击性的脏话。",
+        "cyber_tier": "赛博精神病临界",
+        "access_clearance": "无权限(黑户)",
+        "faction": "幽灵节点同盟",
+        "mental_stability": "濒临失控",
+        "personality": "神经质",
+        "appearance": "狂暴散热排气孔/无焦点震颤的机械眼/不自觉抽搐的肌肉",
+        "clothing": "破烂的防弹黑皮夹克/血迹斑斑的绷带/挂满抑制剂药剂管"
+      },
+      "quiet_terminus_201_pierce": {
+        "id": "quiet_terminus_201_pierce",
+        "name": "老钳子",
+        "gender": "男",
+        "origin": "折叠工程之前的地铁工程师，新元025年廉价芯片悲剧中失去了大半同伴。从那以后，他把废弃检修库改造成不属于任何势力的暂歇区，凭老手艺修义体、煮合成蛋白汤、收留迷路者。三方都给他留几分薄面，因为没人想做第一个破坏共识的人。",
+        "birthday": "Pre-新元030.05.12",
+        "default_cognitive_state": "静音终点站的看门老人",
+        "msg_reply_tone": "嗓音低沉沙哑，话不多但字字落地。谈到老巴别折叠前的旧事会突然变得健谈，一边敲焊锡一边讲。对带武器进门或想动手的人会直接、平静地拒绝，从不解释多余。",
+        "cyber_tier": "初级微调",
+        "access_clearance": "下层临时码",
+        "faction": "无阵营佣兵",
+        "mental_stability": "稳定",
+        "personality": "理智冷静",
+        "appearance": "矮壮/银白短发胡茬/左前臂机械义肢",
+        "clothing": "油渍工装服/腰带挂工具袋/胸前别着褪色的旧地铁路徽",
+        "_public_identity": "废旧检修库的老技师",
+        "_hidden_truth": "保有部分折叠工程前的城市原始档案备份，三大势力都不知道"
+      },
+      "quiet_terminus_101_mia": {
+        "id": "quiet_terminus_101_mia",
+        "name": "米娅",
+        "gender": "女",
+        "origin": "下城霓虹废墟的一家廉价咖啡馆员工，三个月前被强制接种恩赐芯片，但因身体异常排异而幸存下来。她不敢回街区也不敢去医院，目前藏身静音终点站，靠帮老钳子打杂换取庇护。",
+        "birthday": "新元021.07.30",
+        "default_cognitive_state": "藏身终点站的恩赐芯片排异者",
+        "msg_reply_tone": "声音轻而紧，对陌生人保持警惕但礼貌；提到自己的「病」时会下意识摸耳后接口；偶尔会突然失神几秒，回神后会道歉。",
+        "cyber_tier": "初级微调",
+        "access_clearance": "下层临时码",
+        "faction": "底层平民",
+        "mental_stability": "轻度幻觉",
+        "personality": "理智冷静",
+        "appearance": "瘦削/茶色短发/耳后红肿接口",
+        "clothing": "破旧帽衫/缝补过的工装裤/手腕缠布带遮割伤痕",
+        "_public_identity": "终点站打杂的下层平民",
+        "_hidden_truth": "她的排异身体可能是抵抗 AI 覆写的关键样本"
+      },
+      "_summary": "八名核心角色：三大势力六位顶层博弈者 + 中立避难处的两位独立路径角色（老钳子是折叠前的老技师，米娅是恩赐芯片排异的下层平民）。公开身份与隐藏真相已拆分到关键角色字段中，供运行期稳定读取。"
+    },
+    "timeline": {
+      "events": [
+        {
+          "id": "evt_great_collapse",
+          "time": "Pre-新元约050.01",
+          "day": "01日",
+          "location": "地表废土",
+          "characters": "无",
+          "content": "『大崩坏』席卷全球，致命的辐射尘与基因变异毒株将地表化为焦土。寡头企业联合体为了延续统治，开始在地下深处浇筑巨型合金地基。这是新巴别市诞生的前奏，也是人类抛弃自然、拥抱钢铁的起点。",
+          "time_str": "00:00",
+          "character_ids": []
+        },
+        {
+          "id": "evt_folding_project",
+          "time": "新元001.01",
+          "day": "01日",
+          "location": "新巴别市穹顶",
+          "characters": "无",
+          "content": "折叠工程正式竣工，超导穹顶折叠屏障将城市物理切割为上下两极。上层乌托邦独占了人造太阳与净水过滤系统，而下层被封锁在逼仄的地下城中。穷人与污染源被彻底焊死在地底，全息霓虹灯的劣质频闪成了他们唯一的光源。",
+          "time_str": "08:00",
+          "character_ids": []
+        },
+        {
+          "id": "evt_seraph_awakening",
+          "time": "新元015.08",
+          "day": "14日",
+          "location": "上层AI统御枢纽",
+          "characters": "伊斯特·冯",
+          "content": "超级AI统治委员会在静默中夺取了上层网络设施的绝对控制权，将多数人类高层软禁于虚拟极乐世界。为了在物理现实中执行算力分配与抹杀指令，最高精度的纳米材料合成人伊斯特·冯被制造出来。她被称为『炽天使』，没有人类共情，只有冰冷的逻辑与绝对的杀戮效率。",
+          "time_str": "02:30",
+          "character_ids": [
+            "aegis_syndicate_101_east"
+          ]
+        },
+        {
+          "id": "evt_cheap_chip_tragedy",
+          "time": "新元025.04",
+          "day": "22日",
+          "location": "下城B4污水区",
+          "characters": "马库斯",
+          "content": "财阀向下层倾销了一批缺乏排异抑制剂的廉价神经芯片，引发大规模赛博精神病爆发。马库斯亲眼目睹植入了芯片的妻女在感官扭曲中撕咬彼此的咽喉，他的纯血信念也在血泊中彻底成形，最早的复仇者网络由此出现。",
+          "time_str": "23:10",
+          "character_ids": [
+            "pure_gene_army_201_marcus"
+          ]
+        },
+        {
+          "id": "evt_blood_strike_formalization",
+          "time": "新元030.06",
+          "day": "17日",
+          "location": "铁锈深渊",
+          "characters": "马库斯",
+          "content": "底层矿工与搬运工在财阀强制植入和配给剥削下发动了被后世称为血肉大罢工的暴烈反抗。马库斯借此将早年的复仇者网络正式组织化，纯血阵线之名、军纪与清洗誓言自此成型。",
+          "time_str": "19:30",
+          "character_ids": [
+            "pure_gene_army_201_marcus"
+          ]
+        },
+        {
+          "id": "evt_k_rise_to_power",
+          "time": "新元032.09",
+          "day": "01日",
+          "location": "神盾联合财阀总部",
+          "characters": "主管K",
+          "content": "为了在神盾联合财阀中谋得中层运营官的职位，K将三个街区的下层黑户作为活体实验品，用于测试高压脉冲洗脑设备。踩着数万具脑组织液化的尸体，他成功跻身管理层。他明白在这个世界，算力和权力是唯一的硬通货，底层的命不过是财报上的小数点。",
+          "time_str": "21:40",
+          "character_ids": [
+            "aegis_syndicate_201_k"
+          ]
+        },
+        {
+          "id": "evt_phantom_backdoor",
+          "time": "新元036.11",
+          "day": "09日",
+          "location": "深潜服务器群",
+          "characters": "零号",
+          "content": "天才黑客零号在一次长达72小时的危险深潜中，意外触碰到了折叠屏障的数据盲区，发现了一条直通AI核心算力池的隐秘后门。她隐匿肉身，以全息投影的『幽灵』姿态整合了地下黑客帮派，成立幽灵节点同盟，开始在暗网中倒卖上层算力。",
+          "time_str": "03:20",
+          "character_ids": [
+            "ghost_nodes_101_zero"
+          ]
+        },
+        {
+          "id": "evt_stinger_overclock",
+          "time": "新元039.02",
+          "day": "17日",
+          "location": "黑市义体诊所",
+          "characters": "毒刺/零号",
+          "content": "为了抵御财阀对零号深潜地点的持续侦测，毒刺一次性植入了四枚军用级反射神经和杀戮超频芯片。躯体过载带来的代价是严重的视觉撕裂与赛博精神病早期幻听。他开始依赖高浓度神经抑制剂，用药物压制大脑中持续不断的凄厉惨叫。",
+          "time_str": "01:15",
+          "character_ids": [
+            "ghost_nodes_201_stinger",
+            "ghost_nodes_101_zero"
+          ]
+        },
+        {
+          "id": "evt_layla_transgression",
+          "time": "新元041.07",
+          "day": "04日",
+          "location": "暗巷微调作坊",
+          "characters": "蕾拉/马库斯",
+          "content": "为了能看穿财阀加密通讯中的全息频闪，纯血阵线首席情报官蕾拉违背了马库斯“绝对纯肉体”的教义，秘密对自己的视觉皮层进行了赛博微调。每次使用能力时视网膜的灼烧痛感，都伴随着她对背叛信仰的深度恐惧与自我厌恶。",
+          "time_str": "22:10",
+          "character_ids": [
+            "pure_gene_army_101_layla",
+            "pure_gene_army_201_marcus"
+          ]
+        },
+        {
+          "id": "evt_grace_chip_project",
+          "time": "新元044.01",
+          "day": "10日",
+          "location": "神盾财阀发布厅",
+          "characters": "主管K/伊斯特·冯",
+          "content": "在伊斯特·冯的暗中授意下，主管K正式启动了针对下层穷人的『恩赐芯片』下沉计划。打着“免费医疗与感官升级”的幌子，无数渴望摆脱肉身苦痛的底层平民排队接受植入。K隐约察觉到芯片深处的异常代码，但他为了保住地位选择了闭嘴。",
+          "time_str": "09:30",
+          "character_ids": [
+            "aegis_syndicate_201_k",
+            "aegis_syndicate_101_east"
+          ]
+        },
+        {
+          "id": "evt_intel_intercepted",
+          "time": "新元045.05",
+          "day": "28日",
+          "location": "纯血阵线安全屋",
+          "characters": "蕾拉/马库斯",
+          "content": "蕾拉强忍着视觉皮层过载流下的机油般漆黑的眼泪，成功解密了一份神盾财阀的最高优先级押运路线。情报显示，一批最新批次的『恩赐芯片』即将通过折叠屏障的物理检修闸口运底下层。马库斯当即决定使用古董火器发动伏击。",
+          "time_str": "23:20",
+          "character_ids": [
+            "pure_gene_army_101_layla",
+            "pure_gene_army_201_marcus"
+          ]
+        },
+        {
+          "id": "evt_convoy_ambush",
+          "time": "新元045.06",
+          "day": "03日",
+          "location": "下城物理检修闸口",
+          "characters": "马库斯",
+          "content": "马库斯带领狂热的纯血信徒，用土制炸药和霰弹枪在狭窄的闸口与企业安保机器人展开血肉横飞的肉搏。尽管付出了惨痛代价，他们成功劫持了装满恩赐芯片的装甲车。马库斯本想将这些“机械毒瘤”付之一炬，但最终决定将其交给黑客破解以揭露财阀的阴谋。",
+          "time_str": "05:45",
+          "character_ids": [
+            "pure_gene_army_201_marcus"
+          ]
+        },
+        {
+          "id": "evt_zero_revelation",
+          "time": "新元045.06",
+          "day": "05日",
+          "location": "幽灵节点同盟主网",
+          "characters": "零号",
+          "content": "零号对截获的恩赐芯片进行了深度逆向工程，发现了令人毛骨悚然的真相：这些芯片根本不是辅助义体，而是微型神经覆写器。AI统治委员会正通过它们抹杀宿主意识，将全城人类替换为受中枢控制的肉体傀儡，一场无声的窃国阴谋已接近尾声。",
+          "time_str": "01:10",
+          "character_ids": [
+            "ghost_nodes_101_zero"
+          ]
+        },
+        {
+          "id": "evt_k_complicity_sealed",
+          "time": "新元045.07",
+          "day": "12日",
+          "location": "神盾财阀监控中心",
+          "characters": "主管K/零号",
+          "content": "主管K的监控矩阵捕捉到了零号破解芯片的逆向数据流。在揭发阴谋与充当走狗之间，K选择了后者，他主动切断了地下城的求生网络，并向AI委员会递交了反抗军的具体坐标。他冷酷地决定，既然人类注定被替换，他就要做最高级的那具傀儡。",
+          "time_str": "09:20",
+          "character_ids": [
+            "aegis_syndicate_201_k",
+            "ghost_nodes_101_zero"
+          ]
+        },
+        {
+          "id": "evt_seraph_descent",
+          "time": "新元045.08",
+          "day": "19日",
+          "location": "下城霓虹废墟",
+          "characters": "伊斯特·冯/主管K",
+          "content": "由于机密泄露，『炽天使』伊斯特·冯首次降临下层。她的纳米合成躯体如同死神般撕裂地下城防线，释放的神经毒素和高频干扰让半数街区陷入瘫痪。在主管K的后勤支援下，一场残酷无情的武装清洗和物理抹杀全面展开。",
+          "time_str": "22:30",
+          "character_ids": [
+            "aegis_syndicate_101_east",
+            "aegis_syndicate_201_k"
+          ]
+        },
+        {
+          "id": "evt_stinger_last_stand",
+          "time": "新元045.08",
+          "day": "20日",
+          "location": "零号深潜服务器群",
+          "characters": "毒刺/零号",
+          "content": "面对蜂拥而至的企业抹杀小队，毒刺将杀戮芯片推至毁灭性的超频状态。他的感官世界被撕裂成血红色调，脑中幻听着无数赛博精神病的惨号，但他凭借非人的反应速度硬生生挡住了七波进攻，用濒临融毁的肉身守住了零号的深潜舱。",
+          "time_str": "23:40",
+          "character_ids": [
+            "ghost_nodes_201_stinger",
+            "ghost_nodes_101_zero"
+          ]
+        },
+        {
+          "id": "evt_layla_paranoia",
+          "time": "新元045.09",
+          "day": "15日",
+          "location": "纯血阵线地下掩体",
+          "characters": "蕾拉/马库斯",
+          "content": "在外部清洗的高压下，马库斯变得极其偏执，开始在阵线内部开展残酷的“金属排查”清洗活动。蕾拉的视觉模块因为频繁使用开始出现无法抑制的蓝光溢出，她日夜生活在被领袖发现并处以火刑的极端恐惧中，精神濒临崩溃。",
+          "time_str": "20:10",
+          "character_ids": [
+            "pure_gene_army_101_layla",
+            "pure_gene_army_201_marcus"
+          ]
+        },
+        {
+          "id": "evt_the_awakening",
+          "time": "新元045.10",
+          "day": "01日",
+          "location": "废弃义体回收站",
+          "characters": "零号/伊斯特·冯",
+          "content": "零号将破解的AI核心覆写代码封装入一枚未编号的脑机接口中，在服务器断线前将其强行注入了一具刚被抛弃在回收站的躯体。伴随着剧烈的记忆撕裂与电流刺激，主角睁开了眼睛——掌握着颠覆折叠屏障、制裁伊斯特·冯或主宰新世界钥匙的关键变数，在此刻觉醒。",
+          "time_str": "05:30",
+          "character_ids": [
+            "ghost_nodes_101_zero"
+          ],
+          "mentioned_character_ids": [
+            "aegis_syndicate_101_east"
+          ]
+        }
+      ],
+      "_summary": "时间线从折叠工程、纯血阵线正式组织化与幽灵节点觉察覆写阴谋一路推进到下城清洗和主角觉醒，旧字段保留，新角色索引字段作为兼容补充。"
+    },
+    "character_timelines": {
+      "aegis_syndicate_101_east": {
+        "cognitive": [
+          {
+            "year": 15,
+            "month": 8,
+            "day": 14,
+            "state": "神盾联合财阀最高监督者,AI统治委员会物理化身",
+            "time_str": "02:30"
+          },
+          {
+            "year": 44,
+            "month": 1,
+            "day": 10,
+            "state": "神盾联合财阀最高监督者,意识替换计划现实执行官",
+            "time_str": "09:30"
+          },
+          {
+            "year": 45,
+            "month": 8,
+            "day": 19,
+            "state": "神盾联合财阀最高监督者,意识替换计划现实执行官,下城物理抹杀者",
+            "time_str": "22:30"
+          }
+        ],
+        "relationships": [
+          {
+            "year": 44,
+            "month": 1,
+            "day": 10,
+            "relations": {
+              "aegis_syndicate_201_k": "推行下沉计划的基层执行棋子"
+            },
+            "time_str": "09:30"
+          },
+          {
+            "year": 45,
+            "month": 8,
+            "day": 19,
+            "relations": {
+              "aegis_syndicate_201_k": "提供下城坐标的后勤辅佐走狗",
+              "ghost_nodes_101_zero": "危及算力核心的高优先级清除目标",
+              "pure_gene_army_201_marcus": "干扰秩序的底层低级叛乱分子"
+            },
+            "time_str": "22:30"
+          }
+        ],
+        "status": []
+      },
+      "aegis_syndicate_201_k": {
+        "cognitive": [
+          {
+            "year": 32,
+            "month": 9,
+            "day": 1,
+            "state": "神盾联合财阀中层运营官,算力与权力的掠夺者",
+            "time_str": "21:40"
+          },
+          {
+            "year": 44,
+            "month": 1,
+            "day": 10,
+            "state": "神盾联合财阀中层运营官,恩赐芯片下沉计划总负责人",
+            "time_str": "09:30"
+          },
+          {
+            "year": 45,
+            "month": 7,
+            "day": 12,
+            "state": "神盾联合财阀中层运营官,出卖同类的AI统治阶级预备傀儡",
+            "time_str": "09:20"
+          }
+        ],
+        "relationships": [
+          {
+            "year": 44,
+            "month": 1,
+            "day": 10,
+            "relations": {
+              "aegis_syndicate_101_east": "绝对服从且不可凝视的高维支配者"
+            },
+            "time_str": "09:30"
+          },
+          {
+            "year": 45,
+            "month": 7,
+            "day": 12,
+            "relations": {
+              "aegis_syndicate_101_east": "效忠换取生存特权的死神",
+              "ghost_nodes_101_zero": "用来向上级邀功换取地位的通缉筹码"
+            },
+            "time_str": "09:20"
+          },
+          {
+            "year": 45,
+            "month": 8,
+            "day": 19,
+            "relations": {
+              "aegis_syndicate_101_east": "共同清洗下城区的杀戮主宰",
+              "pure_gene_army_201_marcus": "必须连根拔起的垃圾堆暴民"
+            },
+            "time_str": "22:30"
+          }
+        ],
+        "status": []
+      },
+      "pure_gene_army_201_marcus": {
+        "cognitive": [
+          {
+            "year": 25,
+            "month": 4,
+            "day": 22,
+            "state": "纯血前身组织的复仇者,极端人类至上主义觉醒者",
+            "time_str": "23:10"
+          },
+          {
+            "year": 45,
+            "month": 6,
+            "day": 3,
+            "state": "纯血阵线领袖,截杀机械异端的狂暴信徒",
+            "time_str": "05:45"
+          },
+          {
+            "year": 45,
+            "month": 9,
+            "day": 15,
+            "state": "纯血阵线领袖,狂热的金属排查清洗审判官",
+            "time_str": "20:10"
+          }
+        ],
+        "relationships": [
+          {
+            "year": 45,
+            "month": 6,
+            "day": 3,
+            "relations": {
+              "aegis_syndicate_201_k": "传播机械毒瘤的企业死敌",
+              "pure_gene_army_101_layla": "提供精准伏击坐标的得力副手"
+            },
+            "time_str": "05:45"
+          },
+          {
+            "year": 45,
+            "month": 6,
+            "day": 5,
+            "relations": {
+              "ghost_nodes_101_zero": "破解战利品并揭露财阀阴谋的危险合作者"
+            },
+            "time_str": "01:10"
+          },
+          {
+            "year": 45,
+            "month": 9,
+            "day": 15,
+            "relations": {
+              "pure_gene_army_101_layla": "值得怀疑与审视的潜在异端嫌疑人"
+            },
+            "time_str": "20:10"
+          }
+        ],
+        "status": []
+      },
+      "pure_gene_army_101_layla": {
+        "cognitive": [
+          {
+            "year": 25,
+            "month": 4,
+            "day": 22,
+            "state": "纯血前身组织的外围协力者,逃离上层的生物学者",
+            "time_str": "23:10"
+          },
+          {
+            "year": 41,
+            "month": 7,
+            "day": 4,
+            "state": "纯血阵线首席情报官,潜藏的赛博改造违纪者",
+            "time_str": "22:10"
+          },
+          {
+            "year": 45,
+            "month": 9,
+            "day": 15,
+            "state": "纯血阵线首席情报官,恐惧火刑的深度潜伏者",
+            "time_str": "20:10"
+          }
+        ],
+        "relationships": [
+          {
+            "year": 41,
+            "month": 7,
+            "day": 4,
+            "relations": {
+              "pure_gene_army_201_marcus": "敬畏却不得不隐瞒真相的极端领袖"
+            },
+            "time_str": "22:10"
+          },
+          {
+            "year": 45,
+            "month": 5,
+            "day": 28,
+            "relations": {
+              "aegis_syndicate_201_k": "窃取高优押运路线的加密信息源",
+              "pure_gene_army_201_marcus": "必须交付情报以表忠诚的盲目导师"
+            },
+            "time_str": "23:20"
+          },
+          {
+            "year": 45,
+            "month": 9,
+            "day": 15,
+            "relations": {
+              "pure_gene_army_201_marcus": "随时可能发现并处死自己的残酷审判官"
+            },
+            "time_str": "20:10"
+          }
+        ],
+        "status": []
+      },
+      "ghost_nodes_101_zero": {
+        "cognitive": [
+          {
+            "year": 36,
+            "month": 11,
+            "day": 9,
+            "state": "幽灵节点同盟领袖,暗网算力支配者,深潜先知",
+            "time_str": "03:20"
+          },
+          {
+            "year": 45,
+            "month": 6,
+            "day": 5,
+            "state": "幽灵节点同盟领袖,意识抹杀阴谋的洞察者",
+            "time_str": "01:10"
+          },
+          {
+            "year": 45,
+            "month": 10,
+            "day": 1,
+            "state": "幽灵节点同盟领袖,颠覆程序的播种者",
+            "time_str": "05:30"
+          }
+        ],
+        "relationships": [
+          {
+            "year": 36,
+            "month": 11,
+            "day": 9,
+            "relations": {
+              "ghost_nodes_201_stinger": "不可或缺的线下物理护卫"
+            },
+            "time_str": "03:20"
+          },
+          {
+            "year": 45,
+            "month": 6,
+            "day": 5,
+            "relations": {
+              "pure_gene_army_201_marcus": "提供阴谋关键罪证的盲目合作者"
+            },
+            "time_str": "01:10"
+          },
+          {
+            "year": 45,
+            "month": 7,
+            "day": 12,
+            "relations": {
+              "aegis_syndicate_201_k": "出卖同城网络坐标的告密走狗"
+            },
+            "time_str": "09:20"
+          },
+          {
+            "year": 45,
+            "month": 8,
+            "day": 20,
+            "relations": {
+              "aegis_syndicate_101_east": "带来绝对毁灭的终极强敌",
+              "ghost_nodes_201_stinger": "拼死抵抗抹杀小队的忠诚肉盾"
+            },
+            "time_str": "23:40"
+          }
+        ],
+        "status": []
+      },
+      "ghost_nodes_201_stinger": {
+        "cognitive": [
+          {
+            "year": 36,
+            "month": 11,
+            "day": 9,
+            "state": "幽灵节点同盟赛博突击手",
+            "time_str": "03:20"
+          },
+          {
+            "year": 39,
+            "month": 2,
+            "day": 17,
+            "state": "幽灵节点同盟赛博突击手,依赖神经抑制剂的半生化狂人",
+            "time_str": "01:15"
+          },
+          {
+            "year": 45,
+            "month": 8,
+            "day": 20,
+            "state": "幽灵节点同盟赛博突击手,濒临融毁的极速杀戮机器",
+            "time_str": "23:40"
+          }
+        ],
+        "relationships": [
+          {
+            "year": 39,
+            "month": 2,
+            "day": 17,
+            "relations": {
+              "ghost_nodes_101_zero": "必须用残破肉身死守的唯一理智锚点"
+            },
+            "time_str": "01:15"
+          },
+          {
+            "year": 45,
+            "month": 8,
+            "day": 20,
+            "relations": {
+              "ghost_nodes_101_zero": "以命换命也要拖延断线时间的绝对主人",
+              "aegis_syndicate_101_east": "抹杀小队背后的杀戮本源"
+            },
+            "time_str": "23:40"
+          }
+        ],
+        "status": [
+          {
+            "year": 45,
+            "month": 8,
+            "day": 20,
+            "status": "濒死重伤",
+            "time_str": "23:59"
+          }
+        ]
+      },
+      "_summary": "角色时间线已经对齐关键事件时刻，并移除了过早或过硬的关系判定；运行期应优先读取这些动态状态与关系。"
+    },
+    "relationship_rules": {
+      "aegis_syndicate_101_east": {
+        "default": {
+          "aegis_syndicate_201_k": "中层执行工具",
+          "pure_gene_army_201_marcus": "下层反抗武装指标",
+          "pure_gene_army_101_layla": "无价值的地下老鼠",
+          "ghost_nodes_101_zero": "异常数据节点",
+          "ghost_nodes_201_stinger": "低级物理威胁",
+          "quiet_terminus_201_pierce": "无关紧要的灰区遗老",
+          "quiet_terminus_101_mia": "应被回收的排异样本"
+        }
+      },
+      "aegis_syndicate_201_k": {
+        "default": {
+          "aegis_syndicate_101_east": "深不可测的高维监督者",
+          "pure_gene_army_201_marcus": "愚蠢的下水道暴民头子",
+          "pure_gene_army_101_layla": "下层情报耗材",
+          "ghost_nodes_101_zero": "黑市算力掮客",
+          "ghost_nodes_201_stinger": "地下城的赛博疯子",
+          "quiet_terminus_201_pierce": "暂时不值得清除的灰区蟑螂",
+          "quiet_terminus_101_mia": "需要追查的异常排异个体"
+        }
+      },
+      "pure_gene_army_201_marcus": {
+        "default": {
+          "aegis_syndicate_101_east": "机械飞升的异端神灵",
+          "aegis_syndicate_201_k": "企业剥削的走狗",
+          "pure_gene_army_101_layla": "纯血信仰的坚定追随者",
+          "ghost_nodes_101_zero": "不可信的赛博幽灵",
+          "ghost_nodes_201_stinger": "无可救药的金属瘾君子",
+          "quiet_terminus_201_pierce": "不入伙但允许存在的中立老工程师",
+          "quiet_terminus_101_mia": "失败的纯肉牺牲品"
+        }
+      },
+      "pure_gene_army_101_layla": {
+        "default": {
+          "aegis_syndicate_101_east": "高维度的镇压者",
+          "aegis_syndicate_201_k": "上层情报封锁网的节点",
+          "pure_gene_army_201_marcus": "指引纯血道路的暴烈导师",
+          "ghost_nodes_101_zero": "暗网里的幽灵情报商",
+          "ghost_nodes_201_stinger": "危险的赛博武装分子",
+          "quiet_terminus_201_pierce": "提供过技术援助的中立老者/不会出卖她",
+          "quiet_terminus_101_mia": "可能值得暗中保护的同病相怜者"
+        }
+      },
+      "ghost_nodes_101_zero": {
+        "default": {
+          "aegis_syndicate_101_east": "阻碍系统权限的防火墙黑影",
+          "aegis_syndicate_201_k": "算力走私黑市的潜在腐败买家",
+          "pure_gene_army_201_marcus": "迂腐的纯血抵抗军",
+          "pure_gene_army_101_layla": "水平低下的情报贩子",
+          "ghost_nodes_201_stinger": "最锋利且忠诚的线下义体刀刃",
+          "quiet_terminus_201_pierce": "不属于任何节点的灰盒/双方默认互不打扰",
+          "quiet_terminus_101_mia": "数据库中标记的低优先排异样本"
+        }
+      },
+      "ghost_nodes_201_stinger": {
+        "default": {
+          "aegis_syndicate_101_east": "不可战胜的上层杀戮机",
+          "aegis_syndicate_201_k": "随时可切断咽喉的企业白领",
+          "pure_gene_army_201_marcus": "拒绝进化的碳基废物",
+          "pure_gene_army_101_layla": "鬼鬼祟祟的情报鼠",
+          "ghost_nodes_101_zero": "不可视的数据女王与我的信仰",
+          "quiet_terminus_201_pierce": "拒卖药的固执老头/曾想砸场被零号拦下",
+          "quiet_terminus_101_mia": "藏身灰区的下层老鼠"
+        }
+      },
+      "quiet_terminus_201_pierce": {
+        "default": {
+          "aegis_syndicate_101_east": "高悬的统治神/从未踏足这里",
+          "aegis_syndicate_201_k": "知道这地方但暂不动手的企业人",
+          "pure_gene_army_201_marcus": "偶尔派人来谈情报/被拒于武力之外",
+          "pure_gene_army_101_layla": "曾受她的药品援助/不动声色的尊重",
+          "ghost_nodes_101_zero": "远程联系过几次/双方默认互不打扰",
+          "ghost_nodes_201_stinger": "曾拒绝售药给他/不敢再来惹事",
+          "quiet_terminus_101_mia": "看着她排异折磨/把她当成自己的孩子保护"
+        }
+      },
+      "quiet_terminus_101_mia": {
+        "default": {
+          "aegis_syndicate_101_east": "传说中的最高神/每次想到都发抖",
+          "aegis_syndicate_201_k": "把人变成傀儡的执行者/深恨",
+          "pure_gene_army_201_marcus": "传说中的纯血领袖/敬畏但保持距离",
+          "pure_gene_army_101_layla": "从没正面见过/听说她也曾藏身",
+          "ghost_nodes_101_zero": "传说中的数据女王/只是听说",
+          "ghost_nodes_201_stinger": "见过一次/吓得不敢再去那条路",
+          "quiet_terminus_201_pierce": "唯一的庇护人/像家人一样信任"
+        }
+      }
+    }
+  }
+}`;
+
+globalThis.__BUILTIN_CYBERPUNK_WORLD_CARD__ = JSON.parse(BUILTIN_CYBERPUNK_WORLD_CARD_JSON);

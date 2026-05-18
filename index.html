@@ -1,0 +1,3612 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="description" content="在持续演化的世界中推动分支剧情，体验沉浸式 AI 文本冒险。" />
+    <meta name="application-name" content="AI Sandbox Game" />
+    <meta name="generator" content="aisb-runtime/r3.collins" />
+    <meta name="apple-mobile-web-app-title" content="AI Sandbox" />
+    <meta name="theme-color" content="#0a0a12" id="meta-theme-color" />
+    <meta name="app-version" content="3.7.9" />
+    <title>AI Sandbox Game</title>
+    <link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon-180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/pwa/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/pwa/favicon-16.png" />
+    <script>
+      // Early error capture — runs before bundle. analyticsService 在 DOMContentLoaded+500ms
+      // 才 init，这之前 bundle 内的同步异常会丢失。这里先把 error/rejection 攒进 buffer，
+      // 等 analyticsService 起来后捞出来上报。整个块用 try/catch 包，绝不让它自身崩页。
+      try {
+        window.__earlyErrors = [];
+        var __pushErr = function (entry) {
+          try {
+            if (window.__earlyErrors.length >= 50) return; // cap to avoid runaway
+            window.__earlyErrors.push(entry);
+          } catch (_) { /* noop */ }
+        };
+        window.addEventListener('error', function (e) {
+          __pushErr({
+            kind: 'error',
+            t: Date.now(),
+            message: (e && e.error && e.error.message) || (e && e.message) || 'unknown',
+            stack: (e && e.error && e.error.stack) || null,
+            filename: e && e.filename,
+            lineno: e && e.lineno,
+            colno: e && e.colno,
+          });
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+          var reason = e && e.reason;
+          __pushErr({
+            kind: 'rejection',
+            t: Date.now(),
+            message: (reason && reason.message) || String(reason || 'unknown'),
+            stack: (reason && reason.stack) || null,
+          });
+        });
+      } catch (_) { /* must never throw */ }
+    </script>
+    <script>
+      (function () {
+        var mode = 'light';
+        var skinName = 'metro';
+        var uiScaleMode = 'auto';
+        var uiScale = 1;
+        var configuredUiLanguage = 'auto';
+        try {
+          var raw = localStorage.getItem('ai_adventure_settings');
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && (parsed.themeMode === 'light' || parsed.themeMode === 'dark')) {
+              mode = parsed.themeMode;
+            }
+            if (parsed && typeof parsed.themeName === 'string' && parsed.themeName) {
+              skinName = parsed.themeName;
+            }
+            if (parsed && (parsed.uiScaleMode === 'auto' || parsed.uiScaleMode === 'manual')) {
+              uiScaleMode = parsed.uiScaleMode;
+            }
+            var parsedScale = parsed ? Number(parsed.uiScale) : NaN;
+            if (isFinite(parsedScale)) {
+              var snapValues = [0.9, 0.95, 1, 1.2, 1.5];
+              var snap = snapValues[0];
+              var snapDiff = Math.abs(parsedScale - snap);
+              for (var s = 1; s < snapValues.length; s++) {
+                var d = Math.abs(parsedScale - snapValues[s]);
+                if (d < snapDiff) { snapDiff = d; snap = snapValues[s]; }
+              }
+              uiScale = snap;
+            }
+            if (
+              parsed &&
+              (parsed.uiLanguage === 'auto' ||
+                parsed.uiLanguage === 'zh-CN' ||
+                parsed.uiLanguage === 'en')
+            ) {
+              configuredUiLanguage = parsed.uiLanguage;
+            }
+          }
+        } catch (_) {}
+
+        if (mode !== 'dark') mode = 'light';
+
+        function resolveUiLanguage(rawValue) {
+          if (rawValue === 'zh-CN' || rawValue === 'en') return rawValue;
+          var nav = navigator.language || '';
+          return /^en/i.test(nav) ? 'en' : 'zh-CN';
+        }
+
+        function getAutoUIScale(width) {
+          if (width >= 3840) return 1.5;
+          if (width >= 2560) return 1.2;
+          return 1;
+        }
+
+        var resolvedUiLanguage = resolveUiLanguage(configuredUiLanguage);
+        var root = document.documentElement;
+        root.lang = resolvedUiLanguage;
+        root.setAttribute('data-ui-language', resolvedUiLanguage);
+        root.setAttribute('data-theme-mode', mode);
+        root.setAttribute('data-theme', mode);
+        root.setAttribute('data-skin', skinName);
+        root.setAttribute('data-ui-scale-mode', uiScaleMode);
+        var dcf = localStorage.getItem('default-content-font');
+        root.setAttribute('data-default-content-font', dcf === null || dcf === 'on' ? 'on' : 'off');
+        var viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+        var effectiveScale = uiScaleMode === 'manual' ? uiScale : getAutoUIScale(viewportWidth);
+        root.style.setProperty('--ui-scale', String(effectiveScale));
+
+        var metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription && resolvedUiLanguage === 'en') {
+          metaDescription.setAttribute(
+            'content',
+            'Drive branching stories in a living world and play an immersive AI text adventure.'
+          );
+        }
+
+        if (location.protocol === 'http:' || location.protocol === 'https:') {
+          var manifestLink = document.createElement('link');
+          manifestLink.rel = 'manifest';
+          manifestLink.href =
+            resolvedUiLanguage === 'en'
+              ? 'assets/pwa/manifest.en.webmanifest'
+              : 'assets/pwa/manifest.zh-CN.webmanifest';
+          document.head.appendChild(manifestLink);
+        }
+      })();
+    </script>
+    <link
+      rel="preload"
+      as="image"
+      media="(max-width: 900px)"
+      href="assets/launcher/cover-2560.webp?v=20260518a"
+      imagesrcset="assets/launcher/cover-1920.webp?v=20260518a 1x, assets/launcher/cover-2560.webp?v=20260518a 2x, assets/launcher/cover-3840.webp?v=20260518a 3x"
+      imagesizes="100vw"
+    />
+    <link
+      rel="preload"
+      as="image"
+      media="(min-width: 901px)"
+      href="assets/launcher/cover-1920.webp?v=20260518a"
+      imagesrcset="assets/launcher/cover-640.webp?v=20260518a 640w, assets/launcher/cover-960.webp?v=20260518a 960w, assets/launcher/cover-1280.webp?v=20260518a 1280w, assets/launcher/cover-1920.webp?v=20260518a 1920w, assets/launcher/cover-2560.webp?v=20260518a 2560w, assets/launcher/cover-3840.webp?v=20260518a 3840w"
+      imagesizes="100vw"
+    />
+    <!-- Preload icon font to prevent FOUT -->
+    <link rel="preload" href="assets/fonts/material-symbols-outlined-w400.ttf" as="font" type="font/ttf">
+    <!-- Web fonts (本地化，原 jsdelivr / Google Fonts；同步脚本：tools/fonts/sync-vendor-fonts.mjs) -->
+    <link rel="stylesheet" href="assets/fonts/vendor/nunito/400.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/nunito/600.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/nunito/700.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/nunito/800.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/fira-code/400.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/fira-code/500.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/fira-code/700.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/zcool-kuaile/400.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/lxgw-wenkai-webfont/lxgwwenkai-regular.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/noto-serif-sc/400.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/noto-serif-sc/700.css" />
+    <!-- Cyberpunk theme display fonts (HUD / mono accents) -->
+    <link rel="stylesheet" href="assets/fonts/vendor/press-start-2p/400.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/vt323/400.css" />
+    <!-- Plus Jakarta Sans: ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400 -->
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/300.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/400.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/400-italic.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/500.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/600.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/700.css" />
+    <link rel="stylesheet" href="assets/fonts/vendor/plus-jakarta-sans/800.css" />
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="css/fonts-local.css" />
+    <link rel="stylesheet" href="css/renderers.css" />
+    <link rel="stylesheet" href="css/hexmap.css" />
+    <link rel="stylesheet" href="css/app.css?v=20260518a" />
+    <link rel="stylesheet" href="css/settings-tabs.css?v=20260518a" />
+    <link rel="stylesheet" href="css/theme-tokens.css?v=20260518a" />
+    <link rel="stylesheet" href="css/theme.css?v=20260518a" />
+    <link rel="stylesheet" href="css/launcher.css?v=20260518a" />
+    <link rel="stylesheet" href="css/account.css?v=20260518a" />
+    <link rel="stylesheet" href="css/system.css?v=20260518a" />
+    <link rel="stylesheet" href="css/components.css?v=20260518a" />
+    <link rel="stylesheet" href="css/themes/literary.css?v=20260518a" />
+    <link rel="stylesheet" href="css/debug-new.css?v=20260518a" />
+
+    <!-- Fallback if JS is completely disabled -->
+    <noscript>
+      <style>
+        .is-loading {
+          overflow: auto !important;
+        }
+        #initial-loading-overlay {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+  </head>
+
+  <body class="is-loading">
+    <!-- Initial Loading Overlay -->
+    <div id="initial-loading-overlay" aria-busy="true" aria-live="polite">
+      <div class="initial-loading-content">
+        <img src="assets/logos/logo-sandbox.jpg" class="initial-loading-logo" alt="AI Sandbox Game Logo" />
+        
+        <div class="initial-loading-card">
+          <div class="initial-loading-head">
+            <div class="initial-loading-icon-shell" aria-hidden="true">
+              <span class="material-symbols-outlined initial-loading-icon">progress_activity</span>
+            </div>
+            <div class="initial-loading-copy">
+              <div class="initial-loading-label-row">
+                <h2 class="initial-loading-title">Initializing</h2>
+                <span id="loading-percentage" class="initial-loading-subtitle">0%</span>
+              </div>
+              <p class="initial-loading-status">Preparing interface and session...</p>
+            </div>
+          </div>
+          <div class="initial-loading-progress-track">
+            <div id="loading-progress-bar" class="initial-loading-progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="initial-loading-url"></div>
+      </div>
+    </div>
+
+    <!-- Initial Loading Controller (fallback IIFE)
+         三种路径：
+           1. 生产（有 manifest-version meta + installController）：等 install-controller:critical-ready
+              + launcher:ready 双事件 → 隐藏。progress 由 installController 直接更新 DOM。
+           2. dev（无 manifest-version meta）：fake logarithmic progress + 等 launcher:ready 隐藏。
+           3. installController 加载失败兜底：60s 内拿不到 critical-ready → 弹错误提示。
+    -->
+    <script id="initial-loading-script">
+      (function () {
+        var overlay = document.getElementById('initial-loading-overlay');
+        var bar = document.getElementById('loading-progress-bar');
+        var text = document.getElementById('loading-percentage');
+        var body = document.body;
+        if (!overlay || !bar || !text) return;
+
+        var isDev = !document.querySelector('meta[name="manifest-version"]');
+        var criticalReady = false;
+        var launcherReady = false;
+        var hidden = false;
+        var fakeProgressInterval = null;
+        var progress = 0;
+
+        function updateUI(p) {
+          var val = Math.min(100, Math.floor(p));
+          bar.style.width = val + '%';
+          text.textContent = val + '%';
+        }
+
+        function forceHideOverlay() {
+          if (hidden) return;
+          hidden = true;
+          if (fakeProgressInterval) clearInterval(fakeProgressInterval);
+          overlay.style.pointerEvents = 'none';
+          overlay.style.opacity = '0';
+          if (body && body.classList) body.classList.remove('is-loading');
+          setTimeout(function () {
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            var script = document.getElementById('initial-loading-script');
+            if (script && script.parentNode) script.parentNode.removeChild(script);
+          }, 650);
+        }
+
+        function checkAndHide() {
+          if (isDev && launcherReady) {
+            updateUI(100);
+            setTimeout(forceHideOverlay, 200);
+            return;
+          }
+          if (criticalReady && launcherReady) {
+            updateUI(100);
+            setTimeout(forceHideOverlay, 200);
+          }
+        }
+
+        window.addEventListener('install-controller:critical-ready', function () {
+          criticalReady = true;
+          checkAndHide();
+        });
+
+        window.addEventListener('launcher:ready', function () {
+          launcherReady = true;
+          checkAndHide();
+        });
+
+        // BFCache 立刻隐藏
+        window.addEventListener('pageshow', function (e) {
+          if (e.persisted) forceHideOverlay();
+        });
+
+        // Dev 模式：模拟 fake progress（installController 不会更新 DOM）
+        if (isDev) {
+          fakeProgressInterval = setInterval(function () {
+            var remaining = 88 - progress;
+            progress += Math.max(0.1, remaining * 0.05);
+            if (progress > 88) progress = 88;
+            updateUI(progress);
+          }, 50);
+        }
+
+        // installController 加载失败兜底（生产路径）：60s 内没拿到 critical-ready + launcher-ready 全套，
+        // 视为彻底卡住。两段独立判断：critical-ready 缺 = 下载/缓存阶段死了，
+        // launcher-ready 缺 = bundle 加载/解析/launcher.js 抛错了——两条静默失败链路都要兜。
+        if (!isDev) {
+          setTimeout(function () {
+            if (hidden) return;
+            if (!criticalReady || !launcherReady) {
+              overlay.innerHTML =
+                '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;">' +
+                '<div style="max-width:420px;background:#fff;border-radius:12px;padding:24px;color:#222;font-family:system-ui,-apple-system,sans-serif;">' + // ui-lint-allow: pre-CSS boot fallback
+                '<p style="margin:0 0 20px;font-size:15px;line-height:1.5;">Loading failed. Please refresh the page.</p>' +
+                '<button onclick="location.reload()" style="padding:10px 20px;border:none;border-radius:8px;background:#2563eb;color:#fff;font-size:14px;font-weight:500;cursor:pointer;">Refresh</button>' + // ui-lint-allow: pre-CSS boot fallback
+                '</div></div>';
+            }
+          }, 60000);
+        }
+
+        // 字体 ready 标记（保留原行为）
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(function () {
+            document.documentElement.classList.add('fonts-ready');
+          });
+        } else {
+          document.documentElement.classList.add('fonts-ready');
+        }
+      })();
+    </script>
+    <div id="narrow-screen-overlay" class="narrow-screen-overlay">
+      <div class="narrow-screen-content">
+        <span class="material-symbols-outlined narrow-screen-icon">smartphone</span>
+        <h2>屏幕宽度不足</h2>
+        <p>当前屏幕太窄，无法正常显示内容。<br />请旋转设备或使用更大的屏幕。</p>
+      </div>
+    </div>
+
+    <!-- ====== Launcher / Start Screen ====== -->
+    <div id="launcher-overlay" class="launcher-overlay">
+      <!-- Background layers -->
+      <div class="launcher-bg">
+        <picture>
+          <source
+            media="(max-width: 900px)"
+            type="image/webp"
+            srcset="
+              assets/launcher/cover-1920.webp?v=20260518a 1x,
+              assets/launcher/cover-2560.webp?v=20260518a 2x,
+              assets/launcher/cover-3840.webp?v=20260518a 3x
+            "
+            sizes="100vw"
+          />
+          <source
+            media="(max-width: 900px)"
+            srcset="
+              assets/launcher/cover-1920.jpg?v=20260518a 1x,
+              assets/launcher/cover-2560.jpg?v=20260518a 2x,
+              assets/launcher/cover-3840.jpg?v=20260518a 3x
+            "
+            sizes="100vw"
+          />
+          <source
+            type="image/webp"
+            srcset="
+              assets/launcher/cover-640.webp?v=20260518a   640w,
+              assets/launcher/cover-960.webp?v=20260518a   960w,
+              assets/launcher/cover-1280.webp?v=20260518a 1280w,
+              assets/launcher/cover-1920.webp?v=20260518a 1920w,
+              assets/launcher/cover-2560.webp?v=20260518a 2560w,
+              assets/launcher/cover-3840.webp?v=20260518a 3840w
+            "
+            sizes="100vw"
+          />
+          <img
+            src="assets/launcher/cover-fallback.jpg?v=20260518a"
+            srcset="
+              assets/launcher/cover-640.jpg?v=20260518a   640w,
+              assets/launcher/cover-960.jpg?v=20260518a   960w,
+              assets/launcher/cover-1280.jpg?v=20260518a 1280w,
+              assets/launcher/cover-1920.jpg?v=20260518a 1920w,
+              assets/launcher/cover-2560.jpg?v=20260518a 2560w,
+              assets/launcher/cover-3840.jpg?v=20260518a 3840w
+            "
+            sizes="100vw"
+            alt="Landscape Background"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
+      </div>
+
+      <!-- Player Profile (top right) -->
+      <div class="launcher-profile">
+        <div class="launcher-profile-info">
+          <div class="launcher-profile-name">Player One</div>
+          <div class="launcher-profile-status">
+            <span class="launcher-profile-status-dot"></span> Online
+          </div>
+        </div>
+        <div class="launcher-profile-avatar">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+        <div
+          id="launcher-profile-bubble"
+          class="launcher-profile-bubble"
+          aria-live="polite"
+          aria-hidden="true"
+        >
+          想登录？本游戏目前没有后台服务器，也不需要注册账号。你所有的存档和 API Key 都保存在本地。
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="launcher-content">
+        <!-- Title -->
+        <div class="launcher-title-area">
+          <div class="launcher-title-cn">AI沙盒游戏</div>
+          <div class="launcher-title-en">AI Sandbox Game</div>
+          <div class="launcher-title-accent"></div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="launcher-nav">
+          <button class="launcher-nav-item launcher-nav--primary" data-action="new-game">
+            <span class="material-symbols-outlined">sports_esports</span>
+            <div class="launcher-nav-label">
+              <span class="launcher-nav-label-cn">开始新旅程</span>
+              <span class="launcher-nav-label-en">Start New Adventure</span>
+            </div>
+          </button>
+          <button class="launcher-nav-item" data-action="continue">
+            <span class="material-symbols-outlined">save</span>
+            <div class="launcher-nav-label">
+              <span class="launcher-nav-label-cn">继续冒险</span>
+              <span class="launcher-nav-label-en">Continue Adventure</span>
+            </div>
+          </button>
+          <button class="launcher-nav-item" data-action="design-mode">
+            <span class="material-symbols-outlined">architecture</span>
+            <div class="launcher-nav-label">
+              <span class="launcher-nav-label-cn">设计新世界</span>
+              <span class="launcher-nav-label-en">Design New World</span>
+            </div>
+          </button>
+          <button class="launcher-nav-item" data-action="qq-group">
+            <span class="material-symbols-outlined">forum</span>
+            <div class="launcher-nav-label">
+              <span class="launcher-nav-label-cn">官方QQ群</span>
+              <span class="launcher-nav-label-en">Official QQ Group</span>
+            </div>
+          </button>
+          <button class="launcher-nav-item" data-action="settings">
+            <span class="material-symbols-outlined">settings</span>
+            <div class="launcher-nav-label">
+              <span class="launcher-nav-label-cn">系统设置</span>
+              <span class="launcher-nav-label-en">Adjust Preferences</span>
+            </div>
+          </button>
+        </nav>
+
+        <!-- Version Bar -->
+        <div class="launcher-version">
+          <span class="launcher-version-link" id="launcher-changelog-link">version 3.7.9</span>
+          <span class="launcher-version-dot"></span>
+          <span class="launcher-version-link" id="launcher-credits-link">CREDITS</span>
+
+        </div>
+      </div>
+
+      <section class="launcher-intro" aria-hidden="true" aria-labelledby="launcher-intro-title">
+        <button
+          type="button"
+          class="launcher-intro-back btn-secondary"
+          data-action="intro-back"
+          aria-label="返回开始界面"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+          <span class="launcher-intro-back-text">返回</span>
+        </button>
+        <div class="launcher-intro-stage">
+          <div class="launcher-intro-panel">
+            <div class="launcher-intro-copy">
+              <h1 id="launcher-intro-title" class="launcher-intro-title">
+                旅行者，欢迎来到这片尚未书写的世界
+              </h1>
+              <p id="launcher-intro-text" class="launcher-intro-text">
+                我是这个沙盒游戏的叙事引擎——一个由 AI
+                驱动的游戏主持人。这里没有预设的剧本，更没有任何世界观的限制。你不仅是玩家，更是创世者，只要你能想象，我们就能将它具象化。
+              </p>
+              <div id="launcher-intro-extra" class="launcher-intro-extra" hidden></div>
+            </div>
+            <div id="launcher-intro-actions" class="launcher-intro-actions">
+              <button
+                type="button"
+                class="launcher-intro-continue"
+                data-action="intro-next"
+                data-intro-button="true"
+                data-intro-primary="true"
+              >
+                这是个什么游戏？
+              </button>
+            </div>
+          </div>
+
+          <div class="launcher-ui-preview" aria-hidden="true">
+            <div class="launcher-ui-preview-header">
+              <div class="launcher-ui-preview-title-group">
+                <div class="launcher-ui-preview-title-wrap">
+                  <img
+                    src="assets/pwa/icon-512.png"
+                    alt=""
+                    class="launcher-ui-preview-logo"
+                  />
+                  <div class="launcher-ui-preview-title-stack">
+                    <div class="launcher-ui-preview-title" data-preview-text="title">
+                      AI Sandbox Game
+                    </div>
+                  </div>
+                </div>
+                <div class="" data-action="launcher-ui-preview-mode-toggle" aria-hidden="true">
+                  <span
+                    class="launcher-ui-preview-mode-label launcher-ui-preview-mode-label--active"
+                    data-preview-text="mode-game"
+                    >沙盒</span
+                  >
+                  <span class="launcher-ui-preview-mode-label" data-preview-text="mode-design"
+                    >世界卡</span
+                  >
+                  <span class="" data-action="launcher-ui-preview-mode-slider"></span>
+                </div>
+              </div>
+
+              <div class="launcher-ui-preview-toolbar">
+                <div class="launcher-ui-preview-tile header-tile launcher-ui-preview-tile--npc">
+                  <span
+                    class="material-symbols-outlined launcher-ui-preview-icon launcher-ui-preview-icon--npc"
+                    >person</span
+                  >
+                  <span data-preview-text="tile-npc">角色</span>
+                </div>
+                <div class="launcher-ui-preview-tile header-tile launcher-ui-preview-tile--summary">
+                  <span
+                    class="material-symbols-outlined launcher-ui-preview-icon launcher-ui-preview-icon--summary"
+                    >history_edu</span
+                  >
+                  <span data-preview-text="tile-summary">总结</span>
+                </div>
+                <div class="launcher-ui-preview-tile header-tile">
+                  <span
+                    class="material-symbols-outlined launcher-ui-preview-icon launcher-ui-preview-icon--map"
+                    >map</span
+                  >
+                  <span data-preview-text="tile-map">世界地图</span>
+                </div>
+                <div class="launcher-ui-preview-tile header-tile">
+                  <span
+                    class="material-symbols-outlined launcher-ui-preview-icon launcher-ui-preview-icon--save"
+                    >save</span
+                  >
+                  <span data-preview-text="tile-save">存档</span>
+                </div>
+                <div class="launcher-ui-preview-tile header-tile">
+                  <span
+                    class="material-symbols-outlined launcher-ui-preview-icon launcher-ui-preview-icon--settings"
+                    >settings</span
+                  >
+                  <span data-preview-text="tile-settings">设置</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="launcher-ui-preview-sidebar">
+              <div class="launcher-ui-preview-summary metro-tile summary-tile-border">
+                <div class="sidebar-tile-header">
+                  <span class="material-symbols-outlined sidebar-tile-icon">history_edu</span>
+                  <span class="sidebar-tile-title" data-preview-text="summary-title">剧情总结</span>
+                  <span
+                    class="summary-stats-inline launcher-ui-preview-summary-stats"
+                    data-preview-html="summary-stats"
+                    >章节：<strong>0</strong>&emsp;剧情：<strong>0</strong></span
+                  >
+                  <span class="material-symbols-outlined summary-tile-chevron" aria-hidden="true"
+                    >expand_more</span
+                  >
+                </div>
+                <div class="summary-list">
+                  <div class="summary-empty">
+                    <span class="material-symbols-outlined summary-empty-icon">menu_book</span>
+                    <div class="summary-empty-text" data-preview-html="summary-empty">
+                      开始冒险后<br />这里会显示每次剧情的总结
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="launcher-ui-preview-npc metro-tile npc-tile-border">
+                <div class="sidebar-tile-header">
+                  <span class="material-symbols-outlined sidebar-tile-icon sidebar-tile-icon--npc"
+                    >person</span
+                  >
+                  <span class="sidebar-tile-title" data-preview-text="npc-title">角色档案</span>
+                </div>
+                <div class="npc-card-list">
+                  <div class="npc-empty" data-preview-text="npc-empty">暂无角色信息</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- News Cards (bottom right) -->
+      <div class="launcher-news">
+        <div class="launcher-news-card">
+          <h4>最新消息</h4>
+          <p>AI沙盒游戏持续更新中，更多世界与冒险等待探索。</p>
+        </div>
+        <div class="launcher-news-card">
+          <h4>社区动态</h4>
+          <p>加入官方QQ群与其他冒险者交流心得与创意。</p>
+        </div>
+      </div>
+      <!-- Credits Modal -->
+      <div id="launcher-credits-modal" class="launcher-credits-modal" aria-hidden="true">
+        <div class="launcher-credits-backdrop"></div>
+        <div class="launcher-credits-panel">
+          <button class="launcher-credits-close btn-secondary" aria-label="关闭">关闭</button>
+          <h2 class="launcher-credits-title">CREDITS</h2>
+          <div class="launcher-credits-divider"></div>
+          <div class="launcher-credits-body metro-scroll">
+            <div class="launcher-credits-section">
+              <h3>特别感谢</h3>
+              <p>
+                感谢在开发过程中给予我支持和帮助的每一位朋友与家人，是你们的鼓励让这个项目从想法变为现实。
+              </p>
+              <a
+                href="https://github.com/hayowei/aisandboxgame"
+                target="_blank"
+                rel="noopener noreferrer"
+                id="credits-github-btn"
+                class="btn-ghost btn-sm" data-action="launcher-credits-link-btn"
+              >
+                <span class="material-symbols-outlined launcher-credits-link-icon">code</span>
+                <span>GitHub Open Source · AGPL-3.0</span>
+              </a>
+            </div>
+            <div class="launcher-credits-section">
+              <h3>未来计划</h3>
+              <p>
+                AI 沙盒游戏将持续更新迭代。未来将推出 iOS 与 Android 版应用。本项目已在 GitHub
+                正式开源，欢迎大家提交 PR！
+              </p>
+            </div>
+            <div class="launcher-credits-section">
+              <h3>承诺</h3>
+              <p>
+                网页版将永久保持免费。欢迎大家游玩、分享与反馈，你的每一条建议都是我前进的动力。
+              </p>
+            </div>
+          </div>
+          <div class="launcher-credits-footer">version 3.7.9</div>
+        </div>
+      </div>
+      <!-- Changelog Modal -->
+      <div id="launcher-changelog-modal" class="launcher-credits-modal" aria-hidden="true">
+        <div class="launcher-credits-backdrop"></div>
+        <div class="launcher-credits-panel">
+          <button class="launcher-credits-close btn-secondary" aria-label="关闭">关闭</button>
+          <h2 class="launcher-credits-title">CHANGELOG</h2>
+          <div class="launcher-credits-divider launcher-changelog-divider"></div>
+          <div class="launcher-credits-body metro-scroll" id="launcher-changelog-body">
+            <!-- 由 JS 动态渲染 -->
+          </div>
+          <div class="launcher-credits-footer">version 3.7.9</div>
+        </div>
+      </div>
+    </div>
+    <!-- ====== End Launcher ====== -->
+
+    <div id="game-screen">
+      <!-- 抽屉遮罩层 -->
+      <div id="drawer-overlay" class="drawer-overlay"></div>
+
+      <div id="app">
+        <header>
+          <div class="header-title-group">
+            <h1>
+              <img
+                id="home-logo-trigger"
+                src="assets/pwa/icon-512.png"
+                alt="Logo"
+                class="header-logo"
+                title="返回开始界面"
+                aria-label="返回开始界面"
+                tabindex="0"
+                role="button"
+              /><span
+                id="title-tips-trigger"
+                class="title-tips-trigger"
+                role="button"
+                tabindex="0"
+                title="点击查看小贴士"
+                >AI Sandbox Game</span
+              >
+            </h1>
+            <div id="mode-toggle" class="tab-strip" title="切换沙盒/世界卡">
+              <span class="tab is-active" data-mode="game">沙盒</span>
+              <span class="tab" data-mode="design">世界卡</span>
+            </div>
+            <button class="title-account-btn avatar-trigger"
+                    aria-label="Account menu"
+                    aria-haspopup="menu"
+                    aria-expanded="false"
+                    aria-controls="avatar-dropdown"
+                    title="账户与设置">
+              <span class="material-symbols-outlined">account_circle</span>
+            </button>
+          </div>
+          <div class="header-toolbar">
+            <!-- 舞台导航（stage-router 启用后显示，按 mode 自动切换可见组） -->
+            <div class="stage-nav stage-nav--game" data-stage-nav-mode="game" role="tablist" aria-label="沙盒舞台">
+              <button class="header-tile stage-nav-btn" data-stage-target="sms" aria-label="Messages" title="短信" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">mail</span>
+                <span>短信</span>
+                <span id="stage-nav-sms-badge" class="header-badge hidden">0</span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="cast" aria-label="Cast" title="角色档案" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">person</span>
+                <span>角色</span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="story" aria-label="Story" title="剧情" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">auto_stories</span>
+                <span>剧情</span>
+                <span id="stage-nav-story-badge" class="header-badge hidden"></span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="inventory" aria-label="Inventory" title="物品" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">inventory_2</span>
+                <span>物品</span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="map" aria-label="Map" title="世界地图" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">map</span>
+                <span>地图</span>
+              </button>
+            </div>
+            <div class="stage-nav stage-nav--design" data-stage-nav-mode="design" role="tablist" aria-label="世界卡舞台">
+              <button class="header-tile stage-nav-btn" data-stage-target="preview" aria-label="Preview" title="预览" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">visibility</span>
+                <span>预览</span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="design" aria-label="Design Mode" title="设计模式" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">edit_note</span>
+                <span>设计模式</span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="saves" aria-label="Saves" title="存档" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">save</span>
+                <span>存档</span>
+              </button>
+              <button class="header-tile stage-nav-btn" data-stage-target="square" aria-label="Square" title="广场" role="tab">
+                <span class="material-symbols-outlined header-tile-icon">storefront</span>
+                <span>广场</span>
+                </button>
+              <button class="header-tile stage-nav-btn avatar-trigger"
+                      aria-label="Account menu"
+                      aria-haspopup="menu"
+                      aria-expanded="false"
+                      aria-controls="avatar-dropdown"
+                      title="账户与设置">
+                <span class="material-symbols-outlined header-tile-icon">account_circle</span>
+                <span>账户</span>
+              </button>
+            </div>
+            <button
+              id="info-tile-btn"
+              class="header-tile mobile-game-only" data-action="mobile-drawer-btn"
+              aria-label="Info"
+              title="角色 / 主角 / 总结"
+            >
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--npc"
+                >person</span
+              >
+              <span>信息</span>
+            </button>
+            <button
+              id="worldcard-tile-btn"
+              class="header-tile mobile-design-only" data-action="mobile-drawer-btn"
+              aria-label="World Card"
+              title="世界卡信息"
+            >
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--worldcard"
+                >public</span
+              >
+              <span>世界卡</span>
+            </button>
+            <button id="map-btn" class="header-tile" aria-label="Map" title="世界地图">
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--map"
+                >map</span
+              >
+              <span>世界地图</span>
+            </button>
+            <button id="phone-btn" class="header-tile" aria-label="Phone" title="短信">
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--phone"
+                >mail</span
+              >
+              <span>短信</span>
+              <span id="phone-btn-badge" class="header-badge hidden">0</span>
+            </button>
+            <button id="square-btn" class="header-tile" aria-label="Community Square" title="社区世界卡广场">
+              <span class="material-symbols-outlined header-tile-icon">storefront</span>
+              <span>广场</span>
+            </button>
+            <button
+              id="debug-btn"
+              class="header-tile"
+              aria-label="Debug"
+              title="查看 Debug Payload"
+              style="display: none"
+            >
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--debug"
+                >bug_report</span
+              >
+              <span>Debug</span>
+            </button>
+            <button
+              id="save-manager-btn"
+              class="header-tile"
+              aria-label="Save Manager"
+              title="存档管理"
+            >
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--save"
+                >save</span
+              >
+              <span>存档</span>
+            </button>
+            <button
+              id="settings-btn"
+              class="header-tile"
+              aria-label="Settings"
+              title="设置"
+              style="display: none"
+            >
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--settings"
+                >settings</span
+              >
+              <span>设置</span>
+            </button>
+            <button id="reset-btn" class="header-tile" aria-label="Restart Game" title="重置冒险">
+              <span class="material-symbols-outlined header-tile-icon header-tile-icon--reset"
+                >restart_alt</span
+              >
+              <span>重置</span>
+            </button>
+            <!-- v3.5：原 #avatar-btn 删除——dropdown trigger 改由设计 mode stage-nav 最右那个 .avatar-trigger 承担 -->
+            <div id="avatar-dropdown" class="themed-dropdown" role="menu" aria-hidden="true"></div>
+            <!-- 存档舞台世界卡行操作 dropdown（≤480px 单「…」按钮触发）。init 时由 savesRowMenuUI 挪到 body 末尾 -->
+            <div id="saves-row-menu" class="themed-dropdown" role="menu" aria-hidden="true"></div>
+          </div>
+        </header>
+        <div id="toast-container" class="toast-container"></div>
+        <div id="main-stage">
+          <!-- 世界卡：三态视图切换 header + 操作栏 -->
+          <div id="design-chat-header" class="design-chat-header" data-stage="preview design" style="display: none">
+            <!-- Zone 1: 视图切换 Tabs -->
+            <div class="design-chat-tabs-track tab-strip">
+              <button class="tab is-active" data-view="chat">
+                <span class="material-symbols-outlined">chat</span>对话模式
+              </button>
+              <button class="tab" data-view="card">
+                <span class="material-symbols-outlined">dashboard</span>卡片式预览
+              </button>
+              <button class="tab" data-view="code">
+                <span class="material-symbols-outlined">data_object</span>代码预览
+              </button>
+            </div>
+            <!-- Zone 2: 阶段进度 -->
+            <div class="dch-separator"></div>
+            <!-- 预览子页切换（仅 preview 舞台显示；与下方 stage-pane 内的旧位置二选一，由 CSS 控制） -->
+            <div class="stage-substage-nav preview-substage-nav tab-strip" role="tablist" aria-label="预览子页" data-stage="preview">
+              <button class="tab" data-substage-target="worldcard" role="tab">
+                <span class="material-symbols-outlined">public</span>
+                <span>世界卡信息</span>
+                <span class="tab-label-short" aria-hidden="true">信息</span>
+              </button>
+              <button class="tab" data-substage-target="card" role="tab">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>卡片式预览</span>
+                <span class="tab-label-short" aria-hidden="true">卡片</span>
+              </button>
+              <button class="tab" data-substage-target="code" role="tab">
+                <span class="material-symbols-outlined">data_object</span>
+                <span>代码预览</span>
+                <span class="tab-label-short" aria-hidden="true">代码</span>
+              </button>
+            </div>
+            <div id="design-phase-indicator" class="design-phase-indicator" data-stage="preview design"></div>
+            <span id="design-autosave-indicator" class="design-autosave-indicator das-idle" data-stage="preview design">
+              <span class="material-symbols-outlined das-icon">cloud_done</span>
+              <span class="das-text">已保存</span>
+            </span>
+            <button id="design-apply-btn" class="btn-primary" data-action="design-apply-main-btn" data-stage="preview design">
+              <span class="material-symbols-outlined">play_arrow</span>
+              应用到游戏
+            </button>
+          </div>
+
+          <!-- 置顶状态栏 -->
+          <div
+            id="sticky-status-bar"
+            class="sticky-status-bar hidden"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="sticky-status-popover"
+            data-stage="story"
+          >
+            <div class="sticky-status-inner">
+              <span class="sticky-turn-badge">T0</span>
+              <div class="sticky-status-items-compact"></div>
+              <span class="sticky-status-more hidden" aria-hidden="true"></span>
+              <span class="sticky-status-chevron material-symbols-outlined" aria-hidden="true"
+                >expand_more</span
+              >
+            </div>
+            <div
+              id="sticky-status-popover"
+              class="sticky-status-popover metro-scroll"
+              role="region"
+            >
+              <div class="sticky-status-items-full"></div>
+            </div>
+          </div>
+          <!-- 主线消息区 -->
+          <div class="chat-messages-area metro-scroll" data-tab-panel="main" data-stage="story design"></div>
+          <!-- 世界卡：卡片预览面板 -->
+          <div
+            id="design-card-panel"
+            class="design-left-preview metro-scroll"
+            data-stage="preview"
+            data-substage="card"
+            style="display: none"
+          ></div>
+          <!-- 世界卡：代码预览面板 -->
+          <div
+            id="design-code-panel"
+            class="design-left-preview metro-scroll"
+            data-stage="preview"
+            data-substage="code"
+            style="display: none"
+          ></div>
+
+          <div class="chat-input-area" data-stage="story design">
+            <textarea
+              id="chat-input"
+              name="chat-input"
+              class="chat-input-textbox"
+              placeholder="输入你的行动..."
+              rows="1"
+            ></textarea>
+            <button
+              id="design-execute-btn"
+              data-action="chat-execute-btn"
+              style="display: none"
+              title="执行"
+            >
+              <span class="material-symbols-outlined">check_circle</span>
+            </button>
+            <button data-action="chat-send-btn" title="发送">
+              <span class="material-symbols-outlined">send</span>
+            </button>
+          </div>
+
+          <!-- ===== Stage Panes ===== -->
+          <!-- 沙盒 5 舞台。容器空壳，由 stageEmbed.js 在切到对应 stage 时把 modal/tile reparent 进来 -->
+          <div class="stage-pane" data-stage-pane="sms" role="tabpanel" aria-labelledby="stage-nav-sms">
+            <div class="stage-coming-soon" aria-hidden="true">
+              <div class="stage-coming-soon-art">
+                <span class="material-symbols-outlined stage-coming-soon-icon">forum</span>
+                <span class="material-symbols-outlined stage-coming-soon-icon-badge">construction</span>
+              </div>
+              <h3 class="stage-coming-soon-title">
+                <span class="ui-label-cn">短信功能正在制作中</span>
+                <span class="ui-label-en">Messages — Coming Soon</span>
+              </h3>
+              <p class="stage-coming-soon-body">
+                <span class="ui-label-cn">敬请期待</span>
+                <span class="ui-label-en">Stay tuned</span>
+              </p>
+            </div>
+          </div>
+          <div class="stage-pane" data-stage-pane="cast" role="tabpanel"></div>
+          <div class="stage-pane" data-stage-pane="story" role="tabpanel">
+            <div class="stage-substage-nav story-substage-nav tab-strip" role="tablist" aria-label="剧情子页">
+              <button class="tab" data-substage-target="dialog" role="tab">
+                <span class="material-symbols-outlined">chat</span>
+                <span>当前对话</span>
+              </button>
+              <button class="tab" data-substage-target="summary" role="tab">
+                <span class="material-symbols-outlined">history_edu</span>
+                <span>章节总结</span>
+                <span id="stage-summary-badge" class="header-badge hidden"></span>
+              </button>
+            </div>
+          </div>
+          <div class="stage-pane" data-stage-pane="inventory" role="tabpanel"></div>
+          <div class="stage-pane" data-stage-pane="map" role="tabpanel">
+            <div class="stage-coming-soon" aria-hidden="true">
+              <div class="stage-coming-soon-art">
+                <span class="material-symbols-outlined stage-coming-soon-icon">map</span>
+                <span class="material-symbols-outlined stage-coming-soon-icon-badge">construction</span>
+              </div>
+              <h3 class="stage-coming-soon-title">
+                <span class="ui-label-cn">地图功能正在制作中</span>
+                <span class="ui-label-en">Map — Coming Soon</span>
+              </h3>
+              <p class="stage-coming-soon-body">
+                <span class="ui-label-cn">敬请期待</span>
+                <span class="ui-label-en">Stay tuned</span>
+              </p>
+            </div>
+          </div>
+          <!-- 世界卡 5 舞台 — preview substage tabs 已上移到 #design-chat-header 内（见 ~L897） -->
+          <div class="stage-pane" data-stage-pane="preview" role="tabpanel"></div>
+          <div class="stage-pane" data-stage-pane="design" role="tabpanel">
+            <!-- 设计 stage 主体借用 main-stage 的 chat（CSS 控制显隐）；这里仅作占位 -->
+          </div>
+          <div class="stage-pane" data-stage-pane="saves" role="tabpanel">
+            <div class="saves-stage-root" id="saves-stage-root">
+              <header class="saves-stage-head">
+                <div class="saves-head-row">
+                  <h2 class="saves-head-title">
+                    <span>世界卡</span><span class="saves-head-sep">·</span><span>存档</span>
+                  </h2>
+                  <div class="saves-head-actions">
+                    <button type="button" id="import-world-card-btn" class="saves-sort-btn" title="导入世界卡">
+                      <span class="material-symbols-outlined saves-sort-icon">upload</span>
+                      <span class="saves-import-label">导入世界卡</span>
+                    </button>
+                    <button type="button" class="saves-sort-btn" data-saves-sort title="切换排序">
+                      <span class="material-symbols-outlined saves-sort-icon">swap_vert</span>
+                      <span class="saves-sort-label">按最近游玩</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="saves-filter-tabs" role="tablist">
+                  <button type="button" class="saves-filter-tab is-active" data-saves-filter="all" role="tab">全部</button>
+                  <button type="button" class="saves-filter-tab" data-saves-filter="purchased" role="tab">已购买</button>
+                  <button type="button" class="saves-filter-tab" data-saves-filter="local" role="tab">本地</button>
+                  <button type="button" class="saves-filter-tab" data-saves-filter="builtin" role="tab">内置</button>
+                </div>
+              </header>
+              <div class="saves-stage-scroll metro-scroll">
+                <div class="saves-head-counter" id="saves-head-counter" aria-live="polite"></div>
+                <section class="saves-accordion" id="saves-accordion-list"></section>
+              </div>
+            </div>
+            <div class="saves-legacy-zombies" hidden aria-hidden="true">
+              <button id="save-manager-cancel-btn" type="button"></button>
+              <button id="save-manager-confirm-btn" type="button"></button>
+              <div id="world-card-list"></div>
+              <div id="save-slots-container"></div>
+              <span id="world-card-position-indicator"></span>
+              <p id="save-world-binding-text"></p>
+              <input type="file" id="import-world-card-input" accept=".json" />
+              <input type="file" id="import-file-input" accept=".json" />
+            </div>
+          </div>
+          <div class="stage-pane" data-stage-pane="square" role="tabpanel">
+            <div class="stage-coming-soon" aria-hidden="true">
+              <div class="stage-coming-soon-art">
+                <span class="material-symbols-outlined stage-coming-soon-icon">storefront</span>
+                <span class="material-symbols-outlined stage-coming-soon-icon-badge">construction</span>
+              </div>
+              <h3 class="stage-coming-soon-title">
+                <span class="ui-label-cn">社区广场正在制作中</span>
+                <span class="ui-label-en">Community Square — Coming Soon</span>
+              </h3>
+              <p class="stage-coming-soon-body">
+                <span class="ui-label-cn">敬请期待</span>
+                <span class="ui-label-en">Stay tuned</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧栏 -->
+      <aside id="side-panel">
+        <!-- 沙盒 tab 容器：剧情总结 / 主角 / 角色档案 -->
+        <div id="game-sidebar-tabs">
+          <div class="tab-strip tab-strip-fill" role="tablist" aria-label="右侧栏">
+            <button
+              type="button"
+              class="tab is-active"
+              data-tab="summary"
+              role="tab"
+              aria-controls="summary-tile"
+              aria-selected="true"
+            >
+              <span class="material-symbols-outlined">history_edu</span>
+              <span>剧情总结</span>
+              <span id="summary-btn-badge" class="header-badge hidden"></span>
+            </button>
+            <button
+              type="button"
+              class="tab"
+              data-tab="character"
+              role="tab"
+              aria-controls="character-tile"
+              aria-selected="false"
+            >
+              <span class="material-symbols-outlined">accessibility_new</span>
+              <span>主角</span>
+            </button>
+            <button
+              type="button"
+              class="tab"
+              data-tab="npc"
+              role="tab"
+              aria-controls="npc-tile"
+              aria-selected="false"
+            >
+              <span class="material-symbols-outlined">person</span>
+              <span>角色档案</span>
+            </button>
+          </div>
+
+          <!-- 自动审批工具条（常驻，跨 tab 可见） -->
+          <div class="auto-approve-bar" id="auto-approve-bar">
+            <button
+              type="button"
+              class="auto-approve-chip"
+              id="auto-approve-inventory-toggle"
+              aria-pressed="false"
+              title="开启后物品 / 货币变更自动通过；关闭后回到手动审批"
+              data-stage="inventory"
+            >
+              <span class="material-symbols-outlined auto-approve-chip-icon">toggle_off</span>
+              <span class="auto-approve-chip-label">物品自动审批</span>
+            </button>
+            <button
+              type="button"
+              class="auto-approve-chip"
+              id="auto-approve-npc-toggle"
+              aria-pressed="false"
+              title="开启后 NPC 字段更新自动通过；关闭后回到逐字段手动审批"
+              data-stage="cast"
+            >
+              <span class="material-symbols-outlined auto-approve-chip-icon">toggle_off</span>
+              <span class="auto-approve-chip-label">NPC 自动审批</span>
+            </button>
+          </div>
+
+          <!-- 总结磁贴 -->
+          <div
+            id="summary-tile"
+            class="metro-tile sidebar-tile summary-tile-border tab-panel is-active"
+            role="tabpanel"
+            data-tab="summary"
+            data-stage="story"
+            data-substage="summary"
+          >
+            <div class="summary-stats-bar" id="summary-stats-inline">
+              <div class="summary-stat">
+                <span class="material-symbols-outlined summary-stat-icon">menu_book</span>
+                <span class="summary-stat-label">章节</span>
+                <strong class="summary-stat-value" id="stat-chapters">0</strong>
+              </div>
+              <div class="summary-stat">
+                <span class="material-symbols-outlined summary-stat-icon">history_edu</span>
+                <span class="summary-stat-label">剧情</span>
+                <strong class="summary-stat-value" id="stat-turns">0</strong>
+              </div>
+            </div>
+            <div id="summary-list" class="summary-list metro-scroll">
+              <div class="summary-empty">
+                <span class="material-symbols-outlined summary-empty-icon">menu_book</span>
+                <div class="summary-empty-text">开始冒险后<br />这里会显示每次剧情的总结</div>
+              </div>
+            </div>
+          </div>
+          <!-- 主角磁贴 -->
+          <div
+            id="character-tile"
+            class="metro-tile sidebar-tile tab-panel"
+            role="tabpanel"
+            data-tab="character"
+            data-stage="inventory"
+          >
+            <div id="character-list" class="character-list metro-scroll">
+              <!-- rendered by characterPanelUI.js -->
+            </div>
+          </div>
+          <!-- NPC 档案磁贴 -->
+          <div
+            id="npc-tile"
+            class="metro-tile sidebar-tile npc-tile-border tab-panel"
+            role="tabpanel"
+            data-tab="npc"
+            data-stage="cast"
+          >
+            <div id="npc-card-container" class="npc-card-list metro-scroll">
+              <div class="npc-empty">暂无角色信息</div>
+            </div>
+          </div>
+        </div>
+        <!-- 世界卡信息磁贴（世界卡模式专用） -->
+        <div
+          id="worldcard-info-tile"
+          class="metro-tile sidebar-tile worldcard-tile-border"
+          data-stage="preview"
+          data-substage="worldcard"
+          style="display: none"
+        >
+          <div class="sidebar-tile-header">
+            <span class="material-symbols-outlined sidebar-tile-icon sidebar-tile-icon--worldcard"
+              >public</span
+            >
+            <span class="sidebar-tile-title">世界卡信息</span>
+            <span id="worldcard-phase-badge" class="worldcard-phase-badge">P1</span>
+          </div>
+          <div id="worldcard-info-container" class="worldcard-info-list metro-scroll">
+            <div class="worldcard-empty">尚未开始设计</div>
+          </div>
+        </div>
+        <!-- 世界卡预览面板已迁移到左侧 #main-stage 内 -->
+
+        <!-- ========== 侧栏第二舞台（v3.5 新增）==========
+             >1150px 桌面才显示。stageEmbed 把对应 stage 的内容 reparent 到下面 10 个容器之一。
+             顶部 stage 切换 tab strip：每 mode 5 个 button，CSS 自动隐藏当前主舞台对应那个（剩 4 可见）。 -->
+        <div class="side-stage-tabs side-stage-tabs--game" data-stage-nav-mode="game" role="tablist" aria-label="侧栏舞台（游戏）">
+          <button class="side-stage-tab" data-side-stage-target="story" role="tab">
+            <span class="material-symbols-outlined">auto_stories</span>
+            <span>剧情</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="sms" role="tab">
+            <span class="material-symbols-outlined">mail</span>
+            <span>短信</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="cast" role="tab">
+            <span class="material-symbols-outlined">person</span>
+            <span>角色</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="inventory" role="tab">
+            <span class="material-symbols-outlined">inventory_2</span>
+            <span>物品</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="map" role="tab">
+            <span class="material-symbols-outlined">map</span>
+            <span>地图</span>
+          </button>
+        </div>
+        <div class="side-stage-tabs side-stage-tabs--design" data-stage-nav-mode="design" role="tablist" aria-label="侧栏舞台（设计）">
+          <button class="side-stage-tab" data-side-stage-target="preview" role="tab">
+            <span class="material-symbols-outlined">visibility</span>
+            <span>预览</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="design" role="tab">
+            <span class="material-symbols-outlined">edit_note</span>
+            <span>设计模式</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="saves" role="tab">
+            <span class="material-symbols-outlined">save</span>
+            <span>存档</span>
+          </button>
+          <button class="side-stage-tab" data-side-stage-target="square" role="tab">
+            <span class="material-symbols-outlined">storefront</span>
+            <span>广场</span>
+            </button>
+        </div>
+        <!-- side-pane-header 仅装 sub-tab nav（剧情/预览的子页切换）；标题 chip 已被 tab 自带 -->
+        <div class="side-pane-header">
+          <!-- 侧栏 sub-tab：剧情侧栏只显总结（dialog 是单例 chat，不能复制到侧栏）；预览侧栏 3 sub-tab 全开 -->
+          <div class="side-pane-substage-nav tab-strip" role="tablist" aria-label="侧栏子页">
+            <button class="tab" data-side-substage-target="summary" data-for-side-stage="story" role="tab">
+              <span class="material-symbols-outlined">history_edu</span>
+              <span>章节总结</span>
+            </button>
+            <button class="tab" data-side-substage-target="worldcard" data-for-side-stage="preview" role="tab">
+              <span class="material-symbols-outlined">public</span>
+              <span>世界卡信息</span>
+            </button>
+            <button class="tab" data-side-substage-target="card" data-for-side-stage="preview" role="tab">
+              <span class="material-symbols-outlined">dashboard</span>
+              <span>卡片</span>
+            </button>
+            <button class="tab" data-side-substage-target="code" data-for-side-stage="preview" role="tab">
+              <span class="material-symbols-outlined">data_object</span>
+              <span>代码</span>
+            </button>
+          </div>
+        </div>
+        <!-- 10 个侧栏舞台容器（与主舞台 stage-pane 镜像）-->
+        <div class="stage-pane-side" data-stage-pane-side="story" role="tabpanel"></div>
+        <div class="stage-pane-side" data-stage-pane-side="sms" role="tabpanel">
+          <div class="stage-coming-soon" aria-hidden="true">
+            <div class="stage-coming-soon-art">
+              <span class="material-symbols-outlined stage-coming-soon-icon">forum</span>
+              <span class="material-symbols-outlined stage-coming-soon-icon-badge">construction</span>
+            </div>
+            <h3 class="stage-coming-soon-title">
+              <span class="ui-label-cn">短信功能正在制作中</span>
+              <span class="ui-label-en">Messages — Coming Soon</span>
+            </h3>
+            <p class="stage-coming-soon-body">
+              <span class="ui-label-cn">敬请期待</span>
+              <span class="ui-label-en">Stay tuned</span>
+            </p>
+          </div>
+        </div>
+        <div class="stage-pane-side" data-stage-pane-side="cast" role="tabpanel"></div>
+        <div class="stage-pane-side" data-stage-pane-side="inventory" role="tabpanel"></div>
+        <div class="stage-pane-side" data-stage-pane-side="map" role="tabpanel">
+          <div class="stage-coming-soon" aria-hidden="true">
+            <div class="stage-coming-soon-art">
+              <span class="material-symbols-outlined stage-coming-soon-icon">map</span>
+              <span class="material-symbols-outlined stage-coming-soon-icon-badge">construction</span>
+            </div>
+            <h3 class="stage-coming-soon-title">
+              <span class="ui-label-cn">地图功能正在制作中</span>
+              <span class="ui-label-en">Map — Coming Soon</span>
+            </h3>
+            <p class="stage-coming-soon-body">
+              <span class="ui-label-cn">敬请期待</span>
+              <span class="ui-label-en">Stay tuned</span>
+            </p>
+          </div>
+        </div>
+        <div class="stage-pane-side" data-stage-pane-side="preview" role="tabpanel"></div>
+        <!-- 设计 stage 是纯 chat（单例），不能在侧栏显示，给个占位说明 -->
+        <div class="stage-pane-side" data-stage-pane-side="design" role="tabpanel">
+          <div class="side-stage-placeholder">
+            <span class="material-symbols-outlined side-stage-placeholder-icon">edit_note</span>
+            <p>
+              <span class="ui-label-cn">设计对话仅在主舞台显示</span>
+              <span class="ui-label-en">Design chat lives in the main stage</span>
+            </p>
+            <p class="side-stage-placeholder-hint">
+              <span class="ui-label-cn">点顶部「设计」切到主舞台</span>
+              <span class="ui-label-en">Click "Design" up top to use it</span>
+            </p>
+          </div>
+        </div>
+        <!-- saves stage DOM 是单例（住在主舞台 #main-stage），侧栏给占位说明 -->
+        <div class="stage-pane-side" data-stage-pane-side="saves" role="tabpanel">
+          <div class="side-stage-placeholder">
+            <span class="material-symbols-outlined side-stage-placeholder-icon">save</span>
+            <p>
+              <span class="ui-label-cn">存档页仅在主舞台显示</span>
+              <span class="ui-label-en">Saves live in the main stage</span>
+            </p>
+            <p class="side-stage-placeholder-hint">
+              <span class="ui-label-cn">点顶部「存档」切到主舞台</span>
+              <span class="ui-label-en">Click "Saves" up top to use it</span>
+            </p>
+          </div>
+        </div>
+        <div class="stage-pane-side" data-stage-pane-side="square" role="tabpanel">
+          <div class="stage-coming-soon" aria-hidden="true">
+            <div class="stage-coming-soon-art">
+              <span class="material-symbols-outlined stage-coming-soon-icon">storefront</span>
+              <span class="material-symbols-outlined stage-coming-soon-icon-badge">construction</span>
+            </div>
+            <h3 class="stage-coming-soon-title">
+              <span class="ui-label-cn">社区广场正在制作中</span>
+              <span class="ui-label-en">Community Square — Coming Soon</span>
+            </h3>
+            <p class="stage-coming-soon-body">
+              <span class="ui-label-cn">敬请期待</span>
+              <span class="ui-label-en">Stay tuned</span>
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- P6: 手机底部 tab bar — 第二份 stage-nav，CSS 控制响应式可见性。
+         必须放在 #game-screen 外避开 .header-toolbar 的 transform containing block，
+         才能让 position:fixed bottom:0 正确贴在 viewport 底部。 -->
+    <nav class="stage-mobile-bar" aria-label="底部舞台导航">
+      <div class="stage-nav stage-nav--game" data-stage-nav-mode="game" role="tablist" aria-label="沙盒舞台">
+        <button class="header-tile stage-nav-btn" data-stage-target="sms" aria-label="Messages" title="短信" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">mail</span>
+          <span>短信</span>
+          <span class="header-badge hidden">0</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="cast" aria-label="Cast" title="角色档案" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">person</span>
+          <span>角色</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="story" aria-label="Story" title="剧情" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">auto_stories</span>
+          <span>剧情</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="inventory" aria-label="Inventory" title="物品" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">inventory_2</span>
+          <span>物品</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="map" aria-label="Map" title="世界地图" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">map</span>
+          <span>地图</span>
+        </button>
+      </div>
+      <div class="stage-nav stage-nav--design" data-stage-nav-mode="design" role="tablist" aria-label="世界卡舞台">
+        <button class="header-tile stage-nav-btn" data-stage-target="preview" aria-label="Preview" title="预览" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">visibility</span>
+          <span>预览</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="design" aria-label="Design Mode" title="设计模式" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">edit_note</span>
+          <span>设计模式</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="saves" aria-label="Saves" title="存档" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">save</span>
+          <span>存档</span>
+        </button>
+        <button class="header-tile stage-nav-btn" data-stage-target="square" aria-label="Square" title="广场" role="tab">
+          <span class="material-symbols-outlined header-tile-icon">storefront</span>
+          <span>广场</span>
+        </button>
+        <button class="header-tile stage-nav-btn avatar-trigger"
+                aria-label="Account menu"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="avatar-dropdown"
+                title="账户与设置">
+          <span class="material-symbols-outlined header-tile-icon">account_circle</span>
+          <span>账户</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-content settings-modal-wide">
+        <!-- Header with Title, Tabs and Actions -->
+        <div class="settings-header">
+          <div class="settings-title-block">
+            <h2 class="settings-title" data-settings-copy="header.title">设置</h2>
+            <p class="settings-subtitle" data-settings-copy="header.subtitle">CONFIGURATION</p>
+          </div>
+          <div class="settings-tabs tab-strip tab-strip-fill">
+            <button
+              class="tab"
+              data-tab="basic"
+              data-settings-copy="header.mobileTitle"
+              data-mobile-first
+            >
+              设置
+            </button>
+            <button
+              class="tab is-active"
+              data-tab="basic"
+              data-settings-copy="header.basicTab"
+            >
+              基础设置
+            </button>
+            <button class="tab" data-tab="api" data-settings-copy="header.apiTab">
+              API设置
+            </button>
+            <button
+              class="tab"
+              data-tab="prompts"
+              data-settings-copy="header.promptsTab"
+            >
+              提示词设置
+            </button>
+          </div>
+          <div class="settings-header-actions">
+            <div class="settings-header-mini-actions">
+              <button
+                type="button"
+                id="settings-language-toggle-btn"
+                class="btn-ghost btn-sm" data-action="settings-language-btn"
+                aria-label="切换到英文"
+                title="切换到英文"
+              >
+                En
+              </button>
+              <button
+                type="button"
+                id="settings-theme-toggle-btn"
+                class="btn-ghost btn-icon btn-sm" data-action="settings-theme-btn"
+                aria-label="切换主题"
+                title="切换主题"
+              >
+                <span class="material-symbols-outlined">dark_mode</span>
+              </button>
+            </div>
+            <div class="settings-header-divider" aria-hidden="true"></div>
+            <button type="button" id="cancel-settings-btn" class="btn-secondary" data-action="settings-toolbar-cancel-btn">
+              <span class="ui-label-cn">取消</span><span class="ui-label-en">Cancel</span>
+            </button>
+            <button type="button" id="save-settings-btn" class="btn-primary" data-action="settings-toolbar-confirm-btn">
+              <span class="ui-label-cn">保存</span><span class="ui-label-en">Save</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content Body -->
+        <div class="settings-body">
+          <!-- Tab 1: Basic -->
+          <div id="tab-basic" class="tab-panel is-active">
+            <div class="settings-basic-column">
+              <!-- 界面缩放 -->
+              <div class="form-group ui-scale-settings-group">
+                <div class="ui-scale-header-row">
+                  <span class="form-label" data-settings-copy="general.uiScaleLabel">界面大小</span>
+                  <div class="ui-scale-header-actions">
+                    <span id="ui-scale-value" class="ui-scale-value">默认(100%)</span>
+                    <button
+                      type="button"
+                      id="ui-scale-default-btn"
+                      class="btn-ghost btn-sm" data-action="ui-scale-default-btn"
+                      data-settings-copy="general.uiScaleDefaultBtn"
+                    >
+                      恢复默认
+                    </button>
+                  </div>
+                </div>
+                <div id="ui-scale-tabs" class="tab-strip tab-strip-fill ui-scale-tabs">
+                  <button type="button" class="tab" data-scale="0.9">90%</button>
+                  <button type="button" class="tab" data-scale="0.95">95%</button>
+                  <button type="button" class="tab" data-scale="1">100%</button>
+                  <button type="button" class="tab" data-scale="1.2">120%</button>
+                  <button type="button" class="tab" data-scale="1.5">150%</button>
+                </div>
+                <p id="ui-scale-hint" class="hint" data-settings-copy="general.uiScaleHint">
+                  恢复默认后会按屏幕宽度自动调整界面大小。
+                </p>
+              </div>
+
+              <!-- 主题风格 -->
+              <div class="form-group theme-skin-settings-group">
+                <span class="form-label" data-settings-copy="general.themeSkinLabel">主题风格</span>
+                <div id="theme-skin-options" class="theme-skin-options">
+                  <!-- JS will dynamically populate theme cards -->
+                </div>
+              </div>
+
+              <!-- 页面背景 -->
+              <div class="form-group bg-mode-settings-group">
+                <span class="form-label" data-settings-copy="general.bgMode.label">页面背景</span>
+                <div id="bg-mode-options" class="bg-mode-options">
+                  <!-- JS dynamically populates 4 cards -->
+                </div>
+                <div class="bg-mode-custom-actions" id="bg-mode-custom-actions" hidden>
+                  <button
+                    type="button"
+                    id="bg-mode-custom-edit-btn"
+                    class="btn-primary"
+                    data-settings-copy="general.bgMode.editBtn"
+                  >
+                    编辑背景
+                  </button>
+                  <button
+                    type="button"
+                    id="bg-mode-custom-replace-btn"
+                    class="btn-primary"
+                    data-settings-copy="general.bgMode.replaceBtn"
+                  >
+                    换图
+                  </button>
+                  <button
+                    type="button"
+                    id="bg-mode-custom-clear-btn"
+                    class="btn-primary btn-danger"
+                    data-settings-copy="general.bgMode.clearBtn"
+                  >
+                    清除
+                  </button>
+                  <input type="file" id="bg-mode-custom-file" accept="image/*" hidden />
+                </div>
+              </div>
+
+              <!-- 正文默认字体开关 -->
+              <div class="form-group">
+                <div class="settings-toggle-row">
+                  <div class="toggle-info">
+                    <div class="toggle-info-title-row">
+                      <label
+                        for="default-content-font-toggle"
+                        data-settings-copy="general.defaultContentFont.label"
+                        >正文使用默认字体</label
+                      >
+                    </div>
+                    <div class="hint" data-settings-copy="general.defaultContentFont.hint">
+                      正文区域使用系统默认字体，提高长文阅读舒适度
+                    </div>
+                  </div>
+                  <div class="tab-strip" data-toggle-target="default-content-font-toggle">
+                    <input type="checkbox" id="default-content-font-toggle" hidden checked />
+                    <button type="button" class="tab" data-value="on">
+                      <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                    </button>
+                    <button type="button" class="tab" data-value="off">
+                      <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 叙事着色开关 -->
+              <div class="form-group">
+                <div class="settings-toggle-row">
+                  <div class="toggle-info">
+                    <div class="toggle-info-title-row">
+                      <label
+                        for="narrative-colorize-toggle"
+                        data-settings-copy="general.narrativeColorize.label"
+                        >叙事着色</label
+                      >
+                    </div>
+                    <div class="hint" data-settings-copy="general.narrativeColorize.hint">
+                      为对话、心理活动、说话人等文字显示不同颜色
+                    </div>
+                  </div>
+                  <div class="tab-strip" data-toggle-target="narrative-colorize-toggle">
+                    <input type="checkbox" id="narrative-colorize-toggle" hidden />
+                    <button type="button" class="tab" data-value="on">
+                      <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                    </button>
+                    <button type="button" class="tab" data-value="off">
+                      <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 点击选项即发送开关 -->
+              <div class="form-group">
+                <div class="settings-toggle-row">
+                  <div class="toggle-info">
+                    <div class="toggle-info-title-row">
+                      <label
+                        for="click-to-send-toggle"
+                        data-settings-copy="general.clickToSend.label"
+                        >点击选项即发送</label
+                      >
+                    </div>
+                    <div class="hint" data-settings-copy="general.clickToSend.hint">
+                      关闭时，点击选项会先填入输入栏，需要手动发送
+                    </div>
+                  </div>
+                  <div class="tab-strip" data-toggle-target="click-to-send-toggle">
+                    <input type="checkbox" id="click-to-send-toggle" hidden checked />
+                    <button type="button" class="tab" data-value="on">
+                      <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                    </button>
+                    <button type="button" class="tab" data-value="off">
+                      <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-feedback-entry" hidden>
+                <div class="settings-feedback-entry__copy">
+                  <div
+                    class="settings-feedback-entry__eyebrow"
+                    data-settings-copy="general.feedback.entryEyebrow"
+                  >
+                    玩家反馈
+                  </div>
+                  <h3
+                    class="settings-feedback-entry__title"
+                    data-settings-copy="general.feedback.entryTitle"
+                  >
+                    反馈 / 报 Bug
+                  </h3>
+                  <p
+                    class="settings-feedback-entry__body"
+                    data-settings-copy="general.feedback.entryBody"
+                  >
+                    遇到 bug、流程问题或体验建议时，可以在这里直接留言，也可以附带当前调试快照。
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  id="open-feedback-modal-btn"
+                  class="btn-secondary settings-feedback-entry__btn"
+                  disabled
+                >
+                  <span class="material-symbols-outlined">bug_report</span>
+                  <span data-settings-copy="general.feedback.entryButton">打开反馈表单</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: API -->
+          <div id="tab-api" class="tab-panel">
+            <div class="settings-two-column">
+              <!-- 左侧栏: API Keys + 自定义服务商 -->
+              <div class="settings-left-column">
+                <!-- API Keys 配置区域 -->
+                <div class="form-group">
+                  <span class="form-label" data-settings-copy="general.apiKeysLabel">API Keys</span>
+                  <div id="api-keys-grid" class="api-keys-grid"></div>
+                </div>
+
+                <!-- 自定义 Provider 管理 -->
+                <div class="form-group">
+                  <span class="form-label"
+                    ><span data-settings-copy="general.customProvidersLabel">自定义服务商</span>
+                    <span class="hint" data-settings-copy="general.customProvidersHint"
+                      >(OpenAI / Anthropic 兼容)</span
+                    ></span
+                  >
+                  <div id="custom-providers-container"></div>
+                </div>
+              </div>
+
+              <!-- 右侧栏: 模型设置 -->
+              <div class="settings-right-column">
+                <!-- 模块独立配置区域 -->
+                <div class="form-group general-mobile-priority-group">
+                  <!-- 推荐设置开关（最优先） -->
+                  <div
+                    class="api-advanced-toggle-row"
+                    id="api-recommended-mode-toggle"
+                  >
+                    <span
+                      class="api-advanced-toggle-label api-advanced-toggle-label--recommended"
+                      data-settings-copy="general.recommended.label"
+                      >推荐设置</span
+                    >
+                    <span
+                      class="api-advanced-toggle-hint api-advanced-toggle-hint--recommended"
+                      data-settings-copy="general.recommended.hint"
+                      >使用 DeepSeek V4 最优搭配</span
+                    >
+                    <button
+                      type="button"
+                      class="btn-ghost btn-icon btn-sm"
+                      data-action="section-help-btn"
+                      data-help-target="help-recommended"
+                      title="推荐设置说明"
+                    >
+                      ?
+                    </button>
+                    <div class="tab-strip" data-toggle-target="api-recommended-toggle">
+                      <input type="checkbox" id="api-recommended-toggle" hidden />
+                      <button type="button" class="tab" data-value="on">
+                        <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                      </button>
+                      <button type="button" class="tab" data-value="off">
+                        <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="section-help-content" id="help-recommended" aria-hidden="true">
+                    <p data-settings-copy="general.recommended.helpBody">
+                      需绑定官方 DeepSeek API Key。开启后每个阶段会自动选用 DeepSeek V4 Flash / Pro 与对应思考档位的最佳搭配，兼顾速度与质量。
+                    </p>
+                  </div>
+
+                  <!-- 推荐设置面板（只显示启用 banner，不再列出每 iter / phase 配置详情） -->
+                  <div id="api-recommended-config" class="api-recommended-config" style="display: none">
+                    <div class="api-recommended-banner">
+                      <span class="api-recommended-banner-icon material-symbols-outlined" aria-hidden="true">auto_awesome</span>
+                      <div class="api-recommended-banner-text">
+                        <strong data-settings-copy="general.recommended.bannerTitle"
+                          >推荐设置已启用</strong
+                        >
+                        <span data-settings-copy="general.recommended.bannerBody"
+                          >每个阶段已使用最优模型搭配</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 常规模式：双组配置 -->
+                  <div id="api-simple-config" class="api-simple-config">
+                    <!-- 标准设置 (all modules) -->
+                    <div class="module-config-item">
+                      <div class="module-config-header">
+                        <span class="module-label" data-settings-copy="general.simple.gameLabel"
+                          >标准设置</span
+                        >
+                        <div class="module-streaming-inline module-streaming-top-right">
+                          <span
+                            class="module-streaming-label"
+                            data-settings-copy="general.streamingLabel"
+                            >流式输出</span
+                          >
+                          <div class="tab-strip" data-toggle-target="streaming-toggle">
+                            <input type="checkbox" id="streaming-toggle" hidden />
+                            <button type="button" class="tab" data-value="on">
+                              <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                            </button>
+                            <button type="button" class="tab" data-value="off">
+                              <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="module-config-column">
+                        <div class="module-config-row">
+                          <select
+                            id="module-provider-game"
+                            class="module-provider-select"
+                          ></select>
+                          <div class="module-model-control">
+                            <select
+                              id="module-model-select-game"
+                              class="module-provider-select module-model-select"
+                            ></select>
+                            <input
+                              type="text"
+                              id="module-model-game"
+                              class="module-model-input is-hidden"
+                              value="gemini-3.1-flash-lite"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="module-thinking-row is-hidden"
+                          data-thinking-wrapper="game"
+                          aria-hidden="true"
+                        >
+                          <span class="module-thinking-label">
+                            <span class="module-thinking-badge">v4</span>
+                            思考
+                          </span>
+                          <div
+                            class="tab-strip tab-strip-fill module-thinking-tabs"
+                            role="tablist"
+                            data-thinking-tabs="game"
+                          >
+                            <button type="button" class="tab" data-thinking-value="off">Off</button>
+                            <button type="button" class="tab" data-thinking-value="high">High</button>
+                            <button type="button" class="tab" data-thinking-value="max">Max</button>
+                          </div>
+                          <div
+                            class="module-thinking-hint is-hidden"
+                            data-thinking-hint="game"
+                          >
+                            <span data-settings-copy="general.thinkingHint">DeepSeek 的部分工具调用可能不会回传思考文本</span>
+                            <button
+                              type="button"
+                              class="btn-ghost btn-icon btn-sm module-thinking-hint-help"
+                              data-action="section-help-btn"
+                              data-help-target="thinking-help-game"
+                              aria-label="详细解释"
+                            >
+                              ?
+                            </button>
+                          </div>
+                          <div
+                            class="section-help-content module-thinking-help"
+                            id="thinking-help-game"
+                            aria-hidden="true"
+                          >
+                            <p data-settings-copy="general.thinkingHelp"></p>
+                          </div>
+                        </div>
+                        <div class="module-price-row" data-module-id="game">
+                          <div class="module-price-cell">
+                            <div class="module-price-main">
+                              <span class="price-info"
+                                >输入
+                                <span id="module-price-in-game" class="price-value">-</span> /
+                                输出
+                                <span id="module-price-out-game" class="price-value">-</span>
+                                $/M</span
+                              >
+                              <div class="module-price-actions">
+                                <button
+                                  type="button"
+                                  class="btn-ghost btn-sm" data-action="module-price-flat-btn module-price-edit-btn"
+                                >
+                                  编辑价格
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn-secondary btn-sm" data-action="module-price-flat-btn module-price-save-btn"
+                                >
+                                  保存
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                                data-help-target="help-game"
+                                title="推荐模型"
+                              >
+                                ?
+                              </button>
+                            </div>
+                            <div class="module-price-editor" aria-hidden="true">
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-in"
+                                inputmode="decimal"
+                                placeholder="input"
+                              />
+                              <span class="module-price-edit-sep">/</span>
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-out"
+                                inputmode="decimal"
+                                placeholder="output"
+                              />
+                              <span class="module-price-edit-unit">$/M</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="section-help-content" id="help-game" aria-hidden="true">
+                          <p>
+                            <strong>推荐模型：</strong>DeepSeek V4 Flash, Gemini 3 Flash preview
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 高级设置开关 -->
+                  <div class="api-advanced-toggle-row" id="api-settings-mode-toggle">
+                    <span
+                      class="api-advanced-toggle-label"
+                      data-settings-copy="general.advanced.label"
+                      >高级设置</span
+                    >
+                    <span
+                      class="api-advanced-toggle-hint"
+                      data-settings-copy="general.advanced.hint"
+                      >为每个步骤单独配置模型</span
+                    >
+                    <div class="tab-strip" data-toggle-target="api-advanced-toggle">
+                      <input type="checkbox" id="api-advanced-toggle" hidden />
+                      <button type="button" class="tab" data-value="on">
+                        <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                      </button>
+                      <button type="button" class="tab" data-value="off">
+                        <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 高级模式：独立配置 -->
+                  <div id="api-advanced-config" class="module-config-list" style="display: none">
+                    <div class="module-config-item">
+                      <div class="module-config-header">
+                        <span class="module-label" data-settings-copy="general.advanced.reactLabel"
+                          >ReAct</span
+                        >
+                        <div class="module-streaming-inline module-streaming-top-right">
+                          <span
+                            class="module-streaming-label"
+                            data-settings-copy="general.streamingLabel"
+                            >流式输出</span
+                          >
+                          <div class="tab-strip" data-toggle-target="streaming-toggle-adv">
+                            <input type="checkbox" id="streaming-toggle-adv" hidden />
+                            <button type="button" class="tab" data-value="on">
+                              <span class="ui-label-cn">开</span><span class="ui-label-en">On</span>
+                            </button>
+                            <button type="button" class="tab" data-value="off">
+                              <span class="ui-label-cn">关</span><span class="ui-label-en">Off</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="module-config-column">
+                        <div class="module-config-row">
+                          <select
+                            id="module-provider-react"
+                            class="module-provider-select"
+                          ></select>
+                          <div class="module-model-control">
+                            <select
+                              id="module-model-select-react"
+                              class="module-provider-select module-model-select"
+                            ></select>
+                            <input
+                              type="text"
+                              id="module-model-react"
+                              class="module-model-input is-hidden"
+                              value="deepseek-v4-flash"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="module-thinking-row is-hidden"
+                          data-thinking-wrapper="react"
+                          aria-hidden="true"
+                        >
+                          <span class="module-thinking-label">
+                            <span class="module-thinking-badge">v4</span>
+                            思考
+                          </span>
+                          <div
+                            class="tab-strip tab-strip-fill module-thinking-tabs"
+                            role="tablist"
+                            data-thinking-tabs="react"
+                          >
+                            <button type="button" class="tab" data-thinking-value="off">Off</button>
+                            <button type="button" class="tab" data-thinking-value="high">High</button>
+                            <button type="button" class="tab" data-thinking-value="max">Max</button>
+                          </div>
+                          <div
+                            class="module-thinking-hint is-hidden"
+                            data-thinking-hint="react"
+                          >
+                            <span data-settings-copy="general.thinkingHint">DeepSeek 的部分工具调用可能不会回传思考文本</span>
+                            <button
+                              type="button"
+                              class="btn-ghost btn-icon btn-sm module-thinking-hint-help"
+                              data-action="section-help-btn"
+                              data-help-target="thinking-help-react"
+                              aria-label="详细解释"
+                            >
+                              ?
+                            </button>
+                          </div>
+                          <div
+                            class="section-help-content module-thinking-help"
+                            id="thinking-help-react"
+                            aria-hidden="true"
+                          >
+                            <p data-settings-copy="general.thinkingHelp"></p>
+                          </div>
+                        </div>
+                        <div class="module-price-row" data-module-id="react">
+                          <div class="module-price-cell">
+                            <div class="module-price-main">
+                              <span class="price-info"
+                                >输入
+                                <span id="module-price-in-react" class="price-value">-</span> / 输出
+                                <span id="module-price-out-react" class="price-value">-</span>
+                                $/M</span
+                              >
+                              <div class="module-price-actions">
+                                <button
+                                  type="button"
+                                  class="btn-ghost btn-sm" data-action="module-price-flat-btn module-price-edit-btn"
+                                >
+                                  编辑价格
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn-secondary btn-sm" data-action="module-price-flat-btn module-price-save-btn"
+                                >
+                                  保存
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                                data-help-target="help-react"
+                                title="推荐模型"
+                              >
+                                ?
+                              </button>
+                            </div>
+                            <div class="module-price-controls">
+                              <span class="price-label temp-label">温度/Temp</span>
+                              <input
+                                type="number"
+                                min="0"
+                                max="1.99"
+                                step="0.01"
+                                id="module-temp-react"
+                                class="module-temp-input"
+                                maxlength="4"
+                                placeholder="1.0"
+                                value="1.0"
+                              />
+                            </div>
+                            <div class="module-price-editor" aria-hidden="true">
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-in"
+                                inputmode="decimal"
+                                placeholder="input"
+                              />
+                              <span class="module-price-edit-sep">/</span>
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-out"
+                                inputmode="decimal"
+                                placeholder="output"
+                              />
+                              <span class="module-price-edit-unit">$/M</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="section-help-content"
+                          id="help-react"
+                          aria-hidden="true"
+                          data-settings-copy="general.help.react"
+                        >
+                          <p><strong>完美适配模型：</strong>DeepSeek V4 Flash, Gemini 3 Flash preview</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="module-config-item">
+                      <span class="module-label" data-settings-copy="general.advanced.smsLabel"
+                        >短信</span
+                      >
+                      <div class="module-config-column">
+                        <div class="module-config-row">
+                          <select id="module-provider-sms" class="module-provider-select"></select>
+                          <div class="module-model-control">
+                            <select
+                              id="module-model-select-sms"
+                              class="module-provider-select module-model-select"
+                            ></select>
+                            <input
+                              type="text"
+                              id="module-model-sms"
+                              class="module-model-input is-hidden"
+                              value="gemini-3.1-flash-lite"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="module-thinking-row is-hidden"
+                          data-thinking-wrapper="sms"
+                          aria-hidden="true"
+                        >
+                          <span class="module-thinking-label">
+                            <span class="module-thinking-badge">v4</span>
+                            思考
+                          </span>
+                          <div
+                            class="tab-strip tab-strip-fill module-thinking-tabs"
+                            role="tablist"
+                            data-thinking-tabs="sms"
+                          >
+                            <button type="button" class="tab" data-thinking-value="off">Off</button>
+                            <button type="button" class="tab" data-thinking-value="high">High</button>
+                            <button type="button" class="tab" data-thinking-value="max">Max</button>
+                          </div>
+                          <div
+                            class="module-thinking-hint is-hidden"
+                            data-thinking-hint="sms"
+                          >
+                            <span data-settings-copy="general.thinkingHint">DeepSeek 的部分工具调用可能不会回传思考文本</span>
+                            <button
+                              type="button"
+                              class="btn-ghost btn-icon btn-sm module-thinking-hint-help"
+                              data-action="section-help-btn"
+                              data-help-target="thinking-help-sms"
+                              aria-label="详细解释"
+                            >
+                              ?
+                            </button>
+                          </div>
+                          <div
+                            class="section-help-content module-thinking-help"
+                            id="thinking-help-sms"
+                            aria-hidden="true"
+                          >
+                            <p data-settings-copy="general.thinkingHelp"></p>
+                          </div>
+                        </div>
+                        <div class="module-price-row" data-module-id="sms">
+                          <div class="module-price-cell">
+                            <div class="module-price-main">
+                              <span class="price-info"
+                                >输入 <span id="module-price-in-sms" class="price-value">-</span> /
+                                输出
+                                <span id="module-price-out-sms" class="price-value">-</span>
+                                $/M</span
+                              >
+                              <div class="module-price-actions">
+                                <button
+                                  type="button"
+                                  class="btn-ghost btn-sm" data-action="module-price-flat-btn module-price-edit-btn"
+                                >
+                                  编辑价格
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn-secondary btn-sm" data-action="module-price-flat-btn module-price-save-btn"
+                                >
+                                  保存
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                                data-help-target="help-sms"
+                                title="推荐模型"
+                              >
+                                ?
+                              </button>
+                            </div>
+                            <div class="module-price-controls">
+                              <span class="price-label temp-label">温度/Temp</span>
+                              <input
+                                type="number"
+                                min="0"
+                                max="1.99"
+                                step="0.01"
+                                id="module-temp-sms"
+                                class="module-temp-input"
+                                maxlength="4"
+                                placeholder="1.0"
+                                value="1.0"
+                              />
+                            </div>
+                            <div class="module-price-editor" aria-hidden="true">
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-in"
+                                inputmode="decimal"
+                                placeholder="input"
+                              />
+                              <span class="module-price-edit-sep">/</span>
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-out"
+                                inputmode="decimal"
+                                placeholder="output"
+                              />
+                              <span class="module-price-edit-unit">$/M</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="section-help-content"
+                          id="help-sms"
+                          aria-hidden="true"
+                          data-settings-copy="general.help.sms"
+                        >
+                          <p><strong>完美适配模型：</strong>Claude Sonnet 4.6</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="module-config-item">
+                      <span
+                        class="module-label"
+                        data-settings-copy="general.advanced.summaryChapterLabel"
+                        >总结 / 章节</span
+                      >
+                      <div class="module-config-column">
+                        <div class="module-config-row">
+                          <select
+                            id="module-provider-summary-chapter"
+                            class="module-provider-select"
+                          ></select>
+                          <div class="module-model-control">
+                            <select
+                              id="module-model-select-summary-chapter"
+                              class="module-provider-select module-model-select"
+                            ></select>
+                            <input
+                              type="text"
+                              id="module-model-summary-chapter"
+                              class="module-model-input is-hidden"
+                              value="gemini-3.1-flash-lite"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="module-thinking-row is-hidden"
+                          data-thinking-wrapper="summary-chapter"
+                          aria-hidden="true"
+                        >
+                          <span class="module-thinking-label">
+                            <span class="module-thinking-badge">v4</span>
+                            思考
+                          </span>
+                          <div
+                            class="tab-strip tab-strip-fill module-thinking-tabs"
+                            role="tablist"
+                            data-thinking-tabs="summary-chapter"
+                          >
+                            <button type="button" class="tab" data-thinking-value="off">Off</button>
+                            <button type="button" class="tab" data-thinking-value="high">High</button>
+                            <button type="button" class="tab" data-thinking-value="max">Max</button>
+                          </div>
+                          <div
+                            class="module-thinking-hint is-hidden"
+                            data-thinking-hint="summary-chapter"
+                          >
+                            <span data-settings-copy="general.thinkingHint">DeepSeek 的部分工具调用可能不会回传思考文本</span>
+                            <button
+                              type="button"
+                              class="btn-ghost btn-icon btn-sm module-thinking-hint-help"
+                              data-action="section-help-btn"
+                              data-help-target="thinking-help-summary-chapter"
+                              aria-label="详细解释"
+                            >
+                              ?
+                            </button>
+                          </div>
+                          <div
+                            class="section-help-content module-thinking-help"
+                            id="thinking-help-summary-chapter"
+                            aria-hidden="true"
+                          >
+                            <p data-settings-copy="general.thinkingHelp"></p>
+                          </div>
+                        </div>
+                        <div class="module-price-row" data-module-id="summary-chapter">
+                          <div class="module-price-cell">
+                            <div class="module-price-main">
+                              <span class="price-info"
+                                >输入
+                                <span id="module-price-in-summary-chapter" class="price-value"
+                                  >-</span
+                                >
+                                / 输出
+                                <span id="module-price-out-summary-chapter" class="price-value"
+                                  >-</span
+                                >
+                                $/M</span
+                              >
+                              <div class="module-price-actions">
+                                <button
+                                  type="button"
+                                  class="btn-ghost btn-sm" data-action="module-price-flat-btn module-price-edit-btn"
+                                >
+                                  编辑价格
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn-secondary btn-sm" data-action="module-price-flat-btn module-price-save-btn"
+                                >
+                                  保存
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                                data-help-target="help-summary-chapter"
+                                title="推荐模型"
+                              >
+                                ?
+                              </button>
+                            </div>
+                            <div class="module-price-controls">
+                              <span class="price-label temp-label">温度/Temp</span>
+                              <input
+                                type="number"
+                                min="0"
+                                max="1.99"
+                                step="0.01"
+                                id="module-temp-summary-chapter"
+                                class="module-temp-input"
+                                maxlength="4"
+                                placeholder="1.0"
+                                value="1.0"
+                              />
+                            </div>
+                            <div class="module-price-editor" aria-hidden="true">
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-in"
+                                inputmode="decimal"
+                                placeholder="input"
+                              />
+                              <span class="module-price-edit-sep">/</span>
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-out"
+                                inputmode="decimal"
+                                placeholder="output"
+                              />
+                              <span class="module-price-edit-unit">$/M</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="section-help-content"
+                          id="help-summary-chapter"
+                          aria-hidden="true"
+                          data-settings-copy="general.help.summaryChapter"
+                        >
+                          <p><strong>完美适配模型：</strong>DeepSeek V4 Flash</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="module-config-item">
+                      <span class="module-label" data-settings-copy="general.advanced.designLabel"
+                        >设计模式</span
+                      >
+                      <div class="module-config-column">
+                        <div class="module-config-row">
+                          <select
+                            id="module-provider-design"
+                            class="module-provider-select"
+                          ></select>
+                          <div class="module-model-control">
+                            <select
+                              id="module-model-select-design"
+                              class="module-provider-select module-model-select"
+                            ></select>
+                            <input
+                              type="text"
+                              id="module-model-design"
+                              class="module-model-input is-hidden"
+                              value="gemini-3.1-flash-lite"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          id="design-model-warning"
+                          class="module-config-warning is-hidden"
+                          data-settings-copy="general.advanced.designModelWarning"
+                          aria-hidden="true"
+                          role="status"
+                        >
+                          ⚠️ 该模型在设计模式下表现不稳定（可能输出空气泡或跑题）。推荐使用 Claude Sonnet / Opus 等模型。
+                        </div>
+                        <div
+                          class="module-thinking-row is-hidden"
+                          data-thinking-wrapper="design"
+                          aria-hidden="true"
+                        >
+                          <span class="module-thinking-label">
+                            <span class="module-thinking-badge">v4</span>
+                            思考
+                          </span>
+                          <div
+                            class="tab-strip tab-strip-fill module-thinking-tabs"
+                            role="tablist"
+                            data-thinking-tabs="design"
+                          >
+                            <button type="button" class="tab" data-thinking-value="off">Off</button>
+                            <button type="button" class="tab" data-thinking-value="high">High</button>
+                            <button type="button" class="tab" data-thinking-value="max">Max</button>
+                          </div>
+                        </div>
+                        <div class="module-price-row" data-module-id="design">
+                          <div class="module-price-cell">
+                            <div class="module-price-main">
+                              <span class="price-info"
+                                >输入
+                                <span id="module-price-in-design" class="price-value">-</span> /
+                                输出
+                                <span id="module-price-out-design" class="price-value">-</span>
+                                $/M</span
+                              >
+                              <div class="module-price-actions">
+                                <button
+                                  type="button"
+                                  class="btn-ghost btn-sm" data-action="module-price-flat-btn module-price-edit-btn"
+                                >
+                                  编辑价格
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn-secondary btn-sm" data-action="module-price-flat-btn module-price-save-btn"
+                                >
+                                  保存
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                                data-help-target="help-design"
+                                title="推荐模型"
+                              >
+                                ?
+                              </button>
+                            </div>
+                            <div class="module-price-controls">
+                              <span class="price-label temp-label">温度/Temp</span>
+                              <input
+                                type="number"
+                                min="0"
+                                max="1.99"
+                                step="0.01"
+                                id="module-temp-design"
+                                class="module-temp-input"
+                                maxlength="4"
+                                placeholder="1.0"
+                                value="1.0"
+                              />
+                            </div>
+                            <div class="module-price-editor" aria-hidden="true">
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-in"
+                                inputmode="decimal"
+                                placeholder="input"
+                              />
+                              <span class="module-price-edit-sep">/</span>
+                              <input
+                                type="text"
+                                class="module-price-edit-input module-price-edit-out"
+                                inputmode="decimal"
+                                placeholder="output"
+                              />
+                              <span class="module-price-edit-unit">$/M</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="section-help-content"
+                          id="help-design"
+                          aria-hidden="true"
+                          data-settings-copy="general.help.design"
+                        >
+                          <p><strong>完美适配模型：</strong>Claude Opus 4.6</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: 提示词设置 -->
+          <div id="tab-prompts" class="tab-panel">
+            <div class="settings-two-column">
+              <!-- 左侧栏: Step2 设置 -->
+              <div class="settings-left-column prompt-left-panel">
+                <!-- 叙事篇幅 -->
+                <div class="prompt-section" id="narrative-length-section">
+                  <div class="prompt-section-header">
+                    <span
+                      class="prompt-section-title"
+                      data-settings-copy="custom.narrativeLength.title"
+                      >叙事篇幅</span
+                    >
+                  </div>
+                  <div
+                    class="hint"
+                    data-settings-copy="custom.narrativeLength.hint"
+                  >
+                    控制 AI 正文字数范围
+                  </div>
+                  <div id="narrative-length-tabs" class="tab-strip tab-strip-fill narrative-length-tabs">
+                    <button
+                      type="button"
+                      class="tab"
+                      data-length="short"
+                      data-settings-copy="custom.narrativeLength.short"
+                    >
+                      短 (100-200字)
+                    </button>
+                    <button
+                      type="button"
+                      class="tab"
+                      data-length="medium"
+                      data-settings-copy="custom.narrativeLength.medium"
+                    >
+                      中 (约500字)
+                    </button>
+                    <button
+                      type="button"
+                      class="tab"
+                      data-length="long"
+                      data-settings-copy="custom.narrativeLength.long"
+                    >
+                      长 (1000+字)
+                    </button>
+                  </div>
+                  <div
+                    class="hint narrative-length-locked-hint"
+                    data-settings-copy="custom.narrativeLength.lockedHint"
+                  >
+                    推荐模式下不可更改
+                  </div>
+                </div>
+
+                <!-- 开场白 -->
+                <div class="prompt-section">
+                  <div class="prompt-section-header">
+                    <span class="prompt-section-title" data-settings-copy="custom.greeting.title"
+                      >开场白</span
+                    >
+                    <button
+                      type="button"
+                      class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                      data-help-target="help-greeting"
+                      title="帮助"
+                    >
+                      ?
+                    </button>
+                  </div>
+                  <div
+                    class="section-help-content"
+                    id="help-greeting"
+                    aria-hidden="true"
+                    data-settings-copy="custom.help.greeting"
+                  >
+                    <p>
+                      <strong>用途：</strong>开场白是每次开始新游戏时，AI
+                      发出的第一条消息。它用于建立世界观氛围、引导玩家进入故事，通常包含场景描述和初始互动提示。
+                    </p>
+                    <p>
+                      <strong>建议：</strong
+                      >当你想为自定义世界设定独特的开场氛围时修改。好的开场白应包含：场景描写、玩家角色的初始状态、以及
+                      1-2 个引导性问题帮助玩家开始冒险。
+                    </p>
+                    <p>
+                      <strong>修改：</strong
+                      >在下方文本框中直接编辑开场白内容。内容会在新游戏第一回合完全替换默认开场消息。使用下方「重置所有自定义设置内容」可恢复为默认值。
+                    </p>
+                  </div>
+                  <div class="hint" data-settings-copy="custom.greeting.hint">
+                    新游戏时 AI 发出的第一条消息
+                  </div>
+                  <textarea
+                    id="editor-greeting"
+                    class="prompt-module-textarea"
+                    placeholder="开场白内容..."
+                    data-settings-copy-placeholder="custom.greeting.placeholder"
+                  ></textarea>
+                </div>
+
+                <!-- 自定义 System Prompt -->
+                <div class="prompt-section prompt-section-grow">
+                  <div class="prompt-section-header">
+                    <span class="prompt-section-title" data-settings-copy="custom.systemPrompt.title"
+                      >自定义 System Prompt</span
+                    >
+                    <button
+                      type="button"
+                      class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                      data-help-target="help-system-prompt"
+                      title="帮助"
+                    >
+                      ?
+                    </button>
+                  </div>
+                  <div
+                    class="section-help-content"
+                    id="help-system-prompt"
+                    aria-hidden="true"
+                    data-settings-copy="custom.help.systemPrompt"
+                  >
+                    <p>
+                      <strong>用途：</strong>多条自定义指令，按顺序追加到系统默认 Prompt 之后。每条可选角色：
+                    </p>
+                    <p>
+                      <strong>system：</strong>作为系统指令追加，影响 AI 的每一轮输出（最常用）。
+                    </p>
+                    <p>
+                      <strong>user：</strong>作为"伪造的玩家对话"插入到真实对话历史最前面，相当于给 AI 看一份开场对白，常用于人设引导、对话风格预热。
+                    </p>
+                    <p>
+                      <strong>建议：</strong>条目越少越好，保持简洁清晰，避免与默认 Prompt 冲突。可用全局"重置"按钮一键清空。
+                    </p>
+                  </div>
+                  <div class="hint" data-settings-copy="custom.systemPrompt.hint">
+                    多条额外指令；user 角色条目会作为伪历史插入到对话最前
+                  </div>
+                  <div id="custom-system-prompt-list" class="custom-prompt-list"></div>
+                  <button
+                    type="button"
+                    id="custom-system-prompt-add"
+                    class="btn-primary btn-sm"
+                    data-settings-copy="custom.systemPrompt.add"
+                  >
+                    + 新增提示词
+                  </button>
+                </div>
+
+                <!-- 全局重置 -->
+                <div class="prompt-section settings-reset-section">
+                  <div class="prompt-section-header">
+                    <span class="prompt-section-title" data-settings-copy="custom.reset.title"
+                      >重置</span
+                    >
+                    <button
+                      type="button"
+                      class="btn-ghost btn-icon btn-sm" data-action="section-help-btn"
+                      data-help-target="help-reset"
+                      title="帮助"
+                    >
+                      ?
+                    </button>
+                    <button
+                      type="button"
+                      id="global-reset-steps-btn"
+                      class="btn-ghost btn-sm" data-action="prompt-reset-btn"
+                      title="重置所有自定义设置内容为默认值"
+                      data-settings-copy="custom.reset.button"
+                      data-settings-copy-title="custom.reset.buttonTitle"
+                    >
+                      <span class="material-symbols-outlined">restart_alt</span>
+                      <span>重置所有自定义设置内容</span>
+                    </button>
+                  </div>
+                  <div
+                    class="section-help-content"
+                    id="help-reset"
+                    aria-hidden="true"
+                    data-settings-copy="custom.help.reset"
+                  >
+                    <p>
+                      <strong>用途：</strong>一键将此页面所有自定义设置恢复为默认值，包括自定义
+                      System Prompt 和开场白的内容。
+                    </p>
+                    <p>
+                      <strong>建议：</strong>当你的自定义修改导致 AI
+                      表现异常，或想从零开始重新配置时使用。注意：此操作不可撤销，建议先导出当前设置作为备份。
+                    </p>
+                    <p>
+                      <strong>修改：</strong
+                      >点击「重置所有自定义设置内容」按钮即可执行，会有确认弹窗防止误操作。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Step 3 tab 已移至世界卡信息面板 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 class="modal-title-with-icon">
+          <span id="confirm-modal-icon" class="material-symbols-outlined modal-title-icon"
+            >help</span
+          >
+          <span id="confirm-modal-title-text">重置冒险</span>
+        </h2>
+        <p class="modal-description">确定要重置吗？所有对话记录将被清除。</p>
+        <div class="modal-actions">
+          <button id="confirm-cancel-btn" class="btn-secondary">取消</button>
+          <button id="confirm-ok-btn" class="btn-primary">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transition Auto Save Modal -->
+    <div id="transition-autosave-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 id="transition-autosave-title" class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">save</span> 自动保存冲突
+        </h2>
+        <p id="transition-autosave-text" class="modal-description">
+          当前流程自动保存失败，请选择处理方式。
+        </p>
+        <div class="modal-actions">
+          <button
+            id="transition-autosave-overwrite-btn"
+            type="button"
+            class="btn-primary"
+            data-transition-autosave-choice="overwrite"
+          >
+            手动选槽位覆盖
+          </button>
+          <button
+            id="transition-autosave-skip-btn"
+            type="button"
+            class="btn-secondary"
+            data-transition-autosave-choice="skip"
+          >
+            跳过保存继续
+          </button>
+          <button
+            id="transition-autosave-cancel-btn"
+            type="button"
+            class="btn-secondary"
+            data-transition-autosave-choice="cancel"
+          >
+            取消
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Center Overlay -->
+    <div id="account-center-overlay" class="account-center-overlay" aria-hidden="true"></div>
+    <div id="card-platform-overlay" class="themed-sheet card-platform-overlay" aria-hidden="true"></div>
+
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-content modal-lg feedback-modal-content">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">bug_report</span>
+          <span data-settings-copy="general.feedback.modalTitle">反馈 / 报 Bug</span>
+        </h2>
+        <p class="modal-description" data-settings-copy="general.feedback.modalDescription">
+          留下你遇到的问题、复现方式或体验建议。默认会附带当前 Debug JSON，你也可以取消勾选。
+        </p>
+        <form
+          id="feedback-form"
+          name="bug-report"
+          method="POST"
+          action=""
+          enctype="multipart/form-data"
+          onsubmit="event.preventDefault(); return false;"
+        >
+          <input type="hidden" name="form-name" value="bug-report" />
+          <p hidden aria-hidden="true">
+            <label
+              >Don’t fill this out if you’re human:
+              <input name="bot-field" tabindex="-1" autocomplete="off"
+            /></label>
+          </p>
+          <input type="hidden" id="feedback-page-url" name="page_url" value="" />
+          <input type="hidden" id="feedback-ui-language" name="ui_language" value="" />
+          <input type="hidden" id="feedback-app-version" name="app_version" value="" />
+          <input type="hidden" id="feedback-mode" name="mode" value="" />
+          <input type="hidden" id="feedback-user-agent" name="user_agent" value="" />
+          <input type="hidden" id="feedback-viewport" name="viewport" value="" />
+          <input type="hidden" id="feedback-world-card-id" name="world_card_id" value="" />
+          <input type="hidden" id="feedback-world-card-name" name="world_card_name" value="" />
+          <textarea id="feedback-debug-payload" name="debug_payload" hidden></textarea>
+
+          <div class="form-group">
+            <label for="feedback-title" data-settings-copy="general.feedback.titleLabel"
+              >问题标题</label
+            >
+            <input
+              type="text"
+              id="feedback-title"
+              name="title"
+              maxlength="120"
+              data-settings-copy-placeholder="general.feedback.titlePlaceholder"
+              placeholder="一句话概括你遇到的问题"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="feedback-description" data-settings-copy="general.feedback.descriptionLabel"
+              >问题描述</label
+            >
+            <textarea
+              id="feedback-description"
+              name="description"
+              rows="4"
+              data-settings-copy-placeholder="general.feedback.descriptionPlaceholder"
+              placeholder="发生了什么、你原本期待什么、有没有明显报错"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group form-group-compact">
+            <label for="feedback-contact" data-settings-copy="general.feedback.contactLabel"
+              >联系方式（可选）</label
+            >
+            <input
+              type="text"
+              id="feedback-contact"
+              name="contact"
+              maxlength="120"
+              data-settings-copy-placeholder="general.feedback.contactPlaceholder"
+              placeholder="邮箱、QQ 或你希望我联系你的方式"
+            />
+          </div>
+
+          <div class="form-group form-group-compact">
+            <label data-settings-copy="general.feedback.screenshotLabel">上传截图（可选）</label>
+            <div class="feedback-upload-zone" id="feedback-upload-zone">
+              <input
+                type="file"
+                id="feedback-screenshots"
+                name="screenshots"
+                accept="image/*"
+                multiple
+                hidden
+              />
+              <span class="feedback-upload-zone__prompt">
+                <span class="material-symbols-outlined">add_photo_alternate</span>
+                <span data-settings-copy="general.feedback.screenshotPlaceholder">点击或拖放图片，最多 3 张</span>
+              </span>
+            </div>
+            <div class="feedback-upload-previews" id="feedback-upload-previews"></div>
+          </div>
+
+          <div class="feedback-debug-box">
+            <label class="feedback-debug-box__toggle" for="feedback-include-debug">
+              <input
+                type="checkbox"
+                id="feedback-include-debug"
+                name="include_debug"
+                value="true"
+                checked
+              />
+              <span data-settings-copy="general.feedback.includeDebugLabel"
+                >附带当前 Debug JSON</span
+              >
+            </label>
+            <p class="hint" data-settings-copy="general.feedback.includeDebugHint">
+              默认附带当前 Debug JSON；如果体积过大，提交前会提示你取消勾选后重试。
+            </p>
+            <p id="feedback-debug-meta" class="feedback-debug-box__meta" hidden></p>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="feedback-cancel-btn" class="btn-secondary">
+              <span data-settings-copy="general.feedback.cancelButton">返回设置</span>
+            </button>
+            <button type="submit" id="feedback-submit-btn" class="btn-primary">
+              <span data-settings-copy="general.feedback.submitButton">发送反馈</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- World Card Delete Confirm Modal -->
+    <div id="wc-delete-confirm-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">delete</span> 删除世界卡
+        </h2>
+        <p id="wc-delete-confirm-text" class="modal-description"></p>
+        <div class="modal-actions">
+          <button id="wc-delete-cancel-btn" class="btn-secondary">取消</button>
+          <button id="wc-delete-confirm-btn" class="btn-danger">删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Image Editor Modal -->
+    <div id="bg-editor-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-content bg-editor-content">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">image</span>
+          <span data-settings-copy="general.bgMode.editorTitle">编辑背景图</span>
+        </h2>
+        <p class="modal-description modal-description-sm" data-settings-copy="general.bgMode.editorHint">
+          在预览框内拖动图片调整位置，用滑块调整缩放。
+        </p>
+
+        <div class="bg-editor-preview-wrapper">
+          <div id="bg-editor-preview" class="bg-editor-preview"></div>
+        </div>
+
+        <div class="bg-editor-controls">
+          <label for="bg-editor-scale" class="bg-editor-scale-label">
+            <span data-settings-copy="general.bgMode.scaleLabel">缩放</span>
+            <span id="bg-editor-scale-value" class="bg-editor-scale-value">100%</span>
+          </label>
+          <input
+            type="range"
+            id="bg-editor-scale"
+            min="100"
+            max="300"
+            step="5"
+            value="100"
+          />
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="bg-editor-cancel-btn" class="btn-secondary"
+                  data-settings-copy="general.bgMode.editorCancel">取消</button>
+          <button type="button" id="bg-editor-confirm-btn" class="btn-primary"
+                  data-settings-copy="general.bgMode.editorConfirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reimport Choice Modal (导入方式选择) -->
+    <div id="reimport-choice-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">file_upload</span>
+          选择导入方式
+        </h2>
+        <p class="modal-description">将此文件导入到世界卡列表，还是直接载入到设计模式进行编辑？</p>
+        <div class="modal-actions reimport-choice-actions">
+          <button id="reimport-choice-list-btn" class="btn-primary">导入到世界卡列表</button>
+          <button id="reimport-choice-design-btn" class="btn-secondary">载入到设计模式编辑</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reimport Apply Modal (应用方式选择) -->
+    <div id="reimport-apply-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">save</span>
+          保存编辑结果
+        </h2>
+        <p id="reimport-apply-text" class="modal-description"></p>
+        <div class="modal-actions reimport-choice-actions">
+          <button id="reimport-apply-update-btn" class="btn-primary">覆盖原世界卡</button>
+          <button id="reimport-apply-new-btn" class="btn-secondary">另存为新世界卡</button>
+          <button id="reimport-apply-cancel-btn" class="btn-secondary" data-action="modal-btn-muted">取消</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save Name Input Modal -->
+    <div id="save-name-modal" class="modal hidden">
+      <div class="modal-content modal-sm">
+        <h2 id="save-name-modal-title" class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">save</span> 保存存档
+        </h2>
+        <div class="form-group">
+          <label for="save-name-input">存档名称</label>
+          <input type="text" id="save-name-input" placeholder="输入存档名称" />
+        </div>
+        <div class="modal-actions">
+          <button id="save-name-cancel-btn" class="btn-secondary">取消</button>
+          <button id="save-name-confirm-btn" class="btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- World Card Name Input Modal (世界卡应用到游戏时) -->
+    <div id="worldcard-name-modal" class="modal hidden">
+      <div class="modal-content modal-sm">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">public</span>
+          命名你的世界
+        </h2>
+        <p class="modal-description modal-description-sm">
+          为你的自定义世界起个名字和描述。留空将使用默认名称。
+        </p>
+        <div class="form-group">
+          <label for="worldcard-name-input">世界名称</label>
+          <input type="text" id="worldcard-name-input" placeholder="自定义世界" />
+        </div>
+        <div class="form-group form-group-compact">
+          <label for="worldcard-desc-input">描述（可选）</label>
+          <textarea id="worldcard-desc-input" placeholder="简短描述你的世界…" rows="2"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button id="worldcard-name-cancel-btn" class="btn-secondary">取消</button>
+          <button id="worldcard-name-confirm-btn" class="btn-primary">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div id="delete-confirm-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">delete</span> 删除存档
+        </h2>
+        <p id="delete-confirm-text" class="modal-description"></p>
+        <div class="modal-actions">
+          <button id="delete-cancel-btn" class="btn-secondary">取消</button>
+          <button id="delete-confirm-btn" class="btn-danger">删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Execute Confirm Modal -->
+    <div id="design-exec-confirm-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 id="design-exec-confirm-title"></h2>
+        <p id="design-exec-confirm-msg" class="modal-description"></p>
+        <div class="modal-actions">
+          <button id="design-exec-cancel-btn" class="btn-secondary">取消</button>
+          <button id="design-exec-ok-btn" class="btn-primary">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Mode Prompt Modal (text input) -->
+    <div id="design-prompt-modal" class="modal hidden">
+      <div class="modal-content modal-sm">
+        <h2 id="design-prompt-title"></h2>
+        <p id="design-prompt-msg" class="modal-description"></p>
+        <div class="form-group">
+          <textarea id="design-prompt-input" rows="3" autocomplete="off"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button id="design-prompt-cancel-btn" class="btn-secondary">取消</button>
+          <button id="design-prompt-ok-btn" class="btn-primary">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Message Delete Confirm Modal -->
+    <div id="chat-delete-confirm-modal" class="modal hidden">
+      <div class="modal-content modal-sm modal-center-text">
+        <h2 class="modal-title-with-icon">
+          <span class="material-symbols-outlined modal-title-icon">delete</span> 删除消息
+        </h2>
+        <p class="modal-description">确定要删除这条消息吗？</p>
+        <div class="modal-actions">
+          <button id="chat-delete-cancel-btn" class="btn-secondary">取消</button>
+          <button id="chat-delete-confirm-btn" class="btn-danger">删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Debug Modal -->
+    <div id="debug-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="debug-header">
+          <select id="debug-payload-selector" class="debug-selector">
+            <optgroup label="Pipeline">
+              <option value="api">API Pipeline</option>
+            </optgroup>
+            <optgroup label="独立 Payload">
+              <option value="gm">GM 决策层</option>
+              <option value="design">Design 设计模式</option>
+              <option value="summary">Summary 总结</option>
+              <option value="npc">NPC 反应</option>
+              <option value="sms">SMS 短信</option>
+            </optgroup>
+            <optgroup label="Prompt 管理">
+              <option value="prompts">Prompt Inspector</option>
+            </optgroup>
+          </select>
+          <div class="debug-header-actions">
+            <button id="export-debug-btn" class="btn-secondary">
+              <span class="material-symbols-outlined">download</span> 导出
+            </button>
+            <button id="copy-debug-btn" class="btn-secondary">
+              <span class="material-symbols-outlined">content_copy</span> 复制
+            </button>
+            <button id="close-debug-btn" class="btn-secondary">关闭</button>
+          </div>
+        </div>
+        <div class="debug-body">
+          <div id="debug-sidebar" class="debug-sidebar"></div>
+          <div id="debug-detail" class="debug-detail"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Modal (Doodle Diary / Stitch Design) -->
+    <div id="phone-modal" class="modal hidden">
+      <div class="phone-container">
+        <!-- Phone Header -->
+        <div class="phone-header">
+          <button id="phone-back-btn" class="hidden" data-action="phone-back-btn" aria-label="返回">
+            <span class="material-symbols-outlined">arrow_back_ios</span>
+          </button>
+          <div class="phone-header-info">
+            <span id="phone-title">Doodle Diary</span>
+            <span id="phone-subtitle" class="phone-subtitle hidden"></span>
+          </div>
+          <button id="sms-debug-btn" class="btn-ghost btn-icon btn-sm" data-action="phone-debug-btn" title="查看 SMS Payload">
+            <span class="material-symbols-outlined">bug_report</span>
+          </button>
+          <button id="close-phone-btn" class="btn-icon" data-action="phone-btn-secondary" type="button">
+            关闭
+          </button>
+        </div>
+
+        <!-- Phone Body (scrollable views area) -->
+        <div class="phone-body">
+          <!-- Home Screen View -->
+          <div id="phone-home-screen" class="phone-view">
+            <div id="phone-home-content" class="phone-home-content"></div>
+          </div>
+
+          <!-- SMS Conversation List View -->
+          <div id="phone-contact-list" class="phone-view hidden">
+            <div id="contact-list" class="contact-list"></div>
+          </div>
+
+          <!-- Chat View -->
+          <div id="phone-chat-view" class="phone-view hidden">
+            <div id="sms-messages" class="sms-messages"></div>
+            <div class="sms-input-area">
+              <input type="text" id="sms-input" autocomplete="off" />
+              <button id="sms-send-btn" class="btn-primary btn-icon" data-action="sms-send-btn" aria-label="发送">
+                <span class="material-symbols-outlined">send</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Contacts App View -->
+          <div id="phone-contacts-app" class="phone-view hidden">
+            <div id="contacts-app-list" class="contacts-app-list"></div>
+          </div>
+
+          <!-- Contact Detail View -->
+          <div id="phone-contact-detail" class="phone-view hidden">
+            <div id="contact-detail-content" class="contact-detail-content"></div>
+          </div>
+
+          <!-- Groups View (placeholder) -->
+          <div id="phone-groups-view" class="phone-view hidden">
+            <div class="phone-placeholder-view">
+              <div class="phone-placeholder-icon"><span class="material-symbols-outlined">group</span></div>
+              <div class="phone-placeholder-title">群聊</div>
+              <div class="phone-placeholder-text">功能即将推出，<br>敬请期待下次涂鸦更新...</div>
+            </div>
+          </div>
+
+          <!-- Moments View (placeholder) -->
+          <div id="phone-moments-view" class="phone-view hidden">
+            <div class="phone-placeholder-view">
+              <div class="phone-placeholder-icon"><span class="material-symbols-outlined">auto_awesome</span></div>
+              <div class="phone-placeholder-title">动态</div>
+              <div class="phone-placeholder-text">功能即将推出，<br>等待灵感降临...</div>
+            </div>
+          </div>
+
+          <!-- News View (placeholder) -->
+          <div id="phone-news-view" class="phone-view hidden">
+            <div class="phone-placeholder-view">
+              <div class="phone-placeholder-icon"><span class="material-symbols-outlined">newspaper</span></div>
+              <div class="phone-placeholder-title">新闻</div>
+              <div class="phone-placeholder-text">功能即将推出，<br>世界的故事正在书写...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Navigation (5-tab) -->
+        <nav class="phone-bottom-nav">
+          <button class="tab" data-phone-tab="contacts">
+            <span class="material-symbols-outlined">person_book</span>
+            <span class="phone-nav-label">通讯录</span>
+          </button>
+          <button class="tab" data-phone-tab="sms">
+            <span class="material-symbols-outlined">chat_bubble</span>
+            <span class="phone-nav-label">短信</span>
+          </button>
+          <button class="tab" data-phone-tab="groups">
+            <span class="material-symbols-outlined">group</span>
+            <span class="phone-nav-label">群聊</span>
+          </button>
+          <button class="tab" data-phone-tab="moments">
+            <span class="material-symbols-outlined">auto_awesome</span>
+            <span class="phone-nav-label">动态</span>
+          </button>
+          <button class="tab" data-phone-tab="news">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span class="phone-nav-label">新闻</span>
+          </button>
+        </nav>
+
+        <!-- Grain Overlay -->
+        <div class="phone-grain-overlay"></div>
+
+        <!-- SMS Delete Confirm Modal -->
+        <div id="sms-delete-confirm-modal" class="sms-confirm-overlay hidden">
+          <div class="sms-confirm-box">
+            <div class="sms-confirm-text">确定要删除这条消息吗？</div>
+            <div class="sms-confirm-buttons">
+              <button id="sms-delete-cancel-btn" class="btn-secondary" data-action="sms-confirm-btn sms-cancel-btn">
+                取消
+              </button>
+              <button id="sms-delete-confirm-btn" class="btn-danger" data-action="sms-confirm-btn sms-ok-btn">删除</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SMS Delete Conversation Modal -->
+        <div id="sms-delete-conv-modal" class="sms-confirm-overlay hidden">
+          <div class="sms-confirm-box">
+            <div id="sms-delete-conv-text" class="sms-confirm-text">确定要删除整个对话吗？</div>
+            <div class="sms-confirm-buttons">
+              <button id="sms-delete-conv-cancel-btn" class="btn-secondary" data-action="sms-confirm-btn sms-cancel-btn">
+                取消
+              </button>
+              <button id="sms-delete-conv-confirm-btn" class="btn-danger" data-action="sms-confirm-btn sms-ok-btn">
+                删除
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intimacy Scene Confirm Modal -->
+    <!-- Hexagonal Map Modal -->
+    <div id="map-modal" class="hidden">
+      <div class="map-header">
+        <div class="map-header-left">
+          <h2>
+            <span class="material-symbols-outlined map-header-title-icon">map</span>
+            <span id="map-layer-indicator">世界地图</span>
+          </h2>
+        </div>
+        <div class="map-header-right">
+          <button id="map-return-world" class="btn-ghost btn-icon hidden" data-action="map-toolbar-btn" title="返回大地图">
+            <span class="material-symbols-outlined">reply</span>
+            <span class="" data-action="map-toolbar-btn-label">返回大地图</span>
+          </button>
+          <button id="map-regenerate-btn" class="btn-ghost btn-icon" data-action="map-toolbar-btn" title="重新生成">
+            <span class="material-symbols-outlined">refresh</span>
+            <span class="" data-action="map-toolbar-btn-label">重新生成</span>
+          </button>
+          <button id="map-close-btn" class="btn-secondary" data-action="map-toolbar-btn" title="关闭">关闭</button>
+        </div>
+      </div>
+      <div class="map-body">
+        <div id="map-svg-container"></div>
+        <!-- Move confirmation bubble -->
+        <div id="map-move-bubble" class="map-bubble hidden">
+          <div class="map-bubble-content">
+            <div class="map-bubble-title"></div>
+            <div class="map-bubble-desc"></div>
+            <div class="map-bubble-meta"></div>
+            <div class="map-bubble-landmark hidden">
+              <div class="map-bubble-landmark-name"></div>
+              <div class="map-bubble-landmark-desc"></div>
+            </div>
+            <div class="map-bubble-buttons">
+              <button id="map-move-cancel" class="secondary" data-action="map-bubble-btn">取消</button>
+              <button id="map-move-confirm" class="primary" data-action="map-bubble-btn">前往</button>
+            </div>
+          </div>
+          <div class="map-bubble-arrow"></div>
+        </div>
+        <!-- Legend panel (ported from original sidebar) -->
+        <div id="map-legend-panel" class="map-legend">
+          <p id="map-legend-desc" class="map-legend-desc"></p>
+          <h4 class="map-legend-section-title">地块逻辑属性</h4>
+          <div id="map-legend-terrains"></div>
+          <h4 class="map-legend-section-title map-legend-section-title--spaced">地标类型</h4>
+          <div id="map-legend-landmarks"></div>
+        </div>
+      </div>
+
+      <!-- Border crossing prompt -->
+      <div id="map-border-prompt" class="map-modal-overlay hidden">
+        <div class="map-modal-content">
+          <div class="map-modal-header">
+            <span class="material-symbols-outlined map-modal-title-icon">travel_explore</span>
+            <span>到达边界</span>
+          </div>
+          <p class="border-destination">你已经到达了当前地图的边缘。是否要前往下一个区域？</p>
+          <div class="map-modal-buttons">
+            <button id="map-border-cancel" class="secondary" data-action="map-modal-btn">取消</button>
+            <button id="map-border-confirm" class="primary" data-action="map-modal-btn">前往</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Landmark modal -->
+      <div id="map-landmark-modal" class="map-modal-overlay hidden">
+        <div class="map-modal-content">
+          <div class="map-modal-header">
+            <span class="material-symbols-outlined map-modal-title-icon">explore</span>
+            <span class="landmark-title">[占位符] 未知 Site</span>
+          </div>
+          <p class="landmark-desc"></p>
+          <div class="landmark-meta">
+            <span class="landmark-coords"></span>
+            <span class="landmark-terrain"></span>
+          </div>
+          <div class="map-modal-buttons">
+            <button id="map-landmark-close" class="secondary" data-action="map-modal-btn">关闭</button>
+            <button id="map-landmark-enter" class="primary" data-action="map-modal-btn" disabled>
+              需移动至该地块方可进入
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vendor libs (local) -->
+    <!-- Array.prototype.at polyfill：marked v17 在内部使用 .at()（ES2022），
+         老 Safari <15.4 / Chrome <92 不支持，必须在 marked 加载前注入。 -->
+    <script>
+      if (!Array.prototype.at) {
+        Array.prototype.at = function (i) {
+          i = Math.trunc(i) || 0;
+          if (i < 0) i += this.length;
+          if (i < 0 || i >= this.length) return undefined;
+          return this[i];
+        };
+      }
+    </script>
+    <script src="js/vendor/marked.min.js"></script>
+    <script src="js/vendor/dompurify.min.js"></script>
+    <script src="js/utils/narrativeColorizer.js"></script>
+    <script src="js/utils/htmlSecurity.js"></script>
+    <script src="js/utils/apiKeySanitizer.js"></script>
+
+    <!-- Core Infrastructure (must load first) -->
+    <script src="js/core/EventBus.js"></script>
+    <script src="js/core/GameState.js"></script>
+    <script src="js/core/ServiceRegistry.js"></script>
+    <script src="js/services/stageRouter.js"></script>
+    <script src="js/services/stageEmbed.js"></script>
+    <script src="js/services/i18nService.js"></script>
+    <script src="js/services/i18nEnglishFinish.js"></script>
+
+    <!-- 引擎框架 -->
+    <script src="prompts/[Fixed]core_prompt.js"></script>
+    <script src="prompts/[Fixed]summary_prompt.js"></script>
+    <script src="prompts/[Fixed]sms_prompt.js"></script>
+    <script src="prompts/[Fixed]template.js"></script>
+    <script src="prompts/designmode.js"></script>
+    <script src="prompts/tips.js"></script>
+    <script src="js/services/changelogService.js"></script>
+    <script src="prompts/i18n_prompts.js"></script>
+
+    <!-- Hexagonal Map System (must load before other services) -->
+    <script src="js/vendor/simplex-noise.js"></script>
+    <script src="js/map/TerrainTypes.js"></script>
+    <script src="js/map/HexGrid.js"></script>
+    <script src="js/map/MapData.js"></script>
+    <script src="js/map/MapGenerator.js"></script>
+    <script src="js/map/MapRenderer.js"></script>
+    <script src="js/map/MapInteraction.js"></script>
+    <script src="js/map/mapMovementHandler.js"></script>
+
+    <!-- Modular Game Scripts (load in dependency order) -->
+    <script src="prompts/defaultworldcard.data.js"></script>
+    <script src="prompts/defaultworldcard.localization.en.js"></script>
+    <script src="prompts/cyberpunkworldcard.data.js"></script>
+    <script src="prompts/cyberpunkworldcard.localization.en.js"></script>
+    <script src="prompts/cultivationworldcard.data.js"></script>
+    <script src="prompts/cultivationworldcard.localization.en.js"></script>
+    <script src="js/services/worldCardManager.js"></script>
+    <!-- 三 Store 统一架构：worldMeta 元数据 + entityStore 实体 + timelineStore 事件 -->
+    <script src="js/stores/worldMeta.js"></script>
+    <script src="js/stores/entityStore.js"></script>
+    <script src="js/stores/timelineStore.js"></script>
+    <script src="js/utils/step3SchemaBuilder.js"></script>
+    <script src="js/stores/customStatusStore.js"></script>
+    <script src="js/stores/saveStore.js"></script>
+    <script src="js/services/locationTracker.js"></script>
+    <script src="js/services/searchScorer.js"></script>
+    <script src="js/services/archiveService.js"></script>
+    <script src="js/services/timelineService.js"></script>
+    <script src="js/services/playerStateService.js"></script>
+    <script src="js/services/turnResultBuilder.js"></script>
+    <script src="js/services/mapService.js"></script>
+    <!-- Analyzer Utils must load before all Analyzers -->
+    <script src="js/analyzers/AnalyzerUtils.js"></script>
+    <script src="js/analyzers/CognitiveAnalyzer.js"></script>
+    <script src="js/analyzers/SexHistoryAnalyzer.js"></script>
+    <script src="js/analyzers/RelationshipAnalyzer.js"></script>
+    <script src="js/analyzers/StatusAnalyzer.js"></script>
+    <!-- Analyzer Manager must load after all Analyzers -->
+    <script src="js/analyzers/AnalyzerManager.js"></script>
+    <script src="js/services/promptRegistry.js?v=20260518a"></script>
+    <script src="js/services/toolRegistry.js"></script>
+    <script src="js/services/skillDispatcher.js"></script>
+    <script src="js/services/promptAssembler.js"></script>
+    <script src="js/services/openingController.js"></script>
+    <script src="js/services/reactLoop.js"></script>
+    <script src="js/services/triggerScanner.js"></script>
+    <script src="js/services/aiAdapters.js?v=20260518a"></script>
+    <script src="js/services/gmCodeEngine.js"></script>
+    <script src="js/services/ai/utils.js"></script>
+    <script src="js/services/aiService.js?v=20260518a"></script>
+    <script src="js/services/ai/provider.js"></script>
+    <script src="js/services/ai/react.js"></script>
+    <script src="js/services/ai/summary-sms.js"></script>
+    <script src="js/services/ai/npc-ooc.js"></script>
+    <script src="js/services/ai/npcCardSyncSubagent.js"></script>
+    <script src="js/services/ai/npcIntroAuditSubagent.js"></script>
+    <script src="js/services/ai/prompt-gm.js"></script>
+    <!-- Prompt registry bootstraps（与 mixin 解耦，三处共享：浏览器/headless/promptviewer） -->
+    <script src="js/services/mapServicePromptBootstrap.js"></script>
+    <script src="js/services/ai/reactPromptBootstrap.js"></script>
+    <script src="js/services/ai/summarySmsPromptBootstrap.js"></script>
+    <script src="js/services/ai/npcOocPromptBootstrap.js"></script>
+    <script src="js/services/ai/npcCardSyncPromptBootstrap.js"></script>
+    <script src="js/services/ai/npcIntroAuditPromptBootstrap.js"></script>
+    <script src="js/services/ai/promptGmPromptBootstrap.js"></script>
+    <script src="js/services/saveManager.js"></script>
+    <script src="js/services/summaryService.js?v=20260518a"></script>
+    <script src="js/services/smsService.js"></script>
+    <script src="js/services/worldCardInspection.js"></script>
+    <script src="js/services/p3DiffEngine.js"></script>
+    <script src="js/services/p3UndoManager.js"></script>
+    <script src="js/services/p3StreamParser.js"></script>
+    <script src="js/services/design/constants.js"></script>
+    <script src="js/services/design/stateMachines.js"></script>
+    <script src="js/services/design/utils.js"></script>
+    <script src="js/services/designService.js"></script>
+    <script src="js/services/design/p1.js"></script>
+    <script src="js/services/design/p2.js"></script>
+    <script src="js/services/design/repair.js"></script>
+    <script src="js/services/design/p3.js"></script>
+    <script src="js/services/design/ui.js"></script>
+    <script src="js/services/design/reviewAdapters.js"></script>
+    <script src="js/services/design/import-export.js"></script>
+    <!-- JSON Renderers -->
+    <script src="js/renderers/jsonRenderer.js"></script>
+    <script src="js/renderers/npcCardRenderer.js"></script>
+    <!-- NPC Store (must load before npcPanelUI) -->
+    <script src="js/stores/npcStore.js"></script>
+    <script src="js/stores/npcReactionStore.js"></script>
+    <!-- Inventory Store (must load before characterPanelUI + itemTools) -->
+    <script src="js/stores/inventoryStore.js?v=20260518a"></script>
+    <!-- Inventory icon glyph data (must load before characterPanelUI + inventoryIconPicker) -->
+    <script src="js/data/itemGlyphs.js?v=20260518a"></script>
+    <script src="js/ui/npcPanelUI.js"></script>
+    <script src="js/ui/worldCardInfoUI.js"></script>
+    <script src="js/renderers/gameOutputRenderer.js"></script>
+    <script src="js/chat/scrollController.js"></script>
+    <script src="js/renderers/streamVisualizer.js"></script>
+    <script src="js/stores/backgroundImageStore.js"></script>
+    <script src="js/ui/themeUI.js?v=20260518a"></script>
+    <script src="js/services/pwaUpdateService.js"></script>
+    <script src="js/config/launcherWorldOptions.js?v=20260518a"></script>
+    <!-- Tool Registry: 扩展工具注册（必须在所有 service 加载后） -->
+    <script src="js/tools/readTools.js"></script>
+    <script src="js/tools/stateTools.js"></script>
+    <script src="js/tools/itemTools.js?v=20260518a"></script>
+    <script src="js/tools/computeTools.js"></script>
+    <script src="js/tools/narrativeTools.js"></script>
+    <script src="js/tools/commTools.js"></script>
+    <script src="js/tools/archiveTools.js"></script>
+    <script src="js/tools/npcTools.js"></script>
+    <script src="prompts/expandPrompts.js"></script>
+    <script src="js/services/design/promptBootstrap.js"></script>
+    <script src="js/tools/expandTools.js"></script>
+    <!-- Skill Dispatcher subagents (load after tools register) -->
+    <script src="js/skills/panelSkill.js"></script>
+    <script src="js/skills/inventorySkill.js?v=20260518a"></script>
+    <script src="js/game.js?v=20260518a"></script>
+    <script src="js/core/sessionManager.js?v=20260518a"></script>
+    <script src="js/chat/planRenderer.js"></script>
+    <script src="js/chat/chatCore.js"></script>
+    <script src="js/chat/chatActions.js"></script>
+    <script src="js/ui/settingsUI.js?v=20260518a"></script>
+    <script src="js/ui/saveManagerUI.js?v=20260518a"></script>
+    <script src="js/ui/worldCardUI.js?v=20260518a"></script>
+    <script src="js/utils/jsonViewer.js?v=4"></script>
+    <script src="js/services/tokenEstimateService.js?v=20260518a"></script>
+    <script src="js/ui/debugUI.js?v=4"></script>
+    <script src="js/ui/debugPromptInspector.js?v=20260518a"></script>
+    <script src="js/ui/phoneUI.js"></script>
+    <script src="js/ui/mapPanelUI.js"></script>
+    <script src="js/ui/drawerUI.js?v=20260518a"></script>
+    <script src="js/ui/inventoryIconPicker.js?v=20260518a"></script>
+    <script src="js/ui/characterPanelUI.js?v=20260518a"></script>
+    <script src="js/ui/autoApproveBarUI.js?v=20260518a"></script>
+    <script src="js/ui/avatarDropdownUI.js?v=20260518a"></script>
+    <script src="js/ui/savesRowMenuUI.js?v=20260518a"></script>
+    <script src="js/launcher.js?v=20260518a"></script>
+
+    <!-- ============================================
+         Theme shape primitives — global SVG <defs> host
+         Each theme references these via clip-path: url(#id) / filter: url(#id)
+         in shape tokens. Empty/unused for metro baseline.
+         ============================================ -->
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><!-- ui-lint-allow: theme shape primitives, referenced via url(#id) -->
+      <defs>
+        <!-- Cyberpunk: chamfered button (top-left + bottom-right cut) -->
+        <clipPath id="shape-cyber-button" clipPathUnits="objectBoundingBox">
+          <polygon points="0.04,0 1,0 1,0.96 0.96,1 0,1 0,0.04" />
+        </clipPath>
+        <!-- Cyberpunk: card with asymmetric corner cuts + label ear -->
+        <clipPath id="shape-cyber-card" clipPathUnits="objectBoundingBox">
+          <polygon points="0.03,0 0.92,0 0.95,0.06 1,0.06 1,1 0.04,1 0,0.96 0,0.02" />
+        </clipPath>
+        <!-- Cyberpunk: AI bubble with bottom-left cut -->
+        <clipPath id="shape-cyber-bubble-ai" clipPathUnits="objectBoundingBox">
+          <polygon points="0,0 1,0 1,1 0.04,1 0,0.92" />
+        </clipPath>
+        <!-- Cyberpunk: user bubble with bottom-right cut -->
+        <clipPath id="shape-cyber-bubble-user" clipPathUnits="objectBoundingBox">
+          <polygon points="0,0 1,0 1,0.92 0.96,1 0,1" />
+        </clipPath>
+
+        <!-- Cultivation: ruyi cloud-shoulder card -->
+        <clipPath id="shape-ruyi-card" clipPathUnits="objectBoundingBox">
+          <path d="M 0,0.08
+                   Q 0.05,0.04 0.10,0.06
+                   Q 0.15,0.02 0.20,0.06
+                   Q 0.30,0 0.40,0.04
+                   Q 0.50,0.08 0.60,0.04
+                   Q 0.70,0 0.80,0.06
+                   Q 0.85,0.02 0.90,0.06
+                   Q 0.95,0.04 1,0.08
+                   L 1,0.95
+                   Q 1,1 0.96,1
+                   L 0.04,1
+                   Q 0,1 0,0.95 Z" />
+        </clipPath>
+        <!-- Cultivation: scroll-shaped input (semicircular ends) -->
+        <clipPath id="shape-scroll-input" clipPathUnits="objectBoundingBox">
+          <path d="M 0.06,0 L 0.94,0
+                   A 0.06,0.5 0 0 1 0.94,1
+                   L 0.06,1
+                   A 0.06,0.5 0 0 1 0.06,0 Z" />
+        </clipPath>
+
+        <!-- Cartoon: hand-drawn wobble (turbulence + displacement)
+             Region 放宽到 -15%/130%，避免硬阴影偏移被裁切。
+             baseFrequency=0.025 拉长波形（更像速写笔触、不是高频抖动），
+             numOctaves=3 加碎细节，scale=3.5 给出明显但克制的手绘位移。 -->
+        <filter id="shape-wobble" x="-15%" y="-15%" width="130%" height="130%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" />
+        </filter>
+
+        <!-- Cyberpunk: RGB glitch on hover -->
+        <filter id="shape-glitch" x="-5%" y="-5%" width="110%" height="110%">
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
+          <feOffset in="r" dx="1" dy="0" result="rOff" />
+          <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="gb" />
+          <feComposite in="rOff" in2="gb" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+        </filter>
+
+        <!-- Cultivation: subtle parchment emboss -->
+        <filter id="shape-parchment-emboss" x="-2%" y="-2%" width="104%" height="104%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="0.5" result="blur" />
+          <feSpecularLighting in="blur" surfaceScale="1" specularConstant="0.6" specularExponent="20" lighting-color="#fff8e0" result="spec"><!-- ui-lint-allow: 羊皮纸 emboss 镜面高光常量 -->
+            <feDistantLight azimuth="135" elevation="30" />
+          </feSpecularLighting>
+          <feComposite in="spec" in2="SourceAlpha" operator="in" result="specMasked" />
+          <feComposite in="SourceGraphic" in2="specMasked" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+        </filter>
+      </defs>
+    </svg>
+  </body>
+</html>

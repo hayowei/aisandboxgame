@@ -1,0 +1,1000 @@
+/* ============================================
+   六边形地图样式 - HexMap CSS
+   ============================================ */
+
+/* 地图面板容器 */
+#map-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+#map-modal.hidden {
+  display: none;
+}
+
+/* 地图头部工具栏 */
+.map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--launcher-glass);
+  border-bottom: 1px solid var(--launcher-border);
+}
+
+.map-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.map-header h2 {
+  margin: 0;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  color: var(--launcher-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-header h2 .map-icon {
+  font-size: var(--text-display);
+}
+
+.map-stats {
+  display: flex;
+  gap: 16px;
+  font-size: var(--text-body-sm);
+  color: var(--launcher-text-muted);
+}
+
+.map-stats span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 地图工具栏按键 */
+[data-action~="map-toolbar-btn"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--launcher-border);
+  border: 1px solid var(--launcher-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--launcher-text);
+  font-size: var(--text-title);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+[data-action~="map-toolbar-btn"]:hover {
+  background: color-mix(in srgb, var(--brand-primary) 40%, transparent);
+  border-color: color-mix(in srgb, var(--brand-primary) 60%, transparent);
+}
+
+[data-action~="map-toolbar-btn"].active {
+  background: color-mix(in srgb, var(--brand-primary) 50%, transparent);
+  border-color: var(--brand-magenta);
+}
+
+[data-action~="map-close-btn"] {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--status-danger) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-danger) 30%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--status-danger);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0;
+}
+
+[data-action~="map-close-btn"]:hover {
+  background: color-mix(in srgb, var(--status-danger) 40%, transparent);
+  border-color: color-mix(in srgb, var(--status-danger) 60%, transparent);
+}
+
+[data-action~="map-close-btn"]:active {
+  background: color-mix(in srgb, var(--status-danger) 50%, transparent);
+}
+
+/* 地图主体区域 */
+.map-body {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* SVG 地图容器 */
+#map-svg-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* SVG 地图元素 */
+.hex-map-svg {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 20px var(--launcher-overlay));
+}
+
+/* Hex 格子悬停效果 */
+.hex-polygon {
+  transition: filter var(--transition-base);
+}
+
+.hex-polygon:hover {
+  filter: brightness(1.1);
+}
+
+/* ============================================
+   气泡确认卡片
+   ============================================ */
+.map-bubble {
+  position: absolute;
+  z-index: 10;
+  pointer-events: auto;
+  width: 220px;
+  transform: translateX(-50%); /* 水平居中于 left 值 */
+}
+
+.map-bubble.hidden {
+  display: none;
+}
+
+.map-bubble-content {
+  background: var(--launcher-glass);
+  border: 1px solid var(--launcher-border-strong);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  color: var(--launcher-text);
+  box-shadow: 0 8px 32px var(--launcher-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.map-bubble-title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--launcher-text);
+  margin-bottom: 4px;
+}
+
+.map-bubble-desc {
+  font-size: var(--text-body-sm);
+  color: var(--launcher-text-muted);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.map-bubble-meta {
+  font-size: var(--text-caption);
+  color: var(--launcher-text-faint);
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+}
+
+.map-bubble-landmark {
+  border-top: 1px solid var(--launcher-border);
+  padding-top: 8px;
+  margin-bottom: 8px;
+}
+
+.map-bubble-landmark.hidden {
+  display: none;
+}
+
+.map-bubble-landmark-name {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--launcher-star);
+  margin-bottom: 2px;
+}
+
+.map-bubble-landmark-desc {
+  font-size: var(--text-caption);
+  color: var(--launcher-text-muted);
+  line-height: 1.3;
+}
+
+.map-bubble-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.map-bubble-buttons.hidden {
+  display: none;
+}
+
+[data-action~="map-bubble-btn"] {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-base);
+}
+
+[data-action~="map-bubble-btn"].secondary {
+  background: var(--launcher-border);
+  border: 1px solid var(--launcher-border-strong);
+  color: var(--launcher-text);
+}
+
+[data-action~="map-bubble-btn"].secondary:hover {
+  background: var(--launcher-border-strong);
+}
+
+[data-action~="map-bubble-btn"].primary {
+  background: var(--launcher-btn-primary);
+  color: var(--launcher-text);
+}
+
+[data-action~="map-bubble-btn"].primary:hover {
+  background: var(--launcher-btn-primary-hover);
+}
+
+[data-action~="map-bubble-btn"]:active {
+  transform: scale(0.97);
+}
+
+[data-action~="map-bubble-btn"]:disabled {
+  background: var(--sheen-5);
+  border: 1px solid var(--sheen-8);
+  color: var(--sheen-30);
+  cursor: not-allowed;
+}
+
+/* 气泡箭头 — 默认朝下（气泡在格子上方） */
+.map-bubble-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--launcher-glass);
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 箭头朝上（气泡在格子下方） */
+.map-bubble.arrow-top .map-bubble-arrow {
+  border-top: none;
+  border-bottom: 8px solid var(--launcher-glass);
+  bottom: auto;
+  top: -8px;
+}
+
+/* 气泡入场动画 */
+@keyframes bubblePopIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0);
+  }
+}
+
+.map-bubble.entering {
+  animation: bubblePopIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 地图内遮罩弹窗 */
+.map-modal-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--launcher-shadow);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+.map-modal-overlay.hidden {
+  display: none;
+}
+
+.map-modal-content {
+  background: var(--launcher-glass);
+  border: 1px solid var(--launcher-border-strong);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  max-width: 380px;
+  width: 90%;
+  color: var(--launcher-text);
+  box-shadow: 0 20px 60px var(--overlay-60);
+}
+
+.map-modal-content h3 {
+  margin: 0 0 12px 0;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  color: var(--launcher-text);
+}
+
+.map-modal-content p {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--launcher-text);
+}
+
+.map-modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+[data-action~="map-modal-btn"] {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-base);
+}
+
+[data-action~="map-modal-btn"].secondary {
+  background: var(--launcher-border);
+  border: 1px solid var(--launcher-border-strong);
+  color: var(--launcher-text);
+}
+
+[data-action~="map-modal-btn"].secondary:hover {
+  background: var(--launcher-border-strong);
+}
+
+[data-action~="map-modal-btn"].primary {
+  background: var(--launcher-btn-primary);
+  color: var(--launcher-text);
+}
+
+[data-action~="map-modal-btn"].primary:hover {
+  background: var(--launcher-btn-primary-hover);
+}
+
+[data-action~="map-modal-btn"]:disabled {
+  background: var(--sheen-5);
+  border: 1px solid var(--sheen-8);
+  color: var(--sheen-30);
+  cursor: not-allowed;
+}
+
+/* 地标弹窗 meta 标签 */
+.landmark-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.landmark-meta span {
+  padding: 4px 8px;
+  background: var(--launcher-border);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-caption);
+  color: var(--launcher-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* 地图信息面板 */
+.map-info-panel {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 280px;
+  background: var(--launcher-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--launcher-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  color: var(--launcher-text);
+  box-shadow: 0 8px 32px var(--launcher-overlay);
+  transition: all var(--transition-slow);
+}
+
+.map-info-panel.hidden {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+
+.map-info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--launcher-border);
+}
+
+.map-info-icon {
+  font-size: 28px;
+}
+
+.map-info-title {
+  flex: 1;
+}
+
+.map-info-title h3 {
+  margin: 0 0 2px 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+}
+
+.map-info-title .terrain-type {
+  font-size: var(--text-body-sm);
+  color: var(--launcher-text-muted);
+}
+
+.map-info-coords {
+  font-size: var(--text-caption);
+  color: var(--launcher-text-faint);
+  font-family: var(--font-mono);
+}
+
+.map-info-description {
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--launcher-text);
+  margin-bottom: 12px;
+}
+
+.map-info-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.map-info-feature-tag {
+  padding: 4px 8px;
+  background: color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-caption);
+  color: var(--launcher-text);
+}
+
+/* 地图迷你控制器 */
+.map-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--launcher-glass-light);
+  border: 1px solid var(--launcher-border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+[data-action~="map-control-btn"] {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-xs);
+  color: var(--launcher-text);
+  font-size: var(--text-heading);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+[data-action~="map-control-btn"]:hover {
+  background: color-mix(in srgb, var(--brand-primary) 40%, transparent);
+}
+
+.map-controls-divider {
+  height: 1px;
+  background: var(--launcher-border);
+  margin: 4px 0;
+}
+
+/* 玩家位置提示 */
+.map-player-tooltip {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: color-mix(in srgb, var(--brand-primary) 90%, transparent);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-body);
+  color: var(--launcher-text);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--brand-primary) 40%, transparent);
+}
+
+/* 缩放指示器 */
+.map-zoom-indicator {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 6px 12px;
+  background: var(--launcher-glass-light);
+  border: 1px solid var(--launcher-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-sm);
+  color: var(--launcher-text);
+  font-family: var(--font-mono);
+}
+
+/* 地图加载动画 */
+.map-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--launcher-text);
+}
+
+.map-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  border-top-color: var(--brand-magenta);
+  border-radius: 50%;
+  animation: mapSpin 1s linear infinite;
+}
+
+@keyframes mapSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 1150px) {
+  .map-header {
+    padding: 10px 12px;
+  }
+
+  .map-header h2 {
+    font-size: var(--text-title);
+  }
+
+  .map-stats {
+    display: none;
+  }
+
+  .map-info-panel {
+    top: auto;
+    bottom: 60px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+
+  .map-controls {
+    left: 10px;
+    bottom: 10px;
+  }
+
+  .map-zoom-indicator {
+    right: 10px;
+    bottom: 10px;
+  }
+}
+
+/* iPhone 11 / 标准尺寸优化 (414px) */
+@media (max-width: 430px) {
+  /* 地图头部优化 - 包含安全区域 */
+  .map-header {
+    padding: 8px 10px;
+    padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    gap: 4px;
+  }
+
+  .map-header-left {
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .map-header h2 {
+    font-size: var(--text-body);
+    white-space: nowrap;
+  }
+
+  .map-header h2 .map-icon {
+    font-size: var(--text-body-lg);
+  }
+
+  .map-header-right {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  /* 隐藏不常用的工具栏按键，保留核心功能 */
+  #map-territory-btn,
+  #map-transitions-btn,
+  #map-grid-btn,
+  #map-legend-btn {
+    display: none;
+  }
+
+  /* 工具栏按键 - 保持44x44触控尺寸 */
+  [data-action~="map-toolbar-btn"] {
+    width: 44px;
+    height: 44px;
+    font-size: var(--text-title);
+    border-radius: var(--radius-md);
+  }
+
+  /* 关闭按键突出显示 */
+  [data-action~="map-close-btn"] {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+  }
+
+  [data-action~="map-close-btn"] svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* 地图信息面板 - 底部全宽 */
+  .map-info-panel {
+    top: auto;
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-height: 180px;
+    padding: 12px;
+    border-radius: var(--radius-lg);
+  }
+
+  .map-info-header {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+  }
+
+  .map-info-icon {
+    font-size: 24px;
+  }
+
+  .map-info-title h3 {
+    font-size: var(--text-subtitle);
+  }
+
+  .map-info-description {
+    font-size: var(--text-body);
+    margin-bottom: 8px;
+  }
+
+  /* 迷你控制器优化 */
+  .map-controls {
+    left: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    padding: 6px;
+    border-radius: var(--radius-lg);
+  }
+
+  [data-action~="map-control-btn"] {
+    width: 44px;
+    height: 44px;
+    font-size: var(--text-display);
+    border-radius: var(--radius-sm);
+  }
+
+  /* 缩放指示器 */
+  .map-zoom-indicator {
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 14px;
+    font-size: var(--text-body);
+  }
+
+  /* 图例优化 - 可收起式 */
+  .map-legend {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+    max-height: 200px;
+    padding: 10px;
+    border-radius: var(--radius-lg);
+  }
+
+  .map-legend h4 {
+    font-size: var(--text-caption);
+    margin-bottom: 8px;
+  }
+
+  .map-legend-item {
+    padding: 3px 0;
+    font-size: var(--text-body-sm);
+  }
+
+  .map-legend-marker {
+    font-size: var(--text-title);
+  }
+}
+
+/* 地图图例 */
+.map-legend {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 220px;
+  background: color-mix(in srgb, var(--surface-panel) 94%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border-soft) 86%, transparent);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-sm), var(--shadow-inset);
+  backdrop-filter: blur(var(--blur-sm)) saturate(118%);
+  -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(118%);
+}
+
+.map-legend.hidden {
+  display: none;
+}
+
+.map-legend h4 {
+  margin: 0 0 10px 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-secondary);
+}
+
+.map-legend-item .map-legend-marker {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.map-legend-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-heading);
+  line-height: 1;
+}
+
+.map-legend-marker--terrain-a {
+  color: var(--status-success);
+}
+
+.map-legend-marker--terrain-b {
+  color: var(--text-soft);
+}
+
+.map-legend-marker--terrain-c {
+  color: var(--brand-primary);
+}
+
+.map-legend-marker--terrain-d {
+  color: var(--status-danger);
+}
+
+.map-legend-marker--terrain-e {
+  color: color-mix(in srgb, var(--border-strong) 86%, var(--text-secondary));
+}
+
+/* ============================================
+   动画系统 — 移植自原版 motion 库效果
+   ============================================ */
+
+/* 六边形格子弹入 (原版: opacity 0→1, scale 0.5→1, y+20→0, spring) */
+@keyframes hexPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.hex-cell-enter {
+  animation: hexPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 子弹窗遮罩层淡入淡出 */
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes overlayFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.map-modal-overlay.entering {
+  animation: overlayFadeIn 0.2s ease both;
+}
+.map-modal-overlay.exiting {
+  animation: overlayFadeOut 0.15s ease both;
+}
+
+/* 子弹窗内容弹入弹出 (原版: scale 0.95→1, opacity 0→1, y 20→0, spring bounce 0.3) */
+@keyframes modalPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes modalPopOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+}
+
+.map-modal-content.entering {
+  animation: modalPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.map-modal-content.exiting {
+  animation: modalPopOut 0.2s ease both;
+}
+
+/* 刷新按钮旋转 (原版: rotate 180° when generating, 0.3s) */
+#map-regenerate-btn {
+  transition: transform var(--transition-slow);
+}
+#map-regenerate-btn.generating {
+  transform: rotate(180deg);
+}
+
+/* 按钮点击缩放反馈 (原版: active:scale-[0.98]) */
+[data-action~="map-toolbar-btn"]:active,
+[data-action~="map-modal-btn"]:active {
+  transform: scale(0.98);
+}
+
+/* 子弹窗头部行 */
+.map-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--launcher-border);
+}
+
+.map-modal-header svg:first-child {
+  flex-shrink: 0;
+  color: var(--launcher-text-muted);
+}
+
+.map-modal-header span {
+  flex: 1;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  color: var(--launcher-text);
+}
+
+.map-modal-close-x {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--launcher-border);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--launcher-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.map-modal-close-x:hover {
+  background: color-mix(in srgb, var(--status-danger) 30%, transparent);
+  color: var(--status-danger);
+}
+
+/* 图例面板描述文字 */
+.map-legend-desc {
+  font-size: var(--text-body-sm);
+  line-height: 1.5;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+
+/* 图例地形项 - 双行布局（名称+描述） */
+.map-legend-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.map-legend-item-name {
+  font-size: var(--text-body-sm);
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.map-legend-item-desc {
+  font-size: var(--text-caption);
+  color: var(--text-soft);
+  line-height: 1.3;
+}
+
+/* 图例地标类型项 */
+.map-legend-landmark-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.map-legend-landmark-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: var(--text-heading);
+  line-height: 1;
+  margin-top: 2px;
+  color: var(--accent-text);
+}
+
+.map-legend-landmark-item .map-legend-item-text {
+  gap: 2px;
+}

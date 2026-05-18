@@ -1,0 +1,900 @@
+{
+  "zh-CN": [
+    {
+      "version": "3.7.9",
+      "date": "2026-05-18",
+      "changes": [
+        "重构角色档案 UI"
+      ]
+    },
+    {
+      "version": "3.7.1",
+      "date": "2026-05-17",
+      "changes": [
+        "修复已知 Bug，完善 UI 显示。"
+      ]
+    },
+    {
+      "version": "3.7",
+      "date": "2026-05-17",
+      "changes": [
+        "现在，请尽情享受流式输出的丝滑体验。",
+        "<span class='cl-codeline'><b style='animation-delay:0.00s'>w</b><b style='animation-delay:0.07s'>h</b><b style='animation-delay:0.14s'>i</b><b style='animation-delay:0.21s'>l</b><b style='animation-delay:0.28s'>e</b> <b style='animation-delay:0.35s'>(</b><b style='animation-delay:0.42s'>t</b><b style='animation-delay:0.49s'>r</b><b style='animation-delay:0.56s'>u</b><b style='animation-delay:0.63s'>e</b><b style='animation-delay:0.70s'>)</b> <b style='animation-delay:0.77s'>{</b> <b style='animation-delay:0.00s'>H</b><b style='animation-delay:0.07s'>i</b><b style='animation-delay:0.14s'>m</b><b style='animation-delay:0.21s'>.</b><b style='animation-delay:0.28s'>b</b><b style='animation-delay:0.35s'>a</b><b style='animation-delay:0.42s'>c</b><b style='animation-delay:0.49s'>k</b><b style='animation-delay:0.56s'>(</b><b style='animation-delay:0.63s'>s</b><b style='animation-delay:0.70s'>a</b><b style='animation-delay:0.77s'>n</b><b style='animation-delay:0.00s'>d</b><b style='animation-delay:0.07s'>b</b><b style='animation-delay:0.14s'>o</b><b style='animation-delay:0.21s'>x</b><b style='animation-delay:0.28s'>)</b><b style='animation-delay:0.35s'>;</b> <b style='animation-delay:0.42s'>}</b></span>"
+      ]
+    },
+    {
+      "version": "3.6",
+      "date": "2026-05-16",
+      "changes": [
+        "初步优化NPC系统，新增「动态」页签可查看NPC心情、状态与近期想法（持续完善中）",
+        "重写多模型叙事引擎，大幅减少弱模型的工具误用、叙事断章和选项退化",
+        "新增「联网搜索」开关（仅支持 Anthropic / Gemini，可能产生额外费用）",
+        "内置模型与价格升级到新一代",
+        "优化世界卡创世稳定性，个别角色出错不再导致整体失败",
+        "修复推理耗时显示、错误复制按钮兼容性等若干体验问题",
+        "修复更新日志在部分设备长期停留旧版本的问题",
+        "更新用户隐私政策，提升网站整体合规性"
+      ]
+    },
+    {
+      "version": "3.5.3",
+      "date": "2026-05-14",
+      "changes": [
+        "完善世界卡/存档的显示效果"
+      ]
+    },
+    {
+      "version": "3.5.2",
+      "date": "2026-05-14",
+      "changes": [
+        "优化载入速度",
+        "修复已知bug"
+      ]
+    },
+    {
+      "version": "3.5.1",
+      "date": "2026-05-13",
+      "changes": [
+        "修复输入栏消失Bug",
+        "恢复存档的简介和导入"
+      ]
+    },
+    {
+      "version": "3.5",
+      "date": "2026-05-13",
+      "changes": [
+        "重构UI界面",
+        "完善自定义system prompt",
+        "完善更新机制",
+        "修复已知bug"
+      ]
+    },
+    {
+      "version": "3.4",
+      "date": "2026-05-09",
+      "changes": [
+        "优化强制更新逻辑，下版本生效",
+        "优化交互体验，增加点击选项直接发送的设置选项",
+        "优化夸克浏览器兼容性",
+        "修复各项工具调用Bug"
+      ]
+    },
+    {
+      "version": "3.3",
+      "date": "2026-05-09",
+      "changes": [
+        "完善自定义API设置，优化报错提示信息",
+        "修复已知Bug"
+      ]
+    },
+    {
+      "version": "3.2.1",
+      "date": "2026-05-08",
+      "changes": [
+        "修复错误报告判断",
+        "完善交互体验"
+      ]
+    },
+    {
+      "version": "3.2",
+      "date": "2026-05-07",
+      "changes": [
+        "修复所有已知bug"
+      ]
+    },
+    {
+      "version": "3.1.3",
+      "date": "2026-05-07",
+      "changes": [
+        "修复多个与请求取消相关的偶发错误",
+        "提升 AI 请求超时与中断时的错误信息准确度"
+      ]
+    },
+    {
+      "version": "3.1.2",
+      "date": "2026-05-07",
+      "changes": [
+        "修复部分情况下设计模式卡死问题",
+        "增强模型对工具调用支持的检验",
+        "优化游戏中工具调用与渲染的稳定性"
+      ]
+    },
+    {
+      "version": "3.1.1",
+      "date": "2026-05-06",
+      "changes": [
+        "微调各处 UI 细节",
+        "微调内置世界卡修辞",
+        "修复各类零碎已知 bug"
+      ]
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-05-05",
+      "changes": [
+        "优化API设置的功能和UI",
+        "修复已知bug"
+      ]
+    },
+    {
+      "version": "3.0.2",
+      "date": "2026-05-05",
+      "changes": [
+        "修复已知bug"
+      ]
+    },
+    {
+      "version": "3.0.1",
+      "date": "2026-05-05",
+      "changes": [
+        "修复已知bug"
+      ]
+    },
+    {
+      "version": "3.0",
+      "date": "2026-05-04",
+      "changes": [
+        "新增主角（物品栏）功能。",
+        "新增“推荐设置”，API 调用更智能。",
+        "大幅完善推理流程，显著降低等待时间。",
+        "大幅完善设计模式，显示更加直观。",
+        "大幅完善各主题风格。",
+        "整体 UI 完善，修复已知 bug。"
+      ]
+    },
+    {
+      "version": "2.9.1",
+      "date": "2026-05-01",
+      "changes": [
+        "修复已知UI问题"
+      ]
+    },
+    {
+      "version": "2.9",
+      "date": "2026-05-01",
+      "changes": [
+        "重构UI界面",
+        "完善主题风格"
+      ]
+    },
+    {
+      "version": "2.8.1",
+      "date": "2026-05-01",
+      "changes": [
+        "修复已知bug"
+      ]
+    },
+    {
+      "version": "2.8",
+      "date": "2026-04-29",
+      "changes": [
+        "修复各项UI bug",
+        "优化UI整体显示效果",
+        "完善错误信息显示效果"
+      ]
+    },
+    {
+      "version": "2.7",
+      "date": "2026-04-28",
+      "changes": [
+        "新增对 DeepSeek v4 的全面支持",
+        "新增自定义服务商对 Anthropic 协议的支持",
+        "修复设计模式中的格式错误问题",
+        "修复设计模式中的快照截断错误",
+        "修复其他若干已知问题"
+      ]
+    },
+    {
+      "version": "2.6",
+      "date": "2026-04-20",
+      "changes": [
+        "修复世界卡二次编辑保存失败的问题",
+        "修复存储空间不足时存档失败的问题",
+        "修复思考文本的处理逻辑",
+        "修复其余若干已知问题，提升整体稳定性"
+      ]
+    },
+    {
+      "version": "2.5",
+      "date": "2026-04-19",
+      "changes": [
+        "新增OOC Agent，用户可在输入栏使用方括号：例如【剧情慢一点】来给AI发送元指令，从底层直接修改剧情风格，设定和节奏走向。",
+        "新增背景图切换功能，支持自定义壁纸",
+        "优化推理流程，减少tokens使用量，增加缓存命中率。",
+        "修正设计模式自检逻辑，提高代码预览窗口可读性，删除残留的旧架构注释。",
+        "优化状态栏结算逻辑，恢复点击状态栏手动修改数值功能。",
+        "优化Debug界面流程图，新增debug信息导出",
+        "优化设置界面排版，优化主界面显示。"
+      ]
+    },
+    {
+      "version": "2.4",
+      "date": "2026-04-18",
+      "changes": [
+        "优化内部提示词，改善叙事节奏",
+        "完善UI，bug修复"
+      ]
+    },
+    {
+      "version": "2.3",
+      "date": "2026-04-17",
+      "changes": [
+        "修复Microsoft Edge的卡顿问题"
+      ]
+    },
+    {
+      "version": "2.2",
+      "date": "2026-04-16",
+      "changes": [
+        "新增设计模式草稿保存机制",
+        "修改深色模式UI的显示效果",
+        "文案微调和Bug Fix"
+      ]
+    },
+    {
+      "version": "2.1",
+      "date": "2026-04-14",
+      "changes": [
+        "修复轻量模型的推理逻辑错误",
+        "清理原服务器残留代码，暂时屏蔽失效的bug反馈功能",
+        "UI显示效果优化（现在可以点击AISandbox Game来隐藏顶部栏）"
+      ]
+    },
+    {
+      "version": "2.0",
+      "date": "2026-04-13",
+      "changes": [
+        "整体升级至ReAct架构",
+        "修复多项细节错误"
+      ]
+    },
+    {
+      "version": "1.9",
+      "date": "2026-03-28",
+      "changes": [
+        "新增主题切换功能，支持多种视觉风格自由选择",
+        "修复若干已知问题，提升整体稳定性"
+      ]
+    },
+    {
+      "version": "1.8",
+      "date": "2026-03-26",
+      "changes": [
+        "升级云服务器",
+        "按照合规要求完善用户隐私政策"
+      ]
+    },
+    {
+      "version": "1.7",
+      "date": "2026-03-24",
+      "changes": [
+        "修复无法正常存档的bug",
+        "修复极少数情况下无法使用自定义模型的bug",
+        "现版本的UI可能看上去有些奇怪，是因为正在进行主体风格完善，这一版主要是紧急更新修复bug，感谢大家理解"
+      ]
+    },
+    {
+      "version": "1.6",
+      "date": "2026-03-22",
+      "changes": [
+        "大幅优化设计模式底层逻辑",
+        "新增终止生成按键"
+      ]
+    },
+    {
+      "version": "1.5",
+      "date": "2026-03-21",
+      "changes": [
+        "统一整体UI风格",
+        "新增bug反馈功能",
+        "引进DeepSeek官方tokenizer",
+        "优化内置世界卡的剧情逻辑",
+        "优化各功能排版布局",
+        "优化设置逻辑",
+        "优化自动存档逻辑"
+      ]
+    },
+    {
+      "version": "1.4",
+      "date": "2026-03-17",
+      "changes": [
+        "进一步排查并修复了设计模式中的缺陷，优化了界面的显示与编写体验",
+        "将Deepseek Chat模型的最大输出长度提升至 8192 Tokens",
+        "重构并完善了底层 UI 接口架构，为后续的全面视觉重绘与美化奠定基础",
+        "新增对 Microsoft Word (.docx) 格式文档的上传与读取支持",
+        "新增首次访问网页的加载进度条"
+      ]
+    },
+    {
+      "version": "1.3",
+      "date": "2026-03-16",
+      "changes": [
+        "紧急bug修复，感谢各位朋友给予的耐心和支持"
+      ]
+    },
+    {
+      "version": "1.2",
+      "date": "2026-03-16",
+      "changes": [
+        "微调核心提示词，增强叙事约束与一致性",
+        "大幅完善设计模式",
+        "  - 优化开场白要求与验证机制",
+        "  - 自定义输入上限提升至一万字",
+        "  - 信息采集后新增大纲预览",
+        "  - 支持文风自选",
+        "深色模式下降低字体颜色对比度，优化阅读舒适度",
+        "新增叙事文本中特殊格式的文字颜色渲染"
+      ]
+    },
+    {
+      "version": "1.1",
+      "date": "2026-03-15",
+      "changes": [
+        "优化自定义API模型的获取和连接"
+      ]
+    },
+    {
+      "version": "1.0",
+      "date": "2026-03-14",
+      "changes": [
+        "优化了时间流逝逻辑，提升了NPC自主能力"
+      ]
+    },
+    {
+      "version": "0.9.9",
+      "date": "2026-03-13",
+      "changes": [
+        "添加英文支持",
+        "优化开场引导"
+      ]
+    },
+    {
+      "version": "0.9.8",
+      "date": "2026-03-10",
+      "changes": [
+        "创建小红书、Bilibili 和 GitHub 账号，开始进行宣发准备"
+      ]
+    },
+    {
+      "version": "0.9.7",
+      "date": "2026-03-08",
+      "changes": [
+        "完善底层架构逻辑，修复多处细节问题",
+        "统一整体 UI 设计风格，优化移动端显示效果",
+        "这是正式上线前最后一次实质性更新，后续版本将以问题修复和稳定性优化为主"
+      ]
+    },
+    {
+      "version": "0.9.6",
+      "date": "2026-03-06",
+      "changes": [
+        "新增默认世界卡",
+        "完善开场引导和存档管理的UI显示"
+      ]
+    },
+    {
+      "version": "0.9.5",
+      "date": "2026-03-05",
+      "changes": [
+        "大幅完善设计模式的信息采集与交互能力",
+        "大幅完善 UI 的互动与渲染表现",
+        "大幅完善存档逻辑"
+      ]
+    },
+    {
+      "version": "0.9.4",
+      "date": "2026-03-04",
+      "changes": [
+        "新增对硅基流动与 OpenRouter API 的支持",
+        "优化设置界面 UI，提升操作清晰度",
+        "完善模型价格展示与费用计算支持",
+        "暂时关闭未完工的短信与地图界面入口",
+        "修复若干已知问题，提升整体稳定性"
+      ]
+    },
+    {
+      "version": "0.9.3",
+      "date": "2026-03-04",
+      "changes": [
+        "初步支持大屏幕与高分辨率显示设备",
+        "在设置中新增窗口大小调整选项",
+        "优化按键大小，提升操作体验",
+        "新增返回开始界面的入口（点击左上角图标）",
+        "新增更新日志记录功能",
+        "移除 Herobrine"
+      ]
+    },
+    {
+      "version": "0.9.2",
+      "date": "2026-03-02",
+      "changes": [
+        "新增开场引导词",
+        "优化部分提示词文案",
+        "支持显示 API 错误详细信息"
+      ]
+    },
+    {
+      "version": "0.9.1",
+      "date": "2026-03-01",
+      "changes": [
+        "首次成功更新版本（无实质功能改动）"
+      ]
+    },
+    {
+      "version": "0.9",
+      "date": "2026-02-28",
+      "changes": [
+        "首次公开发布版本"
+      ]
+    }
+  ],
+  "en": [
+    {
+      "version": "3.7.9",
+      "date": "2026-05-18",
+      "changes": [
+        "Redesigned the character profile UI"
+      ]
+    },
+    {
+      "version": "3.7.1",
+      "date": "2026-05-17",
+      "changes": [
+        "Fixed known bugs and refined UI display."
+      ]
+    },
+    {
+      "version": "3.7",
+      "date": "2026-05-17",
+      "changes": [
+        "Now, sit back and enjoy buttery-smooth streaming output.",
+        "<span class='cl-codeline'><b style='animation-delay:0.00s'>w</b><b style='animation-delay:0.07s'>h</b><b style='animation-delay:0.14s'>i</b><b style='animation-delay:0.21s'>l</b><b style='animation-delay:0.28s'>e</b> <b style='animation-delay:0.35s'>(</b><b style='animation-delay:0.42s'>t</b><b style='animation-delay:0.49s'>r</b><b style='animation-delay:0.56s'>u</b><b style='animation-delay:0.63s'>e</b><b style='animation-delay:0.70s'>)</b> <b style='animation-delay:0.77s'>{</b> <b style='animation-delay:0.00s'>H</b><b style='animation-delay:0.07s'>i</b><b style='animation-delay:0.14s'>m</b><b style='animation-delay:0.21s'>.</b><b style='animation-delay:0.28s'>b</b><b style='animation-delay:0.35s'>a</b><b style='animation-delay:0.42s'>c</b><b style='animation-delay:0.49s'>k</b><b style='animation-delay:0.56s'>(</b><b style='animation-delay:0.63s'>s</b><b style='animation-delay:0.70s'>a</b><b style='animation-delay:0.77s'>n</b><b style='animation-delay:0.00s'>d</b><b style='animation-delay:0.07s'>b</b><b style='animation-delay:0.14s'>o</b><b style='animation-delay:0.21s'>x</b><b style='animation-delay:0.28s'>)</b><b style='animation-delay:0.35s'>;</b> <b style='animation-delay:0.42s'>}</b></span>"
+      ]
+    },
+    {
+      "version": "3.6",
+      "date": "2026-05-16",
+      "changes": [
+        "Initial NPC system overhaul: added a \"Live\" tab to view each NPC's mood, status, and recent thoughts (work in progress).",
+        "Rewrote the multi-model narrative engine, greatly reducing tool misuse, broken-off narration, and degraded choices on weaker models.",
+        "Added a \"Web Search\" toggle (Anthropic / Gemini only; may incur extra cost).",
+        "Upgraded built-in models and pricing to the latest generation.",
+        "Improved world-card creation stability: a single faulty character no longer fails the whole creation.",
+        "Fixed reasoning-time display, error-copy button compatibility, and several other experience issues.",
+        "Fixed the changelog staying stuck on an old version on some devices.",
+        "Updated the user privacy policy and improved overall site compliance."
+      ]
+    },
+    {
+      "version": "3.5.3",
+      "date": "2026-05-14",
+      "changes": [
+        "Polished the display of world cards and saves."
+      ]
+    },
+    {
+      "version": "3.5.2",
+      "date": "2026-05-14",
+      "changes": [
+        "Improved loading speed.",
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "3.5.1",
+      "date": "2026-05-13",
+      "changes": [
+        "Fixed a bug where the input bar would disappear.",
+        "Restored save-card descriptions and the save import feature."
+      ]
+    },
+    {
+      "version": "3.5",
+      "date": "2026-05-13",
+      "changes": [
+        "Refactored the UI.",
+        "Refined the custom system prompt.",
+        "Improved the update mechanism.",
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "3.4",
+      "date": "2026-05-09",
+      "changes": [
+        "Refined the forced-update logic (takes effect from the next release).",
+        "Improved interaction: added a setting to send a choice immediately on click.",
+        "Improved compatibility with the Quark browser.",
+        "Fixed various tool-call bugs."
+      ]
+    },
+    {
+      "version": "3.3",
+      "date": "2026-05-09",
+      "changes": [
+        "Refined custom API provider settings and improved error message clarity.",
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "3.2.1",
+      "date": "2026-05-08",
+      "changes": [
+        "Improved error report classification.",
+        "Refined interaction details."
+      ]
+    },
+    {
+      "version": "3.2",
+      "date": "2026-05-07",
+      "changes": [
+        "Fixed all known bugs."
+      ]
+    },
+    {
+      "version": "3.1.3",
+      "date": "2026-05-07",
+      "changes": [
+        "Fixed several intermittent errors related to request cancellation.",
+        "Improved error message accuracy when AI requests time out or are interrupted."
+      ]
+    },
+    {
+      "version": "3.1.2",
+      "date": "2026-05-07",
+      "changes": [
+        "Fixed an issue that could freeze Design Mode in certain edge cases.",
+        "Strengthened the function-calling capability check for AI models.",
+        "Improved the stability of tool calls and rendering during gameplay."
+      ]
+    },
+    {
+      "version": "3.1.1",
+      "date": "2026-05-06",
+      "changes": [
+        "Polished UI details across the app.",
+        "Refined the wording of built-in world cards.",
+        "Fixed assorted known bugs."
+      ]
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-05-05",
+      "changes": [
+        "Improved API settings functionality and UI.",
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "3.0.2",
+      "date": "2026-05-05",
+      "changes": [
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "3.0.1",
+      "date": "2026-05-05",
+      "changes": [
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "3.0",
+      "date": "2026-05-04",
+      "changes": [
+        "Added the protagonist system, including an inventory.",
+        "Added \"Recommended Settings\" for smarter API usage.",
+        "Substantially overhauled the reasoning pipeline, dramatically reducing wait time.",
+        "Substantially overhauled Design Mode with a more intuitive presentation.",
+        "Substantially refined every themed visual style.",
+        "Overall UI polish and known bug fixes."
+      ]
+    },
+    {
+      "version": "2.9.1",
+      "date": "2026-05-01",
+      "changes": [
+        "Fixed known UI issues."
+      ]
+    },
+    {
+      "version": "2.9",
+      "date": "2026-05-01",
+      "changes": [
+        "Reworked the UI from the ground up.",
+        "Refined themed visual styles."
+      ]
+    },
+    {
+      "version": "2.8.1",
+      "date": "2026-05-01",
+      "changes": [
+        "Fixed known bugs."
+      ]
+    },
+    {
+      "version": "2.8",
+      "date": "2026-04-29",
+      "changes": [
+        "Fixed various UI bugs.",
+        "Polished overall UI presentation.",
+        "Improved error message display."
+      ]
+    },
+    {
+      "version": "2.7",
+      "date": "2026-04-28",
+      "changes": [
+        "Added full support for DeepSeek v4.",
+        "Added Anthropic protocol support for custom providers.",
+        "Fixed format errors in Design Mode.",
+        "Fixed snapshot truncation bug in Design Mode.",
+        "Fixed various other known issues."
+      ]
+    },
+    {
+      "version": "2.6",
+      "date": "2026-04-20",
+      "changes": [
+        "Fixed a bug where re-editing a world card could fail to save.",
+        "Fixed save failures when local storage ran out of space.",
+        "Fixed the handling logic for reasoning text.",
+        "Fixed various other known issues and improved overall stability."
+      ]
+    },
+    {
+      "version": "2.5",
+      "date": "2026-04-19",
+      "changes": [
+        "Added OOC Agent: wrap meta-instructions in brackets in the input bar (e.g. [slow down the pacing]) to directly steer the AI's narrative style, setting, and rhythm from the underlying layer.",
+        "Added background image switching with custom wallpaper support.",
+        "Optimized the reasoning pipeline — lower token usage and higher cache hit rate.",
+        "Fixed Design Mode self-check logic, improved readability of the code preview panel, and removed leftover comments from the old architecture.",
+        "Improved status bar reconciliation logic and restored the ability to click the status bar to manually edit values.",
+        "Improved the Debug view flowchart and added debug info export.",
+        "Refined the settings page layout and polished the main interface display."
+      ]
+    },
+    {
+      "version": "2.4",
+      "date": "2026-04-18",
+      "changes": [
+        "Tuned internal prompts to improve narrative pacing.",
+        "UI polish and bug fixes."
+      ]
+    },
+    {
+      "version": "2.3",
+      "date": "2026-04-17",
+      "changes": [
+        "Fixed stuttering issues on Microsoft Edge."
+      ]
+    },
+    {
+      "version": "2.2",
+      "date": "2026-04-16",
+      "changes": [
+        "Added draft saving for Design Mode",
+        "Improved dark mode UI presentation",
+        "Copy tweaks and bug fixes"
+      ]
+    },
+    {
+      "version": "2.1",
+      "date": "2026-04-14",
+      "changes": [
+        "Fixed reasoning logic errors in lightweight models",
+        "Cleaned up legacy server code; temporarily disabled the broken bug feedback feature",
+        "UI display improvements (you can now click \"AI Sandbox Game\" to toggle the top bar)"
+      ]
+    },
+    {
+      "version": "2.0",
+      "date": "2026-04-13",
+      "changes": [
+        "Upgraded to the ReAct architecture",
+        "Fixed various detail-level issues"
+      ]
+    },
+    {
+      "version": "1.9",
+      "date": "2026-03-28",
+      "changes": [
+        "Added theme switching with multiple visual styles to choose from",
+        "Fixed various known issues and improved overall stability"
+      ]
+    },
+    {
+      "version": "1.8",
+      "date": "2026-03-26",
+      "changes": [
+        "Upgrade cloud servers",
+        "Improve user privacy policy to comply with regulations"
+      ]
+    },
+    {
+      "version": "1.7",
+      "date": "2026-03-24",
+      "changes": [
+        "Fixed a bug where saves could not be created properly",
+        "Fixed a rare bug where custom models could not be used",
+        "The UI may look a bit off in this version as a visual overhaul is underway. This release focuses on urgent bug fixes. Thank you for your understanding!"
+      ]
+    },
+    {
+      "version": "1.6",
+      "date": "2026-03-22",
+      "changes": [
+        "Significantly optimized the underlying logic of Design Mode",
+        "Added stop generation button"
+      ]
+    },
+    {
+      "version": "1.5",
+      "date": "2026-03-21",
+      "changes": [
+        "Unified overall UI style",
+        "Added bug feedback feature",
+        "Integrated official DeepSeek tokenizer",
+        "Improved storyline logic for built-in world cards",
+        "Optimized layout across all features",
+        "Optimized settings logic",
+        "Optimized auto-save logic"
+      ]
+    },
+    {
+      "version": "1.4",
+      "date": "2026-03-17",
+      "changes": [
+        "Comprehensively resolved core design-mode bugs and significantly optimized display and editing interfaces.",
+        "Deeply integrated the official DeepSeek model, increasing the Chat mode maximum output token limit to 8192.",
+        "Refactored and improved the underlying UI architecture to prepare for a comprehensive visual overhaul.",
+        "Upgraded document parsing to support uploading and reading Microsoft Word (.docx) files.",
+        "Added a loading progress bar for the first visit to the website."
+      ]
+    },
+    {
+      "version": "1.3",
+      "date": "2026-03-16",
+      "changes": [
+        "Emergency bug fix. Thank you all for your patience and support."
+      ]
+    },
+    {
+      "version": "1.2",
+      "date": "2026-03-16",
+      "changes": [
+        "Fine-tuned core prompts for stronger narrative constraints and consistency.",
+        "Major improvements to Design Mode",
+        "  - Improved opening-message requirements and validation",
+        "  - Raised custom input character limit to 10,000",
+        "  - Added outline preview after information gathering",
+        "  - Added writing-style selection",
+        "Reduced font-color contrast in dark mode for better reading comfort.",
+        "Added color rendering for specially formatted text in narratives."
+      ]
+    },
+    {
+      "version": "1.1",
+      "date": "2026-03-15",
+      "changes": [
+        "Optimized custom API model fetching and connection."
+      ]
+    },
+    {
+      "version": "1.0",
+      "date": "2026-03-14",
+      "changes": [
+        "Optimized time-passage logic and enhanced NPC autonomy."
+      ]
+    },
+    {
+      "version": "0.9.9",
+      "date": "2026-03-13",
+      "changes": [
+        "Added English support.",
+        "Optimized opening guidance."
+      ]
+    },
+    {
+      "version": "0.9.8",
+      "date": "2026-03-10",
+      "changes": [
+        "Created Xiaohongshu, Bilibili, and GitHub accounts to prepare launch promotion."
+      ]
+    },
+    {
+      "version": "0.9.7",
+      "date": "2026-03-08",
+      "changes": [
+        "Improved core architecture and fixed multiple detail-level issues.",
+        "Unified the overall UI direction and improved the mobile presentation.",
+        "This was the last major feature update before launch. Later versions focus mainly on fixes and stability."
+      ]
+    },
+    {
+      "version": "0.9.6",
+      "date": "2026-03-06",
+      "changes": [
+        "Added the default world card.",
+        "Improved the opening guidance flow and save-manager UI."
+      ]
+    },
+    {
+      "version": "0.9.5",
+      "date": "2026-03-05",
+      "changes": [
+        "Greatly improved design-mode information gathering and interaction.",
+        "Greatly improved UI interaction and rendering.",
+        "Greatly improved save logic."
+      ]
+    },
+    {
+      "version": "0.9.4",
+      "date": "2026-03-04",
+      "changes": [
+        "Added support for SiliconFlow and OpenRouter APIs.",
+        "Improved the settings UI for clearer operation.",
+        "Completed model price display and cost calculation support.",
+        "Temporarily hid unfinished SMS and map entry points.",
+        "Fixed a set of known issues and improved stability."
+      ]
+    },
+    {
+      "version": "0.9.3",
+      "date": "2026-03-04",
+      "changes": [
+        "Initial support for large displays and high-resolution devices.",
+        "Added a window scale setting.",
+        "Improved button sizing and input comfort.",
+        "Added an entry to return to the start screen by clicking the top-left icon.",
+        "Added the changelog feature.",
+        "Removed Herobrine."
+      ]
+    },
+    {
+      "version": "0.9.2",
+      "date": "2026-03-02",
+      "changes": [
+        "Added opening guidance text.",
+        "Improved several prompt texts.",
+        "Added API error detail display."
+      ]
+    },
+    {
+      "version": "0.9.1",
+      "date": "2026-03-01",
+      "changes": [
+        "First successful version update (no major feature change)."
+      ]
+    },
+    {
+      "version": "0.9",
+      "date": "2026-02-28",
+      "changes": [
+        "First public release."
+      ]
+    }
+  ]
+}

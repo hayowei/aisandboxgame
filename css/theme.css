@@ -1,0 +1,387 @@
+/* ═══════════════════════════════════════════
+     Design Tokens 由 theme-tokens.css 自动生成
+     运行 `npm run tokens:build` 更新令牌
+     ═══════════════════════════════════════════ */
+@import url('./theme-tokens.css');
+
+/* ═══════════════════════════════════════════
+     组件主题样式
+     ═══════════════════════════════════════════ */
+
+html,
+body,
+#app {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  background: var(--surface-elevated);
+  border-bottom-color: var(--border-soft);
+}
+
+.header-tile {
+  color: var(--text-muted);
+}
+
+.header-tile:hover,
+.header-tile:active {
+  color: var(--text-main);
+  background-color: var(--surface-soft);
+  border-color: var(--border-soft);
+}
+
+#mode-toggle {
+  background: var(--surface-soft);
+  border-color: var(--border-soft);
+}
+
+.settings-toggle-group {
+  background: var(--panel-tint);
+}
+
+.settings-global-io {
+  border-top-color: var(--border-soft);
+}
+
+.chat-input-area {
+  background: var(--surface-soft);
+  border-top-color: var(--border-soft);
+  border-bottom-color: var(--border-soft);
+}
+
+.chat-input-textbox {
+  background: var(--surface-input);
+  border-color: var(--border-soft);
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .chat-input-textbox:focus {
+  background: var(--surface-input);
+}
+
+.chat-input-textbox::placeholder {
+  color: var(--text-soft);
+}
+
+:root[data-theme='dark'] .chat-message-content {
+  background-image: none;
+  background-blend-mode: normal;
+}
+
+:root[data-theme='dark'] [data-action~="msg-action-btn"] {
+  background: var(--sheen-20);
+}
+
+:root[data-theme='dark'] [data-action~="msg-action-btn"] .icon {
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+:root[data-theme='dark'] [data-action~="msg-action-btn"]:hover .icon {
+  opacity: 1;
+}
+
+:root[data-theme='dark'] .design-chat-header {
+  background: color-mix(in srgb, var(--surface-code) 92%, transparent);
+  border-bottom-color: var(--border-soft);
+}
+
+:root[data-theme='dark'] .design-chat-header .design-phase-indicator {
+  background: transparent;
+}
+
+:root[data-theme='dark'] .dpi-circle {
+  background: var(--sheen-8);
+  color: var(--text-muted);
+  border-color: var(--sheen-15);
+}
+
+:root[data-theme='dark'] .dpi-line {
+  background: var(--sheen-10);
+}
+
+:root[data-theme='dark'] .summary-item {
+  background: color-mix(in srgb, var(--surface-card) 90%, transparent);
+  border-color: var(--border-strong);
+  color: var(--text-main);
+  box-shadow: 0 2px 8px var(--overlay-40);
+}
+
+:root[data-theme='dark'] .summary-item:hover {
+  border-color: var(--border-dark);
+  box-shadow: 0 4px 16px var(--overlay-50);
+}
+
+:root[data-theme='dark'] .summary-item.loading {
+  color: var(--text-muted);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--bg-tertiary) 95%, transparent) 25%,
+    color-mix(in srgb, var(--bg-hover) 95%, transparent) 50%,
+    color-mix(in srgb, var(--bg-tertiary) 95%, transparent) 75%
+  );
+}
+
+:root[data-theme='dark'] .summary-item.summary-chapter {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-yellow) 28%, transparent) 0%, color-mix(in srgb, var(--brand-brown) 24%, transparent) 100%);
+  border-color: var(--accent-warm-border-strong);
+  border-left-color: var(--brand-accent-strong);
+}
+
+:root[data-theme='dark'] .summary-item.summary-chapter:hover {
+  border-color: color-mix(in srgb, var(--brand-yellow) 56%, transparent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--brand-brown) 36%, transparent);
+}
+
+:root[data-theme='dark'] .summary-item.summary-chapter .summary-text {
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .summary-edit-textarea {
+  background: var(--surface-input);
+  color: var(--text-main);
+}
+
+.metro-tile {
+  background-color: var(--surface-card);
+}
+
+.metro-tile:hover {
+  background-color: var(--surface-soft);
+}
+
+.summary-tile-border {
+  border-color: var(--border-soft);
+}
+
+.modal-content {
+  background: var(--surface-elevated);
+  border-color: var(--border-soft);
+  color: var(--text-main);
+}
+
+.modal-content .form-group .hint {
+  color: var(--text-muted);
+}
+
+.modal-content .form-group .hint-inline {
+  color: var(--text-soft);
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  background: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-main);
+}
+
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+  color: var(--text-soft);
+}
+
+.save-slot {
+  background: var(--surface-soft);
+  border-color: var(--border-soft);
+}
+
+/* save-panel-list 内 .btn-secondary 走基线 */
+
+/* Settings modal specifics */
+#settings-modal .settings-header {
+  background: transparent;
+  border-bottom-color: var(--border-soft);
+}
+
+#settings-modal .settings-body {
+  background: transparent;
+  border-top-color: var(--border-soft);
+}
+
+#settings-modal .settings-left-column {
+  border-right-color: var(--border-color);
+}
+
+#settings-modal .api-keys-grid input,
+#settings-modal .module-model-select,
+#settings-modal .module-model-input,
+#settings-modal .module-provider-select,
+#settings-modal .module-temp-input {
+  border-color: var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-main);
+}
+
+/* Debug styles moved to css/debug-new.css */
+
+/* Reasoning panels */
+.reasoning-summary,
+.reasoning-summary-meta,
+.reasoning-detail {
+  color: var(--text-soft);
+}
+
+.reasoning-detail {
+  background: var(--surface-code);
+  color: var(--code-text);
+}
+
+.fc-tag-duplicate {
+  color: var(--text-soft);
+  border-color: var(--border-soft);
+  background: transparent;
+  text-decoration: line-through;
+}
+
+/* Phone / SMS panels */
+:root[data-theme='dark'] .phone-container {
+  background: var(--surface-code-alt);
+}
+
+:root[data-theme='dark'] .phone-header {
+  background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--surface-code-alt) 100%);
+  border-bottom-color: var(--border-soft);
+}
+
+:root[data-theme='dark'] .phone-header span {
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .phone-subtitle {
+  color: var(--text-soft) !important;
+}
+
+:root[data-theme='dark'] [data-action~="phone-back-btn"] {
+  color: var(--brand-primary);
+}
+
+:root[data-theme='dark'] [data-action~="phone-close-btn"],
+:root[data-theme='dark'] [data-action~="phone-debug-btn"] {
+  background: var(--sheen-10);
+  color: var(--text-muted);
+}
+
+:root[data-theme='dark'] [data-action~="phone-close-btn"]:hover,
+:root[data-theme='dark'] [data-action~="phone-debug-btn"]:hover {
+  background: var(--sheen-20);
+}
+
+:root[data-theme='dark'] .phone-wallpaper {
+  background: linear-gradient(135deg, var(--bg-hover) 0%, color-mix(in srgb, var(--brand-primary) 25%, var(--surface-code)) 50%, color-mix(in srgb, var(--brand-magenta) 20%, var(--surface-code)) 100%);
+}
+
+:root[data-theme='dark'] .contacts-app-list,
+:root[data-theme='dark'] .contact-detail-content,
+:root[data-theme='dark'] .contact-group-header {
+  background: var(--surface-code-alt);
+  border-bottom-color: var(--border-soft);
+}
+
+:root[data-theme='dark'] .contacts-app-item,
+:root[data-theme='dark'] .contact-item,
+:root[data-theme='dark'] .contact-detail-actions,
+:root[data-theme='dark'] .contact-detail-section {
+  background: var(--bg-tertiary);
+  border-bottom-color: var(--border-soft);
+}
+
+:root[data-theme='dark'] .contacts-app-item:hover,
+:root[data-theme='dark'] .contact-item:hover {
+  background: var(--bg-hover);
+}
+
+:root[data-theme='dark'] .contacts-name,
+:root[data-theme='dark'] .contact-name,
+:root[data-theme='dark'] .detail-value,
+:root[data-theme='dark'] .sms-received {
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .contacts-personality,
+:root[data-theme='dark'] .contacts-empty,
+:root[data-theme='dark'] .detail-label,
+:root[data-theme='dark'] .contact-preview,
+:root[data-theme='dark'] .contact-empty,
+:root[data-theme='dark'] .sms-empty,
+:root[data-theme='dark'] .contact-group-header,
+:root[data-theme='dark'] .contact-arrow,
+:root[data-theme='dark'] .contacts-arrow {
+  color: var(--text-soft);
+}
+
+:root[data-theme='dark'] [data-action~="contact-action-btn"]:hover {
+  background: color-mix(in srgb, var(--brand-primary) 12%, transparent);
+}
+
+:root[data-theme='dark'] .contact-action-label {
+  color: var(--brand-primary);
+}
+
+:root[data-theme='dark'] .sms-received {
+  background: var(--bg-hover);
+}
+
+:root[data-theme='dark'] .sms-actions {
+  border-top-color: var(--border-soft);
+}
+
+:root[data-theme='dark'] [data-action~="sms-action-btn"] {
+  background: var(--sheen-12);
+}
+
+:root[data-theme='dark'] [data-action~="sms-action-btn"]:hover {
+  background: var(--sheen-20);
+}
+
+:root[data-theme='dark'] .sms-edit-textarea {
+  background: var(--bg-tertiary);
+  border-color: var(--border-soft);
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .sms-edit-cancel {
+  background: var(--sheen-12);
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .sms-edit-cancel:hover {
+  background: var(--sheen-20);
+}
+
+:root[data-theme='dark'] .sms-confirm-box {
+  background: var(--bg-tertiary);
+}
+
+:root[data-theme='dark'] .sms-confirm-text {
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] [data-action~="sms-cancel-btn"] {
+  background: var(--surface-card);
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .sms-typing .typing-dots span {
+  background: var(--text-soft);
+}
+
+:root[data-theme='dark'] .sms-input-area {
+  background: var(--bg-tertiary);
+  border-top-color: var(--border-soft);
+}
+
+:root[data-theme='dark'] .sms-input-area input {
+  background: var(--surface-code-alt);
+  border-color: var(--input-border);
+  color: var(--text-main);
+}
+
+:root[data-theme='dark'] .sms-input-area input::placeholder {
+  color: var(--text-soft);
+}
+
+:root[data-theme='dark'] .contact-detail-header.dynamic-header {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-magenta) 20%, transparent) 0%, color-mix(in srgb, var(--status-danger) 20%, transparent) 100%);
+}

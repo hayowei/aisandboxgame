@@ -1,0 +1,3271 @@
+/* ============================================
+   JSON 渲染器样式
+   包含所有卡片类型的样式定义
+   ============================================ */
+
+/* ============================================
+   FC tag（ReAct trace 工具卡片复用）
+   ============================================ */
+
+.fc-tag {
+  background: color-mix(in srgb, var(--brand-primary) 15%, transparent);
+  color: var(--metro-blue);
+  padding: 2px 8px;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.npc-reaction-item {
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border-left: 3px solid var(--metro-teal);
+  border: 1px solid var(--sheen-8);
+  border-left-width: 3px;
+  border-radius: var(--radius-xs);
+  background: var(--surface-code-alt);
+  color: var(--code-text);
+}
+
+.npc-reaction-item:last-child {
+  margin-bottom: 0;
+}
+
+.npc-reaction-name {
+  color: var(--metro-teal);
+  font-weight: var(--weight-bold);
+}
+
+.npc-reaction-text {
+  margin-top: 4px;
+  color: var(--code-text);
+  white-space: pre-wrap;
+}
+
+.reasoning-content-bar {
+  margin: 2px 0 8px 0;
+}
+
+.reasoning-summary {
+  cursor: pointer;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  user-select: none;
+}
+
+.reasoning-summary-meta {
+  font-size: var(--text-sm);
+  color: var(--text-soft);
+}
+
+.reasoning-detail {
+  padding: 8px 12px;
+  font-size: var(--text-caption);
+  color: var(--code-text);
+  background: var(--surface-code-alt);
+  border-radius: var(--radius-xs);
+  margin-top: 4px;
+  white-space: pre-wrap;
+  max-height: 400px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+/* ============================================
+   游戏输出容器
+   ============================================ */
+.game-output {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 剧情正文 */
+.game-narrative {
+  line-height: 2;
+  font-size: var(--text-title);
+  color: var(--text-color);
+}
+
+.game-narrative p {
+  margin-bottom: 12px;
+}
+
+.game-narrative p:last-child {
+  margin-bottom: 0;
+}
+
+/* === 叙事着色 ===
+   Local definitions removed — tokens now live in theme-tokens.css
+   as --narrative-dialogue, --narrative-thought, --narrative-speaker,
+   --narrative-action and are consumed via var() references below.
+*/
+
+.narrative-dialogue { color: var(--narrative-dialogue); }
+.narrative-thought  { color: var(--narrative-thought); font-style: italic; }
+.narrative-speaker  { color: var(--narrative-speaker); font-weight: var(--weight-semibold); }
+
+.game-narrative em,
+.chat-message-content em {
+  color: var(--narrative-action);
+  font-style: italic;
+}
+
+/* ============================================
+   状态栏 HUD - Metro 风格
+   ============================================ */
+.game-status {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: var(--hud-bg);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  border: 1px solid var(--hud-border);
+  box-shadow: 0 2px 8px var(--overlay-4);
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-body);
+  color: var(--hud-text);
+}
+
+.status-icon {
+  font-size: var(--text-body-lg);
+  color: var(--brand-yellow);
+}
+
+.status-value {
+  font-weight: var(--weight-semibold);
+  color: var(--hud-value);
+}
+
+.status-item.datetime .status-value {
+  font-family: var(--font-mono);
+}
+
+.status-item.location .status-value {
+  color: var(--hud-value);
+}
+
+.status-item.money .status-value {
+  font-family: var(--font-mono);
+}
+
+.status-item.objective .status-value {
+  color: var(--hud-value);
+}
+
+/* 可编辑状态字段 */
+.status-editable {
+  cursor: pointer;
+  border-bottom: 1px dashed var(--hud-value);
+  transition: background-color var(--transition-fast);
+}
+
+.status-editable:hover {
+  background-color: color-mix(in srgb, var(--brand-yellow) 10%, transparent);
+}
+
+.status-editable:focus {
+  outline: none;
+  background-color: color-mix(in srgb, var(--brand-yellow) 15%, transparent);
+  border-bottom-style: solid;
+}
+
+/* 非法输入的抖动回滚提示 */
+.status-editable.invalid {
+  animation: status-field-shake 0.3s ease-in-out;
+  background-color: color-mix(in srgb, var(--status-danger) 15%, transparent) !important;
+}
+
+@keyframes status-field-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* 流式中禁用编辑（JS 有双保险，CSS 让用户一看就知道不可点） */
+.chat-message.streaming-state .status-editable {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ============================================
+   选项列表 - Metro 风格
+   ============================================ */
+.game-choices {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: var(--choice-panel-bg);
+  border: 1px solid var(--choice-panel-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.choices-header {
+  font-size: var(--text-body-lg);
+  color: var(--choice-title);
+  margin-bottom: 10px;
+}
+
+.choices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  background: var(--choice-item-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--choice-item-border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--text-body-lg);
+  line-height: 1.5;
+  box-shadow: 0 2px 6px var(--overlay-4);
+}
+
+/* 第一行:ID + 类型 + 标题 */
+.choice-row-1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 第二行:描述 + cost(段落式连续显示)*/
+.choice-row-2 {
+  padding-left: 28px;
+  /* 与ID对齐 */
+}
+
+.choice-detail,
+.choice-cost {
+  display: inline;
+}
+
+.choice-item:hover {
+  border-color: var(--choice-panel-border);
+  background: var(--choice-item-hover-bg);
+  box-shadow: 0 4px 12px var(--overlay-6);
+  transform: translateX(4px);
+}
+
+.choice-item:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: inset 0 0 15px color-mix(in srgb, var(--brand-purple) 30%, transparent);
+  background-color: var(--choice-item-active-bg);
+  border-style: dashed;
+}
+
+.choice-id {
+  font-weight: var(--weight-black);
+  color: var(--choice-title);
+  min-width: 20px;
+  font-size: var(--text-heading);
+}
+
+.choice-type {
+  font-weight: var(--weight-semibold);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-body-sm);
+}
+
+/* 交谈 - 蓝色 */
+.choice-talk .choice-type {
+  background: color-mix(in srgb, var(--brand-primary) 15%, transparent);
+  color: var(--brand-primary);
+}
+
+/* 探索 - 绿色 */
+.choice-explore .choice-type {
+  background: color-mix(in srgb, var(--status-success) 15%, transparent);
+  color: var(--status-success);
+}
+
+/* 交易 - 金色 */
+.choice-trade .choice-type {
+  background: color-mix(in srgb, var(--status-warning) 15%, transparent);
+  color: var(--brand-yellow);
+}
+
+/* 旅行 - 紫色 */
+.choice-travel .choice-type {
+  background: color-mix(in srgb, var(--brand-primary) 15%, transparent);
+  color: var(--metro-blue);
+}
+
+/* 打工 - 橙色 */
+.choice-work .choice-type {
+  background: color-mix(in srgb, var(--brand-accent) 15%, transparent);
+  color: var(--brand-accent);
+}
+
+/* 行动 - 红色 */
+.choice-action .choice-type {
+  background: color-mix(in srgb, var(--status-danger) 15%, transparent);
+  color: var(--status-danger);
+}
+
+.choice-default .choice-type {
+  background: var(--choice-default-chip-bg);
+  color: var(--choice-text-secondary);
+}
+
+.choice-short {
+  font-weight: var(--weight-medium);
+  color: var(--choice-text-primary);
+}
+
+.choice-detail {
+  color: var(--choice-text-secondary);
+}
+
+.choice-detail-empty {
+  font-style: italic;
+  color: var(--text-soft);
+}
+
+.choice-cost {
+  color: var(--brand-yellow);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-sm);
+}
+
+/* NPC 卡片 NEW/UPDATE 标记 */
+.npc-badge {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.npc-badge.new {
+  background: linear-gradient(135deg, var(--status-success) 0%, color-mix(in srgb, var(--status-success) 55%, var(--text-invert)) 100%);
+  color: var(--text-invert);
+}
+
+.npc-badge.update {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 55%, var(--text-invert)) 100%);
+  color: var(--text-invert);
+}
+
+.npc-badge.restore {
+  background: linear-gradient(135deg, var(--brand-magenta) 0%, color-mix(in srgb, var(--brand-magenta) 70%, var(--brand-primary)) 100%);
+  color: var(--text-invert);
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+  .game-status {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .choice-row-2 {
+    padding-left: 0;
+  }
+}
+
+/* 通用:多卡片并排容器 */
+.json-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+/* ============================================
+   NPC 档案卡样式
+   ============================================ */
+
+/* 多卡片并排容器 */
+.npc-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.npc-cards-row .npc-card,
+.json-cards-row .npc-card {
+  flex: 1 1 160px;
+  max-width: 220px;
+  margin: 0;
+}
+
+.npc-card {
+  position: relative;
+  background: linear-gradient(145deg, var(--surface-code-alt) 0%, color-mix(in srgb, var(--brand-primary) 15%, var(--surface-code)) 50%, var(--surface-code) 100%);
+  color: var(--code-text);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--brand-secondary) 40%, transparent);
+  box-shadow: 0 4px 15px var(--overlay-30);
+  margin: 6px 0;
+  font-family: var(--font-ui);
+  max-width: 260px;
+  container-type: inline-size;
+}
+
+/* 卡片宽度 >= 220px 时，Body 网格切为双列 */
+@container (min-width: 220px) {
+  .npc-item.half {
+    flex: 0 0 calc(50% - 3px);
+    max-width: calc(50% - 3px);
+  }
+}
+
+.npc-card-header {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-secondary) 30%, transparent), color-mix(in srgb, var(--brand-secondary) 20%, transparent));
+  padding: 8px 10px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-secondary) 30%, transparent);
+}
+
+.npc-card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brand-secondary), var(--brand-secondary), var(--brand-primary), transparent);
+}
+
+.npc-id {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-size: var(--text-2xs);
+  color: var(--text-on-accent);
+  opacity: 0.5;
+  font-family: var(--font-mono);
+  background: var(--overlay-30);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+}
+
+.npc-name {
+  font-size: var(--text-title, 1rem);
+  font-weight: var(--weight-bold);
+  color: var(--text-on-accent);
+  margin-bottom: 1px;
+  letter-spacing: 0.5px;
+}
+
+/* 认知状态（名字下方） */
+.npc-cognitive {
+  font-size: var(--text-caption, 0.65rem);
+  margin-top: 2px;
+  text-align: center;
+}
+
+/* 年龄印章效果 */
+.npc-stamp {
+  position: absolute;
+  top: 63%;
+  left: 10px;
+  transform: translateY(-50%) rotate(-15deg);
+  font-size: var(--text-caption, 0.7rem);
+  font-weight: var(--weight-bold);
+  color: var(--brand-secondary);
+  border: 2px solid var(--brand-secondary);
+  padding: 2px 4px;
+  border-radius: var(--radius-xs);
+  opacity: 0.85;
+}
+
+.npc-card-body {
+  padding: 6px 8px;
+}
+
+/* NPC 卡 tab strip（档案 / 动态）
+ * 注意：components.css 在 renderers.css 之后加载，.tab 默认尺寸偏大。
+ * 这里用 .npc-card-tabs .tab 的复合选择器提升 specificity，强制小尺寸。 */
+.npc-card-tabs {
+  margin: 4px 8px 0;
+  padding: 2px;
+  display: flex;
+  gap: 2px;
+}
+.npc-card-tabs.tab-strip {
+  display: flex;
+  width: auto;
+}
+.npc-card-tabs .tab {
+  flex: 1 1 0;
+  min-height: 22px;
+  font-size: var(--text-2xs);
+  padding: 2px 6px;
+}
+
+/* Tab pane 默认全隐藏；data-active-tab 决定显示哪个 */
+.npc-tab-pane {
+  display: none;
+}
+.npc-card-wrapper[data-active-tab="state"] .npc-tab-pane[data-tab="state"],
+.npc-card-wrapper[data-active-tab="profile"] .npc-tab-pane[data-tab="profile"] {
+  display: block;
+}
+/* 缺省时（首次渲染，data-active-tab 未设）默认显示 profile */
+.npc-card-wrapper:not([data-active-tab]) .npc-tab-pane[data-tab="profile"] {
+  display: block;
+}
+
+/* 状态层（动态 tab）布局 */
+.npc-state-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: var(--text-xs);
+  border-bottom: 1px solid color-mix(in srgb, var(--border-soft) 40%, transparent);
+}
+.npc-state-row:last-of-type {
+  border-bottom: none;
+}
+.npc-state-row--block {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+.npc-state-label {
+  flex: 0 0 auto;
+  min-width: 80px;
+  color: var(--text-soft);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.2px;
+}
+.npc-state-value {
+  flex: 1 1 auto;
+  color: var(--text-main);
+  word-break: break-word;
+  line-height: 1.4;
+}
+.npc-state-thoughts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+}
+.npc-state-thought {
+  font-size: var(--text-2xs);
+  color: var(--text-main);
+  line-height: 1.4;
+  padding-left: 4px;
+}
+.npc-state-thought--empty {
+  color: var(--text-soft);
+  font-style: italic;
+}
+.npc-state-meta {
+  margin-top: 6px;
+  font-size: var(--text-2xs);
+  color: var(--text-soft);
+  text-align: right;
+  opacity: 0.7;
+}
+
+/* dark 主题下 state 文字对比度修正 */
+:root[data-theme='dark'] .npc-state-value,
+:root[data-theme='dark'] .npc-state-thought {
+  color: var(--text-secondary);
+}
+
+.npc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.npc-item {
+  flex: 0 0 100%;
+  max-width: 100%;
+  background: var(--surface-chip);
+  border-radius: var(--radius-xs);
+  padding: 6px 8px;
+  border: 1px solid var(--border-chip);
+  box-sizing: border-box;
+}
+
+:root[data-skin='cyberpunk'][data-theme='dark'] .npc-item {
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+}
+
+/* All dark themes — chip 内 label/value 默认走 --text-invert（dark 主题下都是深色），
+   叠在 chip 浅 overlay 上不可读。换成 --text-secondary（每主题已定义的"软灰白"）。 */
+:root[data-theme='dark'] .npc-label,
+:root[data-theme='dark'] .npc-value {
+  color: var(--text-secondary);
+}
+
+.npc-item.full {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.npc-label {
+  display: block;
+  font-size: var(--text-2xs);
+  color: var(--text-invert);
+  letter-spacing: 0.3px;
+  margin-bottom: 1px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.npc-value {
+  font-size: var(--text-xs);
+  color: var(--text-invert);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.npc-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: var(--radius-lg);
+  font-size: 0.65rem;
+  font-weight: var(--weight-medium);
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.tag-personality {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-secondary) 30%, transparent), color-mix(in srgb, var(--brand-secondary) 10%, transparent));
+  color: color-mix(in srgb, var(--brand-secondary) 50%, var(--text-invert));
+  border: 1px solid color-mix(in srgb, var(--brand-secondary) 40%, transparent);
+}
+
+.tag-state {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-secondary) 30%, transparent), color-mix(in srgb, var(--brand-secondary) 10%, transparent));
+  color: color-mix(in srgb, var(--status-success) 55%, var(--text-on-accent));
+  border: 1px solid color-mix(in srgb, var(--brand-secondary) 40%, transparent);
+}
+
+.tag-status {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-success) 30%, transparent), color-mix(in srgb, var(--status-success) 10%, transparent));
+  color: color-mix(in srgb, var(--status-success) 55%, var(--text-invert));
+  border: 1px solid color-mix(in srgb, var(--status-success) 40%, transparent);
+  margin-left: 4px;
+}
+
+/* NPC Header 操作按键容器 */
+.npc-header-actions {
+  position: absolute;
+  right: 6px;
+  top: 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  z-index: 10;
+}
+
+/* NPC 卡片删除按键 */
+[data-action~="npc-delete-btn"] {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: color-mix(in srgb, var(--status-danger) 15%, transparent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-caption);
+  line-height: 1;
+  opacity: 0.7;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.npc-card:hover [data-action~="npc-delete-btn"] {
+  opacity: 1;
+}
+
+[data-action~="npc-delete-btn"]:hover {
+  opacity: 1 !important;
+  background: color-mix(in srgb, var(--status-danger) 40%, transparent);
+  transform: scale(1.1);
+}
+
+/* NPC 卡片选中按键 */
+[data-action~="npc-select-btn"] {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: color-mix(in srgb, var(--brand-primary) 15%, transparent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-caption);
+  line-height: 1;
+  opacity: 0.8;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-action~="npc-select-btn"]:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+[data-action~="npc-select-btn"].selected {
+  background: color-mix(in srgb, var(--status-success) 25%, transparent);
+}
+
+[data-action~="npc-select-btn"]:not(.selected) {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+/* 未选中的卡片整体黑白 */
+.npc-card-wrapper.unselected .npc-card {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.npc-card-wrapper.unselected [data-action~="npc-select-btn"] {
+  filter: none;
+  opacity: 0.8;
+}
+
+/* 可编辑字段样式 */
+.npc-editable {
+  cursor: text;
+  border-radius: var(--radius-xs);
+  padding: 1px 3px;
+  margin: -1px -3px;
+  transition: all var(--transition-base);
+  outline: none;
+  min-width: 20px;
+  display: inline-block;
+}
+
+.npc-editable:hover {
+  background: color-mix(in srgb, var(--brand-primary) 15%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-primary) 30%, transparent);
+}
+
+.npc-editable:focus {
+  background: color-mix(in srgb, var(--brand-primary) 25%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand-primary) 50%, transparent);
+}
+
+/* 编辑中的特殊样式 */
+.npc-name.npc-editable:focus {
+  background: color-mix(in srgb, var(--brand-secondary) 20%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand-secondary) 50%, transparent);
+}
+
+.npc-stamp.npc-editable:hover,
+.npc-stamp.npc-editable:focus {
+  transform: translateY(-50%) rotate(-15deg);
+}
+
+/* 编辑提示图标 */
+.npc-editable::after {
+  content: '✎';
+  font-size: 0.6em;
+  opacity: 0;
+  margin-left: 4px;
+  transition: opacity var(--transition-base);
+  color: var(--metro-blue);
+}
+
+.npc-editable:hover::after {
+  opacity: 0.6;
+}
+
+.npc-editable:focus::after {
+  opacity: 0;
+}
+
+/* NPC 卡片响应式 */
+@media (max-width: 500px) {
+  .npc-cards-row .npc-card,
+  .json-cards-row .npc-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .npc-name {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================
+   NPC UPDATE 审批 UI 样式
+   ============================================ */
+
+/* 有待审批更新的卡片 */
+.npc-card-wrapper.has-pending-update {
+  box-shadow:
+    0 0 0 2px var(--status-warning),
+    0 4px 12px color-mix(in srgb, var(--status-warning) 30%, transparent);
+}
+
+/* 待审批 UI 容器 */
+.npc-pending-update {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-warning) 20%, var(--text-invert)) 0%, color-mix(in srgb, var(--status-warning) 40%, var(--text-invert)) 100%);
+  border: 1px solid var(--status-warning);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 0.85em;
+}
+
+/* 待审批头部 */
+.pending-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--status-warning) 85%, var(--text-primary));
+}
+
+.pending-icon {
+  font-size: 1.1em;
+}
+
+.pending-title {
+  font-weight: var(--weight-semibold);
+  color: var(--brand-accent);
+  flex: 1;
+}
+
+.pending-count {
+  font-size: 0.85em;
+  color: var(--brand-accent);
+  background: var(--sheen-60);
+  padding: 2px 8px;
+  border-radius: var(--radius-lg);
+}
+
+/* 变更列表 */
+.pending-changes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.pending-change-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--sheen-70);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  transition: background var(--transition-base);
+}
+
+.pending-change-item:hover {
+  background: var(--sheen-90);
+}
+
+.pending-change-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pending-field {
+  color: var(--brand-primary);
+  font-weight: var(--weight-semibold);
+  min-width: 70px;
+}
+
+.pending-old {
+  color: var(--status-danger);
+  text-decoration: line-through;
+  opacity: 0.8;
+  word-break: break-word;
+}
+
+.pending-arrow {
+  color: var(--text-secondary);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.pending-new {
+  color: color-mix(in srgb, var(--status-success) 85%, var(--text-primary));
+  font-weight: var(--weight-semibold);
+  word-break: break-word;
+}
+
+/* 单字段审批按键容器（按钮本身用 .btn-ghost.btn-icon.btn-sm / .btn-danger.btn-icon.btn-sm） */
+.pending-field-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* APPROVED 标记样式 */
+.npc-badge.approved {
+  background: linear-gradient(135deg, var(--status-success) 0%, color-mix(in srgb, var(--status-success) 85%, var(--text-primary)) 100%);
+  color: var(--text-invert);
+}
+
+/* ============================================
+   NPC 卡片拖拽排序样式
+   ============================================ */
+
+/* 可拖拽的卡片 */
+.npc-card-wrapper[draggable='true'] {
+  position: relative;
+  cursor: grab;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity var(--transition-base);
+}
+
+.npc-card-wrapper[draggable='true']:hover {
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--brand-primary) 20%, transparent);
+}
+
+/* 拖拽中的卡片 */
+.npc-card-wrapper.dragging {
+  cursor: grabbing;
+  opacity: 0.5;
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  z-index: 1000;
+}
+
+/* 拖拽占位符 */
+.npc-card-placeholder {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 10%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 5%, transparent) 100%);
+  border: 2px dashed color-mix(in srgb, var(--brand-primary) 40%, transparent);
+  border-radius: var(--radius-lg);
+  margin-bottom: 12px;
+  transition: height var(--transition-base);
+  min-height: 100px;
+}
+
+/* 拖拽手柄视觉提示(卡片左侧) */
+.npc-card-wrapper[draggable='true']::before {
+  content: '......';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  font-size: var(--text-body-lg);
+  letter-spacing: -2px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.npc-card-wrapper[draggable='true']:hover::before {
+  opacity: 1;
+}
+
+/* 防止拖拽时选中文字 */
+.npc-card-wrapper.dragging * {
+  user-select: none;
+}
+
+/* 拖拽时禁用卡片内的可编辑区域 */
+.npc-card-wrapper.dragging .npc-editable {
+  pointer-events: none;
+}
+
+/* ============================================
+   流式输出 (Stream Visualizer) 样式 v2.0
+   增强版:骨架屏、平滑过渡、视觉反馈
+   ============================================ */
+
+/* ----------------------------------------
+   流式状态的消息气泡
+   ---------------------------------------- */
+.chat-message.streaming-state {
+  opacity: 1;
+}
+
+.chat-message.streaming-state .chat-message-content {
+  min-height: 80px;
+}
+
+/* D1：scrollController 独占主聊天区滚动位置。浏览器原生 scroll anchoring
+   全程不参与（容器级 + 全子代双保险，含旧 Safari）——位置 100% 由
+   js/chat/scrollController.js 的 isAtBottom/runScoped/preserveAnchor 管。
+   见 内部设计文档 Part 2 D1。 */
+.chat-messages-area,
+.chat-messages-area * {
+  overflow-anchor: none;
+}
+
+.streaming-content {
+  position: relative;
+}
+
+/* ----------------------------------------
+   流式指示器(动态渐变圆环)
+   ---------------------------------------- */
+.streaming-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 8px;
+  border-radius: var(--radius-circle);
+  background: conic-gradient(
+    from 0deg,
+    var(--status-success) 0%,
+    color-mix(in srgb, var(--status-success) 70%, var(--text-invert)) 25%,
+    color-mix(in srgb, var(--status-success) 50%, var(--text-invert)) 50%,
+    color-mix(in srgb, var(--status-success) 70%, var(--text-invert)) 75%,
+    var(--status-success) 100%
+  );
+  animation: streaming-spin 1.2s linear infinite;
+  position: relative;
+}
+
+.streaming-indicator::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--stream-indicator-inner);
+  border-radius: var(--radius-circle);
+}
+
+@keyframes streaming-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ----------------------------------------
+   非流式"正在思考..."指示器
+   ---------------------------------------- */
+.thinking-indicator {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: var(--text-body-sm);
+  color: var(--thinking-text);
+  animation: thinking-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes thinking-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------
+   骨架屏加载效果
+   ---------------------------------------- */
+/* min-height 过渡：finalize 时释放 .streaming-state 上的 min-height，配合本过渡平滑收敛。
+   流式期的视觉防塌缩由 CSS `.streaming-state .chat-message-content { min-height: 80px }` 兜底。 */
+.chat-message .game-output {
+  transition: min-height 220ms ease-out;
+}
+
+.streaming-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.skeleton-thinking-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82em;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+
+.skeleton-thinking-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  animation: skeleton-thinking-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-thinking-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50%      { opacity: 1;    transform: scale(1); }
+}
+
+.skeleton-thinking-label {
+  font-family: var(--font-mono, monospace);
+  font-weight: var(--weight-semibold);
+}
+
+.skeleton-line {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--brand-primary) 8%, transparent) 0%,
+    color-mix(in srgb, var(--brand-primary) 15%, transparent) 50%,
+    color-mix(in srgb, var(--brand-primary) 8%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-md);
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+/* nth-child 序号 +1 因为顶部多了 .skeleton-thinking-row */
+.skeleton-line:nth-child(2) { animation-delay: 0s;   }
+.skeleton-line:nth-child(3) { animation-delay: 0.1s; }
+.skeleton-line:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* trace strip 出现后，骨架屏的"推理中"行被 strip 接管；
+   下方叙事 shimmer 继续显示，等待真叙事到来 */
+.game-output:has(.react-trace-summary-strip) > .streaming-skeleton > .skeleton-thinking-row {
+  display: none;
+}
+
+.game-output.react-phase > .stream-slot[data-slot="status"]:not(.filled),
+.game-output.react-phase > .stream-slot[data-slot="choices"]:not(.filled) {
+  display: none;
+}
+
+/* ----------------------------------------
+   ReAct 工具调用 trace（内联显示）
+   ---------------------------------------- */
+.react-trace {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.react-tool-card {
+  --tool-color: var(--brand-primary);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82em;
+  line-height: 1.4;
+  padding: 5px 10px;
+  background: var(--surface-code);
+  border-left: 3px solid var(--tool-color);
+  border-radius: 0 var(--radius-2xs) var(--radius-2xs) 0;
+  color: var(--code-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.react-tool-name {
+  color: var(--tool-color);
+  font-weight: var(--weight-semibold);
+  flex-shrink: 0;
+}
+
+.react-tool-args {
+  color: var(--text-soft);
+  opacity: 0.8;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.react-tool-arrow {
+  margin: 0 4px;
+  color: var(--text-soft);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.react-tool-result {
+  color: var(--text-main);
+  opacity: 0.7;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.react-tool-expandable {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.react-tool-expandable:hover {
+  /* code-surface-allow: hover 仅改背景，文字色继承父 .react-tool-card 的 --code-text */
+  background: color-mix(in srgb, var(--tool-color) 8%, var(--surface-code));
+}
+
+.react-tool-expandable::after {
+  content: '▸';
+  margin-left: auto;
+  color: var(--text-soft);
+  opacity: 0.4;
+  font-size: 0.8em;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.react-tool-expanded::after {
+  content: '▾';
+}
+
+.react-tool-expanded {
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.react-tool-duplicate {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+.react-tool-error {
+  --tool-color: var(--status-danger);
+}
+
+.react-tool-error .react-tool-result {
+  color: var(--status-danger);
+}
+
+/* ----------------------------------------
+   ReAct 交错显示区域
+   ---------------------------------------- */
+.react-interleaved {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.react-tool-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.react-narrative-segment {
+  /* 继承 .game-narrative 的现有样式 */
+}
+
+/* ---- 迭代时间线 ---- */
+
+.react-trace-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  transition: max-height 0.3s ease;
+}
+
+/* ---- 折叠态摘要条 ---- */
+
+/* 摘要条始终可见（一旦创建），扮演 trace 的持久头部 + 折叠/展开切换按钮 */
+.react-trace-summary-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  font-size: 0.82em;
+  color: var(--text-soft);
+  cursor: pointer;
+  padding: 2px 0;
+  user-select: none;
+  transition: color var(--motion-base) ease-out;
+}
+
+/* 铁律：trace 进度条（I → II → … · 工具名）从头到尾【只占一行】——
+   未显示(骨架接管)/流式中/完成后皆然，写不下用 … 截断。变长内容全在
+   此单容器内单行 + ellipsis；右侧 ▸ 折叠箭头(::after)不被挤掉。 */
+.react-trace-summary-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.react-trace-summary-strip::after {
+  content: '\25b8';
+  font-size: 0.85em;
+  margin-left: auto;
+  opacity: 0.5;
+  transition: transform var(--motion-base) ease-out;
+}
+
+.react-interleaved:not(.react-trace-collapsed) .react-trace-summary-strip::after {
+  transform: rotate(90deg);
+}
+
+.react-trace-summary-strip:hover {
+  color: var(--text-main);
+}
+
+/* 折叠态：隐藏迭代和分隔线，只保留摘要条 */
+.react-trace-collapsed .react-iteration {
+  display: none;
+}
+
+.react-trace-collapsed .react-trace-divider {
+  display: none;
+}
+
+.react-iteration {
+  display: flex;
+  gap: 8px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+/* 时间线竖线 — 连接各迭代节点 */
+.react-iteration::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 16px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-soft);
+}
+
+.react-iteration:last-child::before {
+  display: none;
+}
+
+.react-timeline-node {
+  flex-shrink: 0;
+  width: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1px;
+}
+
+.react-timeline-dot {
+  font-size: 0.72em;
+  font-weight: var(--weight-medium);
+  color: var(--text-soft);
+  opacity: 0.5;
+  z-index: 1;
+  line-height: 1.4;
+}
+
+/* 流式时当前活跃迭代 */
+.react-iteration--active .react-timeline-dot {
+  color: var(--brand-primary);
+  opacity: 0.8;
+}
+
+.react-iteration-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ---- 叙事分隔线 ---- */
+
+.react-trace-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 16px 0;
+  font-size: var(--text-caption);
+  color: var(--text-soft);
+  opacity: 0.6;
+}
+
+.react-trace-divider::before,
+.react-trace-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--brand-primary) 25%, transparent) 20%,
+    color-mix(in srgb, var(--brand-primary) 25%, transparent) 80%,
+    transparent
+  );
+}
+
+/* ---- 迭代 thinking header（紧凑模式） ---- */
+
+@keyframes thinking-dots {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+}
+
+.react-thinking-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.82em;
+  line-height: 1.4;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+.react-thinking-header:hover {
+  color: var(--text-main);
+}
+
+.react-thinking-tools {
+  font-family: var(--font-mono, monospace);
+  font-weight: var(--weight-semibold);
+  color: var(--tool-color, var(--text-main));
+}
+
+.react-thinking-status {
+  color: var(--text-soft);
+  font-size: 0.9em;
+}
+
+.react-thinking-status--active::after {
+  content: '';
+  animation: thinking-dots 1.5s steps(1) infinite;
+}
+
+.react-thinking-status--done {
+  opacity: 0.7;
+}
+
+/* 展开/收起指示器 */
+.react-thinking-header .react-thinking-expand-icon {
+  font-size: 0.75em;
+  color: var(--text-soft);
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  margin-left: auto;
+}
+
+.react-thinking-header:hover .react-thinking-expand-icon {
+  opacity: 0.5;
+}
+
+.react-thinking-header.expanded .react-thinking-expand-icon {
+  opacity: 0.7;
+  transform: rotate(90deg);
+}
+
+/* 可展开详情容器 */
+.react-thinking-details {
+  display: none;
+}
+
+.react-thinking-header.expanded ~ .react-thinking-details {
+  display: block;
+}
+
+/* 详情内工具卡片允许换行显示完整内容 */
+.react-thinking-details .react-tool-card {
+  white-space: normal;
+  flex-wrap: wrap;
+}
+
+.react-thinking-details .react-tool-result {
+  overflow: visible;
+  text-overflow: unset;
+  color: var(--text-soft);
+  opacity: 1;
+  flex-basis: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ---- AI 内部推理/思考文本 ---- */
+
+.react-commentary-segment {
+  font-size: 0.8em;
+  line-height: 1.45;
+  color: var(--text-soft);
+  padding: 1px 0;
+  margin: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.react-commentary-segment:hover {
+  opacity: 1;
+}
+
+.react-commentary-segment::before {
+  display: none;
+}
+
+.react-commentary-reasoning,
+.react-commentary-text {
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.react-commentary-text {
+  margin-top: 3px;
+  padding-top: 4px;
+  border-top: 1px dashed color-mix(in srgb, var(--brand-purple) 30%, var(--border-soft));
+}
+
+.react-commentary-segment > .react-commentary-text:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ----------------------------------------
+   流式叙事区域
+   ---------------------------------------- */
+.streaming-narrative {
+  line-height: 1.8;
+  font-size: var(--text-subtitle);
+  color: var(--chat-bubble-text);
+  min-height: 24px;
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.streaming-narrative p {
+  margin-bottom: 12px;
+}
+
+.streaming-narrative p:last-child {
+  margin-bottom: 0;
+}
+
+/* ----------------------------------------
+   实时统计信息
+   ---------------------------------------- */
+/* 流式阶段提示：不再是带框 pill，只是一行居中、淡雅的文字 */
+.streaming-stats {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+}
+
+.stat-icon {
+  font-size: var(--text-body-lg);
+}
+
+.stat-value {
+  font-weight: var(--weight-semibold);
+  color: var(--metro-blue);
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+}
+
+/* ----------------------------------------
+   性能指标栏
+   ---------------------------------------- */
+.metrics-bar {
+  font-size: var(--text-caption);
+  color: var(--text-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+  line-height: 1.4;
+}
+
+.metrics-bar span {
+  white-space: nowrap;
+}
+
+/* 紧凑模式 - 悬停显示详情 */
+.metrics-bar.metrics-compact {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.metric-total {
+  color: var(--text-soft);
+}
+
+.metric-tokens {
+  color: var(--brand-purple);
+}
+
+.metric-cost {
+  color: var(--status-success);
+}
+
+/* Metric Group - 包含指标和其 tooltip */
+.metric-group {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  transition: background-color var(--transition-fast);
+}
+
+.metric-group:hover {
+  background-color: var(--overlay-10);
+}
+
+.metric-group + .metric-group {
+  margin-left: 8px;
+}
+
+/* 第一个 metric-group 的 tooltip 左对齐，避免超出左边界 */
+.metric-group:first-child .metrics-tooltip {
+  left: 0;
+  transform: translateX(0) translateY(4px);
+}
+
+.metric-group:first-child:hover > .metrics-tooltip {
+  transform: translateX(0) translateY(0);
+}
+
+.metric-group:first-child .metrics-tooltip::after,
+.metric-group:first-child .metrics-tooltip::before {
+  left: 20px;
+  transform: none;
+}
+
+/* 自定义 Tooltip */
+.metrics-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--surface-code-alt);
+  color: var(--code-text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  min-width: 120px;
+  box-shadow: 0 4px 12px var(--overlay-30);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.metric-group:hover > .metrics-tooltip,
+.metric-group.active > .metrics-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip 箭头 */
+.metrics-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--surface-code-alt);
+}
+
+.metrics-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--border-strong);
+}
+
+/* Tooltip 行 */
+.tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: var(--text-caption);
+}
+
+.tooltip-label {
+  color: var(--text-invert);
+  opacity: 0.7;
+  min-width: 50px;
+}
+
+.tooltip-value {
+  color: var(--text-invert);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+
+.tooltip-divider {
+  height: 1px;
+  background: var(--border-strong);
+  margin: 6px 0;
+}
+
+.tooltip-step .tooltip-label {
+  min-width: 24px;
+  color: var(--text-invert);
+  opacity: 0.7;
+}
+
+/* ----------------------------------------
+   Turn UID 悬浮 - 把 "Turn N" 文本本身做成 tooltip 触发点
+   ---------------------------------------- */
+.chat-user-label-text {
+  display: inline;
+}
+
+/* DeepSeek 思考档位徽章：与设置里 thinking tab active 同色 */
+.chat-user-label .label-thinking {
+  color: var(--brand-accent);
+  font-weight: var(--weight-medium);
+}
+
+.chat-user-label .turn-uid-group {
+  display: inline-block;
+  position: relative;
+  z-index: 5;
+  cursor: pointer;
+  padding: 0;
+}
+
+.turn-uid-text {
+  color: var(--status-success);
+  border-bottom: 1px dashed transparent;
+  border-radius: var(--radius-xs);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    font-weight var(--transition-fast);
+}
+
+.turn-uid-group:hover .turn-uid-text,
+.turn-uid-group.active .turn-uid-text {
+  border-bottom-color: var(--status-success);
+  background-color: var(--overlay-10);
+}
+
+.turn-uid-group.copied .turn-uid-text {
+  background-color: color-mix(in srgb, var(--status-success) 20%, transparent);
+  border-bottom-color: var(--status-success);
+  font-weight: var(--weight-semibold);
+}
+
+.turn-uid-group .metrics-tooltip {
+  pointer-events: auto;
+  width: max-content;
+  max-width: 360px;
+  left: 0;
+  transform: translateX(0) translateY(4px);
+  /* 上一个气泡的 .chat-message-content 有 backdrop-filter，会创建 stacking context
+     把默认 z-index: 100 的 tooltip 罩住——拔高一档确保浮在它之上 */
+  z-index: 200;
+}
+
+.turn-uid-group:hover > .metrics-tooltip,
+.turn-uid-group.active > .metrics-tooltip {
+  transform: translateX(0) translateY(0);
+}
+
+.turn-uid-group .metrics-tooltip::after,
+.turn-uid-group .metrics-tooltip::before {
+  left: 16px;
+  transform: none;
+}
+
+.turn-uid-group .tooltip-row {
+  white-space: nowrap;
+}
+
+.turn-uid-group .tooltip-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  margin-left: 8px;
+}
+
+/* ----------------------------------------
+   等待生成状态(已被骨架屏替代，保留兼容)
+   ---------------------------------------- */
+.streaming-waiting {
+  color: var(--text-soft);
+  font-style: italic;
+  animation: pulse-opacity 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-opacity {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------
+   流式错误状态
+   ---------------------------------------- */
+.streaming-error {
+  color: var(--status-danger);
+  padding: 12px 16px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-danger) 8%, transparent) 0%, color-mix(in srgb, var(--status-danger) 12%, transparent) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--status-danger) 20%, transparent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ----------------------------------------
+   中止状态
+   ---------------------------------------- */
+.chat-message.streaming-aborted {
+  opacity: 0.85;
+}
+
+.chat-message.streaming-aborted .chat-user-label {
+  color: var(--brand-yellow);
+}
+
+.streaming-aborted-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-warning) 8%, transparent) 0%, color-mix(in srgb, var(--status-warning) 12%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--status-warning) 25%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--brand-accent);
+  font-size: var(--text-body);
+}
+
+.abort-icon {
+  font-size: var(--text-title);
+}
+
+.abort-text {
+  font-weight: var(--weight-medium);
+}
+
+/* ----------------------------------------
+   完成过渡动画
+   ---------------------------------------- */
+.chat-message.streaming-finishing .chat-message-content {
+  animation: content-transition 0.3s ease-out;
+}
+
+@keyframes content-transition {
+  0% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.chat-message.streaming-complete {
+  animation: complete-flash 0.5s ease-out;
+}
+
+@keyframes complete-flash {
+  0% {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--status-success) 40%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-success) 0%, transparent);
+  }
+}
+
+/* ----------------------------------------
+   代码块样式
+   ---------------------------------------- */
+.streaming-narrative pre {
+  background: linear-gradient(135deg, var(--surface-code-alt) 0%, var(--surface-code) 100%);
+  color: var(--code-text);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1px solid var(--overlay-20);
+  box-shadow: inset 0 1px 3px var(--overlay-20);
+}
+
+.streaming-narrative code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
+.streaming-narrative pre code {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.streaming-narrative :not(pre) > code {
+  background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+  color: var(--metro-blue);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+/* ----------------------------------------
+   预留槽位样式(避免布局抖动)
+   ---------------------------------------- */
+
+/* 所有流式槽位的基础样式 */
+.stream-slot {
+  transition:
+    opacity 0.2s ease,
+    transform var(--transition-base);
+}
+
+/* 未填充的槽位显示骨架 */
+.stream-slot:not(.filled) {
+  opacity: 0.5;
+}
+
+/* 填充后的槽位动画 */
+.stream-slot.filled {
+  opacity: 1;
+  animation: slot-fill 0.3s ease-out;
+}
+
+@keyframes slot-fill {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* 状态栏槽位骨架 */
+.stream-slot[data-slot='status']:not(.filled) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  padding: 12px 16px;
+  background: var(--sheen-40);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--brand-yellow) 30%, transparent);
+}
+
+.skeleton-status-item {
+  width: 80px;
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--brand-primary) 8%, transparent) 0%,
+    color-mix(in srgb, var(--brand-primary) 15%, transparent) 50%,
+    color-mix(in srgb, var(--brand-primary) 8%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-xs);
+}
+
+.skeleton-status-item:nth-child(1) {
+  width: 120px;
+  animation-delay: 0s;
+}
+
+.skeleton-status-item:nth-child(2) {
+  width: 100px;
+  animation-delay: 0.1s;
+}
+
+.skeleton-status-item:nth-child(3) {
+  width: 80px;
+  animation-delay: 0.2s;
+}
+
+/* 选项槽位骨架 */
+.stream-slot[data-slot='choices']:not(.filled) .choices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stream-slot[data-slot='choices']:not(.filled) .choices-header {
+  opacity: 0.5;
+}
+
+.skeleton-choice {
+  height: 48px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--brand-primary) 3%, transparent) 0%,
+    color-mix(in srgb, var(--brand-primary) 8%, transparent) 50%,
+    color-mix(in srgb, var(--brand-primary) 3%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 10%, transparent);
+}
+
+.skeleton-choice:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.skeleton-choice:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.skeleton-choice:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Footer 槽位骨架 */
+.stream-slot[data-slot='footer']:not(.filled) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  opacity: 0.4;
+}
+
+.skeleton-metrics {
+  width: 100px;
+  height: 12px;
+  background: linear-gradient(
+    90deg,
+    var(--overlay-8) 0%,
+    var(--overlay-15) 50%,
+    var(--overlay-8) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-xs);
+}
+
+/* 阶段进度文本：放在 .streaming-stats pill 里，替代原来的空横杠 */
+.stream-progress-text {
+  text-align: center;
+  font-size: var(--text-body-sm);
+  color: var(--text-soft);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  animation: stream-progress-pulse 2s ease-in-out infinite;
+}
+
+@keyframes stream-progress-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.78; }
+}
+
+.skeleton-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.skeleton-actions::before {
+  content: '';
+  display: flex;
+  gap: 4px;
+}
+
+/* ----------------------------------------
+   响应式调整
+   ---------------------------------------- */
+@media (max-width: 480px) {
+  .streaming-skeleton .skeleton-line {
+    height: 14px;
+  }
+
+  .skeleton-status-item {
+    width: 60px !important;
+  }
+
+  .metrics-bar {
+    font-size: var(--text-sm);
+    gap: 4px 10px;
+  }
+}
+
+/* ============================================
+   iPhone 11 / 标准尺寸触控优化 (414px)
+   ============================================ */
+@media (max-width: 430px) {
+  /* 游戏输出容器 */
+  .game-output {
+    gap: 14px;
+  }
+
+  /* 剧情正文可读性 */
+  .game-narrative {
+    font-size: var(--text-subtitle);
+    line-height: 1.75;
+  }
+
+  .game-narrative p {
+    margin-bottom: 14px;
+  }
+
+  /* 状态栏 HUD */
+  .game-status {
+    padding: 10px 14px;
+    gap: 10px 16px;
+  }
+
+  .status-item {
+    font-size: var(--text-body-sm);
+    min-height: 28px;
+  }
+
+  /* 选项列表 - 触控优化 */
+  .game-choices {
+    padding: 10px 12px;
+  }
+
+  .choices-list {
+    gap: 10px;
+  }
+
+  .choice-item {
+    padding: 14px 12px;
+    min-height: 48px;
+    font-size: var(--text-body-lg);
+    border-radius: var(--radius-lg);
+    /* 触控反馈 */
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--brand-primary) 20%, transparent);
+  }
+
+  .choice-item:active {
+    transform: scale(0.98);
+    background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+  }
+
+  .choice-row-1 {
+    gap: 6px;
+  }
+
+  .choice-row-2 {
+    padding-left: 0;
+    margin-top: 6px;
+  }
+
+  .choice-id {
+    font-size: var(--text-subtitle);
+    min-width: 24px;
+  }
+
+  .choice-type {
+    font-size: var(--text-caption);
+    padding: 3px 8px;
+  }
+
+  .choice-short {
+    font-size: var(--text-body-lg);
+  }
+
+  .choice-detail {
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+
+  /* NPC 卡片优化 */
+  .npc-cards-row .npc-card,
+  .json-cards-row .npc-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .npc-card {
+    margin: 4px 0;
+  }
+
+  .npc-header {
+    padding: 8px 10px;
+  }
+
+  .npc-name {
+    font-size: 0.95rem;
+  }
+
+  .npc-body {
+    padding: 10px;
+  }
+
+  .npc-stat-row {
+    padding: 4px 0;
+    font-size: 0.8rem;
+  }
+
+  /* NPC 审批按键触控优化 */
+  .pending-buttons {
+    gap: 10px;
+  }
+
+  .btn-secondary.is-loading {
+    padding: 10px 16px;
+    min-height: 44px;
+    font-size: var(--text-body);
+    border-radius: var(--radius-md);
+  }
+
+  /* Function Calls 状态栏 */
+  .function-calls-bar {
+    padding: 6px 10px;
+    font-size: var(--text-sm);
+  }
+
+  .fc-tag {
+    padding: 3px 8px;
+    font-size: var(--text-xs);
+    word-break: break-all;
+    max-width: 100%;
+  }
+
+  /* 流式输出优化 */
+  .streaming-skeleton .skeleton-line {
+    height: 12px;
+    margin-bottom: 10px;
+  }
+}
+
+/* ============================================
+   骨架屏辅助类 (Remove Inline Styles)
+   ============================================ */
+.skeleton-line.w-90 {
+  width: 90%;
+}
+
+.skeleton-line.w-85 {
+  width: 85%;
+}
+
+.skeleton-line.w-80 {
+  width: 80%;
+}
+
+.skeleton-line.w-75 {
+  width: 75%;
+}
+
+.skeleton-line.w-70 {
+  width: 70%;
+}
+
+.skeleton-line.w-65 {
+  width: 65%;
+}
+
+.skeleton-line.w-60 {
+  width: 60%;
+}
+
+.skeleton-summary {
+  cursor: pointer;
+  font-size: var(--text-body-sm);
+  color: var(--thinking-text);
+  padding: 4px 8px;
+  user-select: none;
+}
+
+.skeleton-summary-hint {
+  font-size: var(--text-sm);
+  color: var(--thinking-text);
+}
+
+/* ============================================
+   置顶状态栏 (Sticky Status Bar)
+   ============================================ */
+.sticky-status-bar {
+  position: relative;
+  flex-shrink: 0;
+  margin: 6px 12px;
+  background: var(--sticky-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--hud-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px var(--overlay-6);
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    margin var(--transition-base);
+  z-index: 10;
+}
+
+.sticky-status-bar.hidden {
+  display: none;
+}
+
+.sticky-status-bar.streaming {
+  opacity: 0.55;
+}
+
+.sticky-status-inner {
+  display: flex;
+  align-items: center;
+  padding: 7px 12px;
+  gap: 6px 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sticky-turn-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  min-width: 28px;
+  padding: 0 6px;
+  background: color-mix(in srgb, var(--brand-yellow) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-yellow) 40%, transparent);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--brand-yellow);
+  font-family: var(--font-mono);
+  letter-spacing: 0.3px;
+  user-select: none;
+}
+
+.sticky-status-items-compact {
+  display: flex;
+  align-items: center;
+  gap: 0 14px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sticky-status-items-compact .status-item {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* datetime / money 是定长且重要，不收缩 */
+.sticky-status-items-compact .status-item.custom-status-datetime,
+.sticky-status-items-compact .status-item.custom-status-money {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.sticky-status-bar .status-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-caption);
+  color: var(--sticky-text);
+  white-space: nowrap;
+}
+
+.sticky-status-bar .status-icon {
+  font-size: var(--text-body-sm);
+  color: var(--brand-yellow);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sticky-status-bar .status-value {
+  font-weight: var(--weight-semibold);
+  color: var(--sticky-value);
+  font-size: var(--text-caption);
+  white-space: nowrap;
+}
+
+/* 折叠态可收缩 item 的 value：超长以省略号截断 */
+.sticky-status-items-compact .status-item .status-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.sticky-status-bar .location-separator {
+  color: var(--location-separator);
+  font-weight: var(--weight-light);
+}
+
+.sticky-status-more {
+  font-size: var(--text-caption);
+  color: var(--sticky-text);
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+.sticky-status-more.hidden {
+  display: none;
+}
+
+.sticky-status-chevron {
+  font-size: 16px;
+  color: var(--sticky-text);
+  opacity: 0.7;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.sticky-status-bar.expanded .sticky-status-chevron {
+  transform: rotate(180deg);
+}
+
+.sticky-status-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: var(--bg-color);
+  background-image: linear-gradient(var(--surface-elevated), var(--surface-elevated));
+  border: 1px solid var(--hud-border);
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 8px 24px var(--overlay-12),
+    0 2px 8px var(--overlay-6);
+  padding: 10px 12px;
+  max-height: min(50vh, 360px);
+  overflow-y: auto;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+
+.sticky-status-bar.expanded .sticky-status-popover {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.sticky-status-items-full {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sticky-status-items-full .status-item {
+  white-space: normal;
+}
+
+.sticky-status-items-full .status-value {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .sticky-status-items-full .status-value {
+    word-break: break-all;
+    hyphens: auto;
+  }
+}
+
+/* ============================================
+   NPC 角色动态区块（叙事下方玩家可见）
+   ============================================ */
+
+.npc-actions-section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.npc-actions-section-header {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.npc-action-card {
+  display: flex;
+  gap: 10px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-xs);
+  background: var(--sheen-3);
+  transition: background var(--transition-fast);
+}
+
+.npc-action-card:hover {
+  background: var(--sheen-5);
+}
+
+.npc-action-avatar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-circle);
+  background: var(--accent-primary);
+  color: var(--text-invert);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
+}
+
+.npc-action-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.npc-action-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.npc-action-name {
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+}
+
+.npc-action-mood {
+  font-size: var(--text-caption);
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--sheen-8);
+  color: var(--text-secondary);
+}
+
+.npc-action-location {
+  font-size: var(--text-caption);
+  color: var(--text-tertiary);
+}
+
+.npc-action-location::before {
+  content: '📍';
+  margin-right: 2px;
+}
+
+.npc-action-desc {
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.npc-action-thought {
+  font-size: var(--text-body-sm);
+  font-style: italic;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.choice-item.stale {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.game-choices.collapsed > .choices-header,
+.game-choices.collapsed > .choices-list {
+  display: none;
+}
+
+.choices-collapsed-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--text-soft);
+  font-size: 0.9em;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  background: var(--surface-elevated);
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.choices-collapsed-summary:hover {
+  opacity: 1;
+}
+
+.choices-collapsed-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.choices-collapsed-expand {
+  transition: transform 0.15s;
+  font-size: 0.8em;
+}
+
+.game-choices:not(.collapsed) > .choices-collapsed-summary .choices-collapsed-expand {
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   Shape Token Consumption — chat bubbles + choices
+   ============================================
+   clip-path is applied to OUTER .chat-message to avoid known
+   cross-browser conflict with backdrop-filter on inner
+   .chat-message-content. ::after carries the directional
+   tail decorator (cartoon's bubble pointer); `content: none`
+   default suppresses pseudo-element generation entirely.
+   ============================================ */
+
+.chat-message.ai-message {
+  clip-path: var(--shape-bubble-clip-ai, none);
+}
+.chat-message.user-message {
+  clip-path: var(--shape-bubble-clip-user, none);
+}
+.chat-message.ai-message::after {
+  content: var(--shape-bubble-tail-ai, none);
+}
+.chat-message.user-message::after {
+  content: var(--shape-bubble-tail-user, none);
+}
+
+.choice-item {
+  clip-path: var(--shape-choice-clip, none);
+}
+
+/* All dark themes — sticky 状态栏与选项面板需要更明显的轮廓。
+   cyberpunk dark 单独把 background 改成 surface-card（因为它原 token 用了 background-color
+   单值规则不支持的 padding-box/border-box 多层贴图），其他主题保留各自的 sticky-bg/
+   choice-panel-bg，仅加强描边 + 轻发光。 */
+:root[data-theme='dark'] .sticky-status-bar,
+:root[data-theme='dark'] .game-choices {
+  border-color: color-mix(in srgb, var(--text-primary) 24%, var(--border-soft));
+  box-shadow:
+    0 0 8px color-mix(in srgb, var(--text-primary) 10%, transparent),
+    0 2px 8px var(--overlay-15);
+}
+
+:root[data-skin='cyberpunk'][data-theme='dark'] .sticky-status-bar,
+:root[data-skin='cyberpunk'][data-theme='dark'] .game-choices {
+  background-color: var(--surface-card);
+  border-color: var(--border-soft);
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--brand-primary) 14%, transparent),
+    0 2px 8px var(--overlay-12);
+}
+
+/* Cartoon — sticky 底色 = brand-yellow，原 .sticky-turn-badge 文字也是 brand-yellow，黄底上不可见。
+   改用 sticky-text（light 深紫黑、dark 纯黑），与卡通 ink 语言一致。 */
+:root[data-skin='cartoon'] .sticky-turn-badge {
+  color: var(--sticky-text);
+}
+
+/* All dark themes — metrics 悬浮气泡内文字默认走 --text-invert（dark 主题下都是深色），
+   叠在 --surface-code-alt 黑底上完全不可读。换成 --text-secondary。 */
+:root[data-theme='dark'] .metrics-tooltip .tooltip-label,
+:root[data-theme='dark'] .metrics-tooltip .tooltip-value,
+:root[data-theme='dark'] .metrics-tooltip .tooltip-step .tooltip-label {
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   NPC v3 卡（角色 stage）：性别渐变 banner + 点击翻面
+   —— 自带羊皮纸观感，刻意不跟随四主题（设计决定）
+   palette / 渐变端点 hex 为主题化视觉常量，ui-lint-allow 保留
+   ============================================================ */
+.npc-card--v3 {
+  --pa-paper: #F6EFD8;        /* ui-lint-allow */
+  --pa-paper2: #EADFC0;       /* ui-lint-allow */
+  --pa-surface: #FBF7EE;      /* ui-lint-allow */
+  --pa-ink: #1E1A14;          /* ui-lint-allow */
+  --pa-ink-soft: #6B5E4A;     /* ui-lint-allow */
+  --pa-ink-mute: #9C8E78;     /* ui-lint-allow */
+  --pa-line: rgba(31, 26, 20, 0.16);   /* ui-lint-allow */
+  --pa-ochre: #A8472A;        /* ui-lint-allow */
+  --pa-gold: #B8893A;         /* ui-lint-allow */
+  --pa-mid: #1F2E25;          /* ui-lint-allow */
+  /* 默认（未知性别）紫 */
+  --npc-c1: #6A4A8C;          /* ui-lint-allow */
+  --npc-c2: #2E1E45;          /* ui-lint-allow */
+
+  position: relative;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+  max-width: none;
+  margin: 0;
+  container-type: normal;
+  font-family: var(--font-ui);
+}
+.npc-card--v3 { --npc-sym: #fff; }                 /* 无性别·白 */
+.npc-card--v3.npc-gender-male {
+  --npc-c1: #2E5E8C;          /* ui-lint-allow */
+  --npc-c2: #16344F;          /* ui-lint-allow */
+  --npc-sym: #5BB8F5;         /* ui-lint-allow */    /* 男·天蓝 */
+}
+.npc-card--v3.npc-gender-female {
+  --npc-c1: #A85583;          /* ui-lint-allow */
+  --npc-c2: #5E2742;          /* ui-lint-allow */
+  --npc-sym: #F49AC2;         /* ui-lint-allow */    /* 女·粉红 */
+}
+
+/* —— 翻面机制 —— */
+#npc-card-container .npc-card-wrapper { perspective: 1600px; }
+.npc-card-flip {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.npc-card-wrapper.is-flipped .npc-card-flip { transform: rotateY(180deg); }
+.npc-card-face {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--pa-paper);
+  color: var(--pa-ink);
+  box-shadow: 0 4px 14px var(--overlay-30), 0 0 0 1px var(--pa-line);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* 硬隔离：非当前面在 90° 中点切到 hidden，浏览器 backface 失效也不会
+     透出/可编辑反面内容（visibility 延迟 0.3s = 翻面动画一半） */
+  transition: visibility 0s linear 0.3s;
+}
+.npc-card-front {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 248px;
+}
+.npc-card-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* 背面定高(inset:0)；内容裹在 .npc-back-inner 里，按自然高度堆叠，
+   不被父盒约束/压缩 —— 翻面用 inner 的 offsetHeight 测真实总高 */
+.npc-card-back > * { flex: 0 0 auto; }
+.npc-card--v3 .npc-back-inner {
+  display: flex;
+  flex-direction: column;
+}
+/* 未翻：正面可见可交互，背面隐藏；翻后对调（pointer-events 立即切，
+   visibility 在动画中点切，避免编辑/看到“反字” */
+.npc-card-wrapper.is-flipped .npc-card-front {
+  visibility: hidden;
+  pointer-events: none;
+}
+.npc-card-wrapper.is-flipped .npc-card-back {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* —— 正面 header：badge 渲为左上角带，操作键右上 —— */
+.npc-card--v3 .npc-card-header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 4;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.npc-card--v3 .npc-card-header::before { content: none; }
+.npc-card--v3 .npc-badge {
+  position: absolute;
+  top: 8px;
+  left: -1px;
+  right: auto;
+  z-index: 5;
+  border-radius: 0 4px 4px 0;
+  padding: 2.5px 10px 2.5px 7px;
+  font-family: var(--font-mono);
+  letter-spacing: 1.4px;
+  color: var(--pa-surface);
+  box-shadow: 0 1px 3px var(--overlay-30);
+}
+.npc-card--v3 .npc-badge.new { background: var(--pa-ochre); }
+.npc-card--v3 .npc-badge.update { background: var(--pa-gold); }
+.npc-card--v3 .npc-badge.approved { background: #3F6F4E; }  /* ui-lint-allow */
+.npc-card--v3 .npc-badge.restore { background: #5E7A8C; }   /* ui-lint-allow */
+/* v3 正面操作键已下沉到背面 foot —— 此处不再有 .npc-header-actions */
+
+/* —— banner（性别渐变） —— */
+.npc-card--v3 .npc-banner {
+  position: relative;
+  min-height: 96px;
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 30%, var(--sheen-15), transparent 60%),
+    linear-gradient(110deg, var(--npc-c1) 0%, var(--pa-mid) 60%, var(--npc-c2) 140%);
+}
+.npc-card--v3 .npc-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, var(--sheen-5) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, transparent 45%, var(--overlay-40) 100%);
+}
+.npc-card--v3 .npc-banner-glyph {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  font-family: var(--font-serif, var(--font-ui));
+  font-weight: 900;
+  font-size: 88px;
+  line-height: 1;
+  color: var(--pa-surface);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.npc-card--v3 .npc-banner-id {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 1.4px;
+  color: var(--sheen-70);
+  z-index: 2;
+}
+.npc-card--v3 .npc-banner-main { position: relative; z-index: 2; }
+.npc-card--v3 .npc-banner-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.npc-card--v3 .npc-name {
+  font-family: var(--font-serif, var(--font-ui));
+  font-size: var(--text-title, 1.05rem);
+  font-weight: var(--weight-bold);
+  color: var(--pa-surface);
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+.npc-card--v3 .npc-banner-gender {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--sheen-70);
+}
+.npc-card--v3 .npc-banner-sub { margin-top: 3px; }
+.npc-card--v3 .npc-cognitive-text {
+  font-size: var(--text-caption, 0.72rem);
+  color: var(--sheen-80);
+  line-height: 1.4;
+}
+
+/* —— 正面状态区 —— */
+.npc-card--v3 .npc-front-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.npc-card--v3 .npc-where {
+  padding: 8px 16px;
+  background: var(--pa-paper2);
+  border-bottom: 1px dashed var(--pa-line);
+  font-size: var(--text-xs);
+  color: var(--pa-ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+}
+.npc-card--v3 .npc-where-k {
+  font-family: var(--font-mono);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--pa-ink-mute);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.npc-card--v3 .npc-where-v {
+  font-family: var(--font-serif, var(--font-ui));
+  font-weight: var(--weight-semibold);
+  color: var(--pa-ink);
+}
+.npc-card--v3 .npc-where-sep { color: var(--pa-ink-mute); opacity: 0.6; }
+.npc-card--v3 .npc-thought-quote {
+  flex: 1;
+  position: relative;
+  padding: 16px 22px 14px;
+  font-family: var(--font-serif, var(--font-ui));
+  font-size: var(--text-body, 0.95rem);
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--pa-ink);
+}
+.npc-card--v3 .npc-thought-quote::before {
+  content: "\201C";
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-serif, var(--font-ui));
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--pa-ochre);
+  opacity: 0.4;
+}
+.npc-card--v3 .npc-thought-empty { color: var(--pa-ink-mute); font-style: normal; }
+.npc-card--v3 .npc-state-foot {
+  padding: 10px 16px;
+  background: var(--pa-paper2);
+  border-top: 1px dashed var(--pa-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+.npc-card--v3 .npc-foot-item { display: inline-flex; align-items: baseline; gap: 5px; }
+.npc-card--v3 .npc-foot-k {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 1.4px;
+  color: var(--pa-ink-mute);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.npc-card--v3 .npc-foot-v {
+  font-family: var(--font-serif, var(--font-ui));
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--pa-ink);
+}
+.npc-card--v3 .npc-foot-v--intent { color: var(--pa-ochre); }
+.npc-card--v3 .npc-flip-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 1px;
+  color: var(--pa-ink-mute);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* —— 背面（身份层） —— */
+.npc-card--v3 .npc-back-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px 12px;
+  background: linear-gradient(180deg, var(--pa-paper2) 0%, color-mix(in srgb, var(--pa-paper2) 80%, #000) 100%);
+  border-bottom: 1px dashed var(--pa-line);
+}
+.npc-card--v3 .npc-back-seal {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border: 2px solid var(--pa-ochre);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pa-ochre);
+  font-family: var(--font-serif, var(--font-ui));
+  font-weight: 900;
+  font-size: var(--text-lg);
+  transform: rotate(-4deg);
+}
+.npc-card--v3 .npc-back-title { flex: 1; min-width: 0; }
+.npc-card--v3 .npc-back-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 2.5px;
+  color: var(--pa-ochre);
+}
+.npc-card--v3 .npc-back-name {
+  display: block;
+  font-family: var(--font-serif, var(--font-ui));
+  font-size: var(--text-title, 1.05rem);
+  font-weight: var(--weight-bold);
+  color: var(--pa-ink);
+  margin-top: 3px;
+  line-height: 1.25;
+  word-break: keep-all;
+}
+.npc-card--v3 .npc-back-code {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--pa-ink-mute);
+  line-height: 1.4;
+  word-break: break-all;
+}
+.npc-card--v3 .npc-back-body {
+  /* 不用 flex:1：自然高度堆叠，使 back.scrollHeight 等于真实总高，
+     翻面撑高才不会少算导致 foot 被裁 */
+  overflow: visible;
+  padding: 12px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.npc-card--v3 .npc-back-row {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+.npc-card--v3 .npc-back-k {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 1.4px;
+  color: var(--pa-ink-mute);
+}
+.npc-card--v3 .npc-back-v {
+  font-family: var(--font-serif, var(--font-ui));
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--pa-ink);
+  word-break: break-word;
+}
+/* 其他字段：默认展开、不可折叠，仅保留虚线分割线 */
+.npc-card--v3 .npc-back-more { margin-top: 2px; border-top: 1px dashed var(--pa-line); padding-top: 9px; }
+.npc-card--v3 .npc-back-more-body {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.npc-card--v3 .npc-back-foot {
+  padding: 8px 14px;
+  background: var(--pa-paper2);
+  border-top: 1px dashed var(--pa-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.npc-card--v3 .npc-back-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.npc-card--v3 .npc-back-hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 1.2px;
+  color: var(--pa-ink-soft);
+  text-align: right;
+  margin-left: auto;
+}
+.npc-card--v3 .npc-back-btn {
+  /* width/height/opacity/filter 显式覆盖全局 [data-action] 方形按钮样式，
+     使选中/删除与「编辑」键同款 pill */
+  width: auto;
+  height: auto;
+  opacity: 1;
+  filter: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--overlay-10);
+  color: var(--pa-ink);
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  line-height: 1;
+  padding: 6px 10px;
+  min-height: 26px;
+  cursor: pointer;
+  transition: background var(--transition-base);
+}
+.npc-card--v3 .npc-back-btn:hover { background: var(--overlay-20); }
+.npc-card--v3 .npc-back-btn.is-saving {
+  background: var(--pa-ochre);
+  color: var(--pa-surface);
+  font-weight: var(--weight-bold);
+}
+
+/* —— v3 卡字段：默认纯展示（无文本光标/铅笔）；仅编辑态显可编辑外观 —— */
+.npc-card--v3 .npc-editable { cursor: inherit; }
+.npc-card--v3 .npc-editable::after { content: none; }
+.npc-card--v3 .npc-editable:hover,
+.npc-card--v3 .npc-editable:focus { background: transparent; outline: none; }
+.npc-card-wrapper.is-editing .npc-card--v3 .npc-editable {
+  cursor: text;
+  background: var(--overlay-10);
+  border-radius: var(--radius-xs);
+}
+.npc-card-wrapper.is-editing .npc-card--v3 .npc-editable:hover { background: var(--overlay-20); }
+.npc-card-wrapper.is-editing .npc-card--v3 .npc-editable:focus {
+  background: var(--pa-surface);
+  outline: 1px solid var(--pa-ochre);
+  border-radius: var(--radius-xs);
+}
+
+/* —— 主角传说卡：双层金边 + 顶部星 —— */
+.npc-card--hero .npc-card-face {
+  box-shadow:
+    0 4px 16px var(--overlay-40),
+    0 0 0 1px var(--pa-line),
+    inset 0 0 0 3px var(--pa-ochre),
+    inset 0 0 0 4px var(--overlay-20),
+    inset 0 0 0 6px var(--pa-gold);
+}
+.npc-card--hero .npc-hero-star {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--sheen-40), transparent 55%), var(--pa-gold);
+  color: var(--pa-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  box-shadow: 0 2px 4px var(--overlay-30);
+}
+.npc-card--hero .npc-hero-strip {
+  position: absolute;
+  top: 8px;
+  left: -1px;
+  z-index: 5;
+  background: var(--pa-ochre);
+  color: var(--pa-surface);
+  border-radius: 0 4px 4px 0;
+  padding: 2.5px 10px 2.5px 7px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 1.4px;
+}
+/* 主角卡不可拖拽/删除 */
+.npc-card-wrapper.npc-protagonist { cursor: default; }
+.npc-card-wrapper.npc-protagonist::before { content: none; }
+
+/* —— v3 卡：性别符号配色 + 整体字号放大（覆盖上方同名规则） —— */
+.npc-card--v3 .npc-gender-sym {
+  color: var(--npc-sym);
+  font-weight: var(--weight-bold);
+  font-size: 1.25em;
+  margin-right: 1px;
+}
+/* banner */
+.npc-card--v3 .npc-name { font-size: calc(var(--text-title) * 1.35); }
+.npc-card--v3 .npc-banner-gender { font-size: var(--text-body-sm); color: var(--sheen-80); }
+.npc-card--v3 .npc-cognitive-text { font-size: var(--text-body); }
+.npc-card--v3 .npc-banner-id { font-size: var(--text-sm); }
+/* 正面状态区 */
+.npc-card--v3 .npc-where { font-size: var(--text-body-sm); }
+.npc-card--v3 .npc-where-v { font-size: var(--text-body); }
+.npc-card--v3 .npc-thought-quote { font-size: var(--text-title); line-height: 1.65; }
+.npc-card--v3 .npc-thought-quote::before { font-size: 34px; }
+.npc-card--v3 .npc-foot-k { font-size: var(--text-caption); }
+.npc-card--v3 .npc-foot-v { font-size: var(--text-body-lg); }
+.npc-card--v3 .npc-flip-hint { font-size: var(--text-body-sm); }
+/* 背面身份层 */
+.npc-card--v3 .npc-back-kicker { font-size: var(--text-caption); }
+.npc-card--v3 .npc-back-name { font-size: calc(var(--text-title) * 1.2); }
+.npc-card--v3 .npc-back-code { font-size: var(--text-sm); }
+.npc-card--v3 .npc-back-k { font-size: var(--text-caption); }
+.npc-card--v3 .npc-back-v { font-size: var(--text-body-lg); }
+.npc-card--v3 .npc-back-hint { font-size: var(--text-caption); }
+.npc-card--hero .npc-hero-strip { font-size: var(--text-xs); }
