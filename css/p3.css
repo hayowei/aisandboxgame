@@ -1,0 +1,606 @@
+/* ============================================================
+   Phase 3 chat —— 消息/卡片直接渲染到 .chat-messages-area，跟 P1/P2 同流。
+   独立 panel 已废，这里只保留 P3 自有的卡片/消息样式。
+   ============================================================ */
+
+/* P3 工具按钮（design-chat-header 内）：仅 phase=p3 时显示。
+   尺寸/字号走标准 .btn-ghost.btn-sm（components.css），此处只管 phase 显隐与图标字号 */
+.design-p3-tool {
+  display: none;
+}
+.design-p3-tool .material-symbols-outlined {
+  font-size: 16px;
+}
+body[data-design-phase="p3"] .design-p3-tool {
+  display: inline-flex;
+}
+
+/* P3 用户消息（接 .chat-message.user-message 主样式，下面调 P3 专用细节） */
+.p3-user-msg .chat-message-content {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-ui, sans-serif);
+}
+
+/* system / error 简单消息 —— 跟 .p3-assistant-card / P1·P2 frame 同收进 880 居中盒
+   （margin:auto 把 880 上限的余量吃掉居中；.p3-msg-error 继承本基底，无需单独写）。 */
+.p3-msg {
+  margin: 8px auto;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  max-width: var(--design-p1-editorial-frame-max, 880px);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+.p3-msg-system {
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  align-self: center;
+  max-width: var(--design-p1-editorial-frame-max, 880px);
+  text-align: center;
+  padding: 6px 0;
+}
+/* 错误条 —— 同 .pzwc-error 手记条语言：透明底 + danger 左竖线 */
+.p3-msg-error {
+  background: transparent;
+  color: var(--status-danger);
+  border: none;
+  border-left: 2px solid color-mix(in srgb, var(--status-danger) 55%, transparent);
+  border-radius: 0;
+  align-self: stretch;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* AI 卡片 —— 观感对齐 P1/P2 的 .dcv-workshop-frame 黑白编辑部面板
+   （canvas 底 + 18px 圆角细框 + mono 状态带），保留分区卡片结构给 diff 红绿决断区。 */
+.p3-assistant-card {
+  /* 跟 P1/P2 的 editorial frame 统一：收进 880 居中盒，避免从 P2 切到 P3 时内容区"咣"地变宽。
+     用同一个 --design-p1-editorial-frame-max 变量，三个 Phase 的内容宽度从此联动。
+     align-self:stretch 被 max-width 限到 880 后，margin:auto 吃掉余量把卡片居中（同 P1/P2 用户气泡机制）。 */
+  align-self: stretch;
+  max-width: var(--design-p1-editorial-frame-max, 880px);
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--surface-canvas);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 0;
+  box-shadow: none;
+  overflow: hidden;
+  white-space: normal;
+}
+
+/* 状态带 —— 同 .dcv-frame-top 的 mono 大写字距语言 */
+.p3-meta-bar {
+  padding: 10px 20px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  background: color-mix(in srgb, var(--surface-elevated) 60%, transparent);
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.p3-meta-streaming {
+  color: var(--text-main);
+  font-weight: var(--weight-medium, 500);
+}
+/* 脉动点用 brand-accent —— 与 .dcv-frame-dot/.dcv-frame-led 同一颗识别点 */
+.p3-meta-streaming::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: var(--brand-accent);
+  animation: p3Pulse 1s ease-in-out infinite;
+}
+.p3-meta-done { color: var(--status-success); }
+.p3-meta-warn { color: var(--status-warning); font-weight: 600; }
+
+@keyframes p3Pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.p3-card-section {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.p3-card-section:last-child { border-bottom: none; }
+
+.p3-card-section summary {
+  cursor: pointer;
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--text-soft);
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.p3-card-section summary::-webkit-details-marker { display: none; }
+.p3-card-section summary::before {
+  content: "▶";
+  font-size: 9px;
+  color: var(--text-muted);
+  transition: transform 0.12s ease;
+}
+.p3-card-section details[open] > summary::before,
+details.p3-card-section[open] > summary::before { transform: rotate(90deg); }
+
+.p3-card-section .p3-section-body {
+  margin-top: 8px;
+  font-size: var(--text-body);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 推理段（默认折叠：决策 8）—— 展开后自然撑开，外层 chat-messages-area 统一滚动。
+   观感对齐建造段 .pzwc-build-msg 手记条：mono 灰度 + 左竖线，不再用实底灰盒 */
+.p3-reasoning-body > .p3-section-body {
+  font-family: var(--font-mono, monospace);
+  color: var(--text-soft);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  padding: 4px 12px;
+  background: transparent;
+  border-radius: 0;
+  border-left: 2px solid var(--border-medium);
+}
+
+/* prose（AI 正文）—— 自然撑开，由外层 chat-messages-area 滚动控制
+   （集成进主聊天后不再需要内部 scroll；MVP 那是独立面板才限高）。
+   字体层级对齐 pzwc-ask 正文（design 模式的"亮"层级：sans + text-body-lg），
+   不再用游戏模式的衬线 */
+.p3-card-section.p3-prose-body {
+  padding: 16px 24px;
+}
+.p3-prose-body .p3-section-body {
+  font-family: inherit;
+  font-size: var(--text-body-lg, 14px);
+  line-height: 1.65;
+  color: var(--text-main);
+  margin-top: 0;
+  /* 正文是 markdown 渲染产物（_proseHtml）——pre-wrap 会把标签间换行符渲成空行 */
+  white-space: normal;
+}
+
+/* markdown 块间距（与 .chat-message-content 同口径） */
+.p3-prose-body .p3-section-body p {
+  margin: 0 0 8px;
+}
+.p3-prose-body .p3-section-body ul,
+.p3-prose-body .p3-section-body ol {
+  padding-left: 16px;
+  margin: 8px 0;
+}
+.p3-prose-body .p3-section-body li {
+  margin-bottom: 4px;
+}
+.p3-prose-body .p3-section-body > *:first-child {
+  margin-top: 0;
+}
+.p3-prose-body .p3-section-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 调研折叠步（中间轮 tool 调用，p3UI.addInvestigationStep）：手记虚线 details——
+   与建造段 .pzwc-thinking（app.css PZWC 块）同一折叠语言，建造/编辑两段观感连续。
+   pre 的底色/前景/内边距由 .code-surface.code-surface--block 组件类带（p3UI 已挂） */
+.p3-investigation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.p3-investigation-step {
+  border: 1px dashed var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-caption);
+  color: var(--text-soft);
+}
+
+/* 体检结果 chip（复用 app.css 的 .pzwc-tool-chip）在 summary 行内的间距 */
+.p3-investigation-summary .pzwc-tool-chip {
+  margin-left: 8px;
+}
+
+/* summary 文案自带 "> " 前缀（CC 风格），摘掉 .p3-card-section 继承的 ▶ 角标避免双箭头 */
+.p3-investigation-step > summary {
+  cursor: pointer;
+  padding: 5px 10px;
+  user-select: none;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-normal);
+  color: var(--text-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.p3-investigation-step > summary::before {
+  content: none;
+}
+
+.p3-investigation-body {
+  padding: 0 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.p3-investigation-desc {
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.p3-investigation-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: color-mix(in srgb, var(--text-soft) 65%, transparent);
+  margin-bottom: 2px;
+}
+
+.p3-investigation-args-pre,
+.p3-investigation-result-pre {
+  margin: 0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+
+
+
+
+
+
+
+
+
+/* Diff section（patch 决断 UI） */
+.p3-diff-section { background: var(--surface-soft); }
+.p3-diff-section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.p3-diff-summary-label { flex: 1; color: var(--text-main); }
+/* 状态徽章 —— 同 .pzwc-tool-chip 的黑白描边方 chip 语言；status 色只留在文字/描边
+   作语义豁免点（待决断/已应用/已拒绝必须一眼可辨），不再用 tint 实底胶囊 */
+.p3-diff-status-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  padding: 1px 8px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.p3-diff-section.p3-diff-pending  .p3-diff-status-badge {
+  color: var(--status-warning);
+  border: 1px solid color-mix(in srgb, var(--status-warning) 55%, transparent);
+}
+.p3-diff-section.p3-diff-applied  .p3-diff-status-badge {
+  color: var(--status-success);
+  border: 1px solid color-mix(in srgb, var(--status-success) 55%, transparent);
+}
+.p3-diff-section.p3-diff-rejected .p3-diff-status-badge,
+.p3-diff-section.p3-diff-error    .p3-diff-status-badge {
+  color: var(--status-danger);
+  border: 1px solid color-mix(in srgb, var(--status-danger) 55%, transparent);
+}
+.p3-diff-section.p3-diff-ignored  .p3-diff-status-badge {
+  color: var(--text-muted);
+  border: 1px solid var(--border-soft);
+}
+.p3-diff-section.p3-diff-applied  { border-left: 3px solid color-mix(in srgb, var(--status-success) 50%, transparent); }
+.p3-diff-section.p3-diff-rejected,
+.p3-diff-section.p3-diff-error    { border-left: 3px solid color-mix(in srgb, var(--status-danger) 50%, transparent); }
+/* pending 状态不带左边线——默认状态、每次新出 patch 都会看到，黄线视觉太重。
+   状态信息已经在右上角 status badge 表达，左边线只在 applied/rejected 终态留色块。 */
+
+/* Stale pending：用户发新消息后旧 pending 卡降权，但仍可点开 apply/reject。
+   配合 details.open=false 自动收起，让用户专注最新一组。hover 时恢复醒目方便回头查阅。 */
+.p3-diff-section.p3-diff-stale {
+  opacity: 0.55;
+  filter: saturate(0.7);
+  transition: opacity 0.15s, filter 0.15s;
+}
+.p3-diff-section.p3-diff-stale:hover {
+  opacity: 0.9;
+  filter: saturate(1);
+}
+
+.p3-diff-section-body {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.p3-diff-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+  flex-shrink: 0;
+}
+
+/* 选择控件 */
+.p3-op-select-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--surface-soft);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-sm);
+  color: var(--text-soft);
+  flex-shrink: 0;
+}
+.p3-op-select-label { flex: 1; font-family: var(--font-mono, monospace); }
+.p3-op-selected-count { font-weight: 600; color: var(--text-main); }
+
+/* per-op */
+.p3-diff-op-head-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+.p3-op-checkbox {
+  cursor: pointer;
+  accent-color: var(--brand-primary);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.p3-op-checkbox:disabled { cursor: not-allowed; opacity: 0.5; }
+
+.p3-diff-body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-body-sm);
+}
+.p3-diff-op {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: var(--surface-elevated);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--border-strong);
+}
+.p3-diff-op:last-child { margin-bottom: 0; }
+.p3-diff-op-add { border-left-color: color-mix(in srgb, var(--status-success) 50%, transparent); }
+.p3-diff-op-remove { border-left-color: color-mix(in srgb, var(--status-danger) 50%, transparent); }
+.p3-diff-op-replace { border-left-color: color-mix(in srgb, var(--status-warning) 50%, transparent); }
+
+/* 双行 header：第一行中文面包屑（op 动词 + 翻译路径），第二行 raw path/op 小灰 monospace */
+.p3-diff-op-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-ui, sans-serif);
+}
+.p3-diff-op-header-zh {
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+.p3-diff-op-header-raw {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--text-soft);
+  line-height: 1.3;
+  word-break: break-all;
+}
+.p3-diff-op-add .p3-diff-op-header-zh { color: var(--status-success); }
+.p3-diff-op-remove .p3-diff-op-header-zh { color: var(--status-danger); }
+.p3-diff-op-replace .p3-diff-op-header-zh { color: var(--status-warning); }
+
+
+.p3-diff-line {
+  padding: 5px 8px;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-top: 4px;
+}
+.p3-diff-line-old {
+  background: color-mix(in srgb, var(--status-danger) 15%, transparent);
+  color: var(--status-danger);
+}
+.p3-diff-line-new {
+  background: color-mix(in srgb, var(--status-success) 18%, transparent);
+  color: var(--status-success);
+}
+.p3-diff-line-old::before { content: "−"; opacity: 0.6; margin-right: 8px; font-weight: 600; }
+.p3-diff-line-new::before { content: "+"; opacity: 0.6; margin-right: 8px; font-weight: 600; }
+
+.p3-diff-line-test-expected {
+  background: var(--surface-soft);
+  color: var(--text-soft);
+}
+.p3-diff-line-test-expected::before {
+  content: "≟";
+  opacity: 0.7;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+/* 长值折叠：超 3 行的 value 默认折叠到 3 行 + 「展开全部 N 行」按钮 */
+.p3-diff-line-body {
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.p3-diff-line-collapsible.collapsed .p3-diff-line-body {
+  max-height: 4.5em; /* line-height(1.5) × 3 行 */
+  overflow: hidden;
+  position: relative;
+}
+.p3-diff-line-collapsible.collapsed .p3-diff-line-body::after {
+  /* 底部柔渐变，暗示「还有更多」——用 currentColor + 低 opacity 适配各 line kind 颜色 */
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1.5em;
+  background: linear-gradient(to bottom, transparent, currentColor);
+  opacity: 0.08;
+  pointer-events: none;
+}
+.p3-diff-line-toggle {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 0;
+  font-size: var(--text-caption);
+  font-family: inherit;
+  color: var(--brand-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.p3-diff-line-toggle:hover { text-decoration: underline; }
+
+
+.p3-inline-error {
+  background: transparent;
+  color: var(--status-danger);
+  border-left: 3px solid color-mix(in srgb, var(--status-danger) 50%, transparent);
+  font-size: var(--text-body-sm);
+  padding: 10px 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 截断警告 —— 透明底 + warning 左竖线（语义豁免），不上 tint 实底 */
+.p3-truncation-warning {
+  background: transparent;
+  border-left: 3px solid var(--status-warning);
+}
+.p3-trunc-title {
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--status-warning);
+  margin-bottom: 4px;
+}
+.p3-trunc-detail {
+  font-size: var(--text-body-sm);
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+
+
+
+/* 重新生成 footer——轻量贴边布局，按钮尺寸走标准 .btn-ghost.btn-sm（components.css） */
+.p3-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 20px 10px;
+  background: transparent;
+}
+.p3-card-footer-hint {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+.p3-assistant-card-regenerated {
+  opacity: 0.6;
+  filter: grayscale(0.3);
+}
+.p3-regenerated-note {
+  text-align: center;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  font-style: italic;
+  background: var(--surface-soft);
+}
+
+/* 流式 / abort 状态指示 —— 黑白面板语言：流式只靠状态带脉动点表达，
+   不再上 brand-primary 描边发光；abort 保留 danger 描边作语义豁免 */
+.p3-assistant-card-streaming {
+  border-color: var(--border-medium);
+}
+.p3-assistant-card-aborted {
+  border-color: color-mix(in srgb, var(--status-danger) 50%, transparent);
+  opacity: 0.85;
+}
+.p3-assistant-card-aborted .p3-meta-bar {
+  background: transparent;
+}
+
+/* V1 锁定页 */
+.p3-locked-banner {
+  margin: 16px auto;
+  max-width: 480px;
+  text-align: center;
+  padding: 32px 24px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+}
+.p3-locked-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+.p3-locked-title {
+  font-size: var(--text-title);
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.p3-locked-desc {
+  font-size: var(--text-body);
+  color: var(--text-soft);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+.p3-locked-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 窄屏 */
+@media (max-width: 900px) {
+  .p3-msg { max-width: 100%; }
+}

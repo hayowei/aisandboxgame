@@ -1,0 +1,194 @@
+/* ============================================
+ * Opening Wizard (新卡开局问答) 样式
+ * 复用 components.css 的 .modal / .themed-modal / .field / .btn-* / .modal-actions
+ * 仅追加 wizard 私有结构（step indicator / radio / locked tag / 地点选项组）
+ * ============================================ */
+
+.opening-wizard-modal {
+  /* .modal 已提供全屏遮罩 + 居中 */
+  z-index: 9000;
+}
+
+.opening-wizard-content {
+  width: min(560px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.opening-wizard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.opening-wizard-step-label {
+  font-size: 12px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.opening-wizard-cancel {
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px 10px;
+  min-width: 0;
+}
+
+.opening-wizard-greeting {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 12px 0 20px;
+  color: var(--text-main);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: normal;
+}
+
+.opening-wizard-greeting em {
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+.opening-wizard-radios {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.opening-wizard-radio {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  grid-template-rows: auto auto;
+  gap: 4px 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.opening-wizard-radio:hover {
+  border-color: var(--brand-primary);
+  background: var(--sheen-5);
+}
+
+.opening-wizard-radio input[type="radio"] {
+  grid-row: 1 / span 2;
+  grid-column: 1;
+  margin: 2px 0 0;
+  accent-color: var(--brand-primary);
+}
+
+.opening-wizard-radio-main {
+  grid-row: 1;
+  grid-column: 2;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.opening-wizard-radio-hint {
+  grid-row: 2;
+  grid-column: 2;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.opening-wizard-role-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.opening-wizard-role-input {
+  flex: 1;
+}
+
+.opening-wizard-random-btn {
+  flex-shrink: 0;
+}
+
+.opening-wizard-locked {
+  background: var(--sheen-10);
+  border: 1px dashed var(--border-medium);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.opening-wizard-loc-choices {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.opening-wizard-loc-choice {
+  flex: 1;
+}
+
+.opening-wizard-loc-choice.is-selected {
+  border-color: var(--brand-primary);
+  background: var(--sheen-10);
+  color: var(--brand-primary);
+}
+
+.opening-wizard-manual-block {
+  margin: 12px 0;
+}
+
+.opening-wizard-site-select {
+  width: 100%;
+}
+
+.opening-wizard-entity-tag {
+  color: var(--text-soft);
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.opening-wizard-hint {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin: 8px 0;
+  text-align: center;
+}
+
+.opening-wizard-hint--warn {
+  color: var(--status-warning);
+  font-weight: 500;
+}
+
+.opening-wizard-assigned-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  margin: 12px 0;
+}
+
+.opening-wizard-assigned-block .opening-wizard-locked {
+  margin: 0;
+  text-align: left;
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+.opening-wizard-locked-sub {
+  margin: -4px 0 0;
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.opening-wizard-assigned-block .btn-ghost {
+  align-self: flex-end;
+}

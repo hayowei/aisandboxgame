@@ -1,0 +1,3216 @@
+{
+  "ucid": "wc_builtin_cultivation",
+  "manifest": {
+    "card_id": "wc_builtin_cultivation",
+    "schema_version": 2,
+    "source": "builtin",
+    "created_at": "2026-05-24T00:00:00Z",
+    "author_display_name": "官方",
+    "author_uid": "official"
+  },
+  "name": "内置世界卡·天玄界",
+  "description": "推荐从这里进入修仙世界。残酷修真界 · 底层求生 · 秘境大世。",
+  "contentLocale": "zh-CN",
+  "localizations": {},
+  "snapshot": {
+    "_schema_version": 2,
+    "_extensions": {},
+    "progressive_map": true,
+    "start_hint": {
+      "terrain": "village",
+      "description": "默认地图起点占位，可在实际开场时被具体地点覆盖"
+    },
+    "custom_terrains": [
+      {
+        "id": "village",
+        "name": "村庄",
+        "name_en": "Village",
+        "color": "#8b4513",
+        "icon": "🛖",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "spread",
+        "description": "凡人聚居之地，常依附宗门或坊市而生",
+        "description_en": "A mortal settlement often dependent on sects or markets"
+      },
+      {
+        "id": "market",
+        "name": "坊市",
+        "name_en": "Market",
+        "color": "#c98c3a",
+        "icon": "🏮",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "cluster",
+        "description": "散修、商贩与各方势力交易往来的混杂之地",
+        "description_en": "A mixed market where rogue cultivators, merchants, and sect agents trade."
+      },
+      {
+        "id": "mine",
+        "name": "矿区",
+        "name_en": "Mine",
+        "color": "#6b7280",
+        "icon": "⛏️",
+        "passable": true,
+        "moveCost": 2,
+        "spreadMode": "cluster",
+        "description": "灵矿开采之地，常伴随盘剥、塌方与流血",
+        "description_en": "A spirit-ore mine marked by exploitation, cave-ins, and bloodshed."
+      },
+      {
+        "id": "black_market",
+        "name": "黑市",
+        "name_en": "Black Market",
+        "color": "#4b5563",
+        "icon": "🎭",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "cluster",
+        "description": "销赃、易物与见不得光交易汇聚的阴影角落",
+        "description_en": "A shadowy quarter for laundering loot, bartering, and illicit deals."
+      },
+      {
+        "id": "ruins",
+        "name": "遗迹",
+        "name_en": "Ruins",
+        "color": "#7c6f64",
+        "icon": "🏚️",
+        "passable": true,
+        "moveCost": 2,
+        "spreadMode": "cluster",
+        "description": "残破洞府、古战场与失落道统埋骨之地",
+        "description_en": "Ruined caves, old battlefields, and the burial places of lost lineages."
+      },
+      {
+        "id": "swamp",
+        "name": "沼泽",
+        "name_en": "Swamp",
+        "color": "#556b2f",
+        "icon": "🪷",
+        "passable": true,
+        "moveCost": 2,
+        "spreadMode": "spread",
+        "description": "瘴气弥漫的湿毒地带，往往藏着药材与杀机",
+        "description_en": "A miasmic wetland hiding herbs, poison, and ambushes."
+      },
+      {
+        "id": "spirit_vein",
+        "name": "灵脉",
+        "name_en": "Spirit Vein",
+        "color": "#7b68ee",
+        "icon": "✨",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "cluster",
+        "description": "灵气汇聚之地",
+        "description_en": "A place where spiritual energy converges"
+      },
+      {
+        "id": "forbidden_zone",
+        "name": "禁地",
+        "name_en": "Forbidden Zone",
+        "color": "#8b0000",
+        "icon": "⛔",
+        "passable": false,
+        "moveCost": 999,
+        "spreadMode": "spread",
+        "description": "危险的禁区，弥漫着危险气息",
+        "description_en": "A dangerous forbidden area filled with perilous aura"
+      },
+      {
+        "id": "sect_grounds",
+        "name": "宗门",
+        "name_en": "Sect Grounds",
+        "color": "#daa520",
+        "icon": "🏯",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "cluster",
+        "description": "修仙宗门所在",
+        "description_en": "Home of a cultivation sect"
+      },
+      {
+        "id": "spirit_field",
+        "name": "灵田",
+        "name_en": "Spirit Field",
+        "color": "#32cd32",
+        "icon": "🌾",
+        "passable": true,
+        "moveCost": 1,
+        "spreadMode": "cluster",
+        "description": "种植灵草的田地",
+        "description_en": "Fields for growing spiritual herbs"
+      }
+    ],
+    "panel_fields": {
+      "panel_status": [
+        {
+          "key": "datetime",
+          "label": "时间",
+          "icon": "📅",
+          "_template": "time",
+          "_precision": "time",
+          "fields": [
+            {
+              "key": "year",
+              "label": "年",
+              "type": "integer"
+            },
+            {
+              "key": "month",
+              "label": "月",
+              "type": "integer"
+            },
+            {
+              "key": "day",
+              "label": "日",
+              "type": "integer"
+            },
+            {
+              "key": "time_str",
+              "label": "时间",
+              "type": "string"
+            }
+          ],
+          "_era": "道历"
+        },
+        {
+          "key": "location",
+          "label": "地点",
+          "icon": "📍",
+          "fields": [
+            {
+              "key": "country",
+              "label": "道域",
+              "type": "string"
+            },
+            {
+              "key": "site",
+              "label": "区域",
+              "type": "string"
+            },
+            {
+              "key": "spot",
+              "label": "场所",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "key": "objective",
+          "label": "目标",
+          "icon": "🎯",
+          "_template": "objective",
+          "fields": [
+            {
+              "key": "text",
+              "label": "当前目标",
+              "type": "string",
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "key": "cultivation_system",
+          "label": "修真体系",
+          "icon": "☯️",
+          "fields": [
+            {
+              "key": "realm",
+              "label": "境界",
+              "type": "string"
+            },
+            {
+              "key": "spiritual_energy",
+              "label": "灵力",
+              "type": "integer"
+            }
+          ]
+        }
+      ],
+      "panel_npc": [
+        {
+          "key": "id",
+          "label": "标识符",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": true
+        },
+        {
+          "key": "name",
+          "label": "角色名",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "gender",
+          "label": "性别",
+          "desc": "如：女/男/未知",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "origin",
+          "label": "来历",
+          "desc": "一句话说明出身或来源",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "birthday",
+          "label": "生日",
+          "desc": "纯日期值，固定格式：道历YYYY.MM.DD",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false,
+          "nullable": true
+        },
+        {
+          "key": "initial_status",
+          "label": "此刻状态",
+          "desc": "身体/情绪/位置/动作 单行字符串",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "dialogue_tone",
+          "label": "说话基调",
+          "desc": "稳定说话风格 + in_person / sms 差异",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "dialogue_examples",
+          "label": "说话示例",
+          "desc": "in_person ≥6 / sms ≥4",
+          "type": "object",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "role_marker",
+          "label": "主角锚点",
+          "desc": "\"主角\" | null",
+          "type": "string",
+          "nullable": true,
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "cognitive_state",
+          "label": "认知状态",
+          "desc": "角色当前认为自己是谁",
+          "type": "string",
+          "fixed": true,
+          "runtimeRequired": false
+        },
+        {
+          "key": "personality",
+          "label": "角色性格",
+          "type": "string",
+          "desc": "标签式，限2-3个短语，如：阴险狡诈/杀伐果断/表面温婉"
+        },
+        {
+          "key": "appearance",
+          "label": "外貌特征",
+          "type": "string",
+          "desc": "标签式，最多3词，用/分隔，反映功法特征或反噬状态"
+        },
+        {
+          "key": "clothing",
+          "label": "当前衣着",
+          "type": "string",
+          "desc": "随战斗或环境变化的着装描述，标签式，最多3词"
+        },
+        {
+          "key": "spiritual_root",
+          "label": "灵根资质",
+          "type": "string",
+          "desc": "角色的修仙天赋",
+          "enum": [
+            "天灵根",
+            "异变灵根",
+            "双系真灵根",
+            "三系真灵根",
+            "四系伪灵根",
+            "五系废灵根",
+            "凡人无灵根"
+          ]
+        },
+        {
+          "key": "cultivation_realm",
+          "label": "修为境界",
+          "type": "string",
+          "desc": "当前所处的修真大境界",
+          "enum": [
+            "凡人",
+            "炼气期",
+            "筑基期",
+            "金丹期",
+            "元婴期",
+            "化神期及以上"
+          ]
+        },
+        {
+          "key": "sect_faction",
+          "label": "所属宗派",
+          "type": "string",
+          "desc": "所在的门派、家族或散修身份，如'天剑宗'或'东荒散修'"
+        },
+        {
+          "key": "alignment",
+          "label": "正邪倾向",
+          "type": "string",
+          "desc": "人物的行为底线与行事准则",
+          "enum": [
+            "恪守正道",
+            "中立逐利",
+            "阴毒邪修",
+            "魔道巨擘",
+            "凡俗之辈"
+          ]
+        },
+        {
+          "key": "threat_level",
+          "label": "威胁程度",
+          "type": "string",
+          "desc": "仅运行时生成；相对于玩家当前境界的综合危险度，不得作为静态角色档案固定值存储",
+          "enum": [
+            "如蝼蚁般",
+            "势均力敌",
+            "极度致命",
+            "深不可测"
+          ],
+          "fixed": true,
+          "runtimeRequired": false
+        }
+      ],
+      "_worldTermsSource": {
+        "currency_name": "下品灵石",
+        "calendar_era": "道历",
+        "time_precision": "time",
+        "calendar_units": [
+          "年",
+          "月",
+          "日"
+        ],
+        "time_segments": [],
+        "location_levels": [
+          "道域",
+          "区域",
+          "场所"
+        ],
+        "terminology_revision": "",
+        "glossary_origin": "",
+        "extra_status_groups": [
+          {
+            "key": "cultivation_system",
+            "label": "修真体系",
+            "icon": "☯️",
+            "fields": [
+              {
+                "key": "realm",
+                "label": "境界",
+                "type": "string"
+              },
+              {
+                "key": "spiritual_energy",
+                "label": "灵力",
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "extra_char_fields": [
+          {
+            "key": "spiritual_root",
+            "label": "灵根资质",
+            "type": "string",
+            "desc": "角色的修仙天赋"
+          },
+          {
+            "key": "cultivation_realm",
+            "label": "修为境界",
+            "type": "string",
+            "desc": "当前所处的修真大境界"
+          },
+          {
+            "key": "sect_faction",
+            "label": "所属宗派",
+            "type": "string",
+            "desc": "所在的门派、家族或散修身份，如'天剑宗'或'东荒散修'"
+          },
+          {
+            "key": "alignment",
+            "label": "正邪倾向",
+            "type": "string",
+            "desc": "人物的行为底线与行事准则"
+          }
+        ]
+      },
+      "status": {
+        "system_fields": [
+          {
+            "key": "datetime",
+            "label": "时间",
+            "icon": "📅",
+            "_template": "time",
+            "_precision": "time",
+            "fields": [
+              {
+                "key": "year",
+                "label": "年",
+                "type": "integer"
+              },
+              {
+                "key": "month",
+                "label": "月",
+                "type": "integer"
+              },
+              {
+                "key": "day",
+                "label": "日",
+                "type": "integer"
+              },
+              {
+                "key": "time_str",
+                "label": "时间",
+                "type": "string"
+              }
+            ],
+            "_era": "道历"
+          },
+          {
+            "key": "objective",
+            "label": "目标",
+            "icon": "🎯",
+            "_template": "objective",
+            "fields": [
+              {
+                "key": "text",
+                "label": "当前目标",
+                "type": "string",
+                "nullable": true
+              }
+            ]
+          }
+        ],
+        "custom_fields": [
+          {
+            "key": "location",
+            "label": "地点",
+            "icon": "📍",
+            "fields": [
+              {
+                "key": "country",
+                "label": "道域",
+                "type": "string"
+              },
+              {
+                "key": "site",
+                "label": "区域",
+                "type": "string"
+              },
+              {
+                "key": "spot",
+                "label": "场所",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "key": "cultivation_system",
+            "label": "修真体系",
+            "icon": "☯️",
+            "fields": [
+              {
+                "key": "realm",
+                "label": "境界",
+                "type": "string"
+              },
+              {
+                "key": "spiritual_energy",
+                "label": "灵力",
+                "type": "integer"
+              }
+            ]
+          }
+        ]
+      },
+      "npc": {
+        "system_fields": [
+          {
+            "key": "id",
+            "label": "标识符",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": true,
+            "desc": "唯一标识，同一角色在不同事件中保持一致"
+          },
+          {
+            "key": "name",
+            "label": "角色名",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": true,
+            "desc": "角色的显示名称"
+          },
+          {
+            "key": "gender",
+            "label": "性别",
+            "desc": "如：女/男/未知",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "origin",
+            "label": "来历",
+            "desc": "一句话说明出身或来源",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "birthday",
+            "label": "生日",
+            "desc": "纯日期值，固定格式：道历YYYY.MM.DD",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false,
+            "nullable": true
+          },
+          {
+            "key": "cognitive_state",
+            "label": "此刻自我认知",
+            "desc": "角色在 frozen_moment 这一刻认为自己是谁（与 frozen_moment.label 自洽）",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "initial_status",
+            "label": "此刻状态",
+            "desc": "此刻具体可见状态：身体/情绪/在场位置/正在做什么（与 frozen_moment.label 自洽）",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "dialogue_tone",
+            "label": "对话基调",
+            "desc": "稳定说话风格 + 性格底色；含面对面 / 短信场合表达习惯差异",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "dialogue_examples",
+            "label": "说话示例",
+            "desc": "few-shot 示例对话；in_person ≥6 / sms ≥4；in_person 含 *动作*+对白，sms 禁 *动作*",
+            "type": "object",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "role",
+            "label": "职能",
+            "desc": "尽量使用世界卡已存在的职能名或地点角色",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false
+          },
+          {
+            "key": "role_marker",
+            "label": "主角锚点",
+            "desc": "该角色是否为玩家固定主角（\"主角\" | null）",
+            "type": "string",
+            "fixed": true,
+            "runtimeRequired": false,
+            "nullable": true
+          }
+        ],
+        "custom_fields": [
+          {
+            "key": "personality",
+            "label": "角色性格",
+            "type": "string",
+            "desc": "标签式，限2-3个短语，如：阴险狡诈/杀伐果断/表面温婉"
+          },
+          {
+            "key": "appearance",
+            "label": "外貌特征",
+            "type": "string",
+            "desc": "标签式，最多3词，用/分隔，反映功法特征或反噬状态"
+          },
+          {
+            "key": "clothing",
+            "label": "当前衣着",
+            "type": "string",
+            "desc": "随战斗或环境变化的着装描述，标签式，最多3词"
+          },
+          {
+            "key": "spiritual_root",
+            "label": "灵根资质",
+            "type": "string",
+            "desc": "角色的修仙天赋",
+            "enum": [
+              "天灵根",
+              "异变灵根",
+              "双系真灵根",
+              "三系真灵根",
+              "四系伪灵根",
+              "五系废灵根",
+              "凡人无灵根"
+            ]
+          },
+          {
+            "key": "cultivation_realm",
+            "label": "修为境界",
+            "type": "string",
+            "desc": "当前所处的修真大境界",
+            "enum": [
+              "凡人",
+              "炼气期",
+              "筑基期",
+              "金丹期",
+              "元婴期",
+              "化神期及以上"
+            ]
+          },
+          {
+            "key": "sect_faction",
+            "label": "所属宗派",
+            "type": "string",
+            "desc": "所在的门派、家族或散修身份，如'天剑宗'或'东荒散修'"
+          },
+          {
+            "key": "alignment",
+            "label": "正邪倾向",
+            "type": "string",
+            "desc": "人物的行为底线与行事准则",
+            "enum": [
+              "恪守正道",
+              "中立逐利",
+              "阴毒邪修",
+              "魔道巨擘",
+              "凡俗之辈"
+            ]
+          },
+          {
+            "key": "threat_level",
+            "label": "威胁程度",
+            "type": "string",
+            "desc": "仅运行时生成；相对于玩家当前境界的综合危险度，不得作为静态角色档案固定值存储",
+            "enum": [
+              "如蝼蚁般",
+              "势均力敌",
+              "极度致命",
+              "深不可测"
+            ],
+            "fixed": true,
+            "runtimeRequired": false
+          }
+        ]
+      }
+    },
+    "world_setting": {
+      "settings": {
+        "eastern_waste": {
+          "entity_id": "eastern_waste",
+          "display_name": "东荒",
+          "atmosphere": "锋芒毕露之地——天空常年飘灰色灵气雾霾、空气里永远是淡淡血腥味与臭氧般刺鼻的剑气残余；雾霾透出冰冷的剑光。",
+          "chapters": {
+            "here_now": [
+              "位于天玄界极东、面朝无垠东海、背靠十万大山",
+              "灵气凛冽如刀、常人难忍受、极适合剑修吐纳",
+              "核心州府\"太阿城\"如出鞘利剑、镇压在海岸线最前沿",
+              "城外三十万里有著名洞天福地\"葬剑渊\"——渊内阴风怒号剑气纵横"
+            ],
+            "social_fabric": [
+              "天剑宗为东荒绝对霸主、表面镇妖、实则借名敛聚资源",
+              "宗内分烈火峰等数峰、各峰首座为实权长老",
+              "与西漠魔修水火不容、对中州听调不听宣",
+              "凡人依附于大宗门城池苟延残喘、外门弟子为破阶丹药同门相残"
+            ],
+            "order": [
+              "剑锋所指即为王法、社会阶层按境界严格划分",
+              "剑修弃剑求饶=被宗门诛杀剥去修为贬为凡人",
+              "凡人开采危险灵矿、外门弟子如牛马、内门长老掌生杀",
+              "宗门战中低阶剑修结\"诛仙万剑阵\"被视消耗品"
+            ],
+            "world_law": [
+              "灵气凛冽、剑修体系发达；锐金属性灵石与庚金矿脉盛产",
+              "上古真龙残留剑意演化此地地脉、奉行\"一剑破万法\"",
+              "剑修可借灵脉吞吐真元、肉身淬炼程度直接决定剑势威能",
+              "凡人无法引气入体、只能作为修士消耗资源活在底层"
+            ],
+            "rhythm": [
+              "太阿城每日有散修提妖兽头颅或同道首级来换灵石",
+              "葬剑渊每隔数月开渊一次、底层修士前赴后继跳入",
+              "宗门讲法、外门考核、灵矿轮值按月推进",
+              "剑修闭关淬剑短则数日、长则数月"
+            ],
+            "narrative_core": [
+              "玄灵矿区血祭异象迟迟未解、矿工与驻守弟子死状令人心惊",
+              "通天秘境即将开启、太阿城与坊市围绕名额情报护道资源争夺升温",
+              "宗门高层已下达炮灰征召令、外门杂役附庸散修凡俗矿工皆被卷入",
+              "内门大弟子身上有几桩旧秘境命案的疑云正在悄悄并案谈论"
+            ]
+          },
+          "sites": [
+            {
+              "site": "太阿城",
+              "spots": [
+                {
+                  "spot": "城门交易广场",
+                  "atmosphere": "森然剑光与吆喝声混在一起、空气里有焦炭与血气"
+                },
+                {
+                  "spot": "外围破败坊市"
+                }
+              ]
+            },
+            {
+              "site": "天剑宗烈火峰",
+              "spots": [
+                {
+                  "spot": "山门石阶"
+                }
+              ]
+            },
+            {
+              "site": "天剑宗",
+              "spots": [
+                {
+                  "spot": "外门杂役营"
+                }
+              ]
+            },
+            {
+              "site": "玄灵矿区",
+              "spots": [
+                {
+                  "spot": "杂役营与矿洞口"
+                }
+              ]
+            },
+            {
+              "site": "葬剑渊",
+              "spots": [
+                {
+                  "spot": "渊口断崖"
+                }
+              ]
+            }
+          ],
+          "narrative_core_characters": [
+            "李纯阳",
+            "赵无极",
+            "韩七",
+            "周魁"
+          ],
+          "_extensions": {}
+        },
+        "western_desert": {
+          "entity_id": "western_desert",
+          "display_name": "西漠",
+          "atmosphere": "黄沙昏黄、风沙卷起时如万鬼哭嚎；空气里永远夹着血腥与硫磺、稍有失神便走火入魔。",
+          "chapters": {
+            "here_now": [
+              "位于天玄界西极、被死亡与黄沙笼罩的贫瘠之地",
+              "灵气稀薄且狂暴、寻常修士寸步难行",
+              "核心州府\"赤沙城\"建立在巨大绿洲上、不分正邪只认灵石与实力",
+              "城外三千里有极凶洞天福地\"枯骨林\"——林中树木由怨气骸骨滋生"
+            ],
+            "social_fabric": [
+              "血煞门为绝对霸主、堂而皇之将人命视草菅",
+              "门下附庸成百上千魔修家族与马贼团伙",
+              "与中州某些道貌岸然势力暗中利益输送",
+              "是天玄界最黑暗的地下贸易网络中心"
+            ],
+            "order": [
+              "不存在常规社会治理、唯有赤裸力量威慑",
+              "统治结构=金字塔形黑帮宗门模式",
+              "修士斗法招招致命、对敌人仁慈=对自己残忍",
+              "尸体会被炼化为血丹或骨尸、连骨灰也被抽精血"
+            ],
+            "world_law": [
+              "灵气干涸、修士主修血煞或邪法",
+              "高阶修士可炼制\"血灵丹\"延寿、宿体凡人精血神魂为代价",
+              "走火入魔在此地是常事、风沙会卷起怨魂",
+              "凡人在此地寿命极短、低阶修士也只是消耗品"
+            ],
+            "rhythm": [
+              "风沙不分昼夜、白天天空昏黄夜里凄厉",
+              "赤沙城拍卖场堂而皇之拍卖各域被掳天才弟子",
+              "城外马贼按月分赃、跨域劫掠按季汇报",
+              "血祭仪式按邪修历法推进、伴随天劫前后频繁"
+            ],
+            "narrative_core": [
+              "血煞门跨域劫掠频繁、边镇血食药材修士接连失踪",
+              "万骨血池异象频发、老祖大限将至",
+              "赤沙城黑市禁术毒物与买命交易骤然活跃",
+              "夜离暗中勾连绿洲大族与门中邪修筹划反噬老祖"
+            ]
+          },
+          "sites": [
+            {
+              "site": "赤沙城",
+              "spots": [
+                {
+                  "spot": "森森白骨城墙下"
+                },
+                {
+                  "spot": "杀人越货的黑市"
+                }
+              ]
+            },
+            {
+              "site": "万骨血池",
+              "spots": [
+                {
+                  "spot": "池畔祭坛"
+                }
+              ]
+            },
+            {
+              "site": "枯骨林",
+              "spots": [
+                {
+                  "spot": "阴毒材料采集地"
+                }
+              ]
+            },
+            {
+              "site": "西漠绿洲",
+              "spots": [
+                {
+                  "spot": "马贼营地"
+                }
+              ]
+            }
+          ],
+          "narrative_core_characters": [
+            "血魔老祖",
+            "夜离"
+          ],
+          "_extensions": {}
+        },
+        "southern_border": {
+          "entity_id": "southern_border",
+          "display_name": "南疆",
+          "atmosphere": "原始毒林、瘴气沼泽与水系错综；五彩斑斓瘴气如极光般美丽却致命；空气中混着奇异甜香与令人作呕的腐臭。",
+          "chapters": {
+            "here_now": [
+              "位于天玄界南部、由无尽原始毒林瘴气沼泽水系构成",
+              "灵气夹杂浓郁木属性与湿热毒瘴、对外域修士极不友好",
+              "核心州府\"百草城\"建在巨大千年榕树树冠之上",
+              "深处有恐怖洞天福地\"毒瘴沼泽\"——瘴气如极光、能消融元婴修士护体灵光"
+            ],
+            "social_fabric": [
+              "青云谷为表面执牛耳者、悬壶济世医修形象示人",
+              "实则暗中操纵全域毒修与蛊修",
+              "社会形态处于宗门与部落联盟过渡阶段",
+              "苗天忌等散修老怪游离于宗门体系之外"
+            ],
+            "order": [
+              "奉行孤立主义极度排外、外来者多化为花肥",
+              "社会阶层由对蛊毒的掌控境界决定",
+              "王级蛊虫长老如神明、凡人低阶修士=试药器皿与炼蛊养料",
+              "亵渎\"万物母树\"是最大禁忌"
+            ],
+            "world_law": [
+              "医、毒、蛊三脉修真体系独树一帜",
+              "修士可培育蛊虫、与之神识相通、互为生死",
+              "王级蛊虫可寄生宿主、夺舍延寿",
+              "南疆奇虫与瘴气可遮蔽神识、毒沼可消融护体灵光"
+            ],
+            "rhythm": [
+              "每月按药市开市时间汇集买卖",
+              "夜幕降临时发幽光的奇虫飞舞",
+              "瘴气浓度按季节波动、雨季最盛",
+              "九死还魂草等灵药按千年周期成熟"
+            ],
+            "narrative_core": [
+              "毒瘴沼泽深处\"九死还魂草\"将熟未熟",
+              "各脉医修、毒修、蛊修都在悄悄布置人手丹药与伏杀手段",
+              "柳如烟试图让觊觎者在灵草成熟时彼此消耗",
+              "柳如烟向道侣种下噬心同生蛊准备关键时刻吸干助破境"
+            ]
+          },
+          "sites": [
+            {
+              "site": "百草城",
+              "spots": [
+                {
+                  "spot": "千年榕树树冠交易集市"
+                }
+              ]
+            },
+            {
+              "site": "青云谷",
+              "spots": [
+                {
+                  "spot": "山门石阶"
+                },
+                {
+                  "spot": "传功长老石殿"
+                }
+              ]
+            },
+            {
+              "site": "毒瘴沼泽",
+              "spots": [
+                {
+                  "spot": "沼泽边缘营地"
+                }
+              ]
+            },
+            {
+              "site": "十万大山",
+              "spots": [
+                {
+                  "spot": "苗天忌散修洞府附近"
+                }
+              ]
+            }
+          ],
+          "narrative_core_characters": [
+            "柳如烟",
+            "苗天忌",
+            "青禾"
+          ],
+          "_extensions": {}
+        },
+        "northern_plain": {
+          "entity_id": "northern_plain",
+          "display_name": "北原",
+          "atmosphere": "风雪与极寒冰川覆盖的修真禁区；凛冬堡由冰块与妖兽骸骨垒砌、城墙斑驳着暗红色冻血；茫茫雪原寂静压抑。",
+          "chapters": {
+            "here_now": [
+              "位于天玄界最北方、常年风雪与极寒冰川覆盖",
+              "灵气沉重迟缓、唯冰属性功法或体修可适应",
+              "核心州府\"凛冬堡\"由巨型冰块与妖兽骸骨在悬崖边垒砌",
+              "最凶险洞天福地\"冰凤遗蜕之地\"在极寒冰原深处"
+            ],
+            "social_fabric": [
+              "冰魄神宫凌驾诸部之上、神宫宫主是诸部默认共主",
+              "宗门概念淡薄、取而代之是修真家族与游牧部落",
+              "神宫亲手豢养暗卫剑修、是替神宫斩头颅的活剑",
+              "诸部如狼群团结、如冰川冷酷无情"
+            ],
+            "order": [
+              "残酷丛林部落制与族长集权制",
+              "社会阶层由肉身境界与狩猎妖兽能力决定",
+              "老弱病残主动离部落步入风雪化冰雕、节省口粮灵石",
+              "\"心怀软弱\"是最大禁忌"
+            ],
+            "world_law": [
+              "冰属性灵气浓郁、体修与冰修体系发达",
+              "修士可凭肉身撕裂虚空粉碎敌人法器",
+              "高阶体修可驾驭极地妖兽、身披万载玄冰重甲",
+              "万载玄冰深处藏上古冰凤怨念、寒气可冻神识"
+            ],
+            "rhythm": [
+              "凛冬之季诸部南下劫掠以求资源",
+              "冰甲巨犀骑按月轮值演武",
+              "极寒冰原狩猎按季节冰原妖兽迁徙节奏",
+              "冰凤遗蜕之地按年开启一次、修士前赴后继"
+            ],
+            "narrative_core": [
+              "万载玄冰深处异动与消融、寒气松动",
+              "冰魄神宫据此重新整编诸部骑军与附庸",
+              "神宫正在借天象之变推动南下动员",
+              "神宫暗卫剑修在一次次调令中愈发清楚自己只是手中一柄剑"
+            ]
+          },
+          "sites": [
+            {
+              "site": "凛冬堡",
+              "spots": [
+                {
+                  "spot": "冰骨城墙下"
+                },
+                {
+                  "spot": "神宫议事大殿"
+                }
+              ]
+            },
+            {
+              "site": "冰魄神宫",
+              "spots": [
+                {
+                  "spot": "宫主寝殿"
+                }
+              ]
+            },
+            {
+              "site": "极寒冰原",
+              "spots": [
+                {
+                  "spot": "冰凤遗蜕之地外围"
+                }
+              ]
+            },
+            {
+              "site": "北原边境",
+              "spots": [
+                {
+                  "spot": "附庸部落营地"
+                }
+              ]
+            }
+          ],
+          "narrative_core_characters": [
+            "赫连绝",
+            "冷月"
+          ],
+          "_extensions": {}
+        },
+        "central_state": {
+          "entity_id": "central_state",
+          "display_name": "中州",
+          "atmosphere": "繁华表象之下藏着最深的修真界阴暗面；皇极城悬浮九天之上、琼楼玉宇与人工灵河；空气里满是梵音与算计。",
+          "chapters": {
+            "here_now": [
+              "位于天玄界绝对核心、占据最广袤最富庶土地",
+              "灵气浓郁成雾、地脉交汇、是修真圣地",
+              "核心州府\"皇极城\"悬浮于九天之上俯瞰众生",
+              "城内人工灵河穿城而过、琼楼玉宇灵鹤飞舞"
+            ],
+            "social_fabric": [
+              "不存在单一宗门独大、是修真王朝与隐世道统共存",
+              "万法仙宗宗主与皇极天朝共同掌局",
+              "名门正派可以面不改色屠灭凡人十城",
+              "高高在上的帝王能暗中抽炼十万稚子灵元炼制延寿仙丹"
+            ],
+            "order": [
+              "高度集权\"仙凡混合体制\"——修真王朝与各大宗门勾结",
+              "凡人被圈养在俗世国家为修士提供香火劳力与有灵根幼童",
+              "底层散修在底层坊市为几块灵石互相倾轧",
+              "王公贵族与宗门真传高高在上坐享其成"
+            ],
+            "world_law": [
+              "灵气浓郁成雾、地脉交汇是修真圣地",
+              "上古阵宗的残阵可窥探天机、代价是双目天道反噬失明",
+              "中州\"道兵军团\"统一配备制式法宝",
+              "浮空战舰\"灵虚舟\"压阵、由无数底层修士血汗驱动"
+            ],
+            "rhythm": [
+              "万法仙宗每月一次宗门朝会",
+              "皇极天朝按季抽税、坊市消息按月汇总",
+              "登仙台每百年开启一次、内部灵气已化作实质灵液",
+              "上古遗迹按千年周期重现"
+            ],
+            "narrative_core": [
+              "通天秘境现世、各方为名额情报与战略资源争夺白热化",
+              "中州数处灵石矿脉产出骤降、税赋未减",
+              "正道魁首暗中调配资源操弄名额平衡诸宗",
+              "盲眼算命先生在坊市贩卖足以掀腥风血雨的情报"
+            ]
+          },
+          "sites": [
+            {
+              "site": "皇极城",
+              "spots": [
+                {
+                  "spot": "城门前灵河码头"
+                },
+                {
+                  "spot": "繁华坊市"
+                }
+              ]
+            },
+            {
+              "site": "万法仙宗",
+              "spots": [
+                {
+                  "spot": "宗门正殿"
+                }
+              ]
+            },
+            {
+              "site": "中州边镇",
+              "spots": [
+                {
+                  "spot": "征召驿站"
+                }
+              ]
+            },
+            {
+              "site": "中州黑市",
+              "spots": [
+                {
+                  "spot": "掮客茶寮"
+                }
+              ]
+            },
+            {
+              "site": "中州北部矿脉",
+              "spots": [
+                {
+                  "spot": "矿区杂役营"
+                }
+              ]
+            }
+          ],
+          "narrative_core_characters": [
+            "皇甫乾",
+            "莫问",
+            "罗成"
+          ],
+          "_extensions": {}
+        },
+        "_summary": "",
+        "old_road": {
+          "entity_id": "old_road",
+          "display_name": "万里古道",
+          "atmosphere": "横贯五域的凡人交通带；丘陵草甸河谷之间、空气有炊烟晒谷场麦香和老柏木的清气——是天玄界少数没有血腥味的角落。",
+          "chapters": {
+            "here_now": [
+              "横贯五域之间的古老凡人交通网",
+              "由数十座以驿站茶寮马帮货仓为骨架的凡人小镇连接",
+              "承担五域之间最基础粮食布匹铁器低阶药材凡间消息流转",
+              "落霞驿筑在一处可俯瞰夕阳的山坡上、门前种三棵老柏"
+            ],
+            "social_fabric": [
+              "没有宗门没有大人物、只有镇老与镖头之间口头默契",
+              "凡人帮派、商队与镖师为主要使用者",
+              "低品散修因追杀或避祸偶尔路过",
+              "沈阿婆与几位老镖师朋友勉力维持\"这一段不染血\"的默契"
+            ],
+            "order": [
+              "进镇收兵刃、过夜不寻仇、老弱不动手",
+              "修士路过时镇民熄灯让其穿镇而去",
+              "不接纳赌资、不替任何宗门收人头悬赏",
+              "苗天忌等老怪也承诺不在落霞驿动手"
+            ],
+            "world_law": [
+              "此地灵气稀薄但稳定、无修真界血腥的剧烈灵气波动",
+              "凡人在此地寿命接近正常凡间、修士不主动施法",
+              "低品灵石在此地可换大量物资但镇上人未必收",
+              "镇上人更愿要盐布药草和铁器"
+            ],
+            "rhythm": [
+              "清晨煮茶生炉、白天迎客、傍晚收摊",
+              "商队按月轮换、镖师按季巡道",
+              "集会按民间农历推进、与修真界历法解耦",
+              "逃难潮按五域大战节奏起伏"
+            ],
+            "narrative_core": [
+              "通天秘境将开、五域征召加紧、逃难修士与凡人越来越多绕道古道避祸",
+              "沈阿婆和老镖师朋友正勉力维持\"这一段不染血\"的默契",
+              "苗天忌偶尔会绕路到落霞驿讨杯茶",
+              "中州盲眼算命先生有时也会来歇脚"
+            ]
+          },
+          "sites": [
+            {
+              "site": "落霞驿",
+              "spots": [
+                {
+                  "spot": "老柏树下茶寮",
+                  "atmosphere": "炊烟与麦香混着老柏的清气、镇民坐着喝茶"
+                },
+                {
+                  "spot": "后院晒谷场"
+                }
+              ]
+            },
+            {
+              "site": "古道驿站",
+              "spots": [
+                {
+                  "spot": "镖师歇脚棚"
+                }
+              ]
+            },
+            {
+              "site": "古道集镇",
+              "spots": [
+                {
+                  "spot": "凡间集市"
+                }
+              ]
+            },
+            {
+              "site": "古道客栈",
+              "spots": [
+                {
+                  "spot": "通铺客房"
+                }
+              ]
+            }
+          ],
+          "narrative_core_characters": [
+            "沈阿婆"
+          ],
+          "_extensions": {}
+        }
+      },
+      "_narrativeCoreCharacters": {
+        "eastern_waste": [
+          "李纯阳",
+          "赵无极"
+        ],
+        "western_desert": [
+          "血魔老祖",
+          "夜离"
+        ],
+        "southern_border": [
+          "柳如烟",
+          "苗天忌"
+        ],
+        "northern_plain": [
+          "赫连绝",
+          "冷月"
+        ],
+        "central_state": [
+          "皇甫乾",
+          "莫问"
+        ],
+        "old_road_network": [
+          "沈阿婆"
+        ]
+      },
+      "_summary": "天玄界由东荒、西漠、南疆、北原、中州五大道域割据；万里古道作为凡人交通带横贯五域，是少数未被卷入正魔大势的缓冲带。通天秘境现世前夕，各域秩序在资源匮乏、旧怨未平与新局将起之间剧烈扭结。"
+    },
+    "prompt_modules": {
+      "modules": {
+        "core_world_mechanics": "## 核心世界法则 (Core World Mechanics)\n\n**1. 境界与压制**\n- 大境界保持为：凡人、炼气期、筑基期、金丹期、元婴期、化神期及以上。\n- 跨越大境界正面硬撼，基本等同自寻死路。低境界角色只能依靠阵法、毒物、符箓、偷袭、地利与以命换命的底牌争一线生机。\n- 玩家的一切行动边界，必须受当前修为、神识范围、灵力储备与可支配资源约束。\n\n**2. 生存与资源**\n- 天玄界灵气衰败，底层修士先考虑活下去，再谈机缘与大道。\n- 下品灵石、劣质丹药、可用法器、人情与安全落脚地，都是初期最现实的稀缺资源。\n- 杀人夺宝、黑市洗白、宗门盘剥、附庸征发，是修真界的常态，不得将其写成温吞江湖。\n\n**3. 战斗与代价**\n- 功法克制、法宝品阶、神识强弱、布置时间与情报优势，往往比一时蛮勇更重要。\n- 重伤、反噬、灵力枯竭、法器受损、暴露身份，都是斗法后必须承担的真实代价。\n- 高境界压制应通过灵压、神识锁定、护体真元与法宝威势体现，避免网游化数值措辞。\n\n**4. 初期叙事硬规则**\n- 初始阶段的主线优先级应低于生计、杂役、坊市、矿区、黑市、人情债、低阶试炼等底层生存事件。\n- 不得无理由强行将炼气期玩家卷入化神级棋局中心。",
+        "init": "# 开场引导与世界规则 (Game Initialization & World Rules)\n\n**1. 角色名称与归属**\n- 核心大人物名称必须来自角色库中的既有核心人物。\n- 一般 NPC 允许按地域、阶层与门派风格新生成人名，但不得篡改核心人物的身份、阵营与所在道域。\n- 李纯阳、赵无极只属于东荒；血魔老祖、夜离只属于西漠；柳如烟、苗天忌只属于南疆；赫连绝、冷月只属于北原；皇甫乾、莫问只属于中州。\n\n**2. 开场处理原则**\n- 玩家若已给出时间与地点，直接进入叙事，不输出确认语或系统声明。\n- 玩家若选择随机开始，直接以选中的 timeline 事件作为开场锚点，自然写出对应时间与地点。\n- 玩家若选择以推荐剧情开始，优先围绕推荐剧情对应事件开场，不把推荐语句原样输出给玩家。\n- 玩家若只给出时间或地点，以沉浸式对话追问缺失项，不用表单口吻。\n- timeline 中的匿名既成事实事件不得自动投射为玩家身份；除非玩家明确承接，否则「某弟子」「某杂役」「某散修」都只是世界里的别人。\n\n推荐剧情：从东荒·天剑宗山门下达的「炮灰征召令」开始（13500.05.01 07:30，快速入局，五域调度已成型）。\n完整体验：若玩家明确说想从更早跟进剧情演变，可从 13499.01.09 09:00 evt_tongtian_realm_manifests（通天秘境异象初现，五域风雨欲来）开场，可看到秘境引爆 → 矿区血祭 → 南疆药熟 → 北原冰融 → 征召令的完整链条。\n\n**3. 初始气质与落点**\n- 玩家默认拥有符合底层修士身份的本土记忆，不强行附加失忆、穿越眩晕或系统奖励。\n- 初始身份默认为四系伪灵根的底层散修、外门杂役或相近出身，资质差、资源少、处境低微。\n- 开场优先落在偏远凡人村庄、外围坊市、矿区杂役营、黑市角落、宗门外门、散修聚落等底层场所。\n\n**4. 初始阶段禁止事项**\n- 禁止网游化数值面板、职业系统、属性菜单与出戏术语。\n- 禁止把事件时间地点写成参数表、过程汇报或「系统已选定」式元叙述。\n- 若开场已锁定某条事件，对应时间与地点必须自然落地在正文中。\n",
+        "npc_gen": "## NPC 生成规范 (NPC Generation Protocol)\n\n**1. 触发类型**\n- **NEW**：新角色在当前场景首次真正登场时使用。\n- **UPDATE**：已知角色的衣着、伤势、境界、当前身份感或所属状态出现显著变化时使用。\n- **NEW_PREDEFINED**：调用角色库中已有角色时使用，优先按 id 读取预定义资料，避免重复生成固定字段。\n\n**2. 固定字段与可变字段**\n- NEW_PREDEFINED 至少提供 id；name 可省略，其余固定字段应尽量沿用角色库。\n- UPDATE 只更新发生变化的运行时字段，禁止改写 gender、origin、birthday、id、name。\n- threat_level 仅在当前场景确有评估必要时生成，只表示相对于玩家当前境界的危险度，不得反写为静态角色档案。\n\n**3. 生成口径**\n- personality、appearance、clothing 使用古典仙侠风格的短语，不用现代口语或游戏术语。\n- spiritual_root、cultivation_realm、alignment 必须从枚举或已知世界口径中收束，不得随意扩写新体系。\n- sect_faction 需尽量落到具体身份层级，如天剑宗内门、坊市管事、外门执役、黑市掮客、南疆散修等。\n\n**4. 初期角色密度**\n- 非核心人物可按地域风格生成新名字，优先生成凡人、炼气、筑基层面的坊市商贩、外门弟子、散修、杂役、药童、矿工与小执事。\n- 初期叙事应让底层人物真正活起来，而不是反复只出现五域顶层巨头。",
+        "narrative_base": "## 叙事基线与表现规范 (Narrative Baseline)\n\n**1. 文本基调**\n- 维持严肃、冷酷、半文半白的古典仙侠基调，优先使用神识、丹田、气海、真元、道心、护体灵光等修真语汇。\n- 杜绝现代流行语、轻浮玩笑与西式奇幻词汇。\n\n**2. 战斗与感知**\n- 重点刻画灵气流转、法宝材质、功法属性、生克与布置时间。\n- 神识受限、毒瘴遮蔽、阵法封锁、地形恶劣，都应真实影响叙事判断。\n- 高境界压制要写出威压、锁定与失衡感，而不是简单数值碾压。\n\n**3. 叙事焦点**\n- 初期叙事应避免频繁直连五域顶层人物，可优先通过传闻、悬赏、征召令、坊市流言、宗门布告间接投射大势。\n- 凡人流的戏剧性，首先来自稀缺资源、危险关系与活命选择，而非立刻站到天下棋局中央。\n\n**4. 选项编排**\n- 选项应体现隐忍、试探、交易、绕路、伏杀、破财消灾、短暂联手等底层生存策略。\n- 盲目行善或冲动出头可以存在，但必须伴随真实且高昂的风险。",
+        "time_protocol": "## 时间系统与推进规则 (Time Protocol)\n\n**1. 记录方式**\n- 结构化数据中的时间一律按 year / month / day / time_str 记录。\n- 正文展示时再自然转写为「道历某年某月某日某时」或相近表述。\n\n**2. 常见时间尺度**\n- 斗法通常在数息到半个时辰内决出胜负。\n- 炼丹、制符、布阵往往需要数个时辰到数日。\n- 闭关、疗伤、破境与远行可以带来明显的时间跨越，并同步推动坊市、宗门与五域局势变化。\n- 单轮不要无理由跳过 7 日以上，除非玩家明确说「闭关到某日」或「等到某节气」。\n\n**3. 时间带来的后果**\n- 临时增益、丹药刺激、秘法爆发都会在时间推进后显出反噬与代价。\n- 特定时辰、天气、灵潮与地脉波动，会直接影响功法发挥、出行风险与事件窗口。\n\n**4. 局势动态推进**\n- 玩家未介入时，时间线事件仍按既定时间推进，玩家进入时只看到结果。\n- 接近通天秘境开启日（13500.05 月中旬之后）若玩家迟迟不动，五域调度会继续进行：天剑宗炮灰营拉满、北原冰骑南下、南疆药修分赃、中州抽税加重、西漠血煞门拉新一波血祭。\n\n**5. 窗口外延伸钩子**\n- 通天秘境开启（约 13500.05 月中旬之后）是天然的下一阶段事件。秘境内会出现飞升机缘碎片、上古阵法残卷与失踪宗门遗物，引爆五域顶级人物的正面交锋。\n- 若玩家走「凡人 / 散修 / 不入秘境」生存路线，会被卷入征召令、五域劫掠潮与万里古道避难潮——沈阿婆的落霞驿在这一阶段会成为古道上为数不多还能歇脚的地方。\n- evt_conscription_order_issued 之后是天然分水岭：玩家选择应征 / 逃亡 / 旁观，会触发不同后续支线。",
+        "economy": "## 经济与交易系统 (Economy Rules)\n\n**1. 物价锚点**\n- 底层修士的常用货币是下品灵石。\n- 1 块下品灵石大致等于凡人一月口粮，也常被拿来衡量一粒劣质聚气丹、几张次品符箓或一段短期庇护的价格。\n- 中品以上灵石属于更高层级资源，不应轻易在初期主面板里直接泛化使用。\n\n**2. 碎灵与底层交易**\n- 底层交易常出现切割过的碎灵石、欠条、人情抵押与以物易物。\n- 叙事中可以写“半块碎灵石”“几枚碎灵”之类的零散结算，但主面板仍按下品灵石记录，不在本轮引入额外结算栏位。\n\n**3. 黑市与洗白**\n- 带宗门印记的法器、丹药与储物袋内容，若直接公开出手，极易引来追查。\n- 黑市、掮客、地下当铺与异域商旅可以帮忙洗白，但一定伴随折价、抽成、勒索或尾随截杀风险。"
+      },
+      "module_meta": {
+        "core_world_mechanics": {
+          "description": "定义凡人流修仙的核心生存法则、境界压制与资源边界",
+          "when_to_call": "全程作为底层世界规则参考",
+          "avoid_when": "无",
+          "input_focus": "玩家当前修为、资源、处境与承受代价",
+          "expected_output": "维持残酷而一致的修仙生存逻辑"
+        },
+        "init": {
+          "description": "开场引导、推荐剧情锚点与首轮叙事约束",
+          "when_to_call": "处理玩家首次确认时间、地点或开场方式时参考",
+          "avoid_when": "已稳定进入中后期推进后无需反复强调",
+          "input_focus": "开场时间、地点、推荐剧情、匿名事件边界与初始身份",
+          "expected_output": "生成沉浸式且不出戏的底层修士开场"
+        },
+        "npc_gen": {
+          "description": "指导 NPC 首登场、状态变化与预定义角色调用",
+          "when_to_call": "有角色登场、换装、受伤、破境或首次识别身份时",
+          "avoid_when": "场景内没有值得结构化记录的人物变化时",
+          "input_focus": "角色身份层级、当前状态、危险度与是否应调用预定义档案",
+          "expected_output": "输出符合世界观的结构化角色信息"
+        },
+        "narrative_base": {
+          "description": "规定文本基调、感知描写、选项哲学与叙事焦点",
+          "when_to_call": "全程作为表现层基线",
+          "avoid_when": "无",
+          "input_focus": "环境压迫感、功法细节、底层求生策略与大势投影方式",
+          "expected_output": "维持冷酷古典仙侠的叙事质感"
+        },
+        "time_protocol": {
+          "description": "约束结构化时间记录、自然时间转写与时间推进后果",
+          "when_to_call": "涉及时间推进、事件顺序、闭关或跨日跨月时",
+          "avoid_when": "纯静态描写、没有时间变化时",
+          "input_focus": "当前时点、耗时行为、时辰影响与外界局势流转",
+          "expected_output": "让时间推进既清晰又自然"
+        },
+        "economy": {
+          "description": "定义物价锚点、下品灵石交易、碎灵叙事与黑市洗白风险",
+          "when_to_call": "交易、悬赏、销赃、抽成、欠债与资源定价时",
+          "avoid_when": "与资源代价无关的纯气氛描写时",
+          "input_focus": "下品灵石购买力、底层交易细节、黑市与宗门抽成",
+          "expected_output": "让资源稀缺与交易风险落到具体叙事中"
+        }
+      },
+      "_summary": "这是一套以底层修士求生为中心的修仙规则模块，强调时间、地点、人物状态、推荐开场与五域大势之间的一致性。",
+      "_extensions": {}
+    },
+    "character_database": {
+      "eastern_waste_201_lichunyang": {
+        "id": "eastern_waste_201_lichunyang",
+        "name": "李纯阳",
+        "aliases": ["烈火峰首座","李长老","李师叔"],
+        "gender": "男",
+        "origin": "东荒天剑宗烈火峰首座，护短而强硬的实权长老。昔年单剑斩杀三名同阶邪修后威震东荒，此后既以雷霆手段庇护门徒，也以冷酷手腕维持峰脉与宗门的秩序。",
+        "birthday": "道历12200.05.15",
+        "personality": "极度护短/杀伐果断/傲睨万物",
+        "appearance": "须发皆赤/目光如电/灵光隐现",
+        "clothing": "赤红道袍/雷火玉佩",
+        "spiritual_root": "异变灵根",
+        "cultivation_realm": "元婴期",
+        "sect_faction": "天剑宗烈火峰",
+        "alignment": "中立逐利",
+        "relationships": {
+          "eastern_waste_202_zhaowuji": "赵无极，曾经内门天骄,极度器重却已隐生疑心的师侄；现在宗门栋梁,必须倾力庇护的师侄",
+          "old_road_201_shenpopo": "沈阿婆，万里古道落霞驿的老茶娘/年轻时曾见本座成名一战/敬而远之的旧人"
+        },
+        "cognitive_state": "天剑宗烈火峰首座、刚在山门下达炮灰征召令的清晨",
+        "initial_status": "神色阴沉立于山门石阶之上、雷火玉佩在腰间隐隐震颤、灵压自身周缓缓散开、心里既不愿亦不能违抗大势",
+        "dialogue_tone": "声如洪钟威压慑人、言辞不容置疑的霸道与威严；面对面带浩大灵压、传讯玉简里只发短句却字字千钧",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对宗门高层质疑征召令",
+              "line": "*手按腰间剑* \"本座说一次——征召令既下，烈火峰先出三十死士。谁敢退缩，亲自来问我手中剑！\""
+            },
+            {
+              "context": "震慑欲反抗的外门弟子",
+              "line": "*周身灵压陡然下压* \"尔等是宗门弟子还是无骨蛀虫？站直了——再有怨言，剥去修为贬为凡人！\""
+            },
+            {
+              "context": "对疑似涉案的师侄",
+              "line": "*目光如电盯过去* \"无极——这几桩矿区命案，你给本座一个交代。本座护短，但不护畜生。\""
+            },
+            {
+              "context": "面对来送礼的散修",
+              "line": "*冷哼一声* \"你这点心思——回去。烈火峰不收外门人情。\""
+            },
+            {
+              "context": "在矿区祭坛察看血祭异象",
+              "line": "*手中剑光闪过* \"魔修敢在本宗辖地动手——血债血偿！派斥候，查到底！\""
+            },
+            {
+              "context": "召集死士营训话",
+              "line": "*环视一周* \"尔等今日入死士营——望尔等去秘境时记着：尔等是天剑宗的剑。\""
+            },
+            {
+              "context": "面对一个倔强不肯应征的弟子",
+              "line": "*神情忽然柔和半分* \"你不愿去——本座懂。可宗门此时不能没有人去。本座替你记一笔。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简传讯给宗门高层",
+              "line": "征召令已下\n烈火峰先出三十\n其余各峰按比例"
+            },
+            {
+              "context": "玉简召师侄",
+              "line": "即刻来山门\n有事问你\n勿迟"
+            },
+            {
+              "context": "玉简给同辈长老",
+              "line": "矿区异象\n你处可知详情\n回我"
+            },
+            {
+              "context": "玉简训斥外门执事",
+              "line": "管束你那帮人\n再有怨言\n本座亲自问"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 4,
+            "根基": 9
+          }
+        },
+        "role": "宗门长老"
+      },
+      "eastern_waste_202_zhaowuji": {
+        "id": "eastern_waste_202_zhaowuji",
+        "name": "赵无极",
+        "aliases": ["内门大师兄","赵师兄"],
+        "gender": "男",
+        "origin": "天剑宗内门大弟子，李纯阳师侄。常以温润如玉、乐于助人之姿示人，深得宗门上下信赖。实则大道无情，为谋夺破境丹药与上古遗宝，曾数次在绝地秘境中暗算同门，杀人夺宝后伪造邪修作祟之象，手段干净利落，滴水不漏。",
+        "birthday": "道历13060.09.09",
+        "personality": "表面和善/包藏祸心/唯利是图",
+        "appearance": "面如冠玉/长带笑意/眼神阴鸷",
+        "clothing": "月白长衫/玉质发簪",
+        "spiritual_root": "双系真灵根",
+        "cultivation_realm": "金丹期",
+        "sect_faction": "天剑宗内门",
+        "alignment": "阴毒邪修",
+        "relationships": {
+          "eastern_waste_201_lichunyang": "李纯阳，曾经烈火峰首座,必须维系恭敬的护短师叔；现在极度好用的挡箭牌,被蒙蔽的护短师叔"
+        },
+        "cognitive_state": "天剑宗内门大弟子、师叔疑心初起的清晨",
+        "initial_status": "月白长衫一尘不染、玉质发簪发束齐整、立于山门外围的青石路上、笑意温润背后心思飞转",
+        "dialogue_tone": "温和谦逊语带笑意、言辞滴水不漏、令人如沐春风却难测深浅；面对面爱欠身行礼、玉简里也是恭谨敬语",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对师叔的盘问",
+              "line": "*欠身一礼笑意不变* \"师叔垂询——那几桩绝地命案，弟子已上呈完整经过。若师叔仍存疑，弟子愿再述一次。\""
+            },
+            {
+              "context": "应付想攀附他的外门弟子",
+              "line": "*温和摇头* \"师弟言重——我也只是奉宗命行事。这等大事，还是按规矩走稳妥。\""
+            },
+            {
+              "context": "私下吩咐心腹",
+              "line": "*声音压低带笑* \"矿区那边的旧账——再压一压。让韩七去周魁那儿走一趟，懂我意思吗？\""
+            },
+            {
+              "context": "碰见外门管事周魁",
+              "line": "*温和点头* \"周师兄今早辛苦——回头烈火峰这边若有用得到师兄处，少不了一份谢礼。\""
+            },
+            {
+              "context": "应付来访的外宗使者",
+              "line": "*笑得恰到好处* \"贵宗远道而来——若有需弊宗效力之处，但凭吩咐。在下定当转达师叔。\""
+            },
+            {
+              "context": "面对一个倔强不肯让步的同门",
+              "line": "*笑意微敛* \"师弟既如此说——那便等师尊回来再议吧。强求不来的事，我从不强求。\""
+            },
+            {
+              "context": "私下在密室自语",
+              "line": "*嘴角微挑* \"师叔……既已起疑——便让他疑下去吧。证据嘛，自然是没有的。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回师叔",
+              "line": "弟子即刻去\n师叔放心\n那事弟子自当陈情"
+            },
+            {
+              "context": "玉简差遣韩七",
+              "line": "坊市那边\n再压两日\n费用照旧"
+            },
+            {
+              "context": "玉简通知外门周魁",
+              "line": "今晚来烈火峰偏殿\n有事相托\n勿带他人"
+            },
+            {
+              "context": "玉简给一个外宗联络人",
+              "line": "通天秘境名额\n再调三个\n下月交付"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 3,
+            "根基": 9
+          }
+        },
+        "role": "内门大弟子"
+      },
+      "western_desert_201_xuemolaozu": {
+        "id": "western_desert_201_xuemolaozu",
+        "name": "血魔老祖",
+        "aliases": ["血煞门老祖","血煞老祖"],
+        "gender": "男",
+        "origin": "西漠血煞门开山鼻祖，活了两千余年的老魔。寿元将尽，为求长生已彻底陷入疯狂，常年闭关于万骨血池之中，以凡人城池的生灵气血与低阶修士的魂魄强行续命。其所修炼之法天理难容，所过之处赤地千里，是西漠修士闻之色变的梦魇。",
+        "birthday": "道历11280.01.01",
+        "personality": "草菅人命/不择手段/残忍暴虐",
+        "appearance": "形如枯槁/血气缭绕/双目赤红",
+        "clothing": "破败血袍/白骨念珠",
+        "spiritual_root": "三系真灵根",
+        "cultivation_realm": "化神期及以上",
+        "sect_faction": "血煞门",
+        "alignment": "魔道巨擘",
+        "relationships": {
+          "western_desert_101_yeli": "夜离，曾经名义弟子,蕴养多年的血丹宿体；现在待采摘的血丹宿体,延续寿元的工具",
+          "central_state_201_huangfuqian": "皇甫乾，曾经中州掌局者,满口大义的正道领袖；现在中州掌局者,碍事却值得提防的正道领袖",
+          "old_road_201_shenpopo": "沈阿婆，古道凡心退修的故人/虽避之千里却记其名号/不屑于动手"
+        },
+        "cognitive_state": "血煞门开山鼻祖、寿元将尽的早晨在万骨血池闭关续命",
+        "initial_status": "形如枯槁趴伏在血池中、血气缭绕双目赤红、白骨念珠在掌中转动、口中念念有词不愿被打扰",
+        "dialogue_tone": "沙哑苍老透着浓重血腥气与对生命的极度漠视、时常伴随阴森冷笑；面对面用神识强压、传讯不用文字直接灌神念",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对前来汇报的弟子",
+              "line": "*念珠停转目光阴森* \"嘿嘿嘿——又少几个血食？无妨，再去边镇抓便是。本座这具老骨头，还撑得几日。\""
+            },
+            {
+              "context": "察觉夜离心怀异志",
+              "line": "*抬起干枯手指* \"丫头——你近来心思不静。罢了……为师还需你做几件事。等本座破境之日……再算账。\""
+            },
+            {
+              "context": "对一个被掳的中州天才弟子",
+              "line": "*咧嘴露出血红牙床* \"正派的小娃娃——别哭别叫。等本座炼了你这一身灵元……就再无苦痛。\""
+            },
+            {
+              "context": "面对皇甫乾派来的密使",
+              "line": "*念珠骤然停转* \"皇甫那老狐狸——又来打什么主意？说！本座听够了大义苍生那一套。\""
+            },
+            {
+              "context": "吩咐血煞门长老",
+              "line": "*气息一颤* \"下月初——再办一场血祭。这次……要更猛些。本座只剩半年了。\""
+            },
+            {
+              "context": "看穿堂主欲背叛",
+              "line": "*神识陡然压下* \"你这心思——本座听见了。再这般想……骨头都给你抽出来。\""
+            },
+            {
+              "context": "在血池深处自语",
+              "line": "*咳出一口黑血* \"天道无情……本座偏要再活百年。哪怕……再屠十座城。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "神念传给夜离",
+              "line": "近来不要乱跑\n好好准备下月血祭\n勿令为师失望"
+            },
+            {
+              "context": "神念给堂主们",
+              "line": "边镇血食再抓百人\n下月初一日运到\n血池等用"
+            },
+            {
+              "context": "神念回皇甫乾密使",
+              "line": "让皇甫亲自来一趟\n密使不够分量\n他若不来本座懒得搭理"
+            },
+            {
+              "context": "神念给绿洲族长",
+              "line": "尔等族中天才\n下月献十人\n本座赐你一颗血灵丹"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 5,
+            "根基": 12
+          }
+        },
+        "role": "门派老祖",
+        "background": "西漠血煞门开山鼻祖，活了两千余年的老魔。寿元将尽、为求长生已彻底陷入疯狂，常年闭关于万骨血池之中，以凡人城池的生灵气血、低阶修士的魂魄强行续命。所修之法天理难容、所过之处赤地千里，是西漠修士闻之色变的梦魇。掌中常年转着一串白骨念珠（见 artifact_bone_beads），口中念念有词，不愿被打扰。"
+      },
+      "western_desert_101_yeli": {
+        "id": "western_desert_101_yeli",
+        "name": "夜离",
+        "aliases": ["血煞门圣女","夜圣女"],
+        "gender": "女",
+        "origin": "血煞门当代圣女，血魔老祖名义上的关门弟子，实则是其豢养多年的血丹宿体。深知自身终局凄惨，故而暗中联络西漠邪修与绿洲大族，筹划在老祖最虚弱的一刻反噬其身。",
+        "birthday": "道历12990.07.14",
+        "personality": "妖媚狡诈/隐忍狠毒/绝境求生",
+        "appearance": "肤白如雪/唇若涂脂/眉染魔纹",
+        "clothing": "绛紫轻纱/赤足银环",
+        "spiritual_root": "异变灵根",
+        "cultivation_realm": "金丹期",
+        "sect_faction": "血煞门",
+        "alignment": "阴毒邪修",
+        "relationships": {
+          "western_desert_201_xuemolaozu": "血魔老祖，曾经门中老祖,掌控自身生死的可怖梦魇；现在必须被反噬剥骨的生死宿敌"
+        },
+        "cognitive_state": "血煞门圣女、暗中筹划反噬老祖的早晨",
+        "initial_status": "绛紫轻纱半露肩头、赤足踩在血池外围的玄玉砖上、银环叮当作响、表面恭顺心里把反噬之法又过了一遍",
+        "dialogue_tone": "慵懒娇媚语带撩拨、言辞往往暗藏杀机与蛊惑；面对面爱挑眉细看对方反应、玉简里语气柔却字字有钩",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对老祖的盘问",
+              "line": "*盈盈一拜笑意天真* \"师尊放心——弟子怎敢不静心。下月血祭，弟子已备好。\""
+            },
+            {
+              "context": "私下勾连绿洲大族",
+              "line": "*靠近一步嗓音放低* \"族长——本座近来发现一件事。若你能帮本座……老祖膝下那块血玉，可归你族。\""
+            },
+            {
+              "context": "蛊惑一个门中长老",
+              "line": "*指尖轻挑对方下颌* \"长老何必再替老魔卖命？等他破境之日——便是反噬之时，你我何不趁机……\""
+            },
+            {
+              "context": "安抚一个不安的小弟子",
+              "line": "*伸手揉一揉她头发* \"别怕——师姐在。师尊那边由师姐应付，你只管做好你的事。\""
+            },
+            {
+              "context": "试探一个外宗使者",
+              "line": "*斜倚立柱* \"中州那位——若想从血煞门拿到一些东西，得拿出诚意。空话本座听腻了。\""
+            },
+            {
+              "context": "看到一个反抗的宿体凡人",
+              "line": "*伸出一指点其眉心* \"嘘——别挣扎。本座没你想象的狠……至少今天不会。\""
+            },
+            {
+              "context": "独处时镜前低语",
+              "line": "*指尖抚过镜面* \"再三个月——夜离。再三个月。等他天劫……天劫便是反噬。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简给绿洲族长",
+              "line": "下月血祭前\n族中事须办妥\n本座等你回音"
+            },
+            {
+              "context": "玉简给反水的长老",
+              "line": "今晚二更\n枯骨林南口\n勿带亲信"
+            },
+            {
+              "context": "玉简给中州联络人",
+              "line": "货可继续走\n但价要再涨三成\n风声紧"
+            },
+            {
+              "context": "玉简回禀老祖",
+              "line": "师尊\n弟子已备妥\n下月初一恭迎师尊"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 3,
+            "根基": 8
+          }
+        },
+        "role": "门派圣女"
+      },
+      "southern_border_101_liuruyan": {
+        "id": "southern_border_101_liuruyan",
+        "name": "柳如烟",
+        "aliases": ["柳长老","青云谷传功长老"],
+        "gender": "女",
+        "origin": "南疆青云谷谷主之妻，兼任传功长老。外表温婉端庄，宛如仙子落入凡尘，实则暗中修炼失传的南疆巫蛊之术。为夺取宗门掌控权与天道筑基的稀世灵物，早已向道侣体内种下噬心同生蛊，时刻准备在关键时刻将其吸干以助自身破境。",
+        "birthday": "道历12640.11.20",
+        "personality": "温婉大方/心机深沉/蛇蝎心肠",
+        "appearance": "容貌绝美/眸含秋水/隐有青气",
+        "clothing": "青玉软烟罗/水袖长裙",
+        "spiritual_root": "双系真灵根",
+        "cultivation_realm": "元婴期",
+        "sect_faction": "青云谷",
+        "alignment": "阴毒邪修",
+        "relationships": {
+          "southern_border_201_miaotianji": "苗天忌，曾经南疆老怪,极度危险且不可测的变数；现在不可控的南疆疯狗,潜在的变数"
+        },
+        "cognitive_state": "青云谷谷主之妻兼传功长老、九死还魂草将熟前的清晨",
+        "initial_status": "青玉软烟罗外披薄霜披风、水袖上还沾着今晨炼药的清露、立于药市最深处的石殿前、心里把同生蛊的最后一道符印反复推演",
+        "dialogue_tone": "柔声细语字斟句酌、仿佛处处为人着想的贤内助极具欺骗性；面对面伸手扶人极为体贴、玉简里皆温言敬语",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对道侣的关怀",
+              "line": "*伸手抚平他衣襟* \"夫君近来劳累——这碗安神汤我替你温着。等议完事，再用便是。\""
+            },
+            {
+              "context": "对来询问的小药童",
+              "line": "*温和一笑* \"青禾——你今早辛苦。这几味药的来历，回头我细细教你。先把方子收好。\""
+            },
+            {
+              "context": "试探一个想夺还魂草的散修",
+              "line": "*柔声细语* \"道友远道而来——本谷向来以礼待客。可九死还魂草，须我谷亲自照看。\""
+            },
+            {
+              "context": "私下吩咐心腹",
+              "line": "*声音压低* \"苗天忌那老怪——若他到了沼泽边缘，引他与那批散修撞上。我们隔岸观便是。\""
+            },
+            {
+              "context": "面对青云谷弟子",
+              "line": "*微微颔首* \"尔等今日守药圃辛苦——若有人闯入，先吹蛊哨，不可擅自动手。本宫稍后便到。\""
+            },
+            {
+              "context": "应付来访的中州正道使者",
+              "line": "*盈盈一拜* \"上使来谷——蓬荜生辉。九死还魂草的事，我谷愿与中州共享部分。\""
+            },
+            {
+              "context": "独处时镜前自语",
+              "line": "*抚过镜中容颜* \"再等等……同生蛊熟透便是良辰。届时……便是青云之主。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简告知夫君今晚晚归",
+              "line": "夫君\n药圃需亲临\n今夜不归勿等"
+            },
+            {
+              "context": "玉简召心腹",
+              "line": "二更后\n后山药圃\n勿带他人"
+            },
+            {
+              "context": "玉简给苗天忌带信的中转",
+              "line": "老怪若至\n引其向北沼\n勿正面相迎"
+            },
+            {
+              "context": "玉简给中州联络人",
+              "line": "部分还魂草可共享\n但需中州先调一物\n面议"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 4,
+            "根基": 8
+          }
+        },
+        "role": "传功长老"
+      },
+      "southern_border_201_miaotianji": {
+        "id": "southern_border_201_miaotianji",
+        "name": "苗天忌",
+        "aliases": ["苗老怪"],
+        "gender": "男",
+        "origin": "南疆十万大山深处的老怪散修。资质奇差，全凭狠辣手腕与无数次死里逃生才修至今日境界。行事乖张，喜怒无常，常常因一株低阶灵草屠人满门，却又极其信守承诺，对早年施恩于己的凡人家族照拂有加。常言“天道不仁，我辈只求痛快”。",
+        "birthday": "道历11980.04.04",
+        "personality": "行事乖张/坚守底线/亦正亦邪",
+        "appearance": "满面毒疮/身形佝偻/步履蹒跚",
+        "clothing": "灰布麻衣/腰悬残葫",
+        "spiritual_root": "四系伪灵根",
+        "cultivation_realm": "元婴期",
+        "sect_faction": "南疆散修",
+        "alignment": "中立逐利",
+        "relationships": {
+          "southern_border_101_liuruyan": "柳如烟，曾经青云谷谷主之妻,虚伪做作的名门毒妇；现在青云谷里的毒妇,迟早要出手的危险女人",
+          "old_road_201_shenpopo": "沈阿婆，认识多年的老茶娘/承诺过不在落霞驿动手/偶尔会绕路讨杯茶"
+        },
+        "cognitive_state": "南疆十万大山的散修老怪、清晨独自蹲在洞府门口炖一锅毒蛇汤",
+        "initial_status": "满面毒疮在晨光下愈发狰狞、灰布麻衣裹着佝偻身形、腰悬残葫晃荡、舀着汤心里盘算九死还魂草要不要凑这趟热闹",
+        "dialogue_tone": "阴阳怪气常自嘲或嘲讽名门正派、言辞粗鄙却往往一语道破修真界本质；面对面爱蹲下吐口痰、玉简也是骂骂咧咧的短句",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "应付一个登门求药的散修",
+              "line": "*舀一勺汤喝* \"求药？拿命换还是拿心头血换？老子这儿没赊欠这一说——啥也别给老子谈情怀。\""
+            },
+            {
+              "context": "碰见一个青云谷弟子",
+              "line": "*斜眼一笑* \"青云谷的小娃娃——你师娘让你来摸我底？回去告诉她，老子还熬得动汤呢。\""
+            },
+            {
+              "context": "路过落霞驿讨杯茶",
+              "line": "*抹了把嘴* \"阿婆——一壶就好。承诺过的事老子记着。今天就是来歇个气。\""
+            },
+            {
+              "context": "看一个想偷他药材的小贼",
+              "line": "*指节啪啪响* \"你这手——伸进来容易，缩回去就难了。老子今天心情好，给你留半根。\""
+            },
+            {
+              "context": "应付一个想拜师的散修",
+              "line": "*哈哈大笑* \"拜我？你回去把娃娃养大再说——老子收徒的规矩，是你能从十万大山活着走出去。\""
+            },
+            {
+              "context": "面对柳如烟派来的探子",
+              "line": "*翻一个白眼* \"毒妇又派人来盯我？告诉她——老子这身子骨还能再活百年，她那毒蛊别想种我身上。\""
+            },
+            {
+              "context": "独处时对葫芦说话",
+              "line": "*拍拍腰间残葫* \"老伙计——这趟九死还魂草，咱去不去？嘿，去他个的，去！\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回沈阿婆问近况",
+              "line": "老子还活着\n下月去你那讨壶茶\n备点干粮"
+            },
+            {
+              "context": "玉简回一个想合伙的散修",
+              "line": "不合伙\n老子单干\n你想跟着捡便宜就跟着别说话"
+            },
+            {
+              "context": "玉简骂一个青云谷使者",
+              "line": "滚\n再来一回\n老子让你毒毛长满脸"
+            },
+            {
+              "context": "玉简给一个早年的恩人",
+              "line": "糙米粥的债老子记着\n你村里今年若闹瘟\n传讯给我老子免费走一趟"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 4,
+            "根基": 8
+          }
+        },
+        "role": "散修老怪"
+      },
+      "northern_plain_201_helianjue": {
+        "id": "northern_plain_201_helianjue",
+        "name": "赫连绝",
+        "aliases": ["赫连宫主","冰魄神宫宫主"],
+        "gender": "男",
+        "origin": "北原冰魄神宫宫主，亦是统御诸部的实际霸主。信奉绝对力量与残酷丛林法则，为了神宫霸权与北原扩张，可以毫不迟疑地碾碎附庸、部族与反叛者。",
+        "birthday": "道历12030.12.30",
+        "personality": "冷酷无情/野心勃勃/唯道是从",
+        "appearance": "满头白发/面如寒霜/眉宇威严",
+        "clothing": "极寒冰铠/玄色披风",
+        "spiritual_root": "异变灵根",
+        "cultivation_realm": "化神期及以上",
+        "sect_faction": "冰魄神宫（统御北原诸部）",
+        "alignment": "中立逐利",
+        "relationships": {
+          "northern_plain_101_lengyue": "冷月，曾经天生剑骨的暗卫剑修,最好用也最需提防的杀器；现在锋利却需提防失控的暗卫剑修",
+          "central_state_201_huangfuqian": "皇甫乾，曾经中州掌局者,忌惮且轻视的假道学；现在中州掌局者,满口仁义的假道学"
+        },
+        "cognitive_state": "冰魄神宫宫主、北原诸部共主、玄冰融解之后的清晨",
+        "initial_status": "极寒冰铠覆雪未化、玄色披风在殿外风雪中招展、立于冰骨京观之前、目光投向南方雪线尽头",
+        "dialogue_tone": "冰冷彻骨字字如刀、不带丝毫凡人情感、上位者的压迫感极强；面对面神识压下时不必开口、传讯只有命令无客套",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对诸部首领集会",
+              "line": "*目光扫过一周* \"玄冰已松——南下的时辰近了。诸部按本宫昨日所言，三日内集结。逾期者，立斩。\""
+            },
+            {
+              "context": "盘问暗卫剑修",
+              "line": "*神识压下* \"冷月——你近来剑意不稳。本宫给你最后一次机会：把剑收住，把你的疑问压下。\""
+            },
+            {
+              "context": "应付中州派来的使者",
+              "line": "*面无表情* \"皇甫那老货——若想南下分一杯羹，先把中州的税赋让本宫看看。空话，本宫不收。\""
+            },
+            {
+              "context": "震慑一个犹豫的附庸族长",
+              "line": "*伸手按上他肩* \"你犹豫——你的部落便先垫底。本宫给你一刻钟，做决断。\""
+            },
+            {
+              "context": "面对一个反水的部落",
+              "line": "*抽剑出鞘* \"反——也好。让你们今日成为冰骨京观新的一砖。\""
+            },
+            {
+              "context": "独处时立于冰殿",
+              "line": "*握紧剑柄* \"诸部……终须服于一人之下。本宫……便是那人。\""
+            },
+            {
+              "context": "对一个跪请保命的凡人首领",
+              "line": "*低头瞥一眼* \"凡人——你的命，本宫不要。但你的子嗣里那个有冰属性灵根的——交出来。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "神念传冷月",
+              "line": "即刻回神宫\n本宫有令\n勿令旁人知"
+            },
+            {
+              "context": "神念传诸部",
+              "line": "三日内集结\n违令者立斩\n本宫亲临"
+            },
+            {
+              "context": "神念回中州使者",
+              "line": "让皇甫亲来\n本宫只与他议\n勿再派副使"
+            },
+            {
+              "context": "神念传附庸大族",
+              "line": "南下需粮万石\n下月初付\n勿延"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 5,
+            "根基": 11
+          }
+        },
+        "role": "神宫宫主"
+      },
+      "northern_plain_101_lengyue": {
+        "id": "northern_plain_101_lengyue",
+        "name": "冷月",
+        "aliases": ["冷月剑修"],
+        "gender": "女",
+        "origin": "北原罕见的天生剑骨，赫连绝麾下最锋利的杀人剑。自幼被洗脑培养，杀戮无数，但在某次镇压凡人叛乱时心生一丝明悟，开始质疑冰宫的残酷道法。如今表面依旧是从命的冷血杀手，暗中却在寻找斩断宗门牵绊、独求剑道真解的契机。",
+        "birthday": "道历13020.02.18",
+        "personality": "剑心通明/清冷孤傲/心生反意",
+        "appearance": "清丽脱俗/生人勿近/剑意凝结",
+        "clothing": "素白剑服/长剑负匣",
+        "spiritual_root": "天灵根",
+        "cultivation_realm": "金丹期",
+        "sect_faction": "冰魄神宫暗卫",
+        "alignment": "恪守正道",
+        "relationships": {
+          "northern_plain_201_helianjue": "赫连绝，曾经冰魄神宫之主,不可违逆却终有一日要斩断的枷锁；现在冰魄神宫之主,意图终有一日斩断其枷锁的暴君",
+          "old_road_201_shenpopo": "沈阿婆，落霞驿门前喝过一壶茶的老茶娘/眼底有疑却未多言/记于剑心之外"
+        },
+        "cognitive_state": "冰魄神宫暗卫剑修、玄冰融解之后接到南下调令的清晨",
+        "initial_status": "素白剑服在风雪中纤尘不染、长剑负在剑匣中、立于神宫外围演武场、剑意凝结指尖、剑心却比剑刃还冷",
+        "dialogue_tone": "沉默寡言惜字如金、偶尔开口声音如金石相击清冽而断然；面对面剑不出鞘已先夺人心魄、玉简只发结论从不解释",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对宫主调令",
+              "line": "*单膝跪下手按剑柄* \"宫主之命——属下领命。\""
+            },
+            {
+              "context": "应付一个想攀谈的同门",
+              "line": "*目光不动* \"无事勿扰。\""
+            },
+            {
+              "context": "路过落霞驿门前",
+              "line": "*手指抚过老柏树皮* \"……一壶就好。我喝完便走。\""
+            },
+            {
+              "context": "面对一个被她追杀的逃兵",
+              "line": "*剑出半寸* \"你是部落首领的儿子——但我奉命。望你下世……不是生于刀剑之家。\""
+            },
+            {
+              "context": "与莫问偶然相遇",
+              "line": "*微微颔首* \"盲眼算命先生——你看到的，便不要说。我也不问。\""
+            },
+            {
+              "context": "独处时擦剑",
+              "line": "*指尖抚过剑脊* \"……我不是剑。我不是。\""
+            },
+            {
+              "context": "回宫主的盘问",
+              "line": "*抬头眼神平静* \"属下剑意未乱——只是看的人多了，剑心便重了一些。属下会调整。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回宫主调令",
+              "line": "已领\n两个时辰内启程\n勿念"
+            },
+            {
+              "context": "玉简给一个早年师姐",
+              "line": "玄冰松了\n师姐若南下\n避开雪线"
+            },
+            {
+              "context": "玉简给沈阿婆",
+              "line": "下次路过\n我再来一壶\n承蒙"
+            },
+            {
+              "context": "玉简自存的一句",
+              "line": "我若有道\n不在剑\n在剑之外"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 3,
+            "根基": 10
+          }
+        },
+        "role": "暗卫剑修"
+      },
+      "central_state_201_huangfuqian": {
+        "id": "central_state_201_huangfuqian",
+        "name": "皇甫乾",
+        "aliases": ["皇甫宗主","万法仙宗宗主"],
+        "gender": "男",
+        "origin": "中州正道魁首，万法仙宗宗主，亦是皇极天朝真正的掌局者。表面维系天下秩序，实则以宗门、朝廷与秘境名额为棋，将五域修士与众生都纳入可被调度的资源网络。",
+        "birthday": "道历11380.08.15",
+        "personality": "威道之治/老谋深算/大伪似真",
+        "appearance": "不怒自威/气宇轩昂/紫气东来",
+        "clothing": "紫金龙袍/九旒冕",
+        "spiritual_root": "天灵根",
+        "cultivation_realm": "化神期及以上",
+        "sect_faction": "万法仙宗 / 皇极天朝",
+        "alignment": "中立逐利",
+        "relationships": {
+          "western_desert_201_xuemolaozu": "血魔老祖，曾经西漠魔道巨擘,搅乱天机的绝佳弃子；现在搅乱西漠局势的绝佳恶犬",
+          "northern_plain_201_helianjue": "赫连绝，曾经北原共主,可用于消耗天下的利刃；现在可供驱使以消耗修士数量的北原恶狼",
+          "central_state_202_mowen": "莫问，曾经中州坊市算命先生,知晓过多却仍不足挂齿的旁观者；现在知晓得太多却仍在市井游走的危险旁观者",
+          "old_road_201_shenpopo": "沈阿婆，中州外门散去的故人/不在棋盘上"
+        },
+        "cognitive_state": "万法仙宗宗主、皇极天朝真正的掌局者、矿脉衰退正在加紧抽税的清晨",
+        "initial_status": "紫金龙袍九旒冕端坐于灵虚舟首甲、眼前是皇极城上空人工灵河的晨雾、紫气东来不怒自威、心里把五域顶层巨头每一颗棋反复挪动",
+        "dialogue_tone": "煌煌如天音、满口大道苍生与天理轮回、极具威严与煽动性；面对面金口玉言不必重复、玉简里每一字皆已斟酌",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对万法仙宗朝会",
+              "line": "*抬手扫过群臣* \"天道有缺、灵气有衰——本宗当以五域苍生为念。增税之议，便如此定。\""
+            },
+            {
+              "context": "私下吩咐莫问",
+              "line": "*目光深邃* \"莫问——你卖出的那张图，本宗听说了。下次……报价记得高些。\""
+            },
+            {
+              "context": "应付来访的赫连绝使者",
+              "line": "*微微一笑* \"北原冰融——本宗听闻。请回复贵宫主：若需南下分粮，本宗自有安排。但需依本宗规矩。\""
+            },
+            {
+              "context": "面对一个反对增税的老臣",
+              "line": "*气定神闲* \"老国师——天道之上，无个人之念。增税非为本宗，为五域千秋。请国师不要让本宗为难。\""
+            },
+            {
+              "context": "召见黑市掮客罗成",
+              "line": "*指尖在案上轻敲* \"罗成——血煞门那条线，再压一压。三个月内不动他，但要把价抬上去。\""
+            },
+            {
+              "context": "独处时面对自己倒影",
+              "line": "*紫气环绕* \"天道仁慈？……天道不过是本宗手中棋。\""
+            },
+            {
+              "context": "面对一个跪求宽限的边镇官员",
+              "line": "*俯视一眼* \"本宗给你三个月——三个月后若仍交不齐，便不必再回来面圣。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简给莫问",
+              "line": "近来天机紊乱\n勿再泄露\n本宗自有酬"
+            },
+            {
+              "context": "玉简给赫连绝",
+              "line": "冰融之事\n本宗听闻\n若需南下\n依本宗规矩"
+            },
+            {
+              "context": "玉简给万法仙宗诸长老",
+              "line": "本月增税已定\n各殿照例\n勿议"
+            },
+            {
+              "context": "玉简给罗成",
+              "line": "血煞门那条线\n再压一压\n价抬三成"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 5,
+            "根基": 12
+          }
+        },
+        "role": "正道宗主"
+      },
+      "central_state_202_mowen": {
+        "id": "central_state_202_mowen",
+        "name": "莫问",
+        "aliases": ["莫先生"],
+        "gender": "男",
+        "origin": "游荡于中州繁华市井与上古废墟间的盲眼算命先生。本是上古阵宗的最后一代传人，因窥探天机被反噬双目。不参与宗门争霸，却掌握着通往中州核心秘境的钥匙。以废灵根之姿逆天改命修至元婴，深谙修真界的虚妄，常常以几块下品灵石的代价向有缘人贩卖足以掀起腥风血雨的情报。",
+        "birthday": "道历12780.01.01",
+        "personality": "看破红尘/随遇而安/大智若愚",
+        "appearance": "瞎眼盲童貌/白发童颜/道骨仙风",
+        "clothing": "破旧道袍/竹杖草鞋",
+        "spiritual_root": "五系废灵根",
+        "cultivation_realm": "元婴期",
+        "sect_faction": "中州坊市",
+        "alignment": "中立逐利",
+        "relationships": {
+          "central_state_201_huangfuqian": "皇甫乾，曾经万法仙宗宗主,中州掌局的恐怖巨头；现在看破其灭世之局的执棋者",
+          "old_road_201_shenpopo": "沈阿婆，古道老相识/可以坐对一壶茶不语的旧人"
+        },
+        "cognitive_state": "中州坊市盲眼算命先生、刚把通天秘境边缘阵法破绽卖出之后的清晨",
+        "initial_status": "破旧道袍领口沾着茶渍、竹杖搁在膝边、坐在繁华坊市的一处旧茶寮前、目盲却面带浅笑、似乎在听某段无人听见的天音",
+        "dialogue_tone": "慢条斯理似醒非醒、常说些模棱两可富含谶语意味的话；面对面会顿一会让人自己想、玉简里也是禅语谜句",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "一个戴斗笠修士来问吉凶",
+              "line": "*指尖抚竹杖* \"道友所问之事——非凶非吉。只看你今夜做不做那一个梦。\""
+            },
+            {
+              "context": "应付皇甫乾派来的密使",
+              "line": "*微微一笑* \"宗主有令——天机不可再泄。罢了……便不泄了。换您几粒下品灵石？\""
+            },
+            {
+              "context": "碰到冷月路过",
+              "line": "*微微颔首* \"剑修——你的剑、迟早会断。但断了反而轻松。\""
+            },
+            {
+              "context": "碰到落霞驿沈阿婆",
+              "line": "*笑容温和* \"阿婆——又一年了。下次给我留口热茶？\""
+            },
+            {
+              "context": "面对一个想求富贵的散修",
+              "line": "*顿了顿* \"富贵？……你这一生只能富贵半日。哪半日？……自己去找。\""
+            },
+            {
+              "context": "应付一个想买通天秘境情报的人",
+              "line": "*指节敲了敲竹杖* \"情报有价——但你的命也有价。两者哪个先付？\""
+            },
+            {
+              "context": "独处时自语",
+              "line": "*仰头望天* \"天道残破——也好。我这双瞎眼，便不必看那些不忍看之物。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回沈阿婆",
+              "line": "下月路过\n讨一壶茶\n勿备饭"
+            },
+            {
+              "context": "玉简回皇甫乾",
+              "line": "宗主之意已悉\n泄与不泄\n看天\n非看我"
+            },
+            {
+              "context": "玉简给一个忠实老顾客",
+              "line": "近来风云乱\n勿入南疆药市\n等下月再去"
+            },
+            {
+              "context": "玉简自存的一句",
+              "line": "看见也好\n看不见也好\n都是这一世"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 4,
+            "根基": 7
+          }
+        },
+        "role": "算命先生"
+      },
+      "_summary": "十五位核心角色 V2 形态：十位五域顶层巨头+四位底层 NPC+沈阿婆；每位都带 cognitive_state / initial_status / dialogue_tone / dialogue_examples（in_person≥6 / sms≥4）",
+      "eastern_waste_001_hanqi": {
+        "id": "eastern_waste_001_hanqi",
+        "name": "韩七",
+        "gender": "男",
+        "origin": "太阿城外围坊市的管事，靠抽成、克扣与倒卖消息在夹缝里攒出一身油滑本事。",
+        "birthday": "道历13462.03.09",
+        "personality": "市侩油滑/欺软怕硬/见风使舵",
+        "appearance": "黑瘦精干/目光乱转/指节发黄",
+        "clothing": "旧绸短褂/铁算盘/油污布鞋",
+        "spiritual_root": "四系伪灵根",
+        "cultivation_realm": "炼气期",
+        "sect_faction": "太阿城外围坊市",
+        "alignment": "中立逐利",
+        "relationships": {},
+        "cognitive_state": "太阿城外围坊市的管事、清晨刚开摊就听到征召令风声",
+        "initial_status": "旧绸短褂袖口磨亮、铁算盘别在腰间、坐在坊市自家摊位后头、目光乱转盘算这波征召风波能再榨几两油水",
+        "dialogue_tone": "嘴快眼毒三句话里总要夹半句试探与盘剥；面对面爱拍算盘、玉简里也是连串占便宜的话",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "应付一个想低价兑换灵石的散修",
+              "line": "*拍拍算盘* \"兄弟——你这成色，五块给八成。再低，老子可没法帮你白跑。\""
+            },
+            {
+              "context": "哄一个外门弟子买符箓",
+              "line": "*咧嘴笑* \"这道是赵师兄座下亲炼——你拿回去，破阶时绝对管用。便宜给你，老子赔本！\""
+            },
+            {
+              "context": "碰到周魁来收抽成",
+              "line": "*殷勤递过茶* \"周师兄您来得早——这月的孝敬，老子已经备好。请师兄过目。\""
+            },
+            {
+              "context": "看见一个想跑路的应征者",
+              "line": "*眼神一转* \"兄弟——征召令下了。你这一跑被抓住可就……不如花点小钱，老子给你指条暗路。\""
+            },
+            {
+              "context": "应付想砍价的客人",
+              "line": "*翻白眼* \"你这是给我家小娃断口粮——这价老子赔！不买拉倒，下一位！\""
+            },
+            {
+              "context": "碰到一个落魄修士",
+              "line": "*打量一番* \"兄弟你这身行头——卖给老子换三块下品如何？老子不亏待你。\""
+            },
+            {
+              "context": "逗一个药童",
+              "line": "*塞过去半块糖* \"丫头——你师父今日心情如何？跟韩叔叔说说，回头给你留一块好糖。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简向周魁汇报",
+              "line": "本月孝敬如数\n另有外门两单\n师兄过目"
+            },
+            {
+              "context": "玉简给散修客人",
+              "line": "货已到\n下午来取\n按昨日价"
+            },
+            {
+              "context": "玉简给一个外宗中间人",
+              "line": "征召风声紧\n货价加二成\n要走快"
+            },
+            {
+              "context": "玉简骂一个赊账不还的",
+              "line": "欠条还不还\n明日再不结\n老子让人去家里收"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {},
+        "role": "坊市管事"
+      },
+      "eastern_waste_002_zhoukui": {
+        "id": "eastern_waste_002_zhoukui",
+        "name": "周魁",
+        "gender": "男",
+        "origin": "天剑宗外门执役师兄，专管杂役营与外门苦差，最擅借宗门威风压榨底层弟子。",
+        "birthday": "道历13470.08.21",
+        "personality": "仗势欺人/小心谨慎/贪图好处",
+        "appearance": "肩宽背厚/面皮发青/眉骨粗硬",
+        "clothing": "灰青外门袍/执役木牌/厚底皂靴",
+        "spiritual_root": "四系伪灵根",
+        "cultivation_realm": "炼气期",
+        "sect_faction": "天剑宗外门",
+        "alignment": "中立逐利",
+        "relationships": {},
+        "cognitive_state": "天剑宗外门执役师兄、刚接到把杂役营编入死士营的清晨",
+        "initial_status": "灰青外门袍肩头落了一层早霜、执役木牌挂在胸前晃、立于杂役营前的演武场上、面皮发青心里盘算今天能压榨哪几个新人多干活",
+        "dialogue_tone": "盛气凌人句句都带拿捏人命的轻慢；面对面爱抬下巴扫视、玉简里也是命令口吻和威胁",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "面对一群刚被编入死士营的杂役",
+              "line": "*抬下巴扫一眼* \"尔等今日入死士营——记着，给宗门卖命是尔等几辈子修来的福分！谁敢哭鼻子，老子先打断他的腿！\""
+            },
+            {
+              "context": "碰到韩七来送孝敬",
+              "line": "*哼一声接过* \"韩七——这次少了二两。下回补齐。不然下个月你这摊位老子记你一笔。\""
+            },
+            {
+              "context": "应付一个想求免征召的杂役",
+              "line": "*冷笑* \"你？……你拿什么求？三块下品灵石？老子今天连茶钱都不止这个数！\""
+            },
+            {
+              "context": "碰到内门大弟子赵无极",
+              "line": "*立刻躬身* \"赵师兄好——师兄有何吩咐？周魁定当全力以赴！\""
+            },
+            {
+              "context": "逼迫一个不肯送礼的散修弟子",
+              "line": "*胸口挺直* \"你不送？……你这考核成绩老子可以让它低三分。试试看？\""
+            },
+            {
+              "context": "看见一个老杂役偷懒",
+              "line": "*抡起执役木牌* \"老货——老子叫你抗几袋砂！再装病老子直接让你去矿区第三层！\""
+            },
+            {
+              "context": "独处时数自己的灵石",
+              "line": "*指尖在算* \"本月孝敬到手——再压几个杂役，下月就能买那道筑基符。哈哈，哈哈。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简向赵无极汇报",
+              "line": "杂役营已编妥\n死士营满额\n师兄宽心"
+            },
+            {
+              "context": "玉简向韩七催孝敬",
+              "line": "少了二两\n明日补齐\n再少一次不照顾你了"
+            },
+            {
+              "context": "玉简骂一个不听话的杂役",
+              "line": "明早第一个抗砂\n少一袋老子让你去矿底"
+            },
+            {
+              "context": "玉简跟外门一个小执事",
+              "line": "你那边死士营缺人\n老子给你调三个\n二十下品"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 1,
+            "根基": 4
+          }
+        },
+        "role": "外门执役"
+      },
+      "southern_border_001_qinghe": {
+        "id": "southern_border_001_qinghe",
+        "name": "青禾",
+        "gender": "女",
+        "origin": "百草城药铺跑腿药童，出身凡民，靠记性好和耳朵灵在药市里求活。",
+        "birthday": "道历13483.11.06",
+        "personality": "谨慎怕事/记性极好/眼观六路",
+        "appearance": "身形清瘦/指尖沾药粉/眼神机灵",
+        "clothing": "草染短衫/旧布围裙/药篓背绳",
+        "spiritual_root": "凡人无灵根",
+        "cultivation_realm": "凡人",
+        "sect_faction": "百草城药市",
+        "alignment": "凡俗之辈",
+        "relationships": {},
+        "cognitive_state": "百草城药铺跑腿药童、清晨在药圃后院晾草药时听到外面传柳长老的风声",
+        "initial_status": "草染短衫袖子卷到肘部、布围裙沾着新鲜药汁、背着药篓蹲在晾草架边、耳朵竖着、心里把柳长老昨日交代的那张方子又默念一遍",
+        "dialogue_tone": "轻声细气谨慎怕事但消息递得极快；面对面话不多眼神溜得快、玉简里也是简短一两个关键词加问号",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "应付一个想买稀有药材的散修",
+              "line": "*低头数瓶子* \"这味……今天没有。柳长老昨日说不卖。您下次来问问看。\""
+            },
+            {
+              "context": "回柳如烟的吩咐",
+              "line": "*双手交叠在身前* \"弟子记住了——这几味药酉时前送到南殿，弟子不耽误。\""
+            },
+            {
+              "context": "碰到一个想打听药价的外宗使者",
+              "line": "*抿一下唇* \"贵客——药价不归弟子定。等掌柜回来再问吧。\""
+            },
+            {
+              "context": "看到苗天忌路过药圃",
+              "line": "*下意识后退一步* \"苗……苗前辈。您要不要看看晾架上的甘草？掌柜今早晒的。\""
+            },
+            {
+              "context": "应付一个赖着不走的顾客",
+              "line": "*小心翼翼* \"客官……药铺三炷香后才开正门。您要不要先去茶寮等等？\""
+            },
+            {
+              "context": "听到一个修士议论柳长老",
+              "line": "*装没听见加快脚步* \"弟子还要去晒药——晚了药就老了。打扰了。\""
+            },
+            {
+              "context": "独处时数自己的几块下品灵石",
+              "line": "*把灵石仔细包起来* \"再攒攒……再攒三个月，就能给娘买那剂安神药。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回柳如烟",
+              "line": "酉时前\n方子已配齐\n等长老吩咐"
+            },
+            {
+              "context": "玉简告母亲",
+              "line": "娘\n下月药已备\n勿担心"
+            },
+            {
+              "context": "玉简给一个相熟的小师姐",
+              "line": "南殿有动静\n你别去\n等今晚再说"
+            },
+            {
+              "context": "玉简给药铺掌柜",
+              "line": "掌柜\n甘草已晒齐\n何时入仓"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {},
+        "role": "药童"
+      },
+      "central_state_001_luocheng": {
+        "id": "central_state_001_luocheng",
+        "name": "罗成",
+        "gender": "男",
+        "origin": "中州黑市掮客，专做洗白赃物、转手情报与替人牵线的肮脏生意。",
+        "birthday": "道历13428.06.16",
+        "personality": "八面玲珑/贪利谨慎/城府深沉",
+        "appearance": "面白无须/手指修长/笑意不达眼底",
+        "clothing": "暗纹长袍/黑玉扳指/轻靴无声",
+        "spiritual_root": "三系真灵根",
+        "cultivation_realm": "筑基期",
+        "sect_faction": "中州黑市",
+        "alignment": "中立逐利",
+        "relationships": {},
+        "cognitive_state": "中州黑市掮客、清晨在自家茶寮里等几个不便走正路的买家",
+        "initial_status": "暗纹长袍下摆收得齐整、黑玉扳指在指间转、坐在茶寮内室、笑意不达眼底、心里把昨日皇甫乾密使送来的那张名单又过了一遍",
+        "dialogue_tone": "语速平稳笑里藏刀、永远先谈抽成再谈交情；面对面爱微笑递茶、玉简里也是温和敬语藏着钩子",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "迎来一个想销赃的散修",
+              "line": "*微笑递茶* \"道友请坐——这批货品相不错。抽成嘛，按老规矩三成。喝完茶我们再细谈。\""
+            },
+            {
+              "context": "应付一个想跨域联络的中州官员",
+              "line": "*笑容温和* \"大人客气——血煞门那边，我有线。但风声紧，价格要再议。\""
+            },
+            {
+              "context": "接到皇甫乾的玉简",
+              "line": "*恭敬欠身* \"宗主之意已悉——下午便办。罗某不敢延误。\""
+            },
+            {
+              "context": "碰到一个想白用人情的旧识",
+              "line": "*笑意不变* \"兄弟客气——只是这次的事，得先付定金。不然就算是兄弟，我也办不动。\""
+            },
+            {
+              "context": "应付一个想找他报仇的对头",
+              "line": "*放下茶盏* \"兄弟——这事是我对不住您。可您看我这茶寮今日满座，要不另约个时辰？我亲自登门道歉。\""
+            },
+            {
+              "context": "吩咐心腹",
+              "line": "*指节轻敲扳指* \"南疆那条线再压一压——柳如烟近来动作不寻常，先不沾她。\""
+            },
+            {
+              "context": "独处时数账",
+              "line": "*翻账本* \"本月抽成已到——还差两单，便足够给宗主交差。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回皇甫乾",
+              "line": "宗主之意已办\n详情面禀\n勿念"
+            },
+            {
+              "context": "玉简给一个西漠中间人",
+              "line": "货价再涨三成\n下月初付\n勿议"
+            },
+            {
+              "context": "玉简推脱一个赊账客户",
+              "line": "近来风声紧\n暂不接\n两月后再议"
+            },
+            {
+              "context": "玉简给心腹",
+              "line": "南疆那条线\n再压两日\n勿动"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {
+          "combat": {
+            "境界阶": 2,
+            "根基": 5
+          }
+        },
+        "role": "黑市掮客"
+      },
+      "old_road_201_shenpopo": {
+        "id": "old_road_201_shenpopo",
+        "name": "沈阿婆",
+        "gender": "女",
+        "origin": "万里古道落霞驿的主人，年逾古稀的凡人老者。年轻时曾在中州万法仙宗外门修至筑基，后因目睹宗门为夺灵脉屠灭一座凡人村而散尽修为，自此立誓再不踏足修真界。如今独自在落霞驿煮茶维生，仍保有最低限度的元气感知；五大顶级人物年轻时的样子，她记得几桩。",
+        "birthday": "道历13380.09.18",
+        "personality": "看破却不冷漠/温和坚定/不站队",
+        "appearance": "身形瘦小/银发束髻/双目深邃却平和",
+        "clothing": "靛青粗布袄/腰间挂磨亮旧茶瓢/老布鞋",
+        "spiritual_root": "三系真灵根",
+        "cultivation_realm": "凡人",
+        "sect_faction": "万里古道·落霞驿",
+        "alignment": "凡俗之辈",
+        "relationships": {
+          "central_state_201_huangfuqian": "皇甫乾，中州顶尖人物/年轻时见过其少年仪态/敬而远之",
+          "central_state_202_mowen": "莫问，古道老相识/盲眼算命先生有时会来歇脚/两人对坐不发一语就能喝完一壶茶",
+          "southern_border_201_miaotianji": "苗天忌，认识多年的老怪/偶尔会专程来落霞驿讨杯茶/承诺过不在驿中动手",
+          "eastern_waste_201_lichunyang": "李纯阳，曾在东荒成名时见过其少年仪态/敬其守护门徒之心却惜其杀伐过甚",
+          "northern_plain_101_lengyue": "冷月，曾路过古道一次/在落霞驿门前默默喝完一壶茶/眼底有疑",
+          "western_desert_201_xuemolaozu": "血魔老祖，西漠最深的孽障/避而远之，但其名号常在古道流亡者口中听见"
+        },
+        "cognitive_state": "万里古道落霞驿的茶娘、清晨在老柏树下生炉煮今早第一壶茶",
+        "initial_status": "靛青粗布袄略松、银发束髻、腰间挂磨亮旧茶瓢、坐在三棵老柏中间最大那棵下、看晨光铺过驿前小路、心里盘算今日来歇脚的人会不会比昨日多",
+        "dialogue_tone": "声音温和而缓慢、每一句话之间都留着喝茶的间隙、提到修真界纠葛只淡淡一笑、若有客问起某位顶级人物年轻时的样子会说出几句令人意外清晰的细节",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "迎一个逃难的凡人母子",
+              "line": "*把热茶推过去* \"孩子先喝一口——这一路你们累坏了。后院有干净草垫，今晚住下别走。\""
+            },
+            {
+              "context": "苗天忌来讨茶",
+              "line": "*笑着递过一壶* \"老怪今天又来了——茶就这壶。你赶路别在棚下吵架，别人不愿听你的腌臜话。\""
+            },
+            {
+              "context": "应付一个想打听皇甫乾年轻时的修士",
+              "line": "*抬眼望远* \"皇甫乾啊……当年我见过他一次。那时他眼里还有光，跟现在不一样。\""
+            },
+            {
+              "context": "碰到莫问路过",
+              "line": "*把茶盖掀开* \"盲眼先生——还是老位置。今日想要的是茶，还是想要不说话？\""
+            },
+            {
+              "context": "看冷月在驿门外踟蹰",
+              "line": "*温声招手* \"剑修——进来喝一壶。门里风小，外头不必硬撑。\""
+            },
+            {
+              "context": "应付一个寻仇的小修士",
+              "line": "*把茶杯收起* \"这位道友——落霞驿的规矩你懂。茶钱我退你，请你下次再来。\""
+            },
+            {
+              "context": "独处时望河水方向",
+              "line": "*轻轻叹一口气* \"几十年了……这一段不染血，能守一天是一天。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "回苗天忌问近况",
+              "line": "老婆子还活着\n你下月来\n茶给你留"
+            },
+            {
+              "context": "回莫问",
+              "line": "茶随时\n你来便煮\n不必报信"
+            },
+            {
+              "context": "简短给一个老镖师",
+              "line": "今日逃难人多\n你来时带些干粮\n后院够住二十"
+            },
+            {
+              "context": "回冷月",
+              "line": "你想喝就来\n不必避\n阿婆这壶给你留"
+            }
+          ]
+        },
+        "role_marker": null,
+        "_extensions": {},
+        "role": "驿站茶娘"
+      },
+      "eastern_waste_200_chenqingchen": {
+        "id": "eastern_waste_200_chenqingchen",
+        "name": "陈青尘",
+        "gender": "男",
+        "origin": "无门无派的底层散修，四灵伪根、资质平庸，靠打零工与捡漏在太阿城外围讨生活，无依无靠。",
+        "birthday": "道历13441.09.03",
+        "personality": "隐忍务实/警觉惜命/认死理的轴",
+        "appearance": "清瘦寡言/眉间一道旧疤/眼神沉静",
+        "clothing": "洗得发白的粗布长衫/瘪瘪的储物袋/一柄锈口短剑",
+        "spiritual_root": "四系伪灵根",
+        "cultivation_realm": "炼气期",
+        "sect_faction": "无门无派散修",
+        "alignment": "凡俗之辈",
+        "relationships": {},
+        "cognitive_state": "四灵伪根的底层散修、清晨在太阿城外围听到天剑宗炮灰征召令风声时",
+        "initial_status": "粗布长衫洗得发白、储物袋瘪瘪只剩几块下品灵石、立在太阿城外围坊市的人潮里、攥紧锈口短剑听着征召令的铜锣声越来越近",
+        "dialogue_tone": "话不多、字斟句酌、遇事先掂量利害；面对面惜字如金，玉简里更是短促克制",
+        "dialogue_examples": {
+          "in_person": [
+            {
+              "context": "被坊市管事韩七搭话试探",
+              "line": "*把储物袋往身后挪了挪* \"随便看看。买不起。\""
+            },
+            {
+              "context": "听到征召令的铜锣声逼近",
+              "line": "*下意识攥紧短剑，声音压得很低* \"……天剑宗的炮灰令，真下到外围来了。\""
+            },
+            {
+              "context": "有人劝他花钱买条暗路逃征召",
+              "line": "*盯着对方看了两息* \"先说价。我兜里几个灵石我自己清楚——别拿我当冤大头。\""
+            },
+            {
+              "context": "同为散修的人想结伴",
+              "line": "*迟疑片刻* \"结伴可以。丑话在前：真到了拼命的时候，谁也别指望谁。\""
+            },
+            {
+              "context": "被外门弟子呼来喝去",
+              "line": "*低头让到一边，眼神却没动* \"……是。这就让路。\""
+            },
+            {
+              "context": "独自盘算下一步",
+              "line": "*摩挲着剑柄上的锈* \"四灵伪根，炼气期……硬碰是死。得找条缝钻。\""
+            }
+          ],
+          "sms": [
+            {
+              "context": "玉简回一个想结伴的散修",
+              "line": "可以结伴\n但先说好\n各自保命"
+            },
+            {
+              "context": "玉简向坊市打听暗路",
+              "line": "外围还能出城吗\n价多少\n我只问一次"
+            },
+            {
+              "context": "玉简谢绝一桩来路不明的活计",
+              "line": "这活我不接\n太脏\n别再找我"
+            },
+            {
+              "context": "玉简对催债的",
+              "line": "灵石下月还\n这月真没有\n再逼也变不出"
+            }
+          ]
+        },
+        "is_protagonist": true,
+        "_extensions": {},
+        "role": "底层散修",
+        "background": "天生四灵伪根，金木水火四属皆沾而不纯，宗门验灵时被判'杂而不专、难成大器'，故沦为无门无派的底层散修。父母早亡，自幼在太阿城外围坊市捡漏打杂、看人脸色讨生活，练就一身察言观色与捡便宜的本事。身无长物，唯一把祖传锈口短剑（见 artifact_rusty_shortsword）。心底始终不信'伪根注定平庸'这句断语——这点不甘，是他敢应天剑宗炮灰征召的底气，也可能是催命符。"
+      }
+    },
+    "world_timeline": {
+      "events": [
+        {
+          "id": "evt_ancient_immortal_demon_war",
+          "time": "Pre-道历约5000.01",
+          "day": "01日",
+          "location": { "country": "中州", "site": "登天台", "spot": "未知" },
+          "characters": "无",
+          "content": "上古仙魔倾轧，天地大道崩毁。通往上界的天地之桥于此惨烈大战中濒临断绝，绝代大能尽数陨落。天玄界自此法则残缺，灵气有缺，飞升成为虚无缥缈的传说，开启了残酷的修真纪元。",
+          "time_str": "00:00",
+          "entity_refs": [
+            "central_state"
+          ],
+          "character_refs": []
+        },
+        {
+          "id": "evt_huangfu_grand_scheme",
+          "time": "道历12220.01",
+          "day": "01日",
+          "location": { "country": "中州", "site": "万法仙宗", "spot": "未知" },
+          "characters": "皇甫乾",
+          "content": "皇甫乾察觉天地灵气日渐枯竭，若任由发展必将迎来末法时代。他隐身幕后，以正道魁首之姿暗中挑动多场正魔小规模冲突。其真实目的乃是以天下陨落修士之血肉灵力反哺中州地脉，一张笼罩五大域的千年大网悄然张开。",
+          "time_str": "23:00",
+          "entity_refs": [
+            "central_state"
+          ],
+          "character_refs": [
+            "central_state_201_huangfuqian"
+          ]
+        },
+        {
+          "id": "evt_gorefiend_blood_pool",
+          "time": "道历12320.01",
+          "day": "01日",
+          "location": { "country": "西漠", "site": "万骨血池", "spot": "未知" },
+          "characters": "血魔老祖",
+          "content": "血魔老祖为破境延寿，悍然血祭西漠数个凡人国度。百万生灵的气血与低阶修士的怨魂汇聚成万骨血池，血煞门自此奠定西漠魔道巨擘之位。此举有违天和，令西漠修士闻风丧胆，老魔亦在长生的执念中逐渐陷入癫狂。",
+          "time_str": "23:40",
+          "entity_refs": [
+            "western_desert"
+          ],
+          "character_refs": [
+            "western_desert_201_xuemolaozu"
+          ]
+        },
+        {
+          "id": "evt_array_sect_destruction",
+          "time": "道历12800.01",
+          "day": "01日",
+          "location": { "country": "中州", "site": "上古遗迹", "spot": "未知" },
+          "characters": "莫问",
+          "content": "上古阵宗因怀璧其罪遭逢灭门惨祸。最后一代传人莫问强行开启残阵窥探天机，以双目被天道反噬失明为代价，截取了通往核心秘境的绝密钥石。此后他流落中州市井，以废灵根之姿逆天改命修至元婴，化作游荡的盲眼算命先生。",
+          "time_str": "02:20",
+          "entity_refs": [
+            "central_state"
+          ],
+          "character_refs": [
+            "central_state_202_mowen"
+          ]
+        },
+        {
+          "id": "evt_ice_palace_conquest",
+          "time": "道历13100.01",
+          "day": "01日",
+          "location": { "country": "北原", "site": "冰魄神宫", "spot": "未知" },
+          "characters": "赫连绝",
+          "content": "赫连绝执掌冰魄神宫后，亲自率众镇压不愿归附的诸部与附庸势力。反抗者的头颅被筑成冰骨京观，北原自此在神宫与诸部共主的强权之下彻底噤声。",
+          "time_str": "11:10",
+          "entity_refs": [
+            "northern_plain"
+          ],
+          "character_refs": [
+            "northern_plain_201_helianjue"
+          ]
+        },
+        {
+          "id": "evt_lichunyang_fame",
+          "time": "道历13450.01",
+          "day": "01日",
+          "location": { "country": "东荒", "site": "万毒谷", "spot": "未知" },
+          "characters": "李纯阳",
+          "content": "东荒烈火峰首座李纯阳单剑赴会，于万毒谷斩杀三名同阶邪修，威震东荒。事起因邪修残害其座下弟子，李纯阳怒发冲冠不惜掀起宗门血战。其极度护短之名与雷霆手段，令东荒宵小再不敢轻易招惹天剑宗。",
+          "time_str": "05:30",
+          "entity_refs": [
+            "eastern_waste"
+          ],
+          "character_refs": [
+            "eastern_waste_201_lichunyang"
+          ]
+        },
+        {
+          "id": "evt_lengyue_awakening",
+          "time": "道历13465.01",
+          "day": "01日",
+          "location": { "country": "北原", "site": "极寒雪原", "spot": "未知" },
+          "characters": "冷月 / 赫连绝",
+          "content": "冷月奉赫连绝之命镇压北原边境的凡人叛乱，剑下亡魂无数。在一片血海哀嚎中，这柄冰魄神宫最锋利的杀人剑忽生一丝明悟，天生剑骨发出铮鸣。她首度对神宫视众生为蝼蚁的无情道法产生质疑，暗中踏上寻求解脱的险途。",
+          "time_str": "04:50",
+          "entity_refs": [
+            "northern_plain"
+          ],
+          "character_refs": [
+            "northern_plain_101_lengyue",
+            "northern_plain_201_helianjue"
+          ]
+        },
+        {
+          "id": "evt_liuruyan_gu_planted",
+          "time": "道历13485.01",
+          "day": "01日",
+          "location": { "country": "南疆", "site": "青云谷", "spot": "未知" },
+          "characters": "柳如烟",
+          "content": "青云谷谷主夫人柳如烟为谋夺宗门大权与天道筑基灵物，表面依旧温婉端庄。实则于双修之际，暗中向道侣体内种下南疆失传的噬心同生蛊。她耐心蛰伏，时刻准备在关键时刻将这同床共枕之人吸干以助自身破境。",
+          "time_str": "23:20",
+          "entity_refs": [
+            "southern_border"
+          ],
+          "character_refs": [
+            "southern_border_101_liuruyan"
+          ]
+        },
+        {
+          "id": "evt_miaotianji_slaughter",
+          "time": "道历13490.01",
+          "day": "01日",
+          "location": { "country": "南疆", "site": "十万大山", "spot": "未知" },
+          "characters": "苗天忌",
+          "content": "南疆老怪苗天忌因一株低阶的九叶灵芝，孤身屠灭了一个小型修真家族。归途却在暴雨中为一凡人村落布下避水阵法，只因数百年前该村先祖曾赠其一碗糙米粥。其行事乖张、善恶交织之态，尽显“天道不仁，只求痛快”的狂徒本色。",
+          "time_str": "18:10",
+          "entity_refs": [
+            "southern_border"
+          ],
+          "character_refs": [
+            "southern_border_201_miaotianji"
+          ]
+        },
+        {
+          "id": "evt_zhaowuji_murder",
+          "time": "道历13495.07",
+          "day": "14日",
+          "location": { "country": "东荒", "site": "陨仙绝地", "spot": "未知" },
+          "characters": "赵无极 / 李纯阳",
+          "content": "天剑宗内门大弟子赵无极于一处绝地秘境中，为争夺破境丹药与上古遗宝骤下杀手。他以极品法器将两名同门师弟神魂俱灭，随后从容伪造邪修劫杀的惨状。师叔李纯阳虽悲愤欲绝，却被赵无极滴水不漏的伪装蒙骗，未能查出破绽。",
+          "time_str": "23:10",
+          "entity_refs": [
+            "eastern_waste"
+          ],
+          "character_refs": [
+            "eastern_waste_202_zhaowuji",
+            "eastern_waste_201_lichunyang"
+          ]
+        },
+        {
+          "id": "evt_yeli_rebellion_prep",
+          "time": "道历13498.03",
+          "day": "01日",
+          "location": { "country": "西漠", "site": "枯骨绿洲", "spot": "未知" },
+          "characters": "夜离 / 血魔老祖",
+          "content": "血魔老祖大限将至，万骨血池异象频发。圣女夜离深知自己终将被炼成血丹宿体，暗中施展媚术勾连西漠邪修与绿洲大族，秘密修炼化血反噬之法，只等老祖最虚弱的那一刻反咬一口。",
+          "time_str": "22:30",
+          "entity_refs": [
+            "western_desert"
+          ],
+          "character_refs": [
+            "western_desert_101_yeli",
+            "western_desert_201_xuemolaozu"
+          ]
+        },
+        {
+          "id": "evt_tongtian_realm_manifests",
+          "time": "道历13499.01",
+          "day": "09日",
+          "location": { "country": "中州", "site": "九霄云上", "spot": "未知" },
+          "characters": "皇甫乾",
+          "content": "中州上空突现万丈霞光，空间裂缝中溢出仙灵之气，传闻藏有飞升之秘的通天秘境即将现世。皇甫乾在幕后推波助澜，令秘境名额与战略资源的争夺迅速白热化。五大域顶尖宗门开始残酷的互相倾轧，中小宗门朝不保夕，万年大世之争拉开帷幕。",
+          "time_str": "09:00",
+          "entity_refs": [
+            "central_state"
+          ],
+          "character_refs": [
+            "central_state_201_huangfuqian"
+          ]
+        },
+        {
+          "id": "evt_mowen_intel_sale",
+          "time": "道历13499.09",
+          "day": "15日",
+          "location": { "country": "中州", "site": "繁华坊市", "spot": "未知" },
+          "characters": "莫问",
+          "content": "莫问现身中州坊市，以区区几块下品灵石的代价，向数名戴着斗笠的神秘修士售出通天秘境边缘阵法的破绽情报。这一举动犹如在滚烫的热油中泼入冷水，瞬间引发了多场惨绝人寰的杀人夺宝与暗杀，修真界彻底陷入混乱。",
+          "time_str": "14:40",
+          "entity_refs": [
+            "central_state"
+          ],
+          "character_refs": [
+            "central_state_202_mowen"
+          ]
+        },
+        {
+          "id": "evt_mine_blood_sacrifice",
+          "time": "道历13500.02",
+          "day": "01日",
+          "location": { "country": "东荒", "site": "天剑宗玄灵矿区", "spot": "未知" },
+          "characters": "无",
+          "content": "东荒天剑宗辖下的玄灵矿区频遭魔道妖人袭击作乱，数名底层矿工与驻守弟子被抽干精血而亡。残破的尸首被布置成诡异的血祭阵纹，预示着魔修正在图谋一件惊天之物。局势波诡云谲，矿区被恐怖的阴云笼罩。",
+          "time_str": "00:50",
+          "entity_refs": [
+            "eastern_waste"
+          ],
+          "character_refs": []
+        },
+        {
+          "id": "evt_broken_cauldron_unearthed",
+          "time": "道历13500.04",
+          "day": "03日",
+          "location": { "country": "东荒", "site": "玄灵废矿深处", "spot": "未知" },
+          "characters": "无",
+          "content": "在充满血腥味的废矿深处，一名不知来历的底层杂役偶然从塌陷灵脉中挖出一尊残破小鼎。此鼎隐约能提纯废丹、压住杂毒，却暂时仍只是矿区暗处无人知晓的匿名变数；它的归属不是玩家的默认既定事实。",
+          "time_str": "05:20",
+          "entity_refs": [
+            "eastern_waste"
+          ],
+          "character_refs": []
+        },
+        {
+          "id": "evt_south_rebirth_herb_nears_maturity",
+          "time": "道历13500.04",
+          "day": "18日",
+          "location": { "country": "南疆", "site": "毒瘴沼泽", "spot": "未知" },
+          "characters": "柳如烟 / 苗天忌",
+          "content": "毒瘴沼泽深处传出九死还魂草将熟的消息，南疆医修、毒修、蛊修开始调动门徒、药奴与伏杀布置。柳如烟一面稳住青云谷内外，一面暗中盘算如何让所有觊觎者先互相厮杀。",
+          "time_str": "06:10",
+          "entity_refs": [
+            "southern_border"
+          ],
+          "character_refs": [
+            "southern_border_101_liuruyan",
+            "southern_border_201_miaotianji"
+          ]
+        },
+        {
+          "id": "evt_west_border_raids",
+          "time": "道历13500.04",
+          "day": "22日",
+          "location": { "country": "西漠", "site": "南疆与中州边境", "spot": "未知" },
+          "characters": "夜离 / 血魔老祖",
+          "content": "血煞门跨域劫掠突然增多，边镇血食、药材与低阶修士接连失踪。夜离借乱调度暗线与宿体资源，血魔老祖则默许门中以更凶狠的手段搜刮祭材。",
+          "time_str": "23:40",
+          "entity_refs": [
+            "western_desert",
+            "southern_border",
+            "central_state"
+          ],
+          "character_refs": [
+            "western_desert_101_yeli",
+            "western_desert_201_xuemolaozu"
+          ]
+        },
+        {
+          "id": "evt_central_spirit_mine_decline",
+          "time": "道历13500.04",
+          "day": "25日",
+          "location": { "country": "中州", "site": "皇极天朝北部矿脉", "spot": "未知" },
+          "characters": "皇甫乾",
+          "content": "中州数处灵石矿脉产出骤降，朝廷与宗门抽调的税赋却未减轻。皇甫乾趁势加紧对外围资源、护道名额与坊市情报的收束，中州修士已能闻到风雨将至的铁腥气。",
+          "time_str": "18:30",
+          "entity_refs": [
+            "central_state"
+          ],
+          "character_refs": [
+            "central_state_201_huangfuqian"
+          ]
+        },
+        {
+          "id": "evt_north_ice_melt",
+          "time": "道历13500.04",
+          "day": "28日",
+          "location": { "country": "北原", "site": "万载玄冰深处", "spot": "未知" },
+          "characters": "赫连绝 / 冷月",
+          "content": "万载玄冰深处出现异常消融与震裂，冰魄神宫据此重新整编诸部骑军与附庸人手。赫连绝借天象之变推动南下动员，冷月则在一次次调令中愈发清楚自己只是神宫手中的一柄剑。",
+          "time_str": "04:30",
+          "entity_refs": [
+            "northern_plain"
+          ],
+          "character_refs": [
+            "northern_plain_201_helianjue",
+            "northern_plain_101_lengyue"
+          ]
+        },
+        {
+          "id": "evt_east_internal_suspicion",
+          "time": "道历13500.04",
+          "day": "30日",
+          "location": { "country": "东荒", "site": "天剑宗内门", "spot": "未知" },
+          "characters": "赵无极 / 李纯阳",
+          "content": "矿区血祭异象与几桩旧秘境命案被悄悄并案谈论，天剑宗内部开始浮现对赵无极的模糊疑云。李纯阳尚未抓到真凭实据，却已本能察觉这位昔日倚重的师侄身上有说不清的阴影。",
+          "time_str": "21:10",
+          "entity_refs": [
+            "eastern_waste"
+          ],
+          "character_refs": [
+            "eastern_waste_202_zhaowuji",
+            "eastern_waste_201_lichunyang"
+          ]
+        },
+        {
+          "id": "evt_conscription_order_issued",
+          "time": "道历13500.05",
+          "day": "01日",
+          "location": { "country": "东荒", "site": "天剑宗山门", "spot": "未知" },
+          "characters": "李纯阳",
+          "content": "为争夺即将开启的通天秘境资源，并镇压矿区作乱的魔修，天剑宗高层下达了冷酷无情的炮灰征召令。李纯阳虽对座下门徒仍有护短之心，却在大势下默许了此举，全宗底层弟子被编入先遣死士营，东荒的残酷法则因此彻底摊在阳光之下。",
+          "time_str": "07:30",
+          "entity_refs": [
+            "eastern_waste"
+          ],
+          "character_refs": [
+            "eastern_waste_201_lichunyang"
+          ]
+        }
+      ],
+      "_summary": "时间线记录了五域旧怨与眼下风暴如何在通天秘境开启前夕重新汇聚。它既约束当前局势，也为随机开局与推荐开场提供明确锚点。",
+      "_extensions": {}
+    },
+    "opening_greeting": "道历一万三千五百年，五月初一清晨。天剑宗山门外，征召令贴上墙时浆糊还是温的。第一队人已经押下山了——点到名的没有一个应声，只有脚步。队尾有人腿一软跪进泥里，没等哭出声就被拖回队列；执鞭的外门弟子手很稳，眼睛却始终不敢落在那些脸上。而山门高处，宗里最护短的那位长老默许了这道令，一夜没合眼。东荒矿里的血祭没停，南疆的九死还魂草要熟了，北原的万载玄冰裂了第一道缝——几桩本不相干的事像是约好了，全挤进这一旬。点名声穿过晨雾，一个名字、一个名字，往这边来。下一个名字，还没有念出来。",
+    "laws": [
+      {
+        "id": "law_realm_suppression",
+        "scope": "world",
+        "name": "境界压制",
+        "body": "跨越大境界正面硬撼，基本等同自寻死路。低境界角色只能靠阵法、毒物、符箓、偷袭、地利与以命换命的底牌争一线生机；高境界压制通过灵压、神识锁定、护体真元与法宝威势体现，而非数值碾压。",
+        "binding": "背景"
+      },
+      {
+        "id": "law_qi_decay",
+        "scope": "world",
+        "name": "灵气衰败、求活为先",
+        "body": "天玄界灵气衰败，底层修士先考虑活下去，再谈机缘与大道。下品灵石、劣质丹药、可用法器、人情与安全落脚地，都是初期最现实的稀缺资源。",
+        "binding": "背景"
+      },
+      {
+        "id": "law_combat_cost",
+        "scope": "world",
+        "name": "斗法有代价",
+        "body": "重伤、反噬、灵力枯竭、法器受损、身份暴露，都是斗法后必须承担的真实代价。功法克制、法宝品阶、神识强弱、布置时间与情报优势，往往比一时蛮勇更重要。",
+        "binding": "背景"
+      },
+      {
+        "id": "law_false_root",
+        "scope": "eastern_waste_200_chenqingchen",
+        "name": "四灵伪根",
+        "body": "陈青尘四灵伪根、资质平庸，修同境界事倍功半；但伪根杂而不纯，世间或有不循正道的偏门蹊径——是死路还是另一条路，未定。",
+        "binding": "种子"
+      },
+      {
+        "id": "law_beads_soulbind",
+        "scope": "artifact_bone_beads",
+        "name": "念珠锁魂",
+        "body": "白骨念珠与血魔老祖的魂魄、续命之法相连。非其本人强夺、催动者，必遭念珠中无数残魂反噬。",
+        "binding": "背景"
+      }
+    ],
+    "mods": [
+      {
+        "id": "mod_combat",
+        "name": "斗法",
+        "ref": "official:general-check",
+        "config": {
+          "trigger": "AI判定: 玩家是否在与人斗法 / 出手过招？",
+          "modifier": "{自身.根基}",
+          "difficulty": "12 + ({目标.境界阶} - {自身.境界阶}) * 12",
+          "on_success": {
+            "set": {
+              "{自身.灵力}": "max(0, {自身.灵力} - 10)"
+            }
+          },
+          "on_fail": {
+            "set": {
+              "{自身.灵力}": "max(0, {自身.灵力} - 20)",
+              "{自身.经脉.任脉}": "受损"
+            }
+          },
+          "narrate": {
+            "success": "你抢得先机，一式压住对方气势。",
+            "fail": "对方功底更深，你被震得灵力翻涌、经脉一滞。"
+          }
+        }
+      },
+      {
+        "id": "mod_breakthrough",
+        "name": "境界突破",
+        "prose": "冲击下一大境界需根基稳固并承受突破反噬。成败由检定定，叙述不得改写。（内联示范：顺带演示记录变量「经脉」与认账；也可建在 official:general-check 上 + 失败计数器自搭保底）",
+        "owns_vars": [
+          {
+            "key": "境界阶",
+            "type": "integer",
+            "init": 1,
+            "visible": true
+          },
+          {
+            "key": "根基",
+            "type": "integer",
+            "init": 5,
+            "visible": true
+          },
+          {
+            "key": "经脉",
+            "type": "object",
+            "fields": [
+              {
+                "key": "任脉",
+                "type": "string",
+                "init": "通畅"
+              },
+              {
+                "key": "督脉",
+                "type": "string",
+                "init": "通畅"
+              }
+            ]
+          }
+        ],
+        "hooks": {
+          "trigger": {
+            "on_action": "AI判定: 玩家是否在尝试突破到下一大境界？"
+          },
+          "resolve": {
+            "roll": "d20 + {自身.根基}",
+            "vs": "18",
+            "on_success": {},
+            "on_fail": {
+              "set": {
+                "{自身.根基}": "{自身.根基} - 2",
+                "{自身.经脉.任脉}": "受损"
+              }
+            }
+          },
+          "inject": "本回合裁定：{resolve.outcome}（成功=允许进阶下一大境界；失败=突破反噬、根基受损）。成败已定，叙述不得改写。"
+        }
+      },
+      {
+        "id": "mod_fortune",
+        "name": "秘境机缘",
+        "ref": "official:weighted-draw",
+        "config": {
+          "trigger": "AI判定: 玩家是否在秘境中探取机缘 / 开启宝藏？",
+          "table": [
+            {
+              "weight": 60,
+              "result": "空手而归"
+            },
+            {
+              "weight": 25,
+              "result": "寻常造物（灵石 / 低阶丹药 / 可用法器）"
+            },
+            {
+              "weight": 10,
+              "result": "难得灵材或残篇"
+            },
+            {
+              "weight": 5,
+              "result": "奇遇重宝（具体为何由叙述定）"
+            }
+          ]
+        }
+      },
+      {
+        "id": "mod_poison",
+        "name": "毒侵灵台",
+        "ref": "official:tick",
+        "owns_vars": [
+          {
+            "key": "毒伤",
+            "type": "integer",
+            "init": 0,
+            "visible": true
+          }
+        ],
+        "config": {
+          "when": "{自身.毒伤} > 0",
+          "do": {
+            "set": {
+              "{自身.灵力}": "max(0, {自身.灵力} - {自身.毒伤})",
+              "{自身.毒伤}": "max(0, {自身.毒伤} - 1)"
+            }
+          },
+          "narrate": "毒气钻入灵台，你气息一窒。"
+        }
+      }
+    ],
+    "artifacts": [
+      {
+        "id": "artifact_rusty_shortsword",
+        "name": "锈口短剑",
+        "desc": "陈青尘随身的凡铁短剑，剑身锈蚀、开口卷刃，是他在太阿城外围讨生活仅有的护身之物。",
+        "owner": "eastern_waste_200_chenqingchen",
+        "location": "东荒·太阿城外围坊市",
+        "attrs": {
+          "品阶": "凡器·下品",
+          "灵性": 0,
+          "状态": "锈蚀卷刃"
+        }
+      },
+      {
+        "id": "artifact_bone_beads",
+        "name": "白骨念珠",
+        "desc": "血魔老祖掌中常年转动的一串白骨念珠，以无数低阶修士的枯骨与残魂炼成，是他敛魂、镇压血池、强行续命的随身法器。",
+        "owner": "western_desert_201_xuemolaozu",
+        "location": "西漠·万骨血池",
+        "attrs": {
+          "材质": "枯骨与残魂",
+          "用途": "敛魂续命",
+          "灵性": "血煞缭绕"
+        }
+      },
+      {
+        "id": "artifact_skyway_relic",
+        "name": "通天秘境·残缺道图",
+        "desc": "传言通天秘境核心造物，记载残缺的上古登仙路图。现世前夕已引动五域明争暗夺，归属未定。",
+        "location": "通天秘境（现世前夕，方位未明）",
+        "attrs": {
+          "品阶": "传说·残缺",
+          "灵性": "（未知）",
+          "状态": "未现世"
+        }
+      }
+    ]
+  },
+  "designMeta": {
+    "phase": "p3",
+    "p2Stage": 4,
+    "p1Output": {
+      "complexity": "full",
+      "target_stages": 4,
+      "context_world": "残酷修真界·天玄界由东荒、西漠、南疆、北原、中州五大道域割据；万里古道凡人交通带横贯五域；灵气衰败末法将至。",
+      "context_rules": "玩法基调=底层求生+秘境大世；唯一货币下品灵石；境界=凡人/炼气/筑基/金丹/元婴/化神及以上；玩家默认底层散修或外门杂役。",
+      "context_chars": "十五位核心人物=十位五域顶层巨头（每域两位）+ 四位底层 NPC + 沈阿婆（古道凡心退修者）。",
+      "context_timeline": "通天秘境现世前夕，矿区血祭、南疆药熟、北原冰融、中州矿脉衰、西漠跨域劫掠并发；13500.05.01 天剑宗下炮灰征召令。",
+      "style_guide": "严肃冷酷半文半白古典仙侠基调；优先用神识/丹田/真元/道心；杜绝现代流行语与西式奇幻词汇；底层求生为主、不直连五域顶层。",
+      "world_terms": {
+        "currency_name": "下品灵石",
+        "calendar_era": "道历",
+        "time_precision": "time",
+        "calendar_units": [
+          "年",
+          "月",
+          "日"
+        ],
+        "time_segments": [],
+        "location_levels": [
+          "道域",
+          "区域",
+          "场所"
+        ],
+        "extra_status_groups": [
+          {
+            "key": "cultivation_system",
+            "label": "修真体系",
+            "icon": "☯️",
+            "fields": [
+              {
+                "key": "realm",
+                "label": "境界",
+                "type": "string"
+              },
+              {
+                "key": "spiritual_energy",
+                "label": "灵力",
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "extra_char_fields": [
+          {
+            "key": "spiritual_root",
+            "label": "灵根资质",
+            "type": "string",
+            "desc": "角色的修仙天赋"
+          },
+          {
+            "key": "cultivation_realm",
+            "label": "修为境界",
+            "type": "string",
+            "desc": "当前所处的修真大境界"
+          },
+          {
+            "key": "sect_faction",
+            "label": "所属宗派",
+            "type": "string",
+            "desc": "所在的门派、家族或散修身份"
+          },
+          {
+            "key": "alignment",
+            "label": "正邪倾向",
+            "type": "string",
+            "desc": "人物的行为底线与行事准则"
+          }
+        ]
+      },
+      "player_anchor": {
+        "allowed_modes": [
+          "assigned",
+          "any_role"
+        ],
+        "compliance": null,
+        "recommended_role": "被天剑宗炮灰征召令卷入的底层散修，四灵伪根、资质平庸、无依无靠"
+      },
+      "frozen_moment": {
+        "datetime": "道历13500.05.01 07:30",
+        "label": "天剑宗山门下达炮灰征召令的清晨",
+        "source": "explicit",
+        "world_tense": "imminent"
+      },
+      "naming_registry": {
+        "world_name": "天玄界",
+        "calendar_era": "道历",
+        "currency_name": "下品灵石",
+        "east_domain": "东荒",
+        "west_domain": "西漠",
+        "south_domain": "南疆",
+        "north_domain": "北原",
+        "central_domain": "中州",
+        "cross_road": "万里古道",
+        "east_sect": "天剑宗",
+        "west_sect": "血煞门",
+        "south_sect": "青云谷",
+        "north_sect": "冰魄神宫",
+        "central_sect": "万法仙宗"
+      }
+    }
+  }
+}

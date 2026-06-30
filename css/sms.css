@@ -1,0 +1,1156 @@
+/* ============================================================
+   SMS / 通讯 stage — Claude Design「Tiffany」独立观感
+   全部颜色走 --comms-* token（design-tokens/themes/metro.json → shared.comms，
+   主题无关、light/dark 一致，设计上与主 App 暖纸/墨绿解耦）。
+   作用域：.sms-root（嵌在 .stage-pane[data-stage-pane="sms"] 内）。
+   ============================================================ */
+
+.sms-root {
+  --sms-sans: var(--comms-font-sans);
+  --sms-serif: var(--comms-font-serif);
+  position: relative;
+  flex: 1;
+  /* Claude design 是 402px iOS 手机框——桌面端限宽居中成手机列，两侧留背景沟。
+     .sms-root 既是限宽列又是 .sms-chat / sheet / menu / toast 的定位上下文。 */
+  width: 100%;
+  max-width: 460px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--comms-bg);
+  color: var(--comms-ink);
+  font-family: var(--sms-sans);
+  border-inline: 1px solid var(--comms-line);
+  box-shadow: var(--comms-shadow-soft);
+}
+.sms-root *,
+.sms-root *::before,
+.sms-root *::after {
+  box-sizing: border-box;
+}
+.sms-root button {
+  font-family: inherit;
+}
+
+/* ─── 顶栏 ─────────────────────────────────────────────── */
+.sms-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  min-height: 50px;
+  padding: 10px 18px 6px;
+  background: var(--comms-bg);
+}
+.sms-header-titles {
+  flex: 1;
+  min-width: 0;
+}
+.sms-header-sub {
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 3px;
+  margin-bottom: 2px;
+}
+.sms-header-title {
+  font-family: var(--sms-serif);
+  font-size: var(--comms-fs-heading);
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+}
+.sms-header-action {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: var(--comms-radius-circle);
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  color: var(--comms-tiffany-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--comms-shadow-soft);
+}
+.sms-header-action .material-symbols-outlined {
+  font-size: 20px;
+}
+.sms-header-action.is-hidden {
+  display: none;
+}
+
+/* ─── Pill subtabs ─────────────────────────────────────── */
+.sms-pill {
+  flex-shrink: 0;
+  padding: 6px 14px 10px;
+  background: var(--comms-bg);
+}
+.sms-pill-track {
+  display: flex;
+  padding: 3px;
+  background: var(--comms-bg-deep);
+  border-radius: var(--comms-radius-sm);
+  box-shadow: inset 0 1px 2px var(--comms-line-mid);
+}
+.sms-pill-tab {
+  flex: 1;
+  padding: 7px 0;
+  border: none;
+  border-radius: var(--comms-radius-xs);
+  background: transparent;
+  color: var(--comms-ink-soft);
+  font-size: var(--comms-fs-body-sm);
+  font-weight: var(--comms-weight-medium);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background var(--comms-transition), color var(--comms-transition);
+}
+.sms-pill-tab.is-active {
+  background: var(--comms-surface);
+  color: var(--comms-ink);
+  font-weight: var(--comms-weight-semibold);
+  box-shadow: var(--comms-shadow-card);
+}
+.sms-pill-badge {
+  min-width: 15px;
+  height: 14px;
+  padding: 0 5px;
+  border-radius: var(--comms-radius-pill);
+  background: var(--comms-tiffany-soft);
+  color: var(--comms-tiffany-deep);
+  font-size: var(--comms-fs-2xs);
+  font-weight: var(--comms-weight-bold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.sms-pill-tab.is-active .sms-pill-badge {
+  background: var(--comms-tiffany-deep);
+  color: var(--comms-on-accent);
+}
+.sms-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--comms-radius-circle);
+  background: var(--comms-tiffany-deep);
+}
+
+/* ─── 视图容器 ─────────────────────────────────────────── */
+.sms-views {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.sms-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--comms-bg);
+  animation: smsTabFadeIn 0.22s ease-out;
+}
+.sms-view.is-hidden {
+  display: none;
+}
+@keyframes smsTabFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── 过滤芯片（全部 / 临时 / 预定义） ─────────────────── */
+.sms-filterchips {
+  flex-shrink: 0;
+  display: flex;
+  padding: 0 14px;
+  background: var(--comms-bg);
+  border-bottom: 1px solid var(--comms-line);
+}
+.sms-filterchip {
+  position: relative;
+  padding: 6px 14px 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: var(--comms-fs-body-sm);
+  font-weight: var(--comms-weight-medium);
+  color: var(--comms-ink-mute);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.sms-filterchip.is-active {
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+}
+.sms-filterchip-n {
+  font-size: var(--comms-fs-xs);
+  font-weight: var(--comms-weight-bold);
+  color: var(--comms-ink-mute);
+}
+.sms-filterchip.is-active .sms-filterchip-n {
+  color: var(--comms-tiffany-deep);
+}
+.sms-filterchip-underline {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--comms-tiffany-deep);
+}
+
+/* ─── 头像 ─────────────────────────────────────────────── */
+.sms-avatar {
+  --av-a: var(--comms-av-rose-a);
+  --av-b: var(--comms-av-rose-b);
+  flex-shrink: 0;
+  border-radius: var(--comms-radius-circle);
+  background: linear-gradient(135deg, var(--av-a) 0%, var(--av-b) 100%);
+  color: var(--comms-on-accent);
+  font-family: var(--sms-serif);
+  font-weight: var(--comms-weight-semibold);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--comms-shadow-soft);
+  overflow: hidden;
+}
+.sms-avatar--hue-rose  { --av-a: var(--comms-av-rose-a);  --av-b: var(--comms-av-rose-b); }
+.sms-avatar--hue-peach { --av-a: var(--comms-av-peach-a); --av-b: var(--comms-av-peach-b); }
+.sms-avatar--hue-milk  { --av-a: var(--comms-av-milk-a);  --av-b: var(--comms-av-milk-b); }
+.sms-avatar--hue-lilac { --av-a: var(--comms-av-lilac-a); --av-b: var(--comms-av-lilac-b); }
+.sms-avatar--hue-sage  { --av-a: var(--comms-av-sage-a);  --av-b: var(--comms-av-sage-b); }
+.sms-avatar--hue-sky   { --av-a: var(--comms-av-sky-a);   --av-b: var(--comms-av-sky-b); }
+.sms-avatar--hue-mint  { --av-a: var(--comms-av-mint-a);  --av-b: var(--comms-av-mint-b); }
+.sms-avatar--hue-sea   { --av-a: var(--comms-av-sea-a);   --av-b: var(--comms-av-sea-b); }
+.sms-avatar--hue-navy  { --av-a: var(--comms-av-navy-a);  --av-b: var(--comms-av-navy-b); }
+.sms-avatar--dynamic {
+  background: repeating-linear-gradient(45deg, var(--comms-ink) 0 4px, var(--comms-ink-soft) 4px 8px);
+  color: var(--comms-rose);
+}
+.sms-avatar--ring {
+  box-shadow: 0 0 0 2px var(--comms-surface), 0 0 0 3.5px var(--comms-tiffany);
+}
+
+/* ─── 会话列表 ─────────────────────────────────────────── */
+.sms-scroll {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--comms-bg);
+}
+.sms-conv-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--comms-line);
+  text-align: left;
+  cursor: pointer;
+}
+.sms-conv-row.is-unread {
+  background: var(--comms-unread-tint);
+}
+.sms-conv-row.is-unread::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--comms-tiffany);
+}
+.sms-conv-avatarwrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.sms-conv-avatarwrap .sms-avatar {
+  width: 50px;
+  height: 50px;
+  font-size: 21px;
+}
+.sms-online-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: var(--comms-radius-circle);
+  background: var(--comms-online);
+  border: 2.5px solid var(--comms-bg);
+}
+.sms-conv-main {
+  flex: 1;
+  min-width: 0;
+}
+.sms-conv-line1 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.sms-conv-name {
+  font-family: var(--sms-serif);
+  font-size: var(--comms-fs-subtitle);
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+.sms-conv-tagchip {
+  flex-shrink: 0;
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  padding: 1px 6px;
+  border-radius: var(--comms-radius-2xs);
+  background: var(--comms-bg-deep);
+  letter-spacing: 0.5px;
+}
+.sms-conv-spacer { flex: 1; }
+.sms-conv-time {
+  flex-shrink: 0;
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.3px;
+}
+.sms-conv-row.is-unread .sms-conv-time {
+  color: var(--comms-tiffany);
+  font-weight: var(--comms-weight-semibold);
+}
+.sms-conv-line2 {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 3px;
+}
+.sms-conv-preview {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--comms-fs-body-sm);
+  line-height: 1.5;
+  color: var(--comms-ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.sms-conv-row.is-unread .sms-conv-preview {
+  color: var(--comms-ink);
+  font-weight: var(--comms-weight-medium);
+}
+.sms-conv-preview-you {
+  color: var(--comms-ink-mute);
+}
+.sms-conv-unread {
+  flex-shrink: 0;
+  min-width: 19px;
+  height: 19px;
+  margin-top: 2px;
+  padding: 0 6px;
+  border-radius: var(--comms-radius-pill);
+  background: var(--comms-tiffany);
+  color: var(--comms-on-accent);
+  font-size: var(--comms-fs-sm);
+  font-weight: var(--comms-weight-bold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--comms-shadow-bubble-me);
+}
+.sms-conv-del {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: var(--comms-radius-circle);
+  background: transparent;
+  color: var(--comms-ink-ghost);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.sms-conv-row:hover .sms-conv-del {
+  display: inline-flex;
+}
+.sms-conv-del:hover {
+  color: var(--comms-danger);
+  background: var(--comms-bg-deep);
+}
+.sms-conv-del .material-symbols-outlined { font-size: 18px; }
+
+/* 分组标题 / 空态 */
+.sms-group-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px 6px;
+  font-size: var(--comms-fs-sm);
+  font-weight: var(--comms-weight-semibold);
+  letter-spacing: 1.5px;
+  color: var(--comms-ink-mute);
+}
+.sms-group-head .material-symbols-outlined { font-size: 15px; }
+.sms-empty {
+  padding: 60px 24px;
+  text-align: center;
+  font-size: var(--comms-fs-body);
+  line-height: 1.7;
+  color: var(--comms-ink-mute);
+}
+.sms-empty-icon {
+  font-size: 44px;
+  color: var(--comms-ink-ghost);
+  margin-bottom: 10px;
+}
+.sms-empty small {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--comms-fs-body-sm);
+  color: var(--comms-ink-ghost);
+}
+
+/* ─── 联系人页（头像墙列表） ───────────────────────────── */
+.sms-contacts-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 12px 14px;
+  background: var(--comms-bg);
+}
+.sms-contacts-count {
+  padding: 10px 4px;
+  font-size: var(--comms-fs-sm);
+  font-weight: var(--comms-weight-semibold);
+  letter-spacing: 1.5px;
+  color: var(--comms-ink-mute);
+}
+.sms-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  border-radius: var(--comms-radius-md);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--comms-transition), background var(--comms-transition);
+}
+.sms-contact-card:hover {
+  border-color: var(--comms-tiffany);
+  background: var(--comms-card);
+}
+.sms-contact-card .sms-avatar {
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+}
+.sms-contact-meta {
+  flex: 1;
+  min-width: 0;
+}
+.sms-contact-name {
+  font-family: var(--sms-serif);
+  font-size: var(--comms-fs-body-lg);
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sms-contact-tag {
+  margin-top: 2px;
+  font-size: var(--comms-fs-caption);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sms-contact-chevron {
+  flex-shrink: 0;
+  color: var(--comms-ink-ghost);
+}
+
+/* ─── 空间页（制作中占位） ─────────────────────────────── */
+.sms-space-soon {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 40px 28px;
+  text-align: center;
+}
+.sms-space-soon-art {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: var(--comms-radius-circle);
+  background: var(--comms-tiffany-soft);
+  color: var(--comms-tiffany-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sms-space-soon-art .material-symbols-outlined { font-size: 42px; }
+.sms-space-soon-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--comms-radius-circle);
+  background: var(--comms-surface);
+  color: var(--comms-tiffany-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--comms-shadow-soft);
+}
+.sms-space-soon-badge .material-symbols-outlined { font-size: 17px; }
+.sms-space-soon-title {
+  font-family: var(--sms-serif);
+  font-size: var(--comms-fs-title);
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+  letter-spacing: 1px;
+}
+.sms-space-soon-body {
+  font-size: var(--comms-fs-body);
+  line-height: 1.7;
+  color: var(--comms-ink-mute);
+}
+
+/* ─── 聊天视图 ─────────────────────────────────────────── */
+.sms-chat {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--comms-bg);
+  overflow: hidden;
+}
+.sms-chat.is-hidden { display: none; }
+
+.sms-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 8px 12px 10px;
+  background: var(--comms-bg);
+  border-bottom: 1px solid var(--comms-line);
+}
+.sms-chat-back,
+.sms-chat-more {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--comms-radius-circle);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sms-chat-back { color: var(--comms-tiffany-deep); }
+.sms-chat-more { color: var(--comms-ink-soft); }
+.sms-chat-avatarbtn {
+  position: relative;
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.sms-chat-avatarbtn .sms-avatar {
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+}
+.sms-chat-avatarbtn .sms-online-dot {
+  width: 10px;
+  height: 10px;
+  right: -1px;
+  bottom: -1px;
+  border-width: 2px;
+}
+.sms-chat-idbtn {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.sms-chat-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--sms-serif);
+  font-size: var(--comms-fs-subtitle);
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sms-chat-status {
+  margin-top: 1px;
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sms-chat-status.is-online { color: var(--comms-online); }
+.sms-chat-status-meta { color: var(--comms-ink-mute); }
+
+/* 滚动消息区（独立滚动容器，非主聊天 .chat-messages-area） */
+.sms-chat-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 14px 12px;
+  background: var(--comms-bg);
+  background-image:
+    radial-gradient(circle at 20% 8%, color-mix(in srgb, var(--comms-tiffany-soft) 40%, transparent) 0%, transparent 38%),
+    radial-gradient(circle at 86% 92%, color-mix(in srgb, var(--comms-lilac-soft) 33%, transparent) 0%, transparent 45%);
+}
+
+/* 气泡 */
+.sms-msg { padding: 1px 0; }
+.sms-msg--date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 8px;
+}
+.sms-msg--date::before,
+.sms-msg--date::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--comms-line);
+}
+.sms-msg--date span {
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 2px;
+  padding: 0 4px;
+}
+.sms-msg--sys {
+  display: flex;
+  justify-content: center;
+  padding: 4px 16px 6px;
+}
+.sms-msg--sys span {
+  max-width: 80%;
+  padding: 4px 10px;
+  background: var(--comms-bg-deep);
+  border-radius: var(--comms-radius-pill);
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.sms-msg-line {
+  display: flex;
+  gap: 6px;
+  padding: 1px 0;
+  align-items: flex-end;
+}
+.sms-msg-line--me { justify-content: flex-end; }
+.sms-msg-line--them { justify-content: flex-start; }
+.sms-msg-col {
+  max-width: 78%;
+  width: fit-content;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.sms-msg-line--me .sms-msg-col { align-items: flex-end; }
+.sms-msg-line--them .sms-msg-col { align-items: flex-start; }
+.sms-bubble {
+  position: relative;
+  padding: 9px 13px;
+  font-size: var(--comms-fs-body-lg);
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.sms-msg-line--them .sms-bubble {
+  background: var(--comms-surface);
+  color: var(--comms-ink);
+  border: 1px solid var(--comms-line);
+  border-radius: 18px 18px 18px 6px;
+  box-shadow: var(--comms-shadow-card);
+}
+.sms-msg-line--them.is-cont .sms-bubble { border-radius: 6px 18px 18px 6px; }
+.sms-msg-line--me .sms-bubble {
+  background: linear-gradient(135deg, var(--comms-tiffany) 0%, var(--comms-tiffany-deep) 100%);
+  color: var(--comms-on-accent);
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: var(--comms-shadow-bubble-me);
+}
+.sms-msg-line--me.is-cont .sms-bubble { border-radius: 18px 18px 6px 18px; }
+.sms-msg-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 3px;
+  padding: 0 4px;
+  font-size: var(--comms-fs-xs);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.5px;
+}
+.sms-msg-status .material-symbols-outlined {
+  font-size: 13px;
+  vertical-align: middle;
+}
+.sms-msg-status.is-synced { color: var(--comms-tiffany-deep); }
+.sms-msg-status.is-pending { color: var(--comms-ink-ghost); }
+.sms-msg-author {
+  margin: 0 0 3px 12px;
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.5px;
+}
+
+/* 气泡操作 */
+.sms-bubble-actions {
+  display: none;
+  gap: 2px;
+  margin-top: 4px;
+  padding: 0 2px;
+}
+.sms-msg-col:hover .sms-bubble-actions { display: flex; }
+.sms-bubble-act {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: var(--comms-radius-xs);
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  color: var(--comms-ink-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sms-bubble-act:hover { color: var(--comms-tiffany-deep); }
+.sms-bubble-act--danger:hover { color: var(--comms-danger); }
+.sms-bubble-act .material-symbols-outlined { font-size: 15px; }
+
+/* 行内编辑 */
+.sms-edit-area {
+  width: 100%;
+  min-width: 220px;
+  min-height: 60px;
+  resize: vertical;
+  padding: 8px 10px;
+  border: 1px solid var(--comms-tiffany);
+  border-radius: var(--comms-radius-sm);
+  background: var(--comms-surface);
+  color: var(--comms-ink);
+  font-family: inherit;
+  font-size: var(--comms-fs-body-lg);
+  line-height: 1.5;
+}
+.sms-edit-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.sms-edit-save,
+.sms-edit-cancel {
+  padding: 5px 14px;
+  border-radius: var(--comms-radius-pill);
+  border: 1px solid var(--comms-line);
+  font-size: var(--comms-fs-body-sm);
+  font-weight: var(--comms-weight-semibold);
+  cursor: pointer;
+}
+.sms-edit-save {
+  background: var(--comms-tiffany-deep);
+  color: var(--comms-on-accent);
+  border-color: transparent;
+}
+.sms-edit-cancel {
+  background: var(--comms-surface);
+  color: var(--comms-ink-soft);
+}
+
+/* typing */
+.sms-typing {
+  display: flex;
+  justify-content: flex-start;
+  padding: 2px 0 4px;
+}
+.sms-typing-bubble {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 11px 14px;
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  border-radius: 18px 18px 18px 6px;
+}
+.sms-typing-bubble i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--comms-radius-circle);
+  background: var(--comms-tiffany);
+  opacity: 0.4;
+  animation: smsDot 1.1s infinite ease-in-out;
+}
+.sms-typing-bubble i:nth-child(2) { animation-delay: 0.15s; }
+.sms-typing-bubble i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes smsDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-3px); opacity: 1; }
+}
+
+/* ─── 输入栏 ───────────────────────────────────────────── */
+.sms-inputbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 8px 10px 10px;
+  background: var(--comms-bg);
+  border-top: 1px solid var(--comms-line);
+}
+.sms-input-plus,
+.sms-input-send,
+.sms-input-voice {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--comms-radius-circle);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sms-input-plus {
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  color: var(--comms-tiffany-deep);
+}
+.sms-input-voice {
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  color: var(--comms-ink-soft);
+}
+.sms-input-send {
+  background: linear-gradient(135deg, var(--comms-tiffany) 0%, var(--comms-tiffany-deep) 100%);
+  border: none;
+  color: var(--comms-on-accent);
+  box-shadow: var(--comms-shadow-glow);
+}
+.sms-input-plus .material-symbols-outlined,
+.sms-input-send .material-symbols-outlined,
+.sms-input-voice .material-symbols-outlined { font-size: 20px; }
+.sms-input-shell {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 36px;
+  padding: 4px 4px 4px 12px;
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  border-radius: 20px;
+}
+.sms-input-shell textarea {
+  flex: 1;
+  min-width: 0;
+  max-height: 88px;
+  padding: 6px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  font-size: var(--comms-fs-body-lg);
+  line-height: 1.5;
+  color: var(--comms-ink);
+}
+.sms-input-shell textarea::placeholder { color: var(--comms-ink-mute); }
+.sms-input-emoji {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--comms-ink-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sms-input-emoji.is-active { color: var(--comms-tiffany-deep); }
+.sms-input-emoji .material-symbols-outlined { font-size: 20px; }
+
+/* ─── 表情面板 ─────────────────────────────────────────── */
+.sms-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  padding: 12px 14px 16px;
+  background: var(--comms-surface);
+  border-top: 1px solid var(--comms-line);
+  box-shadow: var(--comms-shadow-sheet);
+  transform: translateY(100%);
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 260px;
+  overflow-y: auto;
+}
+.sms-sheet.is-open { transform: translateY(0); }
+.sms-sheet-grip {
+  width: 36px;
+  height: 4px;
+  margin: 0 auto 10px;
+  border-radius: 2px;
+  background: var(--comms-line-mid);
+}
+.sms-emoji-group-name {
+  margin-bottom: 6px;
+  font-size: var(--comms-fs-sm);
+  color: var(--comms-ink-mute);
+  letter-spacing: 2px;
+}
+.sms-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.sms-emoji {
+  aspect-ratio: 1 / 1;
+  border: none;
+  background: transparent;
+  border-radius: var(--comms-radius-xs);
+  font-size: 20px;
+  cursor: pointer;
+}
+.sms-emoji:hover { background: var(--comms-tiffany-soft); }
+
+/* ─── 头部菜单 ─────────────────────────────────────────── */
+.sms-menu-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  background: var(--comms-scrim);
+}
+.sms-menu {
+  position: absolute;
+  top: 56px;
+  right: 12px;
+  z-index: 10;
+  min-width: 168px;
+  padding: 4px;
+  background: var(--comms-surface);
+  border: 1px solid var(--comms-line);
+  border-radius: var(--comms-radius-md);
+  box-shadow: var(--comms-shadow-pop);
+  overflow: hidden;
+}
+.sms-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-radius: var(--comms-radius-sm);
+  background: transparent;
+  color: var(--comms-ink);
+  font-size: var(--comms-fs-body-sm);
+  letter-spacing: 0.3px;
+  text-align: left;
+  cursor: pointer;
+}
+.sms-menu-item:hover { background: var(--comms-bg-deep); }
+.sms-menu-item .material-symbols-outlined {
+  font-size: 17px;
+  color: var(--comms-tiffany-deep);
+}
+.sms-menu-item--danger { color: var(--comms-danger); }
+.sms-menu-item--danger .material-symbols-outlined { color: var(--comms-danger); }
+
+/* ─── 资料卡（profile panel） ──────────────────────────── */
+.sms-profile-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+  background: var(--comms-scrim-med);
+  animation: smsFade 0.18s ease-out;
+}
+.sms-profile {
+  width: 100%;
+  padding: 16px 18px 22px;
+  background: var(--comms-surface);
+  border-radius: 24px 24px 0 0;
+  box-shadow: var(--comms-shadow-pop);
+  animation: smsSlideUp 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sms-profile-grip {
+  width: 36px;
+  height: 4px;
+  margin: 0 auto 16px;
+  border-radius: 2px;
+  background: var(--comms-line-mid);
+}
+.sms-profile-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sms-profile-top .sms-avatar {
+  width: 64px;
+  height: 64px;
+  font-size: 27px;
+}
+.sms-profile-name {
+  font-family: var(--sms-serif);
+  font-size: var(--comms-fs-display);
+  font-weight: var(--comms-weight-semibold);
+  color: var(--comms-ink);
+  letter-spacing: 0.5px;
+}
+.sms-profile-tag {
+  margin-top: 2px;
+  font-size: var(--comms-fs-body-sm);
+  color: var(--comms-ink-soft);
+}
+.sms-profile-status {
+  margin-top: 4px;
+  font-size: var(--comms-fs-caption);
+  color: var(--comms-ink-mute);
+  letter-spacing: 0.5px;
+}
+.sms-profile-status.is-online { color: var(--comms-online); }
+.sms-profile-note {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--comms-bg);
+  border-radius: var(--comms-radius-sm);
+  font-size: var(--comms-fs-body-sm);
+  line-height: 1.6;
+  color: var(--comms-ink-soft);
+}
+.sms-profile-fields {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-radius: var(--comms-radius-sm);
+  overflow: hidden;
+}
+.sms-profile-row {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--comms-bg);
+  font-size: var(--comms-fs-body-sm);
+}
+.sms-profile-row-label {
+  flex-shrink: 0;
+  width: 64px;
+  color: var(--comms-ink-mute);
+}
+.sms-profile-row-val {
+  flex: 1;
+  color: var(--comms-ink);
+}
+.sms-profile-close {
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px 0;
+  border: 1px solid var(--comms-line);
+  border-radius: var(--comms-radius-sm);
+  background: var(--comms-bg);
+  color: var(--comms-ink-soft);
+  font-size: var(--comms-fs-body-sm);
+  cursor: pointer;
+}
+
+/* ─── toast ────────────────────────────────────────────── */
+.sms-toast {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding: 8px 16px;
+  border-radius: var(--comms-radius-pill);
+  background: var(--comms-toast-bg);
+  color: var(--comms-on-accent);
+  font-size: var(--comms-fs-body-sm);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  animation: smsFade 0.18s ease-out;
+}
+.sms-toast.is-hidden { display: none; }
+
+@keyframes smsFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes smsSlideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.sms-bubble-in {
+  animation: smsBubbleIn 0.26s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+@keyframes smsBubbleIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── 调试入口（藏在头部菜单内，仅内部可见） ───────────── */
+.sms-menu-item--debug {
+  border-top: 1px solid var(--comms-line);
+  margin-top: 4px;
+  padding-top: 11px;
+  color: var(--comms-ink-mute);
+  font-size: var(--comms-fs-caption);
+}
+.sms-menu-item--debug .material-symbols-outlined { color: var(--comms-ink-mute); }
